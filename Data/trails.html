@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9GWTHQXZNY');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trails — Aurora Parks Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --grass: #3d6b4a; --grass-light: #5a8f6a; --earth: #b07848;
+      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --shadow-hover: 0 8px 28px rgba(0,0,0,0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
+
+    /* NAV */
+    .main-nav {
+      background: var(--grass);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 100px;
+      transition: all 0.15s;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.12); }
+    .nav-links a.active { color: white; background: rgba(255,255,255,0.2); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--grass);
+      padding: 28px 24px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: -5%; right: -5%;
+      height: 36px;
+      background: var(--mist);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    .page-header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .page-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .page-header p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+    }
+
+    /* CONTROLS */
+    .controls-bar {
+      background: var(--white);
+      border-bottom: 1px solid #e8e4de;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .controls-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .controls-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      flex-shrink: 0;
+    }
+    .pill {
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1.5px solid #ddd;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.14s;
+      white-space: nowrap;
+    }
+    .pill:hover { border-color: var(--grass); color: var(--grass); }
+    .pill.on { border-color: var(--grass); color: var(--white); }
+    .pill.on.surface-hard { background: #3d6b4a; }
+    .pill.on.surface-soft { background: #8b6914; }
+    .pill.on.surface-dual { background: #555; }
+    .pill.on.type-tl { background: #3d6b4a; }
+    .pill.on.type-path { background: #4a7a8a; }
+    .pill.on.type-sdwlk { background: #888; }
+    .sep { width: 1px; height: 20px; background: #e8e4de; flex-shrink: 0; margin: 0 4px; }
+    .locate-btn {
+      margin-left: auto;
+      padding: 5px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #ddd;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.14s;
+    }
+    .locate-btn:hover { border-color: var(--grass); color: var(--grass); }
+    .locate-btn.active { background: var(--grass); border-color: var(--grass); color: white; }
+
+    /* MAIN LAYOUT */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      main { grid-template-columns: 1fr; }
+    }
+
+    /* MAP */
+    .map-wrap {
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: sticky;
+      top: 68px;
+    }
+    #map {
+      height: calc(100vh - 160px);
+      min-height: 400px;
+      max-height: 700px;
+    }
+    .map-legend {
+      padding: 8px 16px;
+      border-top: 1px solid #e8e4de;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 11px;
+      color: #888;
+    }
+    .legend-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-swatch {
+      width: 20px;
+      height: 4px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 800px) {
+      .map-wrap { position: static; }
+      #map { height: 320px; max-height: 320px; }
+    }
+
+    /* TRAIL LIST */
+    .trail-list { display: flex; flex-direction: column; gap: 10px; }
+    .trail-card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: box-shadow 0.18s, transform 0.15s;
+      border: 2px solid transparent;
+    }
+    .trail-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .trail-card.selected { border-color: var(--grass); }
+    .trail-card.hidden { display: none; }
+    .trail-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .trail-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .trail-miles {
+      font-size: 11px;
+      color: #bbb;
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .trail-tags {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .trail-tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+    .tag-hard { background: rgba(61,107,74,0.12); color: #3d6b4a; }
+    .tag-soft { background: rgba(139,105,20,0.12); color: #8b6914; }
+    .tag-dual { background: rgba(80,80,80,0.1); color: #555; }
+    .tag-tl { background: rgba(61,107,74,0.08); color: #3d6b4a; }
+    .tag-path { background: rgba(74,122,138,0.12); color: #4a7a8a; }
+    .tag-sdwlk { background: rgba(120,120,120,0.1); color: #777; }
+
+    .trail-stat {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    /* EMPTY */
+    .empty-state {
+      text-align: center;
+      padding: 48px 16px;
+      color: #ccc;
+    }
+    .empty-state .ico { font-size: 36px; margin-bottom: 8px; }
+    .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 16px; color: #ccc; }
+
+    /* FOOTER */
+    footer { background: var(--grass); color: rgba(255,255,255,0.6); padding: 28px 20px; font-size: 12px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-start; }
+    .footer-brand { display: flex; flex-direction: column; gap: 6px; }
+    .footer-brand img { height: 32px; filter: brightness(0) invert(1); }
+    .footer-brand span { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 12px; font-weight: 500; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); width: 100%; }
+
+    /* POPUP */
+    .leaflet-popup-content { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.5; min-width: 140px; }
+    .leaflet-popup-content b { font-family: 'Syne', sans-serif; font-size: 13px; display: block; margin-bottom: 3px; }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav">
+  <a href="./index.html" class="nav-brand">Aurora Parks Finder</a>
+  <ul class="nav-links">
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./parks.html">Parks</a></li>
+    <li><a href="./trails.html" class="active">Trails</a></li>
+    <li><a href="./events.html">Events</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>&#x1F97E; Aurora Trails</h1>
+    <p>Browse Aurora's trail network — filter by surface type, click a trail to highlight it on the map.</p>
+  </div>
+</div>
+
+<div class="controls-bar">
+  <div class="controls-inner">
+    <span class="controls-label">Surface:</span>
+    <button class="pill surface-hard on" data-filter="surface" data-val="HARD" onclick="toggleFilter(this)">&#x1F6E3;&#xFE0F; Paved</button>
+    <button class="pill surface-soft on" data-filter="surface" data-val="SOFT" onclick="toggleFilter(this)">&#x1F333; Natural</button>
+    <button class="pill surface-dual on" data-filter="surface" data-val="DUAL" onclick="toggleFilter(this)">&#x1F6C4; Dual</button>
+    <div class="sep"></div>
+    <span class="controls-label">Type:</span>
+    <button class="pill type-tl on" data-filter="type" data-val="TL" onclick="toggleFilter(this)">Trail</button>
+    <button class="pill type-path on" data-filter="type" data-val="PATH" onclick="toggleFilter(this)">Path</button>
+    <button class="pill type-sdwlk on" data-filter="type" data-val="SDWLK" onclick="toggleFilter(this)">Sidewalk</button>
+    <button class="locate-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Find me</button>
+  </div>
+</div>
+
+<main>
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-legend">
+      <span class="legend-line"><span class="legend-swatch" style="background:#3d6b4a"></span> Paved trail</span>
+      <span class="legend-line"><span class="legend-swatch" style="background:#c8a000"></span> Natural surface</span>
+      <span class="legend-line"><span class="legend-swatch" style="background:#777"></span> Dual / Sidewalk</span>
+      <span class="legend-line"><span class="legend-swatch" style="background:#4285f4"></span> You</span>
+    </div>
+  </div>
+
+  <div>
+    <div id="trail-stats" style="font-size:12px;color:#aaa;font-style:italic;margin-bottom:12px;"></div>
+    <div class="trail-list" id="trail-list"></div>
+    <div class="empty-state" id="empty-state" style="display:none">
+      <div class="ico">&#x1F97E;</div>
+      <h3>No trails match your filters</h3>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span>Building community for dads in Aurora, Colorado</span>
+    </div>
+    <div class="footer-links">
+      <a href="./index.html">Home</a>
+      <a href="./parks.html">Parks</a>
+      <a href="./trails.html">Trails</a>
+      <a href="./events.html">Events</a>
+      <a href="https://mightydads.org" target="_blank">mightydads.org</a>
+    </div>
+    <div class="footer-copy">Trail data sourced from the City of Aurora &bull; Aurora, Colorado</div>
+  </div>
+</footer>
+
+<script>
+// Active filters
+const surfaceFilters = new Set(['HARD', 'SOFT', 'DUAL']);
+const typeFilters = new Set(['TL', 'PATH', 'SDWLK']);
+
+function toggleFilter(btn) {
+  const filterSet = btn.dataset.filter === 'surface' ? surfaceFilters : typeFilters;
+  const val = btn.dataset.val;
+  if (filterSet.has(val)) { filterSet.delete(val); btn.classList.remove('on'); }
+  else { filterSet.add(val); btn.classList.add('on'); }
+  applyFilters();
+}
+
+// Color helpers
+function trailColor(surface, type) {
+  if (surface === 'SOFT') return '#c8a000';
+  if (type === 'SDWLK') return '#888';
+  if (surface === 'DUAL') return '#666';
+  return '#3d6b4a';
+}
+
+function surfaceLabel(s) {
+  return s === 'HARD' ? 'Paved' : s === 'SOFT' ? 'Natural' : s === 'DUAL' ? 'Dual' : s;
+}
+function typeLabel(t) {
+  return t === 'TL' ? 'Trail' : t === 'PATH' ? 'Path' : t === 'SDWLK' ? 'Sidewalk' : t;
+}
+function surfaceTagClass(s) {
+  return s === 'HARD' ? 'tag-hard' : s === 'SOFT' ? 'tag-soft' : 'tag-dual';
+}
+function typeTagClass(t) {
+  return t === 'TL' ? 'tag-tl' : t === 'PATH' ? 'tag-path' : 'tag-sdwlk';
+}
+
+// Map
+let map, userMarker, trailLayers = {}, selectedName = null;
+
+function initMap() {
+  map = L.map('map').setView([39.710, -104.800], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+}
+
+function locateMe() {
+  if (!navigator.geolocation) return;
+  const btn = document.getElementById('btn-locate');
+  btn.textContent = 'Locating...';
+  navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude: lat, longitude: lng } = pos.coords;
+    btn.innerHTML = '&#x1F4CD; Located!'; btn.classList.add('active');
+    setTimeout(() => { btn.innerHTML = '&#x1F4CD; Find me'; btn.classList.remove('active'); }, 2500);
+    if (userMarker) map.removeLayer(userMarker);
+    userMarker = L.circleMarker([lat, lng], { radius: 9, fillColor: '#4285f4', color: 'white', weight: 2.5, fillOpacity: 1 }).bindPopup('<b>You are here</b>').addTo(map);
+    map.setView([lat, lng], 13, { animate: true });
+  }, () => { btn.innerHTML = '&#x1F4CD; Find me'; });
+}
+
+// Named trails aggregated data
+let namedTrails = {}; // name -> { totalMiles, surface (dominant), type (dominant), layers: [] }
+
+function loadGeoJSON() {
+  fetch('./Trails B.geojson')
+    .then(r => r.json())
+    .then(data => {
+      namedTrails = {};
+
+      data.features.forEach(feat => {
+        const props = feat.properties;
+        const name = props.NAME || null;
+        const surface = props.SURFACE || 'HARD';
+        const type = props.TYPE || 'TL';
+        const miles = props.MILES || 0;
+
+        // Draw all segments on the map
+        const color = trailColor(surface, type);
+        const layer = L.geoJSON(feat, {
+          style: { color, weight: type === 'SDWLK' ? 2 : 3, opacity: 0.75 }
+        });
+
+        if (name) {
+          if (!namedTrails[name]) {
+            namedTrails[name] = { name, totalMiles: 0, surface, type, layers: [], count: 0 };
+          }
+          namedTrails[name].totalMiles += miles;
+          namedTrails[name].count++;
+          namedTrails[name].layers.push(layer);
+          if (!trailLayers[name]) trailLayers[name] = [];
+          trailLayers[name].push(layer);
+        }
+
+        layer.addTo(map);
+      });
+
+      buildTrailList();
+    })
+    .catch(() => {
+      document.getElementById('trail-list').innerHTML = '<div class="empty-state"><div class="ico">&#x26A0;&#xFE0F;</div><h3>Could not load trail data</h3></div>';
+    });
+}
+
+function buildTrailList() {
+  const trails = Object.values(namedTrails).sort((a, b) => a.name.localeCompare(b.name));
+  const list = document.getElementById('trail-list');
+  list.innerHTML = '';
+
+  trails.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'trail-card';
+    card.dataset.name = t.name;
+    card.dataset.surface = t.surface;
+    card.dataset.type = t.type;
+    card.innerHTML =
+      '<div class="trail-card-head">' +
+        '<div class="trail-name">' + t.name + '</div>' +
+        '<div class="trail-miles">' + t.totalMiles.toFixed(2) + ' mi</div>' +
+      '</div>' +
+      '<div class="trail-tags">' +
+        '<span class="trail-tag ' + surfaceTagClass(t.surface) + '">' + surfaceLabel(t.surface) + '</span>' +
+        '<span class="trail-tag ' + typeTagClass(t.type) + '">' + typeLabel(t.type) + '</span>' +
+      '</div>';
+    card.onclick = () => selectTrail(t.name, card);
+    list.appendChild(card);
+  });
+
+  applyFilters();
+}
+
+function selectTrail(name, card) {
+  // Deselect previous
+  document.querySelectorAll('.trail-card.selected').forEach(c => c.classList.remove('selected'));
+
+  if (selectedName === name) {
+    selectedName = null;
+    // Reset all trail styles
+    applyFilters();
+    return;
+  }
+
+  selectedName = name;
+  card.classList.add('selected');
+
+  // Dim all, highlight selected
+  Object.entries(trailLayers).forEach(([n, layers]) => {
+    layers.forEach(l => {
+      if (n === name) {
+        l.setStyle({ opacity: 1, weight: 5, color: '#e8703a' });
+      } else {
+        const t = namedTrails[n];
+        l.setStyle({ opacity: 0.2, weight: 2 });
+      }
+    });
+  });
+
+  // Zoom to selected trail bounds
+  const layers = trailLayers[name];
+  if (layers && layers.length > 0) {
+    const group = L.featureGroup(layers);
+    map.fitBounds(group.getBounds().pad(0.15), { animate: true });
+  }
+}
+
+function applyFilters() {
+  selectedName = null;
+  document.querySelectorAll('.trail-card.selected').forEach(c => c.classList.remove('selected'));
+
+  let visible = 0;
+  const cards = document.querySelectorAll('.trail-card');
+  cards.forEach(card => {
+    const surface = card.dataset.surface;
+    const type = card.dataset.type;
+    const show = surfaceFilters.has(surface) && typeFilters.has(type);
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  // Reset map layer styles
+  Object.entries(trailLayers).forEach(([name, layers]) => {
+    const t = namedTrails[name];
+    if (!t) return;
+    const show = surfaceFilters.has(t.surface) && typeFilters.has(t.type);
+    layers.forEach(l => {
+      const color = trailColor(t.surface, t.type);
+      l.setStyle({ color, weight: t.type === 'SDWLK' ? 2 : 3, opacity: show ? 0.75 : 0.08 });
+    });
+  });
+
+  const statsEl = document.getElementById('trail-stats');
+  const totalNamed = document.querySelectorAll('.trail-card').length;
+  statsEl.textContent = visible + ' of ' + totalNamed + ' named trails';
+
+  const emptyEl = document.getElementById('empty-state');
+  emptyEl.style.display = visible === 0 ? '' : 'none';
+}
+
+if (typeof L !== 'undefined') {
+  initMap();
+  loadGeoJSON();
+} else {
+  window.addEventListener('load', () => {
+    if (typeof L !== 'undefined') { initMap(); loadGeoJSON(); }
+    else { document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;">Map unavailable</div>'; }
+  });
+}
+</script>
+</body>
+</html>
