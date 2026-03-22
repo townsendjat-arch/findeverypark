@@ -9,4 +9,16 @@
     <loc>https://findeverypark.com/parks.html</loc>
   </url>
 
+  <url>
+    <loc>https://findeverypark.com/park.html?name=Aurora%20Reservoir</loc>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/park.html?name=Expo%20Park</loc>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/park.html?name=Central%20Park</loc>
+  </url>
+
 </urlset>
