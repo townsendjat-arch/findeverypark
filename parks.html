@@ -130,7 +130,11 @@
     .pill.reset:hover { color: var(--ink); border-color: #ddd; }
 
     /* MAIN */
-    main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 64px; }
+   main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
 
     /* MAP */
     .map-section { background: var(--white); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
@@ -148,6 +152,95 @@
     /* CARDS */
     .meta { font-size: 12px; color: #aaa; font-style: italic; margin-bottom: 16px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+    /* ZILLOW LAYOUT */
+.parks-shell {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.parks-left {
+  flex: 0 0 58%;
+  min-width: 0;
+}
+
+.parks-right {
+  flex: 0 0 42%;
+  min-width: 320px;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+#map {
+  width: 100%;
+  height: 75vh;
+  border-radius: 12px;
+}
+
+/* MOBILE FIX */
+
+
+@media (max-width: 900px) {
+ .parks-shell {
+  display: flex;
+  flex-direction: column;
+}
+.parks-right {
+  order: 1;
+  min-width: 0;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.parks-left {
+  order: 2;
+  width: 100%;
+}
+ .parks-right {
+    min-width: 0;
+    margin-top: 20px;
+  }
+ #map {
+  height: 32vh;
+  min-height: 220px;
+}
+.map-section {
+  margin-top: 10px;
+}
+
+.map-header {
+  padding: 10px 12px;
+}
+
+.map-legend {
+  padding: 8px 10px;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.card-body {
+  padding: 12px;
+}
+ main {
+    padding: 12px 10px 40px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .parks-left,
+  .parks-right {
+    width: 100%;
+  }
+
+  .map-section {
+    margin-top: 16px;
+  }
+}
     .card { background: var(--white); border-radius: 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: box-shadow 0.18s, transform 0.18s; animation: up 0.28s ease both; overflow: hidden; }
     .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
     @keyframes up { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
@@ -170,7 +263,13 @@
     .tag { font-size: 11px; padding: 3px 9px; border-radius: 100px; background: rgba(0,0,0,0.055); color: #555; font-weight: 500; }
     .tag.hi { background: rgba(61,107,74,0.13); color: var(--grass); }
     .tag.none { color: #ccc; font-style: italic; }
-    .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 4px; }
+  .card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 4px;
+}
     .dir-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 9px; border-radius: 8px; background: var(--grass); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer; transition: background 0.14s; }
     .dir-btn:hover { background: #2e5238; }
     .city-btn { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 9px 12px; border-radius: 8px; background: transparent; color: #999; border: 1.5px solid #e0ddd8; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer; transition: all 0.14s; white-space: nowrap; }
@@ -213,7 +312,25 @@
     .leaflet-popup-content b { font-family: 'Syne', sans-serif; font-size: 14px; display: block; margin-bottom: 3px; }
     .popup-acres { font-size: 11px; color: #aaa; }
     .popup-visited { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 600; background: rgba(61,107,74,0.13); color: var(--grass); padding: 2px 8px; border-radius: 100px; }
-  </style>
+ .card-flash {
+  animation: flashCard 1.6s ease;
+}
+
+@keyframes flashCard {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(244, 185, 66, 0);
+  }
+  30% {
+    transform: scale(1.03);
+    box-shadow: 0 0 18px rgba(244, 185, 66, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(244, 185, 66, 0);
+  }
+}
+ </style>
 </head>
 <body>
 
@@ -259,33 +376,38 @@
 </div>
 
 <main>
-  <div class="map-section">
-    <div class="map-header">
-      <div class="map-title">&#x1F5FA;&#xFE0F; Park Map</div>
-      <div class="map-controls">
-        <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Find me</button>
-        <span id="locate-error" style="display:none;font-size:11px;color:#e8703a;font-weight:500;">&#x26A0;&#xFE0F; Location access denied</span>
+  <div class="parks-shell">
+    <div class="parks-left">
+      <div class="meta" id="meta"></div>
+      <div class="grid" id="grid"></div>
+      <div id="load-more-wrap" style="text-align:center; margin-top:20px;"></div>
+      <div class="empty" id="empty" style="display:none">
+        <div class="ico">&#127794;</div>
+        <h3>No parks found</h3>
+        <p>Try different search terms or clear some filters.</p>
       </div>
     </div>
-    <div id="map"></div>
-    <div class="map-legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#3d6b4a"></span> Park</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#e8703a"></span> Visited</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#c8a000"></span> Filter match</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#4285f4"></span> You</span>
-      <span id="legend-dist" style="margin-left:auto;color:#bbb;font-size:11px;"></span>
+
+    <div class="parks-right">
+      <div class="map-section">
+        <div class="map-header">
+          <div class="map-title">&#x1F5FA;&#xFE0F; Park Map</div>
+          <div class="map-controls">
+            <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Find me</button>
+            <span id="locate-error" style="display:none;font-size:11px;color:#e8703a;font-weight:500;">&#x26A0;&#xFE0F; Location access denied</span>
+          </div>
+        </div>
+        <div id="map"></div>
+        <div class="map-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#3d6b4a"></span> Park</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#e8703a"></span> Visited</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#c8a000"></span> Filter match</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#4285f4"></span> You</span>
+          <span id="legend-dist" style="margin-left:auto;color:#bbb;font-size:11px;"></span>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="meta" id="meta"></div>
-  <div class="grid" id="grid"></div>
-  <div id="load-more-wrap" style="text-align:center; margin-top:20px;"></div>
-  <div class="empty" id="empty" style="display:none">
-    <div class="ico">&#127794;</div>
-    <h3>No parks found</h3>
-    <p>Try different search terms or clear some filters.</p>
-  </div>
-
   <section id="dog-parks" class="dog-section">
     <div class="dog-section-title">&#x1F415; Dog Parks</div>
     <p>Fenced off-leash dog parks in Aurora. Always carry waste bags and check posted rules at each location.</p>
@@ -598,10 +720,12 @@ function renderMarkers(filteredList) {
     const isVisited = visited.has(p.n);
     const isMatch = matchNames.has(p.n);
     const color = isVisited ? '#e8703a' : isMatch ? '#c8a000' : '#3d6b4a';
-   const marker = L.circleMarker([c[0], c[1]], {
+const marker = L.circleMarker([c[0], c[1]], {
   radius: isVisited || isMatch ? 8 : 6, fillColor: color, color: 'white', weight: 2, fillOpacity: 0.88
+}).on('click', () => {
+  focusMapOnPark(p.n);
 }).bindPopup(
- '<b>' + p.n + '</b>' +
+    '<div style="font-weight:700;font-size:14px;"><a href="park.html?name=' + encodeURIComponent(p.n) + '" style="text-decoration:none;color:#2a7f3b;">' + p.n + '</a></div>' +
 '<div class="popup-acres">' + (p.ac > 0 ? p.ac.toLocaleString() + ' acres' : 'Open space') + '</div>' +
 '<div style="font-size:11px;color:#999;margin-top:2px">' + p.a + ', ' + CITY + ' ' + STATE + '</div>' +
 (isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
@@ -610,18 +734,34 @@ function renderMarkers(filteredList) {
 parkMarkers[p.n] = marker;
   });
 }
-
+function parkCardId(name) {
+  return 'park-' + String(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
 function focusMapOnPark(name) {
   const c = COORDS[name];
   if (!c || !map) return;
+
   map.setView([c[0], c[1]], 15, { animate: true });
   document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
   markersLayer.eachLayer(layer => {
     if (layer.getLatLng) {
       const ll = layer.getLatLng();
-      if (Math.abs(ll.lat - c[0]) < 0.0002 && Math.abs(ll.lng - c[1]) < 0.0002) layer.openPopup();
+      if (Math.abs(ll.lat - c[0]) < 0.0002 && Math.abs(ll.lng - c[1]) < 0.0002) {
+        layer.openPopup();
+      }
     }
   });
+
+  const card = document.getElementById(parkCardId(name));
+  if (card) {
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.classList.add('card-flash');
+    setTimeout(() => card.classList.remove('card-flash'), 1600);
+  }
 }
 
 function setMapMode(mode) {
@@ -641,7 +781,7 @@ function locateMe() {
   navigator.geolocation.getCurrentPosition(pos => {
     userLat = pos.coords.latitude; userLng = pos.coords.longitude;
     btn.innerHTML = '&#x1F4CD; Located!'; btn.classList.add('active');
-    setTimeout(() => { btn.innerHTML = '&#x1F4CD; Find me'; btn.classList.remove('active'); }, 2500);
+
     if (userMarker) map.removeLayer(userMarker);
     userMarker = L.circleMarker([userLat, userLng], { radius: 9, fillColor: '#4285f4', color: 'white', weight: 2.5, fillOpacity: 1 }).bindPopup('<b>You are here</b>').addTo(map);
     map.setView([userLat, userLng], 13, { animate: true });
@@ -975,20 +1115,23 @@ let list = P.map((p, origIdx) => {
     const distStr = p.dist ? '<span style="font-size:11px;color:#b07848;font-weight:500">\u{1F4CD} ' + distLabel(p.dist) + '</span>' : '';
 
     const card = document.createElement('div');
-    card.className = 'card' + (isNone ? ' dimmed' : '');
+card.className = 'card' + (isNone ? ' dimmed' : '');
+card.id = parkCardId(p.n);
 card.onclick = () => {
-
-  // Save current filter state
-sessionStorage.setItem('parksFilters', JSON.stringify({
-  search: document.getElementById('search')?.value || '',
-  sort: document.getElementById('sort')?.value || '',
-  active: [...active]
-}));
-  window.location.href = 'park.html?name=' + encodeURIComponent(p.n);
+  focusMapOnPark(p.n);
 };
-    card.onmouseenter = () => {
-    const m = parkMarkers[p.n];
-  if (m) m.setStyle({ radius: 12, weight: 3 });
+
+card.onmouseenter = () => {
+  const m = parkMarkers[p.n];
+  if (m) {
+    m.setStyle({
+      radius: 14,
+      weight: 4,
+      color: '#1f4d2e',
+      fillColor: '#f4b942',
+      fillOpacity: 1
+    });
+  }
 };
 
 card.onmouseleave = () => {
@@ -996,7 +1139,18 @@ card.onmouseleave = () => {
   if (m) {
     const isVisited = visited.has(p.n);
     const isMatch = active.size > 0 && p.score === active.size;
-    m.setStyle({ radius: isVisited || isMatch ? 8 : 6, weight: 2 });
+
+    let fill = '#3d6b4a';
+    if (isVisited) fill = '#e8703a';
+    else if (isMatch) fill = '#c8a000';
+
+    m.setStyle({
+      radius: isVisited || isMatch ? 8 : 6,
+      weight: 2,
+      color: 'white',
+      fillColor: fill,
+      fillOpacity: 0.88
+    });
   }
 };
     card.style.animationDelay = Math.min(i, 25) * 16 + 'ms';
@@ -1005,7 +1159,7 @@ card.onmouseleave = () => {
     body.className = 'card-body';
     body.innerHTML =
       '<div class="card-head">' +
-        '<div class="park-name">' + p.n + '</div>' +
+'<div class="park-name"><a href="park.html?name=' + encodeURIComponent(p.n) + '" onclick="event.stopPropagation()">' + p.n + '</a></div>' +
         '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">' +
           (acStr ? '<div class="acres">' + acStr + '</div>' : '') + matchBadge +
         '</div>' +
@@ -1013,6 +1167,7 @@ card.onmouseleave = () => {
       '<div class="addr"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + p.a + ', ' + CITY + ' ' + STATE + ' ' + distStr + '</div>' +
       '<div class="tags">' + tagsHtml + '</div>' +
       '<div class="card-actions">' +
+  '<button class="dir-btn" onclick="event.stopPropagation(); focusMapOnPark(' + JSON.stringify(p.n) + ')">Show on Map</button>' +
   '<a href="' + mapUrl + '" target="_blank" class="dir-btn" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Get Directions</a>' +
 '</div>';
     card.appendChild(body);
