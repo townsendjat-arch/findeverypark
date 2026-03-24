@@ -135,9 +135,10 @@ Get Directions
 
 <div class="section">
   <p><strong>About:</strong> <span id="park-description"></span></p>
+  <div id="park-gallery" style="margin-top:15px;"></div>
 </div>
 <script src="parks-data.js"></script>
-<script src="aurora-parks.js"></script>
+<script src=" parks-data.js"></script>
 
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -260,6 +261,19 @@ const COORDS = {
   "Willow Bend Park": [39.657365,-104.74796]
 };
 const park = window.PARKS.find(p => (p.name || p.n) === parkName);
+if (park && park.photos && park.photos.length > 0) {
+  const gallery = document.getElementById('park-gallery');
+
+  park.photos.forEach(src => {
+    const img = document.createElement('img');
+    img.src = "/" + src;
+    img.style.width = "100%";
+    img.style.maxWidth = "500px";
+    img.style.marginBottom = "10px";
+    img.style.borderRadius = "8px";
+    gallery.appendChild(img);
+  });
+}
 
 if (park) {
  document.getElementById("park-name").textContent = park.name || park.n || "";
@@ -311,7 +325,7 @@ featureNames.forEach(feature=>{
   if (park.photos && park.photos.length > 0) {
     park.photos.forEach(src => {
       const img = document.createElement("img");
-      img.src = src;
+      img.src = "/" + src;
       img.alt = park.n + " photo";
      
       photoContainer.appendChild(img);

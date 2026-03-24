@@ -1335,28 +1335,27 @@ d:`Simple neighborhood park — playground and shelter, nothing more. This is a 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Montview Park (~0.5 mi), Apache Mesa Park (~0.5 mi)`
 },
-{id:"co-aurora-utah-park",n:"Utah Park",a:"1800 S. Peoria St.",ac:46.5,f:{tennis:1,playground:1,baseball:1,pool:1,trails:1,restroom:1,shelter:1,basketball:1},photos:[],d:`Originally built for flood control, this is now one of Aurora’s most complete parks. A $5.8 million redesign added naturalized streambeds, ponds, and rolling terrain that make it feel more like a nature space than a utility project. Ten lighted tennis courts make it the city’s go-to tennis hub. You’ve also got an indoor pool, three baseball fields, new basketball courts, and direct access to Westerly Creek Trail. Heads up: geese are everywhere near the ponds.
+{
+  id:"co-aurora-utah-park",
+n:"Utah Park",
+a:"1800 S. Peoria St.",
+ac:46.5,
+f:{tennis:1,playground:1,baseball:1,pool:1,trails:1,restroom:1,shelter:1,basketball:1},
+photos:[
+  
+  "images/utah-park/utah-park-09.jpg",
+  "images/utah-park/utah-park-13.jpg",
+  "images/utah-park/utah-park-16.jpg",
+  "images/utah-park/utah-park-06.jpg"
+],
+d:`Originally built for flood control, this is now one of Aurora’s most complete parks. A $5.8 million redesign added naturalized streambeds, ponds, and rolling terrain that make it feel more like a nature space than a utility project. Ten lighted tennis courts make it the city’s go-to tennis hub. You’ve also got an indoor pool, three baseball fields, new basketball courts, and direct access to Westerly Creek Trail. Heads up: geese are everywhere near the ponds.
 
 <strong>Features</strong>
 📍 46.5 acres 🎾 Tennis (10, lighted) 🏀 Basketball (2) 🏊 Indoor Pool 🛝 Playground ⚾ Baseball (3) 🏃 Westerly Creek Trail 🌊 Ponds 🐕 Leashed Dogs 🅿️ Ample Parking 🐣 2 Tot Swings
 
 🏕️ <strong>Shelter:</strong> Reservable shelter. Amplified sound permitted with Temporary Use Permit.
 
-🗺️ <strong>Nearby (1–3 mi):</strong> Jewell Wetlands (~0.5 mi), Expo Park (~1 mi), Meadowood Park (~1 mi)`},
-  {id:"co-aurora-village-east-park",
-n:"Village East Park",
-a:"1400 S. Moline St.",
-ac:5.9,
-f:{playground:1,baseball:1,trails:1},
-photos:[],
-d:`Currently under renovation — so for now, it’s a wait and see park. Once it reopens, it’ll have fields, a playground, and trail access, which should make it a solid all-around stop. Worth circling back when it’s done.
-
-<strong>Features</strong>
-📍 5.9 acres 🚧 Under Renovation ⚾ Baseball/Softball 🏈 Football Field 🛝 Playground 🐣 2 Tot Swings 🏃 Westerly Creek Trail
-
-🏕️ <strong>Shelter:</strong> No shelter.
-
-🗺️ <strong>Nearby (1–3 mi):</strong> Canterbury Park (~0.5 mi), Utah Park (~1 mi)`
+🗺️ <strong>Nearby (1–3 mi):</strong> Jewell Wetlands (~0.5 mi), Expo Park (~1 mi), Meadowood Park (~1 mi)`
 },
 
 {id:"co-aurora-village-green-park",
