@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://findeverypark.com/</loc>
-  </url>
-
-  <url>
-    <loc>https://findeverypark.com/parks.html</loc>
-  </url>
-
-  <url>
-    <loc>https://findeverypark.com/park.html?name=Aurora%20Reservoir</loc>
-  </url>
-
-  <url>
-    <loc>https://findeverypark.com/park.html?name=Expo%20Park</loc>
-  </url>
-
-  <url>
-    <loc>https://findeverypark.com/park.html?name=Central%20Park</loc>
-  </url>
-
-</urlset><?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url><loc>https://findeverypark.com/</loc><priority>1.0</priority></url>
   <url><loc>https://findeverypark.com/parks.html</loc><priority>0.8</priority></url>
 
