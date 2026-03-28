@@ -702,8 +702,10 @@ function initMap() {
 
 function renderMarkers(filteredList) {
   if (!markersLayer) return;
+
   parkMarkers = {};
   markersLayer.clearLayers();
+
   const hasFilters = window._activeSet && window._activeSet.size > 0;
   const matchNames = hasFilters
     ? new Set(filteredList.map(p => p.n))
@@ -720,18 +722,26 @@ function renderMarkers(filteredList) {
     const isVisited = visited.has(p.n);
     const isMatch = matchNames.has(p.n);
     const color = isVisited ? '#e8703a' : isMatch ? '#c8a000' : '#3d6b4a';
-const marker = L.circleMarker([c[0], c[1]], {
-  radius: isVisited || isMatch ? 8 : 6, fillColor: color, color: 'white', weight: 2, fillOpacity: 0.88
-}).on('click', () => {
-  focusMapOnPark(p.n);
-}).bindPopup(
-    '<div style="font-weight:700;font-size:14px;"><a href="park.html?name=' + encodeURIComponent(p.n) + '" style="text-decoration:none;color:#2a7f3b;">' + p.n + '</a></div>' +
-'<div class="popup-acres">' + (p.ac > 0 ? p.ac.toLocaleString() + ' acres' : 'Open space') + '</div>' +
-'<div style="font-size:11px;color:#999;margin-top:2px">' + p.a + ', ' + CITY + ' ' + STATE + '</div>' +
-(isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
-).addTo(markersLayer);
 
-parkMarkers[p.n] = marker;
+    const marker = L.circleMarker([c[0], c[1]], {
+      radius: isVisited || isMatch ? 8 : 6,
+      fillColor: color,
+      color: 'white',
+      weight: 2,
+      fillOpacity: 0.88
+    })
+    .bindPopup(
+      '<div style="font-weight:700;font-size:14px;"><a href="park.html?name=' + encodeURIComponent(p.n) + '" onclick="saveParkPageState()" style="text-decoration:none;color:#2a7f3b;">' + p.n + '</a></div>' +
+      '<div class="popup-acres">' + (p.ac > 0 ? p.ac.toLocaleString() + ' acres' : 'Open space') + '</div>' +
+      '<div style="font-size:11px;color:#999;margin-top:2px">' + p.a + ', ' + CITY + ' ' + STATE + '</div>' +
+      (isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
+    )
+    .on('click', () => {
+      focusMapOnPark(p.n);
+    })
+    .addTo(markersLayer);
+
+    parkMarkers[p.n] = marker;
   });
 }
 function parkCardId(name) {
@@ -740,6 +750,7 @@ function parkCardId(name) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 }
+
 function focusMapOnPark(name) {
   const c = COORDS[name];
   if (!c || !map) return;
@@ -773,27 +784,59 @@ function setMapMode(mode) {
   renderMarkers(filteredParks);
 }
 
-
 function locateMe() {
-  if (!navigator.geolocation) { alert("Geolocation not supported."); return; }
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported.");
+    return;
+  }
+
   const btn = document.getElementById('btn-locate');
   btn.textContent = 'Locating...';
+
   navigator.geolocation.getCurrentPosition(pos => {
-    userLat = pos.coords.latitude; userLng = pos.coords.longitude;
-    btn.innerHTML = '&#x1F4CD; Located!'; btn.classList.add('active');
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
+
+    btn.innerHTML = '&#x1F4CD; Located!';
+    btn.classList.add('active');
 
     if (userMarker) map.removeLayer(userMarker);
-    userMarker = L.circleMarker([userLat, userLng], { radius: 9, fillColor: '#4285f4', color: 'white', weight: 2.5, fillOpacity: 1 }).bindPopup('<b>You are here</b>').addTo(map);
+
+    userMarker = L.circleMarker([userLat, userLng], {
+      radius: 9,
+      fillColor: '#4285f4',
+      color: 'white',
+      weight: 2.5,
+      fillOpacity: 1
+    })
+    .bindPopup('<b>You are here</b>')
+    .addTo(map);
+
     map.setView([userLat, userLng], 13, { animate: true });
     document.getElementById('legend-dist').textContent = 'Distances from your location';
-    if (document.getElementById('sort').value === 'nearest') render(); else renderMarkers(currentFiltered);
-  }, () => { btn.innerHTML = '&#x1F4CD; Find me'; });
+
+    if (document.getElementById('sort').value === 'nearest') {
+      render();
+    } else {
+      renderMarkers(currentFiltered);
+    }
+  }, () => {
+    btn.innerHTML = '&#x1F4CD; Find me';
+  });
 }
 
 function haversine(lat1, lng1, lat2, lng2) {
-  const R = 3958.8, dLat = (lat2-lat1)*Math.PI/180, dLng = (lng2-lng1)*Math.PI/180;
-  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const R = 3958.8;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng / 2) ** 2;
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 function distLabel(m) {
@@ -802,21 +845,29 @@ function distLabel(m) {
 
 function saveVisited() {
   localStorage.setItem('md_visited', JSON.stringify([...visited]));
-  updatePassport(); renderMarkers(currentFiltered);
+  updatePassport();
+  renderMarkers(currentFiltered);
 }
 
 function updatePassport() {
-  const count = visited.size, total = P.length;
+  const count = visited.size;
+  const total = P.length;
+
   document.getElementById('passport-count').textContent = count + ' visited';
-  document.getElementById('passport-fill').style.width = (count/total*100) + '%';
-  const msg = count===0 ? "Check in at parks you've visited!"
-    : count<10 ? (total-count) + ' parks still to explore!'
-    : count<25 ? "You're getting out there!"
-    : count<50 ? 'Mighty explorer!'
+  document.getElementById('passport-fill').style.width = (count / total * 100) + '%';
+
+  const msg = count === 0
+    ? "Check in at parks you've visited!"
+    : count < 10
+    ? (total - count) + ' parks still to explore!'
+    : count < 25
+    ? "You're getting out there!"
+    : count < 50
+    ? 'Mighty explorer!'
     : 'Aurora Parks Legend!';
+
   document.getElementById('passport-msg').textContent = msg;
 }
-
 const P = [
   {id:"co-aurora-alta-vista-park",n:"Alta Vista Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"16800 E. Idaho Cir.",ac:1.5,f:{},photos:[]},
   {n:"Altura Park",a:"15100 E. 17th Ave.",ac:3.9,f:{playground:1,baseball:1},photos:[]},
@@ -958,6 +1009,7 @@ const FILTERS = [
   {k:'boating',l:'Boating',e:'&#x1F6A3;'},
   {k:'restroom',l:'Restrooms',e:'&#x1F6BB;'},
   {k:'shelter',l:'Shelter',e:'&#x1F3D5;&#xFE0F;'},
+  {k:'golf',l:'Golf Course',e:'&#x26F3;'},
 ];
 
 const grid = document.getElementById('grid');
@@ -1039,6 +1091,43 @@ function createGallery(park, idx) {
   if (f.pool) icons += "💧 ";
 
   return `<div class="park-icons">${icons}</div>`;
+  }
+  function saveParkPageState() {
+  sessionStorage.setItem("parksPageState", JSON.stringify({
+    search: searchEl ? searchEl.value : "",
+    sort: sortEl ? sortEl.value : "",
+    activeFilters: [...active],
+    scrollY: window.scrollY
+  }));
+}
+function restoreParkPageState() {
+  const raw = sessionStorage.getItem("parksPageState");
+  if (!raw) return false;
+
+  try {
+    const state = JSON.parse(raw);
+
+    if (searchEl) searchEl.value = state.search || "";
+    if (sortEl) sortEl.value = state.sort || "";
+
+    active = new Set(state.activeFilters || []);
+    window._activeSet = active;
+
+    document.querySelectorAll(".pill[data-k]").forEach(btn => {
+      btn.classList.toggle("on", active.has(btn.dataset.k));
+    });
+
+    render();
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, state.scrollY || 0);
+    });
+
+    return true;
+  } catch (err) {
+    console.error("Failed to restore park page state:", err);
+    return false;
+  }
 }
 function render() {
   const q = searchEl.value.trim().toLowerCase();
@@ -1159,7 +1248,7 @@ card.onmouseleave = () => {
     body.className = 'card-body';
     body.innerHTML =
       '<div class="card-head">' +
-'<div class="park-name"><a href="park.html?name=' + encodeURIComponent(p.n) + '" onclick="event.stopPropagation()">' + p.n + '</a></div>' +
+'<div class="park-name"><a href="park.html?name=' + encodeURIComponent(p.n) + '" onclick="event.stopPropagation(); saveParkPageState()">' + p.n + '</a></div>' +
         '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">' +
           (acStr ? '<div class="acres">' + acStr + '</div>' : '') + matchBadge +
         '</div>' +
@@ -1173,42 +1262,27 @@ card.onmouseleave = () => {
     card.appendChild(body);
     grid.appendChild(card);
   });
-
   const loadWrap = document.getElementById('load-more-wrap');
-loadWrap.innerHTML = '';
+  loadWrap.innerHTML = '';
 
-if (visibleCount < list.length) {
-  const btn = document.createElement('button');
-  btn.textContent = 'Load More Parks';
-  btn.className = 'map-btn';
-  btn.style.margin = '0 auto';
-  btn.onclick = () => {
-    visibleCount += 12;
-    render();
-  };
-  loadWrap.appendChild(btn);
-}
-}
-updatePassport();
-const savedPageState = sessionStorage.getItem('parksFilters');
-if (savedPageState) {
-  const parsed = JSON.parse(savedPageState);
-
-  if (parsed.search !== undefined) searchEl.value = parsed.search;
-  if (parsed.sort !== undefined) sortEl.value = parsed.sort;
-
-  if (Array.isArray(parsed.active)) {
-    active = new Set(parsed.active);
-    window._activeSet = active;
-
-    document.querySelectorAll('.pill[data-k]').forEach(btn => {
-      btn.classList.toggle('on', active.has(btn.dataset.k));
-    });
+  if (visibleCount < list.length) {
+    const btn = document.createElement('button');
+    btn.textContent = 'Load More Parks';
+    btn.className = 'map-btn';
+    btn.style.margin = '0 auto';
+    btn.onclick = () => {
+      visibleCount += 12;
+      render();
+    };
+    loadWrap.appendChild(btn);
   }
 }
-render();
+
+const restored = restoreParkPageState();
+if (!restored) render();
 searchEl.addEventListener('input', render);
 sortEl.addEventListener('change', render);
+
 if (typeof L !== 'undefined') {
   initMap();
   renderMarkers(currentFiltered);
@@ -1223,8 +1297,7 @@ if (typeof L !== 'undefined') {
     }
   });
 }
-
-// MOBILE FILTER TOGGLE
+  // MOBILE FILTER TOGGLE
 const filterToggle = document.getElementById('filter-toggle');
 const filterBarEl = document.getElementById('filter-bar');
 
@@ -1233,6 +1306,11 @@ if (filterToggle && filterBarEl) {
     filterBarEl.classList.toggle('open');
   };
 }
+window.addEventListener("pageshow", function () {
+  restoreParkPageState();
+});
+
+window.addEventListener("beforeunload", saveParkPageState);
 </script>
 </body>
 </html>

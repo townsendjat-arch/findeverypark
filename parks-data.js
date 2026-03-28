@@ -1453,4 +1453,18 @@ d:`Tiny, but useful. Playground, shelter, and trail access — this is a greenwa
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Switchgrass Park (~1 mi), Great Plains Park (~1.5 mi)`
 },
+{ n:"Apache Mesa Park", a:"710 N. Laredo St.", ac:3, f:{playground:1,restroom:1}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
+{ n:"Arapahoe Little League Complex", a:"16900 E. Kentucky Ave.", ac:14, f:{baseball:1}, d:"Full park guide coming soon. This sports complex has been added to the park directory and more details will be added later.", photos:[] },
+{ n:"Aurora Hills Golf Course", a:"50 S. Peoria St.", ac:148, f:{golf:1}, d:"Full golf course guide coming soon. This location is included in the directory now and more details will be added later.", photos:[] },
+{ n:"Blue Grama Grass Park", a:"3323 S. Jericho Way", ac:1, f:{playground:1,shelter:1}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
+{ n:"Cottonwood Grove", a:"1500 S. Peoria St.", ac:0.3, f:{trails:1}, d:"Full park guide coming soon. This open space and trail access point has been added to the directory and more details will be added later.", photos:[] },
+{ n:"Highline Park & Ballfields", a:"70 N. Peoria St.", ac:30.9, f:{playground:1,baseball:1,restroom:1,shelter:1}, d:"Full park guide coming soon. This sports-focused park has been added to the directory and more details will be added later.", photos:[] },
+{ n:"Meadow Hills Golf Course", a:"3609 S. Dawson St.", ac:134.1, f:{tennis:1,pool:1,golf:1,restroom:1}, d:"Full golf course guide coming soon. This location is included in the directory now and more details will be added later.", photos:[] },
+{ n:"Murphy Creek Golf Course", a:"1700 S. Old Tom Morris Rd.", ac:272.9, f:{golf:1}, d:"Full golf course guide coming soon. This location is included in the directory now and more details will be added later.", photos:[] },
+{ n:"Rocky Ridge Park", a:"16200 E. Mississippi Ave.", ac:13.3, f:{playground:1,basketball:1,restroom:1,shelter:1}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
+{ n:"Saddle Rock Golf Course", a:"21705 E. Arapahoe Rd.", ac:233.6, f:{golf:1}, d:"Full golf course guide coming soon. This location is included in the directory now and more details will be added later.", photos:[] },
+{ n:"Sand Creek Riparian Preserve", a:"20809 E. 6th Ave.", ac:531.6, f:{trails:1}, d:"Full preserve guide coming soon. This natural area has been added to the directory and more details will be added later.", photos:[] },
+{ n:"Springhill Golf Course", a:"800 N. Telluride St.", ac:112.3, f:{golf:1}, d:"Full golf course guide coming soon. This location is included in the directory now and more details will be added later.", photos:[] },
+{ n:"Upland Park", a:"2800 N. Walden St.", ac:1.4, f:{}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
+{ n:"Village East Park", a:"1400 S. Moline St.", ac:5.9, f:{playground:1,baseball:1,trails:1}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
 ];

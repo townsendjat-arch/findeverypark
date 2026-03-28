@@ -128,7 +128,7 @@ Get Directions
 <div class="section">
   <p><strong>Acreage:</strong> <span id="park-acreage"></span></p>
 </div>
-
+<div id="park-extra"></div>
 <div class="section">
   <p><strong>Features:</strong></p>
   <div id="park-features"></div>
@@ -141,6 +141,36 @@ Get Directions
 <script src="parks-data.js"></script>
 
 <script>
+  function getGolfPhone(name) {
+  const phones = {
+    "Aurora Hills Golf Course": "303-739-1550",
+    "Meadow Hills Golf Course": "303-326-8450",
+    "Murphy Creek Golf Course": "303-739-1560",
+    "Saddle Rock Golf Course": "303-326-8460",
+    "Springhill Golf Course": "303-739-6854"
+  };
+  return phones[name] || "303-739-7888";
+}
+
+function getGolfSection(park) {
+  if (!park.f || !park.f.golf) return "";
+
+  return `
+    <div style="margin-top:20px;padding:16px;border:1px solid #d8cbb3;border-radius:12px;background:#f7f3ea;">
+      <h3 style="margin-top:0;">⛳ Golf Info</h3>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+        <a href="https://www.auroragov.org/things_to_do/golf/golf_courses" target="_blank" class="dir-btn">Book Tee Time</a>
+        <a href="https://www.auroragov.org/things_to_do/golf/golf_courses" target="_blank" class="dir-btn">Lessons</a>
+        <a href="https://www.auroragov.org/things_to_do/golf/golf_courses" target="_blank" class="dir-btn">Programs</a>
+      </div>
+
+      <div style="margin-top:12px;font-size:14px;">
+        📞 Call Course: ${getGolfPhone(park.name || park.n)}
+      </div>
+    </div>
+  `;
+}
 const params = new URLSearchParams(window.location.search);
 const parkName = params.get("name");
 
@@ -166,12 +196,12 @@ if (park) {
   document.getElementById("park-description").innerHTML = (park.description || park.d || "Description coming soon.").replace(/\n/g, "<br>");
 
   // Setup Directions Button
-  let mapUrl;
-  if (coords) {
-    mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords},${coords}`;
-  } else {
-    mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' Aurora Colorado')}`;
-  }
+let mapUrl;
+if (coords) {
+  mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}`;
+} else {
+  mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' Aurora Colorado')}`;
+}
   document.getElementById("directions-btn").href = mapUrl;
 
   // Render Leaflet Map
@@ -211,9 +241,11 @@ if (park) {
   } else {
     photoContainer.innerHTML = "<p>Photos coming soon.</p>";
   }
+   document.getElementById("park-extra").innerHTML = getGolfSection(park);
 } else {
   document.getElementById("park-name").textContent = "Park Not Found";
   document.getElementById("park-description").textContent = "Please check the URL or search for another park.";
+  
 }
 </script>
 </body>
