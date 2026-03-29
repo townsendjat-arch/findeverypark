@@ -1105,7 +1105,7 @@ There’s a hopscotch pond tucked behind the hospitals at Peoria and Colfax. Sha
 n:"Singletree Park",
 a:"19590 E. 58th Ave.",
 ac:6.5,
-f:{playground:1,basketball:1,shelter:1,dog:1},
+f:{playground:1,basketball:1,shelter:1,dog_park:1},
 photos:[],
 d:`Solid all-around neighborhood park with a little extra. Playground, basketball, and a picnic shelter cover the basics, but the off-leash dog area is what makes it different. Not a full dog park, but enough to let the dog run while the kids play.
 
