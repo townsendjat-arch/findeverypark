@@ -332,20 +332,31 @@
     box-shadow: 0 0 0 rgba(244, 185, 66, 0);
   }
 }
+.nav-cta {
+  background: #e8703a;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 12px;
+}
+.nav-center {
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+  font-size: 14px;
+}
  </style>
 </head>
 <body>
 
 <nav class="main-nav">
-  <a href="./index.html" class="nav-brand">Aurora Parks Finder</a>
-  <ul class="nav-links">
-    <li><a href="./index.html">Home</a></li>
-    <li><a href="./parks.html" class="active">Parks</a></li>
-    <li><a href="./trails.html">Trails</a></li>
-    <li><a href="./events.html">Events</a></li>
-  </ul>
-</nav>
+  <a href="./index.html" class="nav-brand">Find Every Park</a>
 
+  <div class="nav-center">Parks</div>
+
+  <a href="./events.html" class="nav-cta">Find Events</a>
+</nav>
 <div class="passport-bar">
   <div class="passport-inner">
     <span>&#127957;&#65039;</span>
@@ -881,7 +892,6 @@ const FILTERS = [
   {k:'fishing',l:'Fishing',e:'&#x1F3A3;'},
   {k:'disc_golf',l:'Disc Golf',e:'&#x1F94F;'},
   {k:'skate',l:'Skate/BMX',e:'&#x1F6F9;'},
-  {k:'golf',l:'Golf Course',e:'&#x26F3;'},
   {k:'garden',l:'Community Garden',e:'&#x1F331;'},
   {k:'boating',l:'Boating',e:'&#x1F6A3;'},
   {k:'restroom',l:'Restrooms',e:'&#x1F6BB;'},
