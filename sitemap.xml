@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url><loc>https://findeverypark.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://findeverypark.com/parks.html</loc><priority>0.8</priority></url>
+  <!-- Core Pages -->
+  <url>
+    <loc>https://findeverypark.com/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
+  <url>
+    <loc>https://findeverypark.com/parks.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/events.html</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/trails.html</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <!-- Park Pages -->
   <url><loc>https://findeverypark.com/park.html?name=Alta%20Vista%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?name=Altura%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?name=Anchor%20Point%20Park</loc></url>
