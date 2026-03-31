@@ -990,7 +990,7 @@ const FILTERS = [
   {k:'pool',l:'Pool',e:'&#x1F3CA;'},
   {k:'sprayground',l:'Sprayground',e:'&#x1F4A6;'},
   {k:'dog_park',l:'Dog Park',e:'&#x1F415;'},
-  {k:'trails',l:'Trails',e:'&#x1F97E;'},
+  {k:'trails', l:'Trail Access', e:'&#x1F97E;'},
   {k:'fishing',l:'Fishing',e:'&#x1F3A3;'},
   {k:'disc_golf',l:'Disc Golf',e:'&#x1F94F;'},
   {k:'skate',l:'Skate/BMX',e:'&#x1F6F9;'},
@@ -1089,7 +1089,16 @@ function createGallery(park, idx) {
     scrollY: window.scrollY
   }));
 }
-function restoreParkPageState() {
+function restoreParkPageState()
+ {const params = new URLSearchParams(window.location.search);
+
+if (params.get('trails') === '1') {
+  active = new Set(['trails']);
+
+  document.querySelectorAll('.pill[data-k]').forEach(btn => {
+    btn.classList.toggle('on', btn.dataset.k === 'trails');
+  });
+}
   const raw = sessionStorage.getItem("parksPageState");
   if (!raw) return false;
 
