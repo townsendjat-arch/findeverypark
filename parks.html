@@ -155,28 +155,31 @@
     .meta { font-size: 12px; color: #aaa; font-style: italic; margin-bottom: 16px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
     /* ZILLOW LAYOUT */
+
 .parks-shell {
   display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: flex-start;
-}
-
-.parks-left {
-  flex: 0 0 58%;
-  min-width: 0;
 }
 
 .parks-right {
-  flex: 0 0 42%;
-  min-width: 320px;
-  position: sticky;
-  top: 20px;
-  height: fit-content;
+  order: 1;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.parks-left {
+  order: 2;
+  width: 100%;
+  min-width: 0;
 }
 
 #map {
   width: 100%;
-  height: 75vh;
+  height: 52vh;
+  min-height: 320px;
+  max-height: 520px;
   border-radius: 12px;
 }
 
@@ -345,6 +348,60 @@
   color: rgba(255,255,255,0.8);
   font-weight: 600;
   font-size: 14px;
+}.card-body {
+  padding: 14px;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3e2f;
+  text-decoration: none;
+}
+
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.card-acres {
+  font-size: 13px;
+  color: #6b6b6b;
+}
+
+.card-icons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.card-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #3d6b4a;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.card-btn:hover {
+  background: #2f5238;
 }
  </style>
 </head>
@@ -638,31 +695,61 @@ function parkCardId(name) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 }
+let selectedParkName = null;
+
+function styleMarkerByState(parkName, marker) {
+  if (!marker) return;
+
+  if (selectedParkName === parkName) {
+    marker.setStyle({
+      radius: 14,
+      weight: 4,
+      color: '#1f4d2e',
+      fillColor: '#f4b942',
+      fillOpacity: 1
+    });
+    return;
+  }
+
+  const isVisited = visited.has(parkName);
+  const matchedPark = currentFiltered.find(p => p.n === parkName);
+  const isMatch = matchedPark && active.size > 0 && matchedPark.score === active.size;
+
+  let fill = '#3d6b4a';
+  if (isVisited) fill = '#e8703a';
+  else if (isMatch) fill = '#c8a000';
+
+  marker.setStyle({
+    radius: isVisited || isMatch ? 8 : 6,
+    weight: 2,
+    color: 'white',
+    fillColor: fill,
+    fillOpacity: 0.88
+  });
+}
 
 function focusMapOnPark(name) {
   const c = COORDS[name];
-  if (!c || !map) return;
+  const marker = parkMarkers[name];
+  if (!c || !map || !marker) return;
 
-  map.setView([c[0], c[1]], 15, { animate: true });
-  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  selectedParkName = name;
 
-  markersLayer.eachLayer(layer => {
-    if (layer.getLatLng) {
-      const ll = layer.getLatLng();
-      if (Math.abs(ll.lat - c[0]) < 0.0002 && Math.abs(ll.lng - c[1]) < 0.0002) {
-        layer.openPopup();
-      }
-    }
+  Object.entries(parkMarkers).forEach(([parkName, m]) => {
+    if (m.closePopup) m.closePopup();
+    styleMarkerByState(parkName, m);
   });
 
-  const card = document.getElementById(parkCardId(name));
-  if (card) {
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    card.classList.add('card-flash');
-    setTimeout(() => card.classList.remove('card-flash'), 1600);
-  }
-}
+  map.setView([c[0], c[1]], 15, { animate: true });
 
+  const mapSection = document.querySelector('.map-section');
+  if (mapSection) {
+    mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  marker.openPopup();
+  styleMarkerByState(name, marker);
+}
 function setMapMode(mode) {
   mapMode = mode;
 
@@ -671,6 +758,7 @@ function setMapMode(mode) {
 
   renderMarkers(filteredParks);
 }
+
 
 function locateMe() {
   if (!navigator.geolocation) {
@@ -712,7 +800,6 @@ function locateMe() {
     btn.innerHTML = '&#x1F4CD; Find me';
   });
 }
-
 function haversine(lat1, lng1, lat2, lng2) {
   const R = 3958.8;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -1113,40 +1200,49 @@ card.onmouseenter = () => {
 
 card.onmouseleave = () => {
   const m = parkMarkers[p.n];
-  if (m) {
-    const isVisited = visited.has(p.n);
-    const isMatch = active.size > 0 && p.score === active.size;
-
-    let fill = '#3d6b4a';
-    if (isVisited) fill = '#e8703a';
-    else if (isMatch) fill = '#c8a000';
-
-    m.setStyle({
-      radius: isVisited || isMatch ? 8 : 6,
-      weight: 2,
-      color: 'white',
-      fillColor: fill,
-      fillOpacity: 0.88
-    });
-  }
+  if (m) styleMarkerByState(p.n, m);
 };
     card.style.animationDelay = Math.min(i, 25) * 16 + 'ms';
     card.appendChild(createGallery(p, p.origIdx));
     const body = document.createElement('div');
     body.className = 'card-body';
-    body.innerHTML =
-      '<div class="card-head">' +
-'<div class="park-name"><a href="park.html?name=' + encodeURIComponent(p.n) + '" onclick="event.stopPropagation(); saveParkPageState()">' + p.n + '</a></div>' +
-        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">' +
-          (acStr ? '<div class="acres">' + acStr + '</div>' : '') + matchBadge +
-        '</div>' +
-      '</div>' +
-      '<div class="addr"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + p.a + ', ' + CITY + ' ' + STATE + ' ' + distStr + '</div>' +
-      '<div class="tags">' + tagsHtml + '</div>' +
-      '<div class="card-actions">' +
-  '<button class="dir-btn" onclick="event.stopPropagation(); focusMapOnPark(' + JSON.stringify(p.n) + ')">Show on Map</button>' +
-  '<a href="' + mapUrl + '" target="_blank" class="dir-btn" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Get Directions</a>' +
-'</div>';
+    body.innerHTML = `
+  <div class="card-top">
+    <a class="card-title"
+       href="park.html?name=${encodeURIComponent(p.n)}"
+       onclick="event.stopPropagation(); saveParkPageState();">
+      ${p.n}
+    </a>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
+      ${acStr ? `<div class="acres">${acStr}</div>` : ''}
+      ${matchBadge}
+    </div>
+  </div>
+
+  <div class="addr">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+      <circle cx="12" cy="10" r="3"></circle>
+    </svg>
+    ${p.a}, ${CITY} ${STATE} ${distStr}
+  </div>
+
+  <div class="tags">${tagsHtml}</div>
+
+  <div class="card-actions">
+    <button class="dir-btn" onclick='event.stopPropagation(); focusMapOnPark(${JSON.stringify(p.n)})'>
+      Show on Map
+    </button>
+    <a href="${mapUrl}" target="_blank" class="dir-btn" onclick="event.stopPropagation()">
+      Get Directions
+    </a>
+    <a class="dir-btn"
+       href="park.html?name=${encodeURIComponent(p.n)}"
+       onclick="event.stopPropagation(); saveParkPageState();">
+      Info
+    </a>
+  </div>
+`;
     card.appendChild(body);
     grid.appendChild(card);
   });
