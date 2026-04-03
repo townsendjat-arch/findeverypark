@@ -238,9 +238,9 @@
   <a href="./index.html" class="nav-brand">Find Every Park</a>
   <ul class="nav-links">
     <li><a href="./index.html">Home</a></li>
-    <li><a href="./parks.html" class="active">Parks</a></li>
+    <li><a href="./parks.html" class="active" id="nav-parks-link">Parks</a></li>
     <li><a href="./trails.html">Trails</a></li>
-    <li><a href="./events.html">Events</a></li>
+    <li><a href="./events.html" id="nav-events-link">Events</a></li>
   </ul>
 </nav>
 
@@ -350,9 +350,9 @@
     </div>
     <div class="footer-links">
       <a href="./index.html">Home</a>
-      <a href="./parks.html">Parks</a>
+      <a href="./parks.html" id="footer-parks-link">Parks</a>
       <a href="./trails.html">Trails</a>
-      <a href="./events.html">Events</a>
+      <a href="./events.html" id="footer-events-link">Events</a>
       <a href="https://mightydads.org" target="_blank">mightydads.org</a>
     </div>
     <div class="footer-copy">Current park listings on this page are sourced from Aurora data while Colorado coverage expands.</div>
@@ -757,6 +757,10 @@ const P = (window.PARKS && window.PARKS.length ? window.PARKS : [
 document.querySelectorAll('.dataset-link').forEach((link) => {
   link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
 });
+document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
+document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
+document.getElementById('footer-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
+document.getElementById('footer-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
 document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
 document.getElementById('hero-city').textContent = CITY;
 document.getElementById('hero-city-stat').textContent = CITY;

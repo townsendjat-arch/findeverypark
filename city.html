@@ -397,9 +397,9 @@
     <a href="./index.html" class="nav-brand">Find Every Park</a>
     <ul class="nav-links">
       <li><a href="./index.html">Home</a></li>
-      <li><a href="./city.html?dataset=aurora" class="active">City Guides</a></li>
-      <li><a href="./parks.html">Parks</a></li>
-      <li><a href="./events.html">Events</a></li>
+      <li><a href="./city.html?dataset=aurora" class="active" id="nav-city-link">City Guides</a></li>
+      <li><a href="./parks.html" id="nav-parks-link">Parks</a></li>
+      <li><a href="./events.html" id="nav-events-link">Events</a></li>
     </ul>
   </nav>
 
@@ -540,6 +540,9 @@
     document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
     document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
     document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("nav-city-link").href = "./city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("nav-parks-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("nav-events-link").href = "./events.html?city=" + encodeURIComponent(DATASET_KEY);
     document.querySelectorAll(".city-pill").forEach((pill) => {
       pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
     });

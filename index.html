@@ -431,9 +431,9 @@
       <a href="./index.html" class="brand">Find Every Park</a>
       <ul class="nav-links">
         <li><a href="./index.html" class="active">Home</a></li>
-        <li><a href="./parks.html">Parks</a></li>
+        <li><a href="./parks.html" data-base="./parks.html" class="city-aware-nav">Parks</a></li>
         <li><a href="./trails.html">Trails</a></li>
-        <li><a href="./events.html">Local Events</a></li>
+        <li><a href="./events.html" data-base="./events.html" class="city-aware-nav">Local Events</a></li>
       </ul>
     </nav>
 
@@ -459,7 +459,7 @@
         <a href="./parks.html?filter=dog_park" class="quick-link" data-base="./parks.html?filter=dog_park">Dog Parks</a>
         <a href="./parks.html?filter=trails" class="quick-link" data-base="./parks.html?filter=trails">Trails</a>
         <a href="./parks.html?filter=golf" class="quick-link" data-base="./parks.html?filter=golf" id="golfQuickLink">Golf</a>
-        <a href="./events.html" class="quick-link">Local Events</a>
+        <a href="./events.html" class="quick-link" data-base="./events.html" id="eventsQuickLink">Local Events</a>
       </section>
     </div>
   </header>
@@ -508,9 +508,9 @@
   <footer>
     <div class="footer-nav">
       <a href="./index.html">Home</a>
-      <a href="./parks.html">Parks</a>
+      <a href="./parks.html" data-base="./parks.html" class="city-aware-nav">Parks</a>
       <a href="./trails.html">Trails</a>
-      <a href="./events.html">Local Events</a>
+      <a href="./events.html" data-base="./events.html" class="city-aware-nav">Local Events</a>
       <a href="https://mightydads.org" target="_blank">Mighty Dads</a>
     </div>
     <div class="footer-meta">
@@ -525,11 +525,23 @@
     const searchSubmit = document.getElementById('searchSubmit');
     const citySelect = document.getElementById('citySelect');
     const cityAwareLinks = document.querySelectorAll('.quick-link[data-base]');
+    const cityAwareNavLinks = document.querySelectorAll('.city-aware-nav[data-base]');
     const golfQuickLink = document.getElementById('golfQuickLink');
+    const eventsQuickLink = document.getElementById('eventsQuickLink');
+
+    if (citySelect && window.localStorage) {
+      const savedDataset = localStorage.getItem('activeDataset');
+      if (savedDataset && Array.from(citySelect.options).some(function (option) { return option.value === savedDataset; })) {
+        citySelect.value = savedDataset;
+      }
+    }
 
     function updateCityLinks() {
       if (!citySelect) return;
       const dataset = citySelect.value;
+      if (window.localStorage) {
+        localStorage.setItem('activeDataset', dataset);
+      }
       const golfBase = dataset === 'parker' ? './parks.html?filter=disc_golf' : './parks.html?filter=golf';
       if (golfQuickLink) {
         golfQuickLink.dataset.base = golfBase;
@@ -537,8 +549,18 @@
       }
       cityAwareLinks.forEach(function (link) {
         const base = link.dataset.base;
+        if (link === eventsQuickLink) {
+          link.href = base + '?city=' + encodeURIComponent(dataset);
+          return;
+        }
         const separator = base.indexOf('?') === -1 ? '?' : '&';
         link.href = base + separator + 'dataset=' + encodeURIComponent(dataset);
+      });
+      cityAwareNavLinks.forEach(function (link) {
+        const base = link.dataset.base;
+        link.href = base.indexOf('events.html') !== -1
+          ? base + '?city=' + encodeURIComponent(dataset)
+          : base + '?dataset=' + encodeURIComponent(dataset);
       });
     }
 
