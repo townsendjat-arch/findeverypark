@@ -1,8 +1,6 @@
-<!-- update -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,713 +10,554 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Find Every Park in Aurora, Colorado | Maps, Trails, Playgrounds</title>
- <meta name="description" content="Find every park in Aurora, Colorado. Explore playgrounds, trails, dog parks, and family-friendly spots with maps, photos, and local insights.">
+  <title>Find Every Park in Aurora, Colorado | Maps, Trails, Playgrounds</title>
+  <meta name="description" content="Find every park in Aurora, Colorado. Explore playgrounds, trails, dog parks, and family-friendly spots with maps, photos, and local insights.">
   <link rel="canonical" href="https://findeverypark.com/">
- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --grass: #3d6b4a;
-      --grass-light: #5a8f6a;
-      --earth: #b07848;
-      --sky: #c8dff0;
-      --ink: #1a1a1a;
-      --mist: #f0ede8;
+      --grass: #2f7d4f;
+      --grass-dark: #275f3f;
+      --grass-soft: #eff6f1;
+      --mist: #f5f2ec;
+      --ink: #1d2b20;
+      --muted: #66756b;
+      --line: rgba(29, 43, 32, 0.12);
       --white: #ffffff;
-      --md-orange: #e8703a;
-      --shadow: 0 2px 12px rgba(0,0,0,0.07);
-      --shadow-hover: 0 8px 28px rgba(0,0,0,0.15);
+      --shadow: 0 14px 34px rgba(24, 40, 29, 0.1);
+      --shadow-soft: 0 8px 18px rgba(24, 40, 29, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      
       font-family: 'DM Sans', sans-serif;
       background: var(--mist);
       color: var(--ink);
     }
 
-    /* ── NAV ── */
-    .main-nav {
-      background: var(--grass);
-      padding: 14px 24px;
+    a { color: inherit; }
+
+    .hero-header {
+      background: linear-gradient(180deg, #2f7d4f 0%, #399258 100%);
+      color: white;
+      text-align: center;
+      padding: 20px 20px 28px;
+    }
+
+    .top-nav {
+      max-width: 1120px;
+      margin: 0 auto 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
     }
-    .nav-brand {
+
+    .brand {
       font-family: 'Syne', sans-serif;
-      color: white;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       text-decoration: none;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.03em;
     }
+
     .nav-links {
       display: flex;
-      gap: 4px;
+      gap: 8px;
       list-style: none;
       flex-wrap: wrap;
+      justify-content: center;
     }
+
     .nav-links a {
-      color: rgba(255,255,255,0.78);
       text-decoration: none;
+      color: rgba(255, 255, 255, 0.88);
       font-size: 13px;
-      font-weight: 500;
-      padding: 6px 13px;
-      border-radius: 100px;
-      transition: all 0.15s;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: background 0.15s ease, color 0.15s ease;
     }
-    .nav-links a:hover { color: white; background: rgba(255,255,255,0.12); }
-    .nav-links a.active  { color: white; background: rgba(255,255,255,0.2); }
 
-    /* ── HERO ── */
-    /*
-      BEGINNER NOTE:
-      The hero uses min-height/max-height instead of height:100vh.
-      This keeps the content below visible without excessive scrolling.
-    */
-    .hero {
-      background: var(--grass);
-      min-height: 380px;
-      max-height: 520px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 40px 20px;
-      position: relative;
-      overflow: hidden;
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(255, 255, 255, 0.14);
+      color: white;
     }
-    /* Wavy bottom edge — same style as the original header */
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: -5%;
-      right: -5%;
-      height: 40px;
-      background: var(--mist);
-      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-    }
+
     .hero-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 640px;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.9);
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 14px;
-      border-radius: 100px;
-      margin-bottom: 18px;
-      letter-spacing: 0.04em;
-    }
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 5vw, 52px);
-      font-weight: 800;
-      color: white;
-      line-height: 1.05;
-      letter-spacing: -1px;
-      margin-bottom: 14px;
-    }
-    .hero p {
-      font-size: clamp(14px, 2vw, 17px);
-      color: rgba(255,255,255,0.72);
-      font-weight: 300;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 11px 26px;
-      background: white;
-      color: var(--grass);
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
-      font-family: 'Syne', sans-serif;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 11px 26px;
-      background: rgba(255,255,255,0.15);
-      color: white;
-      border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: background 0.15s;
-    }
-    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
-    .hero-stats {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      font-size: 12px;
-      color: rgba(255,255,255,0.55);
-    }
-    .hero-stats .sep { opacity: 0.4; }
-    .search-wrap {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin: 30px 0;
-}
-
-.search-wrap input {
-  margin: 0 auto;
-}
-
-    /* ── FEATURE CARDS ── */
-    .features {
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 52px 20px 24px;
-    }
-    .features-label {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #aaa;
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .cards-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 720px;
+      max-width: 860px;
       margin: 0 auto;
     }
-    .feature-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 28px 24px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--ink);
-      transition: box-shadow 0.18s, transform 0.18s;
-    }
-    .feature-card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
-    }
-    .feature-card .icon {
-      font-size: 36px;
-      margin-bottom: 4px;
-    }
-    .feature-card h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--grass);
-    }
-    .feature-card p {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.6;
-      flex: 1;
-    }
-    .feature-card .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--grass);
-      margin-top: 4px;
-    }
 
-    /* ── ABOUT STRIP ── */
-    .about-strip {
-      background: var(--white);
-      border-top: 1px solid #e8e4de;
-      border-bottom: 1px solid #e8e4de;
-      padding: 36px 20px;
-      margin-top: 40px;
-      text-align: center;
-    }
-    .about-strip-inner {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .about-strip h3 {
+    .hero-title {
       font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--ink);
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.05em;
       margin-bottom: 10px;
     }
-    .about-strip p {
-      font-size: 14px;
-      color: #666;
+
+    .hero-subtitle {
+      font-size: 16px;
       line-height: 1.7;
-      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 48ch;
+      margin: 0 auto 22px;
     }
-    .md-branding {
+
+    .search-panel {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(6px);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .city-select {
+      min-width: 150px;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 16px 40px 16px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      background:
+        linear-gradient(45deg, transparent 50%, #4d6653 50%) calc(100% - 18px) calc(50% - 3px) / 8px 8px no-repeat,
+        linear-gradient(135deg, #4d6653 50%, transparent 50%) calc(100% - 13px) calc(50% - 3px) / 8px 8px no-repeat,
+        rgba(255, 255, 255, 0.98);
+      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.08);
+      appearance: none;
+      cursor: pointer;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .city-select:focus {
+      box-shadow: inset 0 0 0 2px rgba(39, 95, 63, 0.25);
+    }
+
+    #parkSearch {
+      flex: 1;
+      min-width: 240px;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 16px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.08);
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    #parkSearch:focus {
+      box-shadow: inset 0 0 0 2px rgba(39, 95, 63, 0.25);
+    }
+
+    .search-submit {
+      border: none;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--grass-dark);
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(16, 31, 21, 0.12);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .search-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(16, 31, 21, 0.16);
+    }
+
+    .search-hint {
+      margin-top: 12px;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 20px 20px 0;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .quick-link {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .md-logo-sm {
-      background: var(--grass);
-      border-radius: 8px;
-      padding: 6px 14px;
-    }
-    .md-logo-sm img {
-      height: 28px;
-      width: auto;
-      display: block;
-      filter: brightness(0) invert(1);
-    }
-    .md-label-sm {
-      font-size: 13px;
-      color: #666;
-    }
-    .md-label-sm span {
-      font-weight: 600;
-      color: var(--grass);
-    }
-
-    /* ── NEWSLETTER STRIP ── */
-    .newsletter-strip {
-      background: var(--md-orange);
-      padding: 18px 20px;
-    }
-    .newsletter-inner {
-      max-width: 1060px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .newsletter-strip p {
-      color: white;
-      font-size: 13px;
-      font-weight: 500;
-    }
-    .newsletter-strip a {
-      display: inline-block;
-      background: white;
-      color: var(--md-orange);
-      font-weight: 700;
-      font-size: 12px;
-      padding: 7px 18px;
-      border-radius: 100px;
+      padding: 11px 16px;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--grass-dark);
       text-decoration: none;
-      white-space: nowrap;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(24, 40, 29, 0.08);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
 
-    /* ── FOOTER ── */
-    footer {
-     background: linear-gradient(180deg,#2f7d4f,#3fa34d);
-      color: rgba(255,255,255,0.6);
-      text-align: center;
-      padding: 32px 20px;
-      font-size: 12px;
-      margin-top: 60px;
+    .quick-link:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(24, 40, 29, 0.12);
     }
-    footer a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 600; }
-    footer a:hover { text-decoration: underline; }
-    .footer-logo img { height: 32px; width: auto; filter: brightness(0) invert(1); margin-bottom: 10px; }
+
+    .hero-gallery {
+      background: var(--white);
+      padding: 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      min-height: 280px;
+    }
+
+    .hero-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .page-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 20px 0;
+    }
+
+    .intro-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .intro-copy h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      color: var(--grass-dark);
+    }
+
+    .intro-copy p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .intro-points {
+      display: grid;
+      gap: 12px;
+    }
+
+    .intro-point {
+      background: var(--grass-soft);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .intro-point strong {
+      display: block;
+      font-size: 14px;
+      color: var(--grass-dark);
+      margin-bottom: 4px;
+    }
+
+    .intro-point span {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #48604f;
+    }
+
+    .about-strip {
+      text-align: center;
+      padding: 32px 20px 10px;
+    }
+
+    .about-strip h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .about-strip p {
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.7;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-strip {
+      text-align: center;
+      padding: 10px 20px 18px;
+    }
+
+    .contact-strip a {
+      color: var(--grass-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    footer {
+      margin-top: 36px;
+      background: linear-gradient(180deg, #2f7d4f, #3fa34d);
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+    }
+
     .footer-nav {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-  
-  section,
-.hero,
-.built-by,
-.built-by-container {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  border-radius: 0 !important;
-}
 
+    .footer-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
 
-  .built-by {
-    background: #f3f1ed;
-    padding: 60px 20px;
-  }
+    footer a:hover {
+      text-decoration: underline;
+    }
 
-  .built-by-container {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
+    .footer-meta {
+      line-height: 1.7;
+    }
 
-  .mighty-logo {
-    width: 220px;
-    margin: 25px auto;
-    display: block;
-  }
+    @media (max-width: 800px) {
+      .intro-card {
+        grid-template-columns: 1fr;
+      }
 
-  .credit {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #2f5d50;
-  }
-  .hero {
-  position: relative;
-}
+      .hero-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-.hero-text {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.95);
-  padding: 14px 22px;
-  border-radius: 14px;
-  text-align: center;
-  color: #2f5d50;
-}
+    @media (max-width: 600px) {
+      .hero-header {
+        padding: 18px 16px 22px;
+      }
 
+      .top-nav {
+        justify-content: center;
+        margin-bottom: 14px;
+      }
 
-.hero-text h1 {
-  margin: 0;
-  font-size: 32px;
-  color: #2f5d50;
-}
+      .hero-subtitle {
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
 
-   
+      .search-panel {
+        padding: 14px;
+      }
 
-.hero-text p {
-  margin: 4px 0 0;
-  font-size: 16px;
-  color: #2f5d50;
+      .search-row {
+        flex-direction: column;
+      }
 
-}
-.hero-sub {
-  margin-top: 8px;
-  font-size: 14px;
-  opacity: 0.85;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  height: 360px;
-  overflow: hidden;
-}
+      .city-select,
+      #parkSearch,
+      .search-submit {
+        width: 100%;
+      }
 
-.hero-grid img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-/* HERO HEADER */
+      .quick-links {
+        gap: 10px;
+      }
 
-.hero-header{
-  background: linear-gradient(180deg,#2f7d4f,#3fa34d);
-  color:white;
-  text-align:center;
-  padding:60px 20px 30px;
-  width: 100%;
-max-width: none;
-margin: 0;
-}
+      .quick-link {
+        width: 100%;
+        max-width: 280px;
+      }
 
-.hero-top h1{
-  font-size:40px;
-  margin-bottom:8px;
-  font-weight:800;
-}
+      .hero-grid {
+        min-height: 0;
+      }
 
-.hero-top p{
-  font-size:16px;
-  opacity:0.9;
-  margin-bottom:25px;
-}
+      .hero-grid img {
+        aspect-ratio: 1 / 1;
+      }
 
-.hero-nav ul{
-  list-style:none;
-  display:flex;
-  justify-content:center;
-  gap:24px;
-  padding:0;
-  margin:0;
-  flex-wrap:wrap;
-}
-
-.hero-nav a{
-  color:white;
-  text-decoration:none;
-  font-weight:600;
-  opacity:0.9;
-}
-
-.hero-nav a.active{
-  border-bottom:2px solid white;
-  padding-bottom:4px;
-}
-.quick-links{
-  display:flex;
-  justify-content:center;
-  gap:14px;
-  flex-wrap:wrap;
-  padding:6px 20px 24px;
-}
-
-.quick-link{
-  display:inline-block;
-  padding:12px 18px;
-  background:#ffffff;
-  color:#2f5d50;
-  text-decoration:none;
-  font-weight:700;
-  border-radius:999px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
-}
-
-.quick-link:hover{
-  transform:translateY(-1px);
-  }
-.hero-header {
-  padding: 20px 20px 15px;
-}
-
-.hero-top h1 {
-  margin-bottom: 6px;
-}
-
-.hero-top p {
-  margin-bottom: 10px;
-}
-
-.quick-links {
-  margin-top: 10px;
-}
-
-.hero {
-  margin-top: 0;
-  padding-top: 0;
-
-}
-.hero {
-  background: none !important;
-}
-@media (max-width: 600px) {
-  .hero-header {
-    padding: 28px 16px 18px;
-  }
-
-  .hero-top h1 {
-    font-size: 30px;
-    line-height: 1.15;
-    margin-bottom: 6px;
-  }
-
-  .hero-top p {
-    font-size: 15px;
-    margin-bottom: 14px;
-  }
-
-  .quick-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px 18px;
-  }
-
-  .quick-link {
-    width: 90%;
-    max-width: 280px;
-    text-align: center;
-    padding: 14px 18px;
-    font-size: 16px;
-  }
-
-  .hero-grid {
-    grid-template-columns: repeat(2, 1fr);
-    height: auto;
-  }
-
-  .hero-grid img {
-    aspect-ratio: 1 / 1;
-    height: auto;
-  }
-
-  #parkSearch {
-    width: calc(100% - 24px) !important;
-    max-width: none !important;
-    margin: 14px 12px 0 !important;
-    font-size: 16px !important;
-  }
-}
-.quick-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.quick-link {
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #f7f3ea;
-  border: 1px solid #d8cbb3;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: #2f2a24;
-  transition: all 0.15s ease;
-}
-
-.quick-link:hover {
-  background: var(--grass);
-  color: white;
-  transform: translateY(-1px);
-}
-</style>
+      .intro-card {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-
   <header class="hero-header">
-  <div class="hero-top">
-    <h1>Find Every Park</h1>
-    <p>Discover parks,trails, and outdoor spaces near you.</p>
-  </div>
-  <section class="quick-links">
-  <a href="./parks.html" class="quick-link">🌳 Parks</a>
- <a href="/parks.html?trails=1" class="quick-link">🥾 Trail Access</a>
-  <a href="./events.html" class="quick-link">📅 Local Events</a>
-  <a href="./parks.html?filter=dog_park" class="quick-link">🐕 Dog Parks</a>
-  <a href="./parks.html?filter=golf" class="quick-link">⛳ Golf</a>
-  <a href="./parks.html?filter=playground" class="quick-link">🛝 Playgrounds</a>
+    <nav class="top-nav">
+      <a href="./index.html" class="brand">Find Every Park</a>
+      <ul class="nav-links">
+        <li><a href="./index.html" class="active">Home</a></li>
+        <li><a href="./parks.html">Parks</a></li>
+        <li><a href="./trails.html">Trails</a></li>
+        <li><a href="./events.html">Local Events</a></li>
+      </ul>
+    </nav>
 
-</section>
+    <div class="hero-inner">
+      <h1 class="hero-title">Find a park fast.</h1>
+      <p class="hero-subtitle">Search by park name or features like playgrounds, trails, dog parks, and golf, then jump straight to the parks that fit.</p>
 
+      <div class="search-panel">
+        <div class="search-row">
+          <select id="citySelect" class="city-select" aria-label="Choose a city">
+            <option value="aurora">Aurora</option>
+            <option value="centennial">Centennial</option>
+          </select>
+          <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
+          <button class="search-submit" id="searchSubmit" type="button">Search</button>
+        </div>
+        <div class="search-hint">Choose a city, then search: playground, trail, dog park, golf, picnic shelter</div>
+      </div>
 
+      <section class="quick-links">
+        <a href="./parks.html" class="quick-link" data-base="./parks.html">Parks</a>
+        <a href="./parks.html?filter=dog_park" class="quick-link" data-base="./parks.html?filter=dog_park">Dog Parks</a>
+        <a href="./parks.html?filter=trails" class="quick-link" data-base="./parks.html?filter=trails">Trails</a>
+        <a href="./parks.html?filter=golf" class="quick-link" data-base="./parks.html?filter=golf">Golf</a>
+        <a href="./events.html" class="quick-link">Local Events</a>
+      </section>
+    </div>
+  </header>
 
-</header>
-<div class="hero">
-  <div class="hero-grid">
-    <img src="images/park-one.jpg" alt="Aurora park photo 1">
-    <img src="images/park-two.jpg" alt="Aurora park photo 2">
-    <img src="images/park-three.jpg" alt="Aurora park photo 3">
-    <img src="images/park-four.jpg" alt="Aurora park photo 4">
-  </div>
-  </div>  <!-- end hero -->
+  <section class="hero-gallery">
+    <div class="hero-grid">
+      <img src="images/park-one.jpg" alt="Aurora park photo 1">
+      <img src="images/park-two.jpg" alt="Aurora park photo 2">
+      <img src="images/park-three.jpg" alt="Aurora park photo 3">
+      <img src="images/park-four.jpg" alt="Aurora park photo 4">
+    </div>
+  </section>
 
-<div class="search-wrap">
-  <input
-    type="text"
-    id="parkSearch"
-    placeholder="Search parks or features (playground, dog park, basketball...)"
-    style="
-      width:90%;
-      max-width:600px;
-      padding:14px;
-      font-size:16px;
-      border-radius:8px;
-      border:2px solid #3a8f4e;
-      box-shadow:0 2px 6px rgba(0,0,0,0.1);
-      outline:none;
-    "
-  >
-</div>
+  <section class="page-section">
+    <div class="intro-card">
+      <div class="intro-copy">
+        <h2>Start with search, then browse.</h2>
+        <p>The homepage should feel simple right away. Search comes first, and the main categories are still easy to reach when you want to browse.</p>
+      </div>
+      <div class="intro-points">
+        <div class="intro-point">
+          <strong>Search first</strong>
+          <span>Type what you need and get to the right park faster.</span>
+        </div>
+        <div class="intro-point">
+          <strong>Quick browse</strong>
+          <span>The main shortcuts are still easy to reach when you want to browse.</span>
+        </div>
+        <div class="intro-point">
+          <strong>Visual support</strong>
+          <span>Photos add context without taking attention away from search.</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="about-strip">
+    <h3>About Find Every Park</h3>
+    <p>Helping families discover parks, trails, and local events across the city. Built by a local dad, it is designed to get kids outside, explore new places, and make finding your next adventure simple.</p>
+  </section>
 
-<!-- ══════════════════════════════
-     FOOTER
-════════════════════════════════ -->
-<section style="text-align:center; padding:30px 20px;">
-  <h2>About Find Every Park</h2>
-  <p style="line-height:1.6;">
-     Helping families discover parks, trails, and local events across your city Built by a local dad, it’s designed to get kids outside, explore new places, and make finding your next adventure simple.
-  </p>
-</section>
-<section style="text-align:center; padding:10px 20px 30px;">
-  <h3>Contact</h3>
-  <p>
-    Have a park suggestion, event, or feedback?  
-    <br>
-  <a href="mailto:Jason@findeverypark.com">Jason@findeverypark.com</a>
-  </p>
-</section>
-<footer>
+  <section class="contact-strip">
+    <p>Have a park suggestion, event, or feedback? <a href="mailto:Jason@findeverypark.com">Jason@findeverypark.com</a></p>
+  </section>
 
+  <footer>
+    <div class="footer-nav">
+      <a href="./index.html">Home</a>
+      <a href="./parks.html">Parks</a>
+      <a href="./trails.html">Trails</a>
+      <a href="./events.html">Local Events</a>
+      <a href="https://mightydads.org" target="_blank">Mighty Dads</a>
+    </div>
+    <div class="footer-meta">
+      Connecting families through parks in Aurora, Colorado.<br>
+      Park data sourced from the <a href="https://www.auroragov.org" target="_blank">City of Aurora</a><br>
+      &copy; 2026 Aurora Parks Finder
+    </div>
+  </footer>
 
+  <script>
+    const homeSearch = document.getElementById('parkSearch');
+    const searchSubmit = document.getElementById('searchSubmit');
+    const citySelect = document.getElementById('citySelect');
+    const cityAwareLinks = document.querySelectorAll('.quick-link[data-base]');
 
-  <div class="footer-nav">
-    <a href="./index.html">Home</a>
-    <a href="./parks.html">Parks</a>
-    <a href="./trails.html">Trails</a>
-    <a href="./events.html">Local Events</a>
-    <a href="https://mightydads.org" target="_blank">Mighty Dads</a>
-  </div>
-<div class="footer-tagline">
-  Connecting families through parks in Aurora, Colorado &mdash; one adventure at a time.
-</div>
-
-<div style="margin-top:6px; opacity:0.6;">
-  Park data sourced from the 
-  <a href="https://www.auroragov.org" target="_blank">City of Aurora</a>
-</div>
-
-<div style="margin-top:10px; opacity:0.5;">
-  &copy; 2026 Aurora Parks Finder
-</div>
-</footer>
- <script>
-const homeSearch = document.getElementById('parkSearch');
-
-if (homeSearch) {
-  homeSearch.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const query = homeSearch.value.trim();
-      window.location.href = './parks.html?search=' + encodeURIComponent(query);
+    function updateCityLinks() {
+      if (!citySelect) return;
+      const dataset = citySelect.value;
+      cityAwareLinks.forEach(function (link) {
+        const base = link.dataset.base;
+        const separator = base.indexOf('?') === -1 ? '?' : '&';
+        link.href = base + separator + 'dataset=' + encodeURIComponent(dataset);
+      });
     }
-  });
-}
-</script> 
 
+    function submitHomeSearch() {
+      const query = homeSearch.value.trim();
+      const dataset = citySelect ? citySelect.value : 'aurora';
+      window.location.href = './parks.html?dataset=' + encodeURIComponent(dataset) + '&search=' + encodeURIComponent(query);
+    }
+
+    updateCityLinks();
+
+    if (homeSearch) {
+      homeSearch.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          submitHomeSearch();
+        }
+      });
+    }
+
+    if (searchSubmit) {
+      searchSubmit.addEventListener('click', submitHomeSearch);
+    }
+
+    if (citySelect) {
+      citySelect.addEventListener('change', updateCityLinks);
+    }
+  </script>
 </body>
-
 </html>
