@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>City Guide | Find Every Park Colorado</title>
+  <meta name="description" content="Explore city guides on Find Every Park Colorado with featured parks, trail picks, and browse links for Aurora and more Front Range cities.">
+  <link rel="canonical" id="canonical-link" href="https://findeverypark.com/city.html?dataset=aurora">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --grass: #3d6b4a;
+      --grass-deep: #284d36;
+      --grass-soft: #dceadf;
+      --earth: #b07848;
+      --ink: #1a1a1a;
+      --mist: #f0ede8;
+      --white: #ffffff;
+      --line: #e4ddd4;
+      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); }
+
+    .main-nav {
+      background: var(--grass);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 100px;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: white; background: rgba(255,255,255,0.16); }
+
+    main { max-width: 1180px; margin: 0 auto; padding: 28px 20px 70px; }
+    .city-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .city-switch-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7f877f;
+    }
+    .city-pill {
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1.5px solid #d7d0c8;
+      color: #566159;
+      background: rgba(255,255,255,0.78);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .city-pill.active {
+      background: var(--grass);
+      border-color: var(--grass);
+      color: white;
+    }
+
+    .city-hero {
+      background: linear-gradient(135deg, rgba(61,107,74,0.96), rgba(40,77,54,0.94));
+      color: white;
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .city-hero::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -90px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.16), rgba(255,255,255,0));
+    }
+    .city-hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: end;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 14px;
+    }
+    .city-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      margin-bottom: 14px;
+    }
+    .city-hero p {
+      max-width: 58ch;
+      color: rgba(255,255,255,0.82);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 11px 18px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .hero-btn.primary { background: white; color: var(--grass); }
+    .hero-btn.secondary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.24); }
+    .hero-btn.ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.18); }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 16px;
+      backdrop-filter: blur(6px);
+    }
+    .hero-stat-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.62);
+      margin-bottom: 8px;
+    }
+    .hero-stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+    }
+    .hero-stat-copy {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+    .section-copy {
+      color: #637168;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 64ch;
+    }
+
+    .featured-strip {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(270px, 320px);
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x proximity;
+    }
+    .featured-card {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+    }
+    .featured-media {
+      min-height: 190px;
+      background: linear-gradient(135deg, #dfeee2, #d2e0ef);
+      padding: 18px;
+      position: relative;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+    }
+    .featured-media.has-photo {
+      background-size: cover;
+      background-position: center;
+    }
+    .featured-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(20,34,24,0) 32%, rgba(20,34,24,0.42) 100%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .featured-card:hover .featured-media::after { opacity: 1; }
+    .featured-badge {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.88);
+      color: var(--grass-deep);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .featured-placeholder {
+      position: relative;
+      z-index: 1;
+      font-size: 44px;
+      opacity: 0.86;
+    }
+    .featured-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .featured-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 21px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+    .featured-meta {
+      font-size: 12px;
+      color: #8c948d;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .featured-summary {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #506056;
+      flex: 1;
+    }
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .feature-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grass-deep);
+      background: var(--grass-soft);
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+    .featured-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+    .text-btn {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--grass);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .category-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(20, 31, 23, 0.04);
+    }
+    .category-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .category-card p {
+      font-size: 13px;
+      color: #637168;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .category-list a {
+      text-decoration: none;
+      color: var(--grass);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    footer {
+      background: var(--grass);
+      color: rgba(255,255,255,0.66);
+      padding: 30px 20px;
+      font-size: 12px;
+      margin-top: 36px;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-inner a { color: white; text-decoration: none; }
+
+    @media (max-width: 980px) {
+      .city-hero-grid { grid-template-columns: 1fr; }
+      .category-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .city-hero { padding: 22px; border-radius: 22px; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .featured-strip { grid-auto-columns: minmax(84vw, 1fr); }
+      .main-nav { padding: 14px 16px; }
+      main { padding: 22px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="./index.html" class="nav-brand">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./city.html?dataset=aurora" class="active">City Guides</a></li>
+      <li><a href="./parks.html">Parks</a></li>
+      <li><a href="./events.html">Events</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="city-switch">
+      <span class="city-switch-label">City Guide</span>
+      <a class="city-pill" data-dataset="aurora" href="./city.html?dataset=aurora">Aurora</a>
+      <a class="city-pill" data-dataset="centennial" href="./city.html?dataset=centennial">Centennial</a>
+    </div>
+
+    <section class="city-hero">
+      <div class="city-hero-grid">
+        <div>
+          <span class="eyebrow" id="guide-eyebrow">Front Range City Guide</span>
+          <h1 id="city-title">Aurora, Colorado</h1>
+          <p id="city-summary"></p>
+          <div class="hero-actions">
+            <a class="hero-btn primary" id="browse-link" href="./parks.html?dataset=aurora">Browse All Parks</a>
+            <a class="hero-btn secondary" id="trail-link" href="./parks.html?dataset=aurora&filter=trails">Trail Access</a>
+            <a class="hero-btn ghost" id="golf-link" href="./parks.html?dataset=aurora&filter=golf">Golf Courses</a>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-label">Parks In Guide</span>
+            <div class="hero-stat-value" id="city-total">0</div>
+            <div class="hero-stat-copy">The current searchable city dataset.</div>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-label">Featured Now</span>
+            <div class="hero-stat-value" id="featured-total">0</div>
+            <div class="hero-stat-copy">The parks that deserve homepage and photo priority.</div>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-label">Coverage Status</span>
+            <div class="hero-stat-value" id="coverage-status">Preview</div>
+            <div class="hero-stat-copy" id="coverage-copy"></div>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-label">Why Start Here</span>
+            <div class="hero-stat-copy" id="city-supporting"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Featured Parks</h2>
+          <p class="section-copy">This is the first step toward the swipeable city landing experience you described: strong featured parks, tighter storytelling, and clear click-throughs into the full browse flow.</p>
+        </div>
+      </div>
+      <div class="featured-strip" id="featured-strip"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Quick Start Categories</h2>
+          <p class="section-copy">These category blocks give each city a more curated feel and set up future landing pages like Destination Parks, Nature Parks, and Neighborhood Favorites.</p>
+        </div>
+      </div>
+      <div class="category-grid" id="category-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Find Every Park Colorado is building city-by-city across the Front Range.</span>
+      <a id="footer-browse-link" href="./parks.html?dataset=aurora">Open full city browse</a>
+    </div>
+  </footer>
+
+  <script src="site-config.js"></script>
+  <script src="data/photos/park-photo-manifest.js"></script>
+  <script src="park-data-registry.js"></script>
+  <script src="dataset-loader.js"></script>
+  <script src="city-guides.js"></script>
+  <script>
+    const DATASET_KEY = window.ACTIVE_DATASET_KEY || "aurora";
+    const meta = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
+      city: "Aurora",
+      state: "CO",
+      stateName: "Colorado",
+      brandName: "Find Every Park Colorado"
+    };
+    const guide = (window.CITY_GUIDES && window.CITY_GUIDES[DATASET_KEY]) || {
+      eyebrow: "City Guide",
+      summary: "A local city guide inside Find Every Park Colorado.",
+      supporting: "This city will keep getting richer as more photos, notes, and park write-ups come online.",
+      featured: [],
+      categories: []
+    };
+    const parks = (window.PARKS || []).map((park) => window.normalizePark ? window.normalizePark(park, DATASET_KEY) : park);
+
+    function byName(name) {
+      return parks.find((park) => park.n === name || park.name === name);
+    }
+
+    function fallbackPhoto(park) {
+      if (park.heroPhoto && park.heroPhoto.src) return park.heroPhoto.src;
+      const photos = Array.isArray(park.photos) ? park.photos : [];
+      return photos[0] || "";
+    }
+
+    function featureLabels(park) {
+      const labels = [];
+      const f = park.f || {};
+      if (f.playground) labels.push("Playground");
+      if (f.trails) labels.push("Trails");
+      if (f.dog_park) labels.push("Dog-friendly");
+      if (f.shelter) labels.push("Shelter");
+      if (f.restroom) labels.push("Restroom");
+      if (f.baseball) labels.push("Ballfields");
+      if (f.tennis) labels.push("Tennis");
+      return labels.slice(0, 4);
+    }
+
+    const featuredParks = guide.featured.map(byName).filter(Boolean);
+
+    document.title = meta.city + " City Guide | " + meta.brandName;
+    document.querySelector('meta[name="description"]').setAttribute("content", "Explore the " + meta.city + " city guide on " + meta.brandName + " with featured parks, neighborhood picks, and trail access.");
+    document.getElementById("canonical-link").href = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("guide-eyebrow").textContent = guide.eyebrow;
+    document.getElementById("city-title").textContent = meta.city + ", " + meta.stateName;
+    document.getElementById("city-summary").textContent = guide.summary;
+    document.getElementById("city-total").textContent = parks.length.toLocaleString();
+    document.getElementById("featured-total").textContent = featuredParks.length.toLocaleString();
+    document.getElementById("coverage-status").textContent = DATASET_KEY === "aurora" ? "Live" : "Preview";
+    document.getElementById("coverage-copy").textContent = DATASET_KEY === "aurora"
+      ? "Aurora is the strongest city guide in the product right now."
+      : "Centennial is now locally browseable and ready for richer polish.";
+    document.getElementById("city-supporting").textContent = guide.supporting;
+    document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
+    document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=golf";
+    document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.querySelectorAll(".city-pill").forEach((pill) => {
+      pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
+    });
+
+    const featuredStrip = document.getElementById("featured-strip");
+    featuredParks.forEach((park, index) => {
+      const photo = fallbackPhoto(park);
+      const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
+      const mediaClass = photo ? "featured-media has-photo" : "featured-media";
+      const tags = featureLabels(park).map((label) => '<span class="feature-tag">' + label + '</span>').join("");
+      const card = document.createElement("article");
+      card.className = "featured-card";
+      card.innerHTML =
+        '<div class="' + mediaClass + '"' + mediaStyle + '>' +
+          '<span class="featured-badge">Featured Pick</span>' +
+          '<span class="featured-placeholder">' + ["🌲", "🏞️", "🛝", "🌿", "🏕️"][index % 5] + '</span>' +
+        '</div>' +
+        '<div class="featured-body">' +
+          '<div class="featured-meta">' + meta.city + ' guide</div>' +
+          '<h3 class="featured-title">' + park.n + '</h3>' +
+          '<p class="featured-summary">' + ((park.d || "Guide notes coming soon.").split(". ")[0] + ".") + '</p>' +
+          '<div class="feature-tags">' + tags + '</div>' +
+          '<div class="featured-actions">' +
+            '<a class="text-btn" href="./park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(park.n) + '">Open mini guide</a>' +
+            '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(park.n) + '">Show on map</a>' +
+          '</div>' +
+        '</div>';
+      featuredStrip.appendChild(card);
+    });
+
+    const categoryGrid = document.getElementById("category-grid");
+    guide.categories.forEach((category) => {
+      const card = document.createElement("section");
+      card.className = "category-card";
+      const links = category.parks
+        .map((name) => byName(name))
+        .filter(Boolean)
+        .map((park) => '<a href="./park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(park.n) + '">' + park.n + '</a>')
+        .join("");
+      card.innerHTML =
+        '<h3>' + category.title + '</h3>' +
+        '<p>' + category.copy + '</p>' +
+        '<div class="category-list">' + links + '</div>';
+      categoryGrid.appendChild(card);
+    });
+  </script>
+</body>
+</html>

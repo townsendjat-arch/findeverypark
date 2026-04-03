@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" id="page-description" content="Find park details, photos, and directions on Find Every Park Colorado.">
+<link rel="canonical" id="canonical-link" href="https://findeverypark.com/park.html">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <title>Park | Find Every Park Colorado</title>
@@ -285,6 +286,7 @@ const park = (window.PARKS || []).find(p => (p.name || p.n) === parkName);
 if (park) {
  document.title = (park.name || park.n || "Park") + " | " + DATASET_META.brandName;
  document.getElementById("page-description").setAttribute("content", "Find details, photos, and directions for " + (park.name || park.n || "this park") + " in " + DATASET_META.city + ", " + DATASET_META.stateName + ".");
+ document.getElementById("canonical-link").href = "https://findeverypark.com/park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&name=" + encodeURIComponent(park.name || park.n || "");
  document.getElementById("park-name").textContent = park.name || park.n || "";
 document.getElementById("park-address").textContent = formatPlace(park.address || park.a || "");
 const coords = COORDS[park.name || park.n];
@@ -349,6 +351,7 @@ featureNames.forEach(feature=>{
   }
 } else {
   document.title = "Park Not Found | " + DATASET_META.brandName;
+  document.getElementById("canonical-link").href = "https://findeverypark.com/park.html";
   document.getElementById("park-name").textContent = "Park Not Found";
   document.getElementById("park-description").textContent = "Please check the link or return to the parks page to try another park.";
 }

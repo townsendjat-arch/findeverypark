@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Front Range Events — Find Every Park Colorado</title>
+  <meta name="description" content="Browse curated family-friendly events from Find Every Park Colorado, starting with Aurora and expanding city by city across the Front Range.">
+  <link rel="canonical" id="canonical-link" href="https://findeverypark.com/events.html">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
   <script>
@@ -423,6 +425,9 @@
   document.getElementById('page-subtitle').textContent = cityMeta.subtitle || ('A curated, human-maintained list of community events in ' + cityMeta.label + '.');
   document.getElementById('submit-heading').textContent = cityMeta.submitHeading || ('Know a ' + cityMeta.label + ' event?');
   document.getElementById('footer-note-copy').textContent = cityMeta.footerNote || ('Event listings currently focus on ' + cityMeta.label + '.');
+  document.title = cityMeta.label + ' Events | Find Every Park Colorado';
+  document.querySelector('meta[name="description"]').setAttribute('content', 'Browse curated family-friendly events in ' + cityMeta.label + ' on Find Every Park Colorado.');
+  document.getElementById('canonical-link').href = 'https://findeverypark.com/events.html?city=' + encodeURIComponent(cityKey);
 
   Object.entries(cities).forEach(([key, meta]) => {
     const link = document.createElement('a');
