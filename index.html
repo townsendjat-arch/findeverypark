@@ -104,9 +104,10 @@
     .hero-subtitle {
       font-size: 16px;
       line-height: 1.7;
-      color: rgba(255, 255, 255, 0.88);
+      color: rgba(255, 255, 255, 0.92);
+      font-weight: 500;
       max-width: 48ch;
-      margin: 0 auto 22px;
+      margin: 0 auto 10px;
     }
 
     .search-panel {
@@ -376,6 +377,14 @@
     @media (max-width: 600px) {
       .hero-header {
         padding: 18px 16px 22px;
+      }
+
+      .brand {
+        font-size: 22px;
+      }
+
+      .hero-title {
+        font-size: clamp(24px, 7vw, 32px);
       }
 
       .top-nav {
