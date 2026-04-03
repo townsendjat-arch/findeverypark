@@ -3,10 +3,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" id="page-description" content="Find park details, photos, and directions on Find Every Park Colorado.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<title id="page-title">Park | Find Every Park</title>
-<meta name="description" id="page-description" content="Find parks, playgrounds, and outdoor spaces in Aurora, Colorado.">
+<title>Park | Find Every Park Colorado</title>
 
 <style>
   .park-header{
@@ -97,16 +98,15 @@ body{
 </style>
 
 </head>
-</div>
 <body>
   <div class="page-wrapper">
-    <a href="parks.html">← Back to Aurora Parks Map</a>
+    <a href="parks.html" id="back-link">← Back to Parks Map</a>
 
     <div class="park-header">
       <img class="park-header-image" id="park-header-image" src="" alt="Park photo" style="display:none;">
       <div class="park-header-content">
         <h1 class="park-title" id="park-name">Loading park...</h1>
-<p class="park-address" id="park-location">Aurora, Colorado</p>
+<p class="park-address" id="park-location">Colorado</p>
       </div>
     </div>
 
@@ -128,7 +128,7 @@ Get Directions
 <div class="section">
   <p><strong>Acreage:</strong> <span id="park-acreage"></span></p>
 </div>
-<div id="park-extra"></div>
+
 <div class="section">
   <p><strong>Features:</strong></p>
   <div id="park-features"></div>
@@ -136,116 +136,221 @@ Get Directions
 
 <div class="section">
   <p><strong>About:</strong> <span id="park-description"></span></p>
-  <div id="park-gallery" style="margin-top:15px;"></div>
 </div>
-<script src="parks-data.js"></script>
+<script src="site-config.js"></script>
+<script src="data/photos/park-photo-manifest.js"></script>
+<script src="park-data-registry.js"></script>
+<script src="dataset-loader.js"></script>
 
 <script>
-  function getGolfPhone(name) {
-  const phones = {
-    "Aurora Hills Golf Course": "303-739-1550",
-    "Meadow Hills Golf Course": "303-326-8450",
-    "Murphy Creek Golf Course": "303-739-1560",
-    "Saddle Rock Golf Course": "303-326-8460",
-    "Springhill Golf Course": "303-739-6854"
-  };
-  return phones[name] || "303-739-7888";
-}
-
-function getGolfSection(park) {
-  if (!park.f || !park.f.golf) return "";
-
-  return `
-    <div style="margin-top:20px;padding:16px;border:1px solid #d8cbb3;border-radius:12px;background:#f7f3ea;">
-      <h3 style="margin-top:0;">⛳ Golf Info</h3>
-
-      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
-        <a href="https://www.auroragov.org/things_to_do/golf/golf_courses" target="_blank" class="dir-btn">Book Tee Time</a>
-        <a href="https://www.auroragov.org/things_to_do/golf/golf_courses" target="_blank" class="dir-btn">Lessons</a>
-        <a href="https://www.auroragov.org/things_to_do/golf/golf_courses" target="_blank" class="dir-btn">Programs</a>
-      </div>
-
-      <div style="margin-top:12px;font-size:14px;">
-        📞 Call Course: ${getGolfPhone(park.name || park.n)}
-      </div>
-    </div>
-  `;
-}
 const params = new URLSearchParams(window.location.search);
 const parkName = params.get("name");
-
-// 1. Coordinates Database
-const COORDS = {
-  "Alta Vista Park": [39.690588,-104.791457], "Altura Park": [39.742784,-104.813072], "Anchor Point Park": [39.592131,-104.676356], "Apache Mesa Park": [39.72773,-104.799267], "Appaloosa Park": [39.614964,-104.707423], "Aqua Vista Park": [39.628431,-104.7698], "Arapahoe Little League Complex": [39.699921,-104.790377], "Aurora Hills Golf Course": [39.717047,-104.836477], "Aurora Reservoir": [39.594941,-104.661717], "Bellewood Park": [39.62528,-104.785948], "Bicentennial Park": [39.714069,-104.832475], "Blue Grama Grass Park": [39.656322,-104.751684], "Canterbury Park": [39.692003,-104.860246], "Carson Park": [39.641355,-104.82353], "Centre Hills Park": [39.714523,-104.80067], "CentrePointe Park": [39.702523,-104.793197], "Cherry Creek Spillway": [39.662947,-104.818635], "City Center Park": [39.71249,-104.816752], "City Park": [39.742856,-104.874314], "Coal Creek Arena": [39.72405,-104.751584], "Cottonwood Park": [39.754091,-104.825453], "Country Lane Park": [39.684745,-104.870806], "Crestridge Park": [39.668023,-104.815967], "Del Mar Park": [39.724436,-104.846784], "DeLaney Farm": [39.713248,-104.805816], "Eagle Park": [39.658242,-104.815445], "Eldorado Park": [39.662606,-104.785521], "Expo Park": [39.705567,-104.860337], "Fairplay Park": [39.749457,-104.814135], "Flanders Park": [39.661618,-104.758744], "Fletcher Park": [39.733065,-104.883196], "Fletcher Plaza": [39.739849,-104.873959], "Freedom Park": [39.736317,-104.828513], "Fulton Park": [39.728114,-104.872223], "Generals Park": [39.74142,-104.845855], "Golden Eagle Park": [39.589938,-104.713297], "Grandview Dog Park": [39.636759,-104.784578], "Great Plains Park": [39.679858,-104.755732], "Hampden Run Park": [39.652712,-104.777687], "Havana Heights Park": [39.67679,-104.861032], "Havana Heights Pond Park": [39.681466,-104.859682], "Havana Park": [39.732315,-104.863757], "Highland Hollows Park": [39.691816,-104.776803], "Hilltop Park": [39.655852,-104.78663], "Hoffman Park": [39.728089,-104.841423], "Homestead Park": [39.68995,-104.708268], "Hoops Park": [39.724956,-104.798072], "Horizon Park": [39.64534,-104.772435], "Horseshoe Park": [39.679568,-104.800075], "Jewell Park": [39.736668,-104.845475], "Jewell Wetlands": [39.683077,-104.836801], "Kalispell Park Ballfields": [39.631889,-104.803136], "Kestrel Point Natural Area": [39.583631,-104.703013], "Kingsborough Park": [39.689563,-104.806187], "La Parquita Park": [39.643019,-104.796793], "Larkspur Park": [39.589767,-104.725698], "Los Ninos Park": [39.645483,-104.804967], "Lowry Park": [39.731604,-104.877552], "Marina Park": [39.627199,-104.779407], "McMullen Park": [39.720009,-104.872917], "Meadow Hills Golf Course": [39.64768,-104.82099], "Meadowood Park": [39.660507,-104.798171], "Mission Viejo Park": [39.646806,-104.797755], "Montview Park": [39.745523,-104.880075], "Moorhead Park": [39.751997,-104.865959], "Mountain View Park": [39.699053,-104.787079], "Murphy Creek Golf Course": [39.680419,-104.711844], "Nome Park": [39.734064,-104.851523], "Norfolk Glen Park": [39.746622,-104.804208], "Olympic Neighborhood Park": [39.669435,-104.804601], "Olympic Park Ballfields": [39.666749,-104.808591], "Olympic Park Volleyball": [39.670335,-104.805318], "Pagosa Park": [39.664834,-104.788167], "Panorama Park": [39.693709,-104.786461], "Parklane Park": [39.759814,-104.837669], "Peoria Hills Park": [39.690863,-104.843266], "Pheasant Run Park": [39.636701,-104.813993], "Plains Conservation Center": [39.672398,-104.732622], "Ponderosa Preserve": [39.568795,-104.700518], "Pronghorn Natural Area": [39.63221,-104.666427], "Quincy Reservoir": [39.632228,-104.763813], "Red-tailed Hawk Park": [39.582314,-104.71349], "Rocky Ridge Park": [39.695873,-104.799086], "Saddle Rock Golf Course": [39.588199,-104.738403], "Sagebrush Park": [39.630175,-104.818099], "Sand Creek Park": [39.755801,-104.840753], "Settlers Park": [39.702134,-104.815823], "Seven Hills Park": [39.661756,-104.764025], "Sidecreek Park": [39.684314,-104.764114], "Singletree Park": [39.801454,-104.758465], "Soccer Skills Area": [39.654008,-104.753898], "Spencer Garrett Park": [39.743049,-104.860022], "Sports Park": [39.734999,-104.761396], "Springhill Golf Course": [39.732869,-104.779094], "Springhill Park": [39.730395,-104.780852], "Star K Ranch": [39.748673,-104.798532], "Summer Valley Park": [39.6478,-104.784517], "Sunburst Park": [39.635953,-104.799016], "Sunrise Park": [39.642691,-104.757186], "Switchgrass Park": [39.668404,-104.752372], "Terrace Park": [39.748146,-104.768015], "Tierra Park": [39.681325,-104.8148], "Tollgate Crossing Neighborhood Park": [39.628145,-104.708543], "Toll Gate Park": [39.702392,-104.804222], "Traditions Neighborhood Park": [39.71534,-104.691805], "Triangle Park": [39.742039,-104.759874], "Upland Park": [39.756492,-104.775638], "Utah Park": [39.683831,-104.842879], "Village East Park": [39.691923,-104.85303], "Village Green Park": [39.692763,-104.814144], "Virginia Court Park": [39.705696,-104.840426], "Wagon Trail Park": [39.631724,-104.795486], "Wheel Park": [39.671393,-104.806083], "Wheeling Park": [39.703522,-104.83104], "Willow Bend Park": [39.657365,-104.74796]
+const DATASET_KEY = window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
+const DATASET_META = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
+  city: "Aurora",
+  state: "CO",
+  stateName: "Colorado",
+  brandName: (window.SITE_CONFIG && window.SITE_CONFIG.brandName) || "Find Every Park Colorado"
 };
+const COORDS = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {
+  "Alta Vista Park": [39.690588,-104.791457],
+  "Altura Park": [39.742784,-104.813072],
+  "Anchor Point Park": [39.592131,-104.676356],
+  "Apache Mesa Park": [39.72773,-104.799267],
+  "Appaloosa Park": [39.614964,-104.707423],
+  "Aqua Vista Park": [39.628431,-104.7698],
+  "Arapahoe Little League Complex": [39.699921,-104.790377],
+  "Aurora Hills Golf Course": [39.717047,-104.836477],
+  "Aurora Reservoir": [39.594941,-104.661717],
+  "Bellewood Park": [39.62528,-104.785948],
+  "Bicentennial Park": [39.714069,-104.832475],
+  "Blue Grama Grass Park": [39.656322,-104.751684],
+  "Canterbury Park": [39.692003,-104.860246],
+  "Carson Park": [39.641355,-104.82353],
+  "Centre Hills Park": [39.714523,-104.80067],
+  "CentrePointe Park": [39.702523,-104.793197],
+  "Cherry Creek Spillway": [39.662947,-104.818635],
+  "City Center Park": [39.71249,-104.816752],
+  "City Park": [39.742856,-104.874314],
+  "Coal Creek Arena": [39.72405,-104.751584],
+  "Cottonwood Park": [39.754091,-104.825453],
+  "Country Lane Park": [39.684745,-104.870806],
+  "Crestridge Park": [39.668023,-104.815967],
+  "Del Mar Park": [39.724436,-104.846784],
+  "DeLaney Farm": [39.713248,-104.805816],
+  "Eagle Park": [39.658242,-104.815445],
+  "Eldorado Park": [39.662606,-104.785521],
+  "Expo Park": [39.705567,-104.860337],
+  "Fairplay Park": [39.749457,-104.814135],
+  "Flanders Park": [39.661618,-104.758744],
+  "Fletcher Park": [39.733065,-104.883196],
+  "Fletcher Plaza": [39.739849,-104.873959],
+  "Freedom Park": [39.736317,-104.828513],
+  "Fulton Park": [39.728114,-104.872223],
+  "Generals Park": [39.74142,-104.845855],
+  "Golden Eagle Park": [39.589938,-104.713297],
+  "Grandview Dog Park": [39.636759,-104.784578],
+  "Great Plains Park": [39.679858,-104.755732],
+  "Hampden Run Park": [39.652712,-104.777687],
+  "Havana Heights Park": [39.67679,-104.861032],
+  "Havana Heights Pond Park": [39.681466,-104.859682],
+  "Havana Park": [39.732315,-104.863757],
+  "Highland Hollows Park": [39.691816,-104.776803],
+  "Hilltop Park": [39.655852,-104.78663],
+  "Hoffman Park": [39.728089,-104.841423],
+  "Homestead Park": [39.68995,-104.708268],
+  "Hoops Park": [39.724956,-104.798072],
+  "Horizon Park": [39.64534,-104.772435],
+  "Horseshoe Park": [39.679568,-104.800075],
+  "Jewell Park": [39.736668,-104.845475],
+  "Jewell Wetlands": [39.683077,-104.836801],
+  "Kalispell Park Ballfields": [39.631889,-104.803136],
+  "Kestrel Point Natural Area": [39.583631,-104.703013],
+  "Kingsborough Park": [39.689563,-104.806187],
+  "La Parquita Park": [39.643019,-104.796793],
+  "Larkspur Park": [39.589767,-104.725698],
+  "Los Ninos Park": [39.645483,-104.804967],
+  "Lowry Park": [39.731604,-104.877552],
+  "Marina Park": [39.627199,-104.779407],
+  "McMullen Park": [39.720009,-104.872917],
+  "Meadow Hills Golf Course": [39.64768,-104.82099],
+  "Meadowood Park": [39.660507,-104.798171],
+  "Mission Viejo Park": [39.646806,-104.797755],
+  "Montview Park": [39.745523,-104.880075],
+  "Moorhead Park": [39.751997,-104.865959],
+  "Mountain View Park": [39.699053,-104.787079],
+  "Murphy Creek Golf Course": [39.680419,-104.711844],
+  "Nome Park": [39.734064,-104.851523],
+  "Norfolk Glen Park": [39.746622,-104.804208],
+  "Olympic Neighborhood Park": [39.669435,-104.804601],
+  "Olympic Park Ballfields": [39.666749,-104.808591],
+  "Olympic Park Volleyball": [39.670335,-104.805318],
+  "Pagosa Park": [39.664834,-104.788167],
+  "Panorama Park": [39.693709,-104.786461],
+  "Parklane Park": [39.759814,-104.837669],
+  "Peoria Hills Park": [39.690863,-104.843266],
+  "Pheasant Run Park": [39.636701,-104.813993],
+  "Plains Conservation Center": [39.672398,-104.732622],
+  "Ponderosa Preserve": [39.568795,-104.700518],
+  "Pronghorn Natural Area": [39.63221,-104.667427],
+  "Quincy Reservoir": [39.632228,-104.763813],
+  "Red-tailed Hawk Park": [39.582314,-104.71349],
+  "Rocky Ridge Park": [39.695873,-104.799086],
+  "Saddle Rock Golf Course": [39.588199,-104.738403],
+  "Sagebrush Park": [39.630175,-104.818099],
+  "Sand Creek Park": [39.755801,-104.840753],
+  "Settlers Park": [39.702134,-104.815823],
+  "Seven Hills Park": [39.661756,-104.764025],
+  "Sidecreek Park": [39.684314,-104.764114],
+  "Singletree Park": [39.801454,-104.758465],
+  "Soccer Skills Area": [39.654008,-104.753898],
+  "Spencer Garrett Park": [39.743049,-104.860022],
+  "Sports Park": [39.734999,-104.761396],
+  "Springhill Golf Course": [39.732869,-104.779094],
+  "Springhill Park": [39.730395,-104.780852],
+  "Star K Ranch": [39.748673,-104.798532],
+  "Summer Valley Park": [39.6478,-104.784517],
+  "Sunburst Park": [39.635953,-104.799016],
+  "Sunrise Park": [39.642691,-104.757186],
+  "Switchgrass Park": [39.668404,-104.752372],
+  "Terrace Park": [39.748146,-104.768015],
+  "Tierra Park": [39.681325,-104.8148],
+  "Tollgate Crossing Neighborhood Park": [39.628145,-104.708543],
+  "Toll Gate Park": [39.702392,-104.804222],
+  "Traditions Neighborhood Park": [39.71534,-104.691805],
+  "Triangle Park": [39.742039,-104.759874],
+  "Upland Park": [39.756492,-104.775638],
+  "Utah Park": [39.683831,-104.842879],
+  "Village East Park": [39.691923,-104.85303],
+  "Village Green Park": [39.692763,-104.814144],
+  "Virginia Court Park": [39.705696,-104.840426],
+  "Wagon Trail Park": [39.631724,-104.795486],
+  "Wheel Park": [39.671393,-104.806083],
+  "Wheeling Park": [39.703522,-104.83104],
+  "Willow Bend Park": [39.657365,-104.74796]
+};
+document.getElementById("back-link").textContent = "\u2190 Back to " + DATASET_META.city + " Parks Map";
+document.getElementById("back-link").href = "parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+document.getElementById("park-location").textContent = DATASET_META.city + ", " + DATASET_META.stateName;
 
-// 2. Find the park in the global PARKS array (from parks-data.js)
-const park = window.PARKS ? window.PARKS.find(p => (p.name || p.n) === parkName) : null;
+function formatPlace(address) {
+  if (!address) return DATASET_META.city + ", " + DATASET_META.state;
+  return address.toLowerCase().includes(DATASET_META.city.toLowerCase())
+    ? address
+    : address + ", " + DATASET_META.city + ", " + DATASET_META.state;
+}
+
+const park = (window.PARKS || []).find(p => (p.name || p.n) === parkName);
 
 if (park) {
-  const name = park.name || park.n;
-  const address = park.address || park.a;
-  const coords = COORDS[name];
+ document.title = (park.name || park.n || "Park") + " | " + DATASET_META.brandName;
+ document.getElementById("page-description").setAttribute("content", "Find details, photos, and directions for " + (park.name || park.n || "this park") + " in " + DATASET_META.city + ", " + DATASET_META.stateName + ".");
+ document.getElementById("park-name").textContent = park.name || park.n || "";
+document.getElementById("park-address").textContent = formatPlace(park.address || park.a || "");
+const coords = COORDS[park.name || park.n];
 
-  // Update Page Title and SEO
-  document.title = `${name} | Find Every Park`;
-  document.getElementById("park-name").textContent = name;
-  document.getElementById("park-address").textContent = address || "Aurora, Colorado";
-  document.getElementById("park-location").textContent = address || "Aurora, Colorado";
-  document.getElementById("park-acreage").textContent = park.acreage || park.ac || "N/A";
-  document.getElementById("park-description").innerHTML = (park.description || park.d || "Description coming soon.").replace(/\n/g, "<br>");
-
-  // Setup Directions Button
 let mapUrl;
-if (coords) {
-  mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}`;
-} else {
-  mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' Aurora Colorado')}`;
-}
-  document.getElementById("directions-btn").href = mapUrl;
 
-  // Render Leaflet Map
-  if (coords) {
-    const map = L.map('park-map').setView(coords, 16);
+if (coords) {
+  mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + coords[0] + ',' + coords[1];
+} else {
+  mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((park.name || park.n) + ' ' + (park.city || DATASET_META.city) + ' ' + (park.stateName || DATASET_META.stateName));
+}
+
+document.getElementById("directions-btn").href = mapUrl;
+document.getElementById("park-acreage").textContent = park.acreage || park.ac || "";
+document.getElementById("park-description").innerHTML = (park.description || park.d || "Description coming soon.").replace(/\n/g, "<br>");
+
+  const parkCoords = COORDS[park.name || park.n];
+  if (parkCoords) {
+    const map = L.map('park-map').setView(parkCoords, 16);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: '© OpenStreetMap contributors'
+      attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-    L.marker(coords).addTo(map).bindPopup(name).openPopup();
-  }
 
-  // Render Features/Badges
-  const featureContainer = document.getElementById("park-features");
-  featureContainer.innerHTML = "";
+    L.marker(parkCoords).addTo(map)
+      .bindPopup((park.name || park.n) + "<br>" + formatPlace(park.address || park.a || ""))
+      .openPopup();
+  }
+const featureContainer = document.getElementById("park-features");
   if (park.f && Object.keys(park.f).length > 0) {
-    Object.keys(park.f).forEach(feature => {
-      const badge = document.createElement("span");
-      badge.className = "feature-badge";
-      badge.textContent = feature;
-      featureContainer.appendChild(badge);
-    });
+   const featureNames = Object.keys(park.f);
+
+featureContainer.innerHTML = "";
+
+featureNames.forEach(feature=>{
+  const badge=document.createElement("span");
+  badge.className="feature-badge";
+  badge.textContent=feature;
+  featureContainer.appendChild(badge);
+});
   } else {
     featureContainer.textContent = "None listed";
   }
 
-  // Render Photo Gallery
   const photoContainer = document.getElementById("park-photos");
-  photoContainer.innerHTML = "";
-  if (park.photos && park.photos.length > 0) {
-    park.photos.forEach(src => {
+  if (park.heroPhoto && park.heroPhoto.src) {
+    const headerImg = document.getElementById("park-header-image");
+    headerImg.src = park.heroPhoto.src;
+    headerImg.alt = park.heroPhoto.alt || ((park.name || park.n) + " photo");
+    headerImg.style.display = "";
+  }
+  if (park.photoGallery && park.photoGallery.length > 0) {
+    park.photoGallery.forEach(photo => {
       const img = document.createElement("img");
-      img.src = src.startsWith('http') ? src : "/" + src;
-      img.alt = name + " photo";
+      img.src = photo.src;
+      img.alt = photo.alt || (park.n + " photo");
       photoContainer.appendChild(img);
     });
   } else {
     photoContainer.innerHTML = "<p>Photos coming soon.</p>";
   }
-   document.getElementById("park-extra").innerHTML = getGolfSection(park);
 } else {
+  document.title = "Park Not Found | " + DATASET_META.brandName;
   document.getElementById("park-name").textContent = "Park Not Found";
-  document.getElementById("park-description").textContent = "Please check the URL or search for another park.";
-  
+  document.getElementById("park-description").textContent = "Please check the link or return to the parks page to try another park.";
 }
 </script>
 </body>

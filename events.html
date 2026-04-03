@@ -1,250 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Events</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front Range Events — Find Every Park Colorado</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9GWTHQXZNY');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --ink-light: #5a5a52;
+      --ink-faint: #9a9a90;
+      --rule: #e2e0d8;
+      --bg: #f9f8f4;
+      --bg-warm: #f2f0e8;
+      --grass: #3d6b4a;
+      --grass-light: #e8f0ea;
+      --accent: #c4501a;
+      --white: #ffffff;
+    }
 
-<style>
-/* paste the CSS here */
-.event-card {
-  display: flex;
-  gap: 16px;
-  padding: 16px;
-  margin: 20px 0;
-  border: 1px solid #d8cbb3;
-  border-radius: 12px;
-  background: #f7f3ea;
-  transition: 0.2s ease;
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.event-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
-.event-date {
-  min-width: 60px;
-  text-align: center;
-  border-right: 1px solid #d8cbb3;
-  padding-right: 12px;
-}
+    /* NAV */
+    nav {
+      background: var(--grass);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 100px;
+      transition: all 0.15s;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.12); }
+    .nav-links a.active { color: white; background: rgba(255,255,255,0.2); }
 
-.event-date-month {
-  font-size: 12px;
-  font-weight: 600;
-  color: #7a6f5a;
-}
+    /* MAIN LAYOUT */
+    .page {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
 
-.event-date-day {
-  font-size: 22px;
-  font-weight: 700;
-}
+    /* HEADER */
+    .page-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .city-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .city-switch-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .city-pill {
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1.5px solid #d7d0c8;
+      color: #566159;
+      background: rgba(255,255,255,0.84);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .city-pill.active {
+      background: var(--grass);
+      border-color: var(--grass);
+      color: white;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-header .subtitle {
+      font-size: 14px;
+      color: var(--ink-light);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+    .update-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--grass-light);
+      color: var(--grass);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .update-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--grass);
+      border-radius: 50%;
+    }
 
-.event-main {
-  flex: 1;
-}
+    /* SECTION */
+    .section {
+      margin-bottom: 52px;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
 
-.event-topline {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
-}
+    /* DATE GROUP */
+    .date-group {
+      margin-bottom: 28px;
+    }
+    .date-heading {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--rule);
+    }
 
-.event-tag {
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  background: #2f5d50;
-  color: white;
-  font-weight: 600;
-}
+    /* EVENT ROW */
+    .event-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.1s;
+    }
+    .event-row:last-child { border-bottom: none; }
+    .event-row:hover { background: var(--bg-warm); margin: 0 -12px; padding: 10px 12px; border-radius: 3px; }
 
-.event-tag.subtle {
-  background: #e6e1d6;
-  color: #5c5345;
-}
+    .event-main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 12px;
+    }
+    .event-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .event-meta {
+      font-size: 13px;
+      color: var(--ink-light);
+      font-weight: 300;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+    }
+    .event-meta span {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .event-meta .separator {
+      color: var(--rule);
+    }
+    .free-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--grass);
+      background: var(--grass-light);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    .cost-badge {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-light);
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
 
-.event-title {
-  margin: 4px 0;
-  font-size: 18px;
-}
+    .event-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .event-link:hover {
+      color: var(--grass);
+      border-bottom-color: var(--grass);
+    }
 
-.event-meta {
-  font-size: 13px;
-  color: #6b6254;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+    /* SUBMIT BOX */
+    .submit-box {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-top: 48px;
+    }
+    .submit-box h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .submit-box p {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .submit-box .email-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--grass);
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .submit-box ul {
+      list-style: none;
+      font-size: 12px;
+      color: var(--ink-faint);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+    .submit-box ul li::before {
+      content: '— ';
+    }
 
-.event-desc {
-  font-size: 14px;
-  margin: 8px 0;
-}
+    /* FOOTER NOTE */
+    .footer-note {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--ink-faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-note a {
+      color: var(--grass);
+      text-decoration: none;
+    }
+    .empty-city {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .empty-city h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .empty-city p {
+      font-size: 13px;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
 
-.event-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.event-btn {
-  font-size: 13px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: #2f5d50;
-  color: white;
-  text-decoration: none;
-}
-
-.event-btn.secondary {
-  background: transparent;
-  color: #2f5d50;
-  border: 1px solid var(--grass);
-}
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fcfbf7;
-  color: #2f2a24;
-}
-
-.events-hero {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 40px 20px 20px;
-}
-
-.event-card {
-  max-width: 1100px;
-  margin: 20px auto;
-}
-.events-hero h1 {
-  margin: 0 0 10px;
-  font-size: 40px;
-  line-height: 1.1;
-}
-
-.events-hero p {
-  margin: 0 0 16px;
-  font-size: 16px;
-  color: #5f574b;
-}
-
-.events-hero-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.hero-btn {
-  display: inline-block;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #2f5d50;
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.hero-btn.secondary {
-  background: transparent;
-  color: var(--grass);
-  border: 1px solid #fff;
-}
-.featured-card {
-  border: 2px solid var(--grass);
-  background: #f3f7f1;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-.featured-card .event-title {
-  font-size: 22px;
-}
-
-.featured-card .event-desc {
-  font-size: 15px;
-}
-.back-home-btn {
-  display: inline-block;
-  margin-bottom: 18px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #f3efe6;
-  border: 1px solid #d8cbb3;
-  color: #2f4f3e;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.back-home-btn:hover {
-  background: #e9e1d2;
-}
-</style>
-
+    @media (max-width: 520px) {
+      nav { padding: 12px 16px; }
+      .nav-links { gap: 2px; }
+      .page { padding: 36px 16px 60px; }
+      .event-row { grid-template-columns: 1fr; }
+      .event-link { justify-self: start; }
+    }
+  </style>
 </head>
 <body>
-  
-<section class="events-hero">
-  <a href="index.html" class="back-home-btn">← Back to Home</a>
-  <h1>Family-Friendly Events in Aurora</h1>
-  <p>Discover local events, seasonal activities, markets, and community happenings around Aurora.</p>
 
-  <div class="event-card featured-card" onclick="window.location.href='https://www.auroragov.org/'">
-    <div class="event-date">
-      <div class="event-date-month">JUN</div>
-      <div class="event-date-day">13</div>
+<nav>
+  <a class="nav-brand" href="./index.html">Find Every Park</a>
+  <ul class="nav-links">
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./parks.html">Parks</a></li>
+    <li><a href="./trails.html">Trails</a></li>
+    <li><a href="./events.html" class="active">Events</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <header class="page-header">
+    <div class="update-badge" id="updated-label">Updated March 3, 2026</div>
+    <div class="city-switch" id="city-switch">
+      <span class="city-switch-label">City</span>
     </div>
+    <h1 id="page-title">Aurora Events</h1>
+    <p class="subtitle" id="page-subtitle">A curated, human-maintained list of community events in Aurora. Updated weekly.</p>
+  </header>
 
-    <div class="event-main">
-      <div class="event-topline">
-        <span class="event-tag">Featured</span>
-      </div>
-
-      <h3 class="event-title">Aurora Fest</h3>
-
-      <div class="event-meta">
-        <span>3:00 PM – 10:00 PM</span>
-        <span>Aurora Municipal Center Great Lawn</span>
-        <span>All ages</span>
-      </div>
-
-      <p class="event-desc">
-        Aurora’s signature multicultural festival featuring live performances, food trucks, cultural showcases, and activities for the whole family.
-      </p>
-
-      <div class="event-actions">
-        <a href="https://www.auroragov.org/" target="_blank" class="event-btn" onclick="event.stopPropagation()">View Details</a>
-        <a href="#" class="event-btn secondary" onclick="event.stopPropagation()">Sponsor Your Event</a>
-      </div>
-    </div>
+  <div id="events-root"></div>
+  <div class="empty-city" id="empty-city" style="display:none;">
+    <h3>No city events live yet</h3>
+    <p id="empty-city-copy">This city will get its own event stream as coverage expands.</p>
   </div>
 
-  <div class="event-card" onclick="window.location.href='https://theaurorahighlands.com/hopintospring-2026/'">
-    <div class="event-date">
-      <div class="event-date-month">APR</div>
-      <div class="event-date-day">4</div>
-    </div>
-
-    <div class="event-main">
-      <div class="event-topline"></div>
-
-      <h3 class="event-title">Hop Into Spring</h3>
-
-      <div class="event-meta">
-        <span>1:00 PM – 3:00 PM</span>
-        <span>Winged Melody Park</span>
-        <span>All ages</span>
-      </div>
-
-      <p class="event-desc">
-        A fun spring celebration with face painting, activities, and family-friendly entertainment at Winged Melody Park.
-      </p>
-
-      <div class="event-actions">
-        <a href="https://theaurorahighlands.com/hopintospring-2026/" target="_blank" class="event-btn" onclick="event.stopPropagation()">View Details</a>
-      </div>
-    </div>
+  <!-- SUBMIT BOX -->
+  <div class="submit-box">
+    <h3 id="submit-heading">Know an Aurora event?</h3>
+    <p>This list is maintained by hand. If you know of a community event we should include, send it our way.</p>
+    <span class="email-line">events@findeverypark.com</span>
+    <ul>
+      <li>Event name</li>
+      <li>Date &amp; time</li>
+      <li>Location</li>
+      <li>Short description</li>
+      <li>Link</li>
+    </ul>
   </div>
-</section>
+
+  <div class="footer-note">
+    <span id="footer-note-copy">Event listings currently focus on Aurora while city-by-city coverage expands.</span>
+    <span>Brought to you by <a href="https://mightydads.org">Mighty Dads</a></span>
+  </div>
+
+</div>
+<script src="data/events/events-manifest.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const requestedCity = params.get('city') || 'aurora';
+  const eventsData = window.EVENTS_DATA || { cities: {}, events: [] };
+  const cities = eventsData.cities || {};
+  const cityKey = cities[requestedCity] ? requestedCity : 'aurora';
+  const cityMeta = cities[cityKey] || { label: 'Aurora', subtitle: '', submitHeading: 'Know an Aurora event?', footerNote: '' };
+  const citySwitch = document.getElementById('city-switch');
+  const eventsRoot = document.getElementById('events-root');
+  const emptyCity = document.getElementById('empty-city');
+  const emptyCityCopy = document.getElementById('empty-city-copy');
+
+  document.getElementById('updated-label').textContent = eventsData.updatedLabel || 'Updated';
+  document.getElementById('page-title').textContent = cityMeta.label + ' Events';
+  document.getElementById('page-subtitle').textContent = cityMeta.subtitle || ('A curated, human-maintained list of community events in ' + cityMeta.label + '.');
+  document.getElementById('submit-heading').textContent = cityMeta.submitHeading || ('Know a ' + cityMeta.label + ' event?');
+  document.getElementById('footer-note-copy').textContent = cityMeta.footerNote || ('Event listings currently focus on ' + cityMeta.label + '.');
+
+  Object.entries(cities).forEach(([key, meta]) => {
+    const link = document.createElement('a');
+    link.className = 'city-pill' + (key === cityKey ? ' active' : '');
+    link.href = './events.html?city=' + encodeURIComponent(key);
+    link.textContent = meta.label;
+    citySwitch.appendChild(link);
+  });
+
+  const cityEvents = (eventsData.events || []).filter((event) => event.city === cityKey);
+  if (!cityEvents.length) {
+    emptyCity.style.display = '';
+    emptyCityCopy.textContent = cityMeta.subtitle || 'This city will get its own event stream as coverage expands.';
+  } else {
+    const grouped = {};
+    cityEvents.forEach((event) => {
+      if (!grouped[event.bucket]) grouped[event.bucket] = {};
+      if (!grouped[event.bucket][event.dateLabel]) grouped[event.bucket][event.dateLabel] = [];
+      grouped[event.bucket][event.dateLabel].push(event);
+    });
+
+    Object.entries(grouped).forEach(([bucket, dates]) => {
+      const section = document.createElement('section');
+      section.className = 'section';
+      const label = document.createElement('div');
+      label.className = 'section-label';
+      label.textContent = bucket;
+      section.appendChild(label);
+
+      Object.entries(dates).forEach(([dateLabel, items]) => {
+        const group = document.createElement('div');
+        group.className = 'date-group';
+        const heading = document.createElement('div');
+        heading.className = 'date-heading';
+        heading.textContent = dateLabel;
+        group.appendChild(heading);
+
+        items.forEach((event) => {
+          const row = document.createElement('div');
+          row.className = 'event-row';
+          const badgeClass = event.costType === 'free' ? 'free-badge' : 'cost-badge';
+          const metaParts = [event.timeLabel, event.locationLabel, event.audienceLabel].filter(Boolean);
+          row.innerHTML =
+            '<div>' +
+              '<div class="event-main">' +
+                '<span class="event-title">' + event.title + '</span>' +
+                (event.costLabel ? '<span class="' + badgeClass + '">' + event.costLabel + '</span>' : '') +
+              '</div>' +
+              '<div class="event-meta">' +
+                metaParts.map((part, index) => '<span>' + part + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '')).join('') +
+              '</div>' +
+            '</div>' +
+            '<a class="event-link" href="' + event.href + '" target="_blank">Details →</a>';
+          group.appendChild(row);
+        });
+
+        section.appendChild(group);
+      });
+
+      eventsRoot.appendChild(section);
+    });
+  }
+</script>
+</body>
+</html>

@@ -11,10 +11,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Aurora Parks Map | Find Every Park in Aurora, Colorado</title>
- <meta name="description" content="Explore every park in Aurora, Colorado on an interactive map. Filter by playgrounds, trails, dog parks, and more. Find your next park fast.">
+  <title>Parks Finder — Find Every Park Colorado</title>
+  <meta name="description" content="Explore every park on Find Every Park Colorado with filters for trail access, dog parks, golf, playgrounds, and more.">
   <link rel="canonical" href="https://findeverypark.com/parks.html">
- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -83,13 +83,13 @@
     .passport-msg { font-size: 12px; color: #aaa; }
 
     /* STICKY CONTROLS */
-    .sticky { background: var(--white); border-bottom: 1px solid #e8e4de; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
-    .top-controls { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .sticky { background: rgba(255,255,255,0.92); border-bottom: 1px solid rgba(232,228,222,0.95); position: sticky; top: 0; z-index: 100; box-shadow: 0 10px 28px rgba(0,0,0,0.06); backdrop-filter: blur(12px); }
+    .top-controls { max-width: 1100px; margin: 0 auto; padding: 14px 20px 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
     .search-wrap { position: relative; flex: 1; min-width: 180px; }
     .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); opacity: 0.38; pointer-events: none; }
-    #search { width: 100%; padding: 9px 12px 9px 36px; border: 1.5px solid #ddd; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--mist); outline: none; transition: border-color 0.18s; }
-    #search:focus { border-color: var(--grass); background: var(--white); }
-    #sort { padding: 9px 30px 9px 13px; border: 1.5px solid #ddd; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; background: var(--mist) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' ke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 11px center; appearance: none; outline: none; cursor: pointer; }
+    #search { width: 100%; padding: 11px 14px 11px 36px; border: 1.5px solid #ddd; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: rgba(240,237,232,0.72); outline: none; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s; }
+    #search:focus { border-color: var(--grass); background: var(--white); box-shadow: 0 0 0 4px rgba(61,107,74,0.08); }
+    #sort { padding: 11px 34px 11px 13px; border: 1.5px solid #ddd; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; background: rgba(240,237,232,0.72) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' ke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 11px center; appearance: none; outline: none; cursor: pointer; }
     .filter-bar { max-width: 1100px; margin: 0 auto; padding: 0 20px 12px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
    .filter-bar { max-width: 1100px; margin: 0 auto; padding: 0 20px 12px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 
@@ -125,226 +125,75 @@
 
 .filter-label { font-size: 11px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 0.07em; flex-shrink: 0; }
     .filter-label { font-size: 11px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 0.07em; flex-shrink: 0; }
-    .pill { padding: 5px 12px; border-radius: 100px; border: 1.5px solid #ddd; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #555; cursor: pointer; transition: all 0.14s; white-space: nowrap; line-height: 1; }
-    .pill:hover { border-color: var(--grass); color: var(--grass); }
-    .pill.on { background: var(--grass); border-color: var(--grass); color: var(--white); }
+    .pill { padding: 6px 12px; border-radius: 999px; border: 1px solid #ddd; background: rgba(255,255,255,0.86); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.14s; white-space: nowrap; line-height: 1; }
+    .pill:hover { border-color: rgba(61,107,74,0.35); color: var(--grass); transform: translateY(-1px); }
+    .pill.on { background: linear-gradient(135deg, var(--grass), #2e5238); border-color: var(--grass); color: var(--white); box-shadow: 0 10px 22px rgba(61,107,74,0.18); }
     .pill.reset { color: #bbb; border-color: transparent; font-size: 11px; }
     .pill.reset:hover { color: var(--ink); border-color: #ddd; }
+    .dataset-switch { max-width: 1100px; margin: 12px auto 0; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .dataset-link { text-decoration: none; padding: 7px 13px; border-radius: 999px; border: 1px solid #ddd; color: #555; font-size: 12px; font-weight: 700; background: rgba(255,255,255,0.9); }
+    .dataset-link.active { background: var(--grass); border-color: var(--grass); color: white; }
+    .dataset-note { font-size: 12px; color: #888; }
 
     /* MAIN */
-   main {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px 20px 64px;
-}
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 64px; }
+    .page-hero { background: radial-gradient(circle at top left, rgba(255,255,255,0.82), rgba(255,255,255,0) 36%), linear-gradient(135deg, rgba(61,107,74,0.16), rgba(200,223,240,0.78)); border: 1px solid #e8e4de; border-radius: 24px; padding: 26px; margin-bottom: 22px; display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 20px; align-items: end; box-shadow: 0 24px 48px rgba(20,31,23,0.06); }
+    .page-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grass); margin-bottom: 10px; }
+    .page-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.04em; margin-bottom: 12px; }
+    .page-hero p { font-size: 14px; line-height: 1.65; color: #4d5c53; max-width: 58ch; }
+    .hero-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .hero-stat { background: rgba(255,255,255,0.86); border: 1px solid rgba(255,255,255,0.8); border-radius: 18px; padding: 15px; box-shadow: 0 14px 28px rgba(61,107,74,0.08); }
+    .hero-stat-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #7e8a82; margin-bottom: 8px; }
+    .hero-stat-value { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--ink); }
+    .hero-stat-copy { font-size: 12px; color: #6d776f; margin-top: 6px; line-height: 1.45; }
+    .browse-shell { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr); gap: 20px; align-items: start; }
+    .browse-main { min-width: 0; }
+    .browse-sidebar { position: sticky; top: 136px; }
 
     /* MAP */
-    .map-section { background: var(--white); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
+    .map-section { background: rgba(255,255,255,0.97); border-radius: 18px; box-shadow: 0 22px 40px rgba(20,31,23,0.08); overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(228,221,212,0.95); }
     .map-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #e8e4de; flex-wrap: wrap; gap: 8px; }
     .map-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .map-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .map-btn { padding: 5px 12px; border-radius: 8px; border: 1.5px solid #ddd; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: #555; cursor: pointer; transition: all 0.14s; display: flex; align-items: center; gap: 5px; }
+    .map-btn { padding: 7px 12px; border-radius: 10px; border: 1px solid #ddd; background: rgba(255,255,255,0.92); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.14s; display: flex; align-items: center; gap: 5px; }
     .map-btn:hover { border-color: var(--grass); color: var(--grass); }
     .map-btn.active { background: var(--grass); border-color: var(--grass); color: white; }
-    #map { height: 400px; background: #e8e4de; }
+    #map { height: 430px; background: #e8e4de; }
     .map-legend { padding: 8px 16px; border-top: 1px solid #e8e4de; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; font-size: 11px; color: #999; }
     .legend-item { display: flex; align-items: center; gap: 5px; }
     .legend-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px rgba(0,0,0,0.15); flex-shrink: 0; }
 
     /* CARDS */
-    .meta { font-size: 12px; color: #aaa; font-style: italic; margin-bottom: 16px; }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-    /* ZILLOW LAYOUT */
-
-.parks-shell {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(420px, 1fr);
-  gap: 20px;
-  align-items: start;
-}
-
-.parks-right {
-  order: 2;
-  width: 100%;
-  min-width: 0;
-  position: sticky;
-  top: 12px;
-  align-self: start;
-}
-
-.parks-left {
-  order: 1;
-  width: 100%;
-  min-width: 0;
-}
-#map {
-  width: 100%;
-  height: calc(100vh - 140px);
-  min-height: 420px;
-  max-height: 760px;
-  border-radius: 12px;
-}
-/* MOBILE FIX */
-
-
-@media (max-width: 900px) {
- .photo-gallery {
-  aspect-ratio: 16 / 6.4;
-}
-  main {
-    padding: 12px 10px 40px;
-  }
-
-  .parks-shell {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .parks-right {
-    order: 1;
-    width: 100%;
-    min-width: 0;
-    position: static;
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-
-  .parks-left {
-    order: 2;
-    width: 100%;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  #map {
-    height: 32vh;
-    min-height: 220px;
-  }
-
-  .map-section {
-    margin-top: 10px;
-  }
-
-  .map-header {
-    padding: 10px 12px;
-  }
-
-  .map-legend {
-    padding: 8px 10px;
-    gap: 8px;
-    font-size: 11px;
-  }
-
-  .card-body {
-    padding: 6px 8px;
-    gap: 3px;
-  }
-
-  .park-name {
-    font-size: 12px;
-    line-height: 1.15;
-  }
-
-  .acres {
-    font-size: 10px;
-    padding-top: 1px;
-  }
-
-  .addr {
-    font-size: 9px;
-    gap: 3px;
-  }
-
-  .tags {
-    gap: 3px;
-  }
-
-  .tag {
-    font-size: 9px;
-    padding: 1px 5px;
-  }
-
-  .card-actions {
-    gap: 4px;
-    padding-top: 1px;
-  }
-
-  .dir-btn {
-    gap: 3px;
-    padding: 6px 5px;
-    font-size: 10px;
-    border-radius: 6px;
-  }
-
-  .city-btn {
-    gap: 2px;
-    padding: 6px 6px;
-    font-size: 10px;
-    border-radius: 6px;
-  }
-}
-    .card {
-  background: var(--white);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.18s, transform 0.18s;
-}
-    .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .meta { font-size: 12px; color: #788379; margin-bottom: 16px; padding: 10px 14px; background: rgba(255,255,255,0.76); border: 1px solid rgba(228,221,212,0.92); border-radius: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(251,249,246,0.98)); border-radius: 20px; box-shadow: 0 18px 34px rgba(20,31,23,0.08); display: flex; flex-direction: column; transition: box-shadow 0.18s, transform 0.18s; animation: up 0.28s ease both; overflow: hidden; border: 1px solid rgba(228,221,212,0.88); }
+    .card:hover { box-shadow: 0 26px 44px rgba(20,31,23,0.12); transform: translateY(-4px); }
     @keyframes up { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
-    .photo-gallery {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-}
+    .photo-gallery { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: linear-gradient(135deg, #dce9df, #d5e3ef); }
+    .photo-gallery::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,28,20,0) 34%, rgba(16,28,20,0.42) 100%); pointer-events: none; }
     .placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
     .placeholder-icon { font-size: 38px; opacity: 0.45; }
     .placeholder-text { font-size: 11px; color: #999; font-style: italic; }
-    .passport-btn { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.9); border: none; border-radius: 6px; padding: 4px 9px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 4px; transition: all 0.15s; color: #555; }
+    .passport-btn { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.92); border: none; border-radius: 999px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 4px; transition: all 0.15s; color: #555; z-index: 1; }
     .passport-btn:hover { background: white; color: var(--grass); }
     .passport-btn.stamped { background: var(--grass); color: white; }
-    .map-pin-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); border: none; border-radius: 6px; padding: 4px 9px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 4px; transition: all 0.15s; color: #555; }
+    .map-pin-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.92); border: none; border-radius: 999px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 4px; transition: all 0.15s; color: #555; z-index: 1; }
     .map-pin-btn:hover { background: white; color: var(--md-orange); }
-    .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
-   .card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-}
-  .park-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--ink);
-}
-    .acres { font-size: 11px; color: #bbb; white-space: nowrap; padding-top: 2px; flex-shrink: 0; }
-    .addr { font-size: 10px; color: #999; display: flex; align-items: flex-start; gap: 3px; }
+    .media-trail-badge { position: absolute; left: 12px; bottom: 12px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.92); color: var(--grass); border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 700; box-shadow: 0 10px 22px rgba(20,31,23,0.12); }
+    .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; }
+    .park-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; line-height: 1.2; color: var(--ink); letter-spacing: -0.03em; }
+    .acres { font-size: 11px; color: #89918a; white-space: nowrap; padding-top: 2px; flex-shrink: 0; font-weight: 700; }
+    .addr { font-size: 12px; color: #7f877f; display: flex; align-items: flex-start; gap: 5px; }
     .addr svg { flex-shrink: 0; margin-top: 1px; opacity: 0.6; }
-    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
-    .tag { font-size: 10px; padding: 2px 6px; border-radius: 100px; background: rgba(0,0,0,0.055); color: #555; font-weight: 500; }
-    .tag.hi { background: rgba(61,107,74,0.13); color: var(--grass); }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag { font-size: 11px; padding: 4px 9px; border-radius: 999px; background: rgba(0,0,0,0.04); color: #596158; font-weight: 600; border: 1px solid rgba(228,221,212,0.92); }
+    .tag.hi { background: rgba(61,107,74,0.13); color: var(--grass); border-color: rgba(61,107,74,0.14); }
     .tag.none { color: #ccc; font-style: italic; }
-  .card-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: auto;
-  padding-top: 4px;
-}
-    .dir-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 9px; border-radius: 8px; background: var(--grass); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer; transition: background 0.14s; }
-    .dir-btn:hover { background: #2e5238; }
-    .city-btn { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 9px 12px; border-radius: 8px; background: transparent; color: #999; border: 1.5px solid #e0ddd8; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer; transition: all 0.14s; white-space: nowrap; }
+    .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 6px; }
+    .dir-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 10px; border-radius: 12px; background: linear-gradient(135deg, var(--grass), #2e5238); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; transition: transform 0.14s, box-shadow 0.14s; box-shadow: 0 12px 22px rgba(61,107,74,0.18); }
+    .dir-btn:hover { transform: translateY(-1px); box-shadow: 0 16px 28px rgba(61,107,74,0.22); }
+    .city-btn { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.9); color: #596158; border: 1px solid #e0ddd8; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.14s; white-space: nowrap; min-width: 112px; }
     .city-btn:hover { border-color: var(--grass); color: var(--grass); }
     .match-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; white-space: nowrap; }
     .match-badge.perfect { background: rgba(61,107,74,0.13); color: var(--grass); }
@@ -384,51 +233,30 @@
     .leaflet-popup-content b { font-family: 'Syne', sans-serif; font-size: 14px; display: block; margin-bottom: 3px; }
     .popup-acres { font-size: 11px; color: #aaa; }
     .popup-visited { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 600; background: rgba(61,107,74,0.13); color: var(--grass); padding: 2px 8px; border-radius: 100px; }
- .card-flash {
-  animation: flashCard 1.6s ease;
-}
-
-@keyframes flashCard {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 rgba(244, 185, 66, 0);
-  }
-  30% {
-    transform: scale(1.03);
-    box-shadow: 0 0 18px rgba(244, 185, 66, 0.9);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 rgba(244, 185, 66, 0);
-  }
-}
-.nav-cta {
-  background: #e8703a;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 12px;
-}
-.nav-center {
-  color: rgba(255,255,255,0.8);
-  font-weight: 600;
-  font-size: 14px;
-}
-
-
- </style>
+    @media (max-width: 980px) {
+      .page-hero { grid-template-columns: 1fr; }
+      .hero-stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .browse-shell { grid-template-columns: 1fr; }
+      .browse-sidebar { position: static; }
+    }
+    @media (max-width: 700px) {
+      .page-hero { padding: 18px; }
+      .hero-stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
 <nav class="main-nav">
   <a href="./index.html" class="nav-brand">Find Every Park</a>
-
-  <div class="nav-center">Parks</div>
-
-  <a href="./events.html" class="nav-cta">Find Events</a>
+  <ul class="nav-links">
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./parks.html" class="active">Parks</a></li>
+    <li><a href="./trails.html">Trails</a></li>
+    <li><a href="./events.html">Events</a></li>
+  </ul>
 </nav>
+
 <div class="passport-bar">
   <div class="passport-inner">
     <span>&#127957;&#65039;</span>
@@ -440,6 +268,12 @@
 </div>
 
 <div class="sticky">
+  <div class="dataset-switch">
+    <span class="filter-label">City:</span>
+    <a class="dataset-link" data-dataset="aurora" href="./parks.html?dataset=aurora">Aurora</a>
+    <a class="dataset-link" data-dataset="centennial" href="./parks.html?dataset=centennial">Centennial</a>
+    <span class="dataset-note" id="dataset-note">Colorado park guide</span>
+  </div>
   <div class="top-controls">
     <div class="search-wrap">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -461,8 +295,33 @@
 </div>
 
 <main>
-  <div class="parks-shell">
-    <div class="parks-left">
+  <section class="page-hero">
+    <div>
+      <div class="page-kicker">Browse Parks</div>
+      <h1><span id="hero-city">Aurora</span> Parks</h1>
+      <p id="hero-copy">Explore park cards, zoom into the map, filter by amenities, and save the places you want to revisit. This is the browse layer that will scale across Colorado city by city.</p>
+    </div>
+    <div class="hero-stats-grid">
+      <div class="hero-stat">
+        <span class="hero-stat-label">Active City</span>
+        <div class="hero-stat-value" id="hero-city-stat">Aurora</div>
+        <div class="hero-stat-copy" id="hero-state-stat">Colorado park guide</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Parks Loaded</span>
+        <div class="hero-stat-value" id="hero-total">0</div>
+        <div class="hero-stat-copy">Searchable park cards and map markers.</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Best For</span>
+        <div class="hero-stat-value" id="hero-best-for">Families</div>
+        <div class="hero-stat-copy" id="hero-best-for-copy">Playgrounds, everyday stops, and easy park comparison.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="browse-shell">
+    <div class="browse-main">
       <div class="meta" id="meta"></div>
       <div class="grid" id="grid"></div>
       <div id="load-more-wrap" style="text-align:center; margin-top:20px;"></div>
@@ -473,7 +332,7 @@
       </div>
     </div>
 
-    <div class="parks-right">
+    <aside class="browse-sidebar">
       <div class="map-section">
         <div class="map-header">
           <div class="map-title">&#x1F5FA;&#xFE0F; Park Map</div>
@@ -491,14 +350,140 @@
           <span id="legend-dist" style="margin-left:auto;color:#bbb;font-size:11px;"></span>
         </div>
       </div>
-    </div>
+    </aside>
   </div>
+
+  <section id="dog-parks" class="dog-section">
+    <div class="dog-section-title">&#x1F415; Dog Parks</div>
+    <p>Fenced off-leash dog parks in Aurora. Always carry waste bags and check posted rules at each location.</p>
+    <div class="dog-grid">
+      <div class="dog-card">
+        <div class="dog-card-name">Grandview Dog Park</div>
+        <div class="dog-card-meta">17500 E Quincy Ave</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Fenced</span>
+          <span class="dog-tag">Off-Leash</span>
+          <span class="dog-tag water">Water</span>
+          <span class="dog-tag">Separate Areas</span>
+        </div>
+        <div class="dog-card-note">Agility equipment; gets busy on weekends; gravel/dirt terrain.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Cherry Creek Dog Off-Leash Area</div>
+        <div class="dog-card-meta">S Parker Rd &amp; E Orchard Rd</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Fenced</span>
+          <span class="dog-tag">Off-Leash</span>
+          <span class="dog-tag water">Creek Swimming</span>
+          <span class="dog-tag">107+ acres</span>
+        </div>
+        <div class="dog-card-note">Requires $3 daily or $25 annual DOLA permit + State Park Pass.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Bicentennial Dog Park</div>
+        <div class="dog-card-meta">13600 E Bayaud Ave</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Fenced</span>
+          <span class="dog-tag">Off-Leash</span>
+          <span class="dog-tag">Community Park</span>
+        </div>
+        <div class="dog-card-note">Dirt/crushed stone; good for a quick social visit. No water on-site.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Singletree Dog Park</div>
+        <div class="dog-card-meta">17400 E Telluride St &bull; 6.5 ac</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Fenced</span>
+          <span class="dog-tag">Off-Leash</span>
+          <span class="dog-tag">Residential Area</span>
+        </div>
+        <div class="dog-card-note">Bring your own water and waste bags.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Aurora Reservoir</div>
+        <div class="dog-card-meta">5800 S. Powhaton Rd. &bull; 1,861 ac</div>
+        <div class="dog-card-tags"><span class="dog-tag">On-leash trails</span><span class="dog-tag water">Water access</span></div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Sand Creek Trail</div>
+        <div class="dog-card-meta">Sand Creek corridor</div>
+        <div class="dog-card-tags"><span class="dog-tag">On-leash</span><span class="dog-tag">Paved</span></div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Plains Conservation Center</div>
+        <div class="dog-card-meta">21901 E. Hampden Ave. &bull; 1,182 ac</div>
+        <div class="dog-card-tags"><span class="dog-tag">On-leash</span><span class="dog-tag">Soft surface</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dog-friendly-businesses" class="dog-section">
+    <div class="dog-section-title">&#x1F3E2; Dog-Friendly Businesses</div>
+    <div class="dog-grid">
+      <div class="dog-card">
+        <div class="dog-card-name">Resolute Brewing Company</div>
+        <div class="dog-card-meta">7281 S Yosemite St, Centennial, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Indoor &amp; Patio</span>
+        </div>
+        <div class="dog-card-note">One of the most dog-friendly spots in the DTC area. Dogs allowed inside the taproom and on the turf patio with fire pit.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Living the Dream Brewing</div>
+        <div class="dog-card-meta">9150 Commerce Center Cir #300, Highlands Ranch, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Indoor &amp; Patio</span>
+        </div>
+        <div class="dog-card-note">Famous for being dog-centric. Dogs welcome inside the taproom and they often have a resident brew dog.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">2 Penguins Tap and Grill</div>
+        <div class="dog-card-meta">13065 E Briarwood Ave, Centennial, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag water">Patio Only</span>
+        </div>
+        <div class="dog-card-note">Large 3,000 sq ft patio that welcomes dogs outside but not inside the dining room.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Lone Tree Brewing Company (Parker Location)</div>
+        <div class="dog-card-meta">18425 Pony Express Dr, Parker, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Indoor &amp; Patio</span>
+        </div>
+        <div class="dog-card-note">Dog-friendly taproom and patio. Leashed dogs welcome indoors.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Fiction Beer Company (Parker)</div>
+        <div class="dog-card-meta">19523 Hess Rd #103, Parker, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Indoor &amp; Patio</span>
+        </div>
+        <div class="dog-card-note">Very dog-friendly indoor space. They even offer a non-alcoholic dog beer on their dog menu.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Welcome Home Brewery</div>
+        <div class="dog-card-meta">19523 Hess Rd Unit 103, Parker, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag">Indoor &amp; Patio</span>
+        </div>
+        <div class="dog-card-note">Cozy living-room style brewery. Dogs welcome inside and outside.</div>
+      </div>
+      <div class="dog-card">
+        <div class="dog-card-name">Bodega Beer Company</div>
+        <div class="dog-card-meta">19523 Hess Rd Unit 103, Parker, CO</div>
+        <div class="dog-card-tags">
+          <span class="dog-tag water">Patio Only</span>
+        </div>
+        <div class="dog-card-note">Coffee in the morning and beer later. Dogs welcome on the shaded patio.</div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-     <span>Building community for dads in Aurora, Colorado</span>
+     <span>Front Range-first park discovery across Colorado</span>
     </div>
     <div class="footer-links">
       <a href="./index.html">Home</a>
@@ -507,17 +492,33 @@
       <a href="./events.html">Events</a>
       <a href="https://mightydads.org" target="_blank">mightydads.org</a>
     </div>
-    <div class="footer-copy">Park data sourced from the City of Aurora &bull; Aurora, Colorado</div>
+    <div class="footer-copy">Current park listings on this page are sourced from Aurora data while Colorado coverage expands.</div>
   </div>
 </footer>
 
+<script src="site-config.js"></script>
+<script src="data/photos/park-photo-manifest.js"></script>
+<script src="park-data-registry.js"></script>
+<script src="dataset-loader.js"></script>
 <script>
   // Get search term from homepage
 const urlParams = new URLSearchParams(window.location.search);
 const searchQuery = urlParams.get('search')?.toLowerCase() || "";
-const CITY = "Aurora";
-const STATE = "CO";
-  const COORDS = {
+const requestedFilters = (urlParams.get('filter') || "")
+  .split(',')
+  .map(value => value.trim().toLowerCase())
+  .filter(Boolean);
+const DATASET_KEY = window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
+const DATASET_META = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
+  city: "Aurora",
+  state: "CO",
+  stateName: "Colorado",
+  brandName: (window.SITE_CONFIG && window.SITE_CONFIG.brandName) || "Find Every Park Colorado"
+};
+const CITY = DATASET_META.city;
+const STATE = DATASET_META.state;
+document.title = "Parks Finder — " + DATASET_META.brandName;
+  const COORDS = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {
   "Alta Vista Park": [39.690588,-104.791457],
   "Altura Park": [39.742784,-104.813072],
   "Anchor Point Park": [39.592131,-104.676356],
@@ -635,24 +636,27 @@ const STATE = "CO";
   "Willow Bend Park": [39.657365,-104.74796],
 };
 
-let visited = new Set(JSON.parse(localStorage.getItem('md_visited') || '[]'));
+const VISITED_KEY = 'md_visited:' + DATASET_KEY;
+const FILTERS_KEY = 'parkFilters:' + DATASET_KEY;
+let visited = new Set(JSON.parse(localStorage.getItem(VISITED_KEY) || '[]'));
 let userLat = null, userLng = null;
 let mapMode = 'all';
 let map, markersLayer, userMarker;
 let parkMarkers = {};
 let currentFiltered = [];
+const DATASET_CENTER = Object.values(COORDS)[0] || [39.710, -104.800];
 let activeFilters = {
   mapMode: 'all'
 };
 
-const savedFilters = localStorage.getItem("parkFilters");
+const savedFilters = localStorage.getItem(FILTERS_KEY);
 if (savedFilters) {
   activeFilters = JSON.parse(savedFilters);
   mapMode = activeFilters.mapMode || 'all';
 }
 
 function initMap() {
-  map = L.map("map").setView([39.710, -104.800], 11);
+  map = L.map("map").setView(DATASET_CENTER, 11);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19, attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
@@ -660,12 +664,17 @@ function initMap() {
   parkMarkers = {};
 }
 
+function formatPlace(address) {
+  if (!address) return CITY + " " + STATE;
+  return address.toLowerCase().includes(CITY.toLowerCase())
+    ? address
+    : address + ", " + CITY + " " + STATE;
+}
+
 function renderMarkers(filteredList) {
   if (!markersLayer) return;
-
   parkMarkers = {};
   markersLayer.clearLayers();
-
   const hasFilters = window._activeSet && window._activeSet.size > 0;
   const matchNames = hasFilters
     ? new Set(filteredList.map(p => p.n))
@@ -682,151 +691,62 @@ function renderMarkers(filteredList) {
     const isVisited = visited.has(p.n);
     const isMatch = matchNames.has(p.n);
     const color = isVisited ? '#e8703a' : isMatch ? '#c8a000' : '#3d6b4a';
+   const marker = L.circleMarker([c[0], c[1]], {
+  radius: isVisited || isMatch ? 8 : 6, fillColor: color, color: 'white', weight: 2, fillOpacity: 0.88
+}).bindPopup(
+ '<b>' + p.n + '</b>' +
+'<div class="popup-acres">' + (p.ac > 0 ? p.ac.toLocaleString() + ' acres' : 'Open space') + '</div>' +
+'<div style="font-size:11px;color:#999;margin-top:2px">' + formatPlace(p.a) + '</div>' +
+(isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
+).addTo(markersLayer);
 
-    const marker = L.circleMarker([c[0], c[1]], {
-      radius: isVisited || isMatch ? 8 : 6,
-      fillColor: color,
-      color: 'white',
-      weight: 2,
-      fillOpacity: 0.88
-    })
-    .bindPopup(
-      '<div style="font-weight:700;font-size:14px;"><a href="park.html?name=' + encodeURIComponent(p.n) + '" onclick="saveParkPageState()" style="text-decoration:none;color:#2a7f3b;">' + p.n + '</a></div>' +
-      '<div class="popup-acres">' + (p.ac > 0 ? p.ac.toLocaleString() + ' acres' : 'Open space') + '</div>' +
-      '<div style="font-size:11px;color:#999;margin-top:2px">' + p.a + ', ' + CITY + ' ' + STATE + '</div>' +
-      (isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
-    )
-    .on('click', () => {
-      focusMapOnPark(p.n);
-    })
-    .addTo(markersLayer);
-
-    parkMarkers[p.n] = marker;
-  });
-}
-function parkCardId(name) {
-  return 'park-' + String(name)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-let selectedParkName = null;
-
-function styleMarkerByState(parkName, marker) {
-  if (!marker) return;
-
-  if (selectedParkName === parkName) {
-    marker.setStyle({
-      radius: 14,
-      weight: 4,
-      color: '#1f4d2e',
-      fillColor: '#f4b942',
-      fillOpacity: 1
-    });
-    return;
-  }
-
-  const isVisited = visited.has(parkName);
-  const matchedPark = currentFiltered.find(p => p.n === parkName);
-  const isMatch = matchedPark && active.size > 0 && matchedPark.score === active.size;
-
-  let fill = '#3d6b4a';
-  if (isVisited) fill = '#e8703a';
-  else if (isMatch) fill = '#c8a000';
-
-  marker.setStyle({
-    radius: isVisited || isMatch ? 8 : 6,
-    weight: 2,
-    color: 'white',
-    fillColor: fill,
-    fillOpacity: 0.88
+parkMarkers[p.n] = marker;
   });
 }
 
 function focusMapOnPark(name) {
   const c = COORDS[name];
-  const marker = parkMarkers[name];
-  if (!c || !map || !marker) return;
-
-  selectedParkName = name;
-
-  Object.entries(parkMarkers).forEach(([parkName, m]) => {
-    if (m.closePopup) m.closePopup();
-    styleMarkerByState(parkName, m);
-  });
-
+  if (!c || !map) return;
   map.setView([c[0], c[1]], 15, { animate: true });
-
-  const mapSection = document.querySelector('.map-section');
-  if (mapSection) {
-    mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  marker.openPopup();
-  styleMarkerByState(name, marker);
+  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  markersLayer.eachLayer(layer => {
+    if (layer.getLatLng) {
+      const ll = layer.getLatLng();
+      if (Math.abs(ll.lat - c[0]) < 0.0002 && Math.abs(ll.lng - c[1]) < 0.0002) layer.openPopup();
+    }
+  });
 }
+
 function setMapMode(mode) {
   mapMode = mode;
 
   activeFilters.mapMode = mode;
-  localStorage.setItem("parkFilters", JSON.stringify(activeFilters));
+  localStorage.setItem(FILTERS_KEY, JSON.stringify(activeFilters));
 
   renderMarkers(filteredParks);
 }
 
 
 function locateMe() {
-  if (!navigator.geolocation) {
-    alert("Geolocation not supported.");
-    return;
-  }
-
+  if (!navigator.geolocation) { alert("Geolocation not supported."); return; }
   const btn = document.getElementById('btn-locate');
   btn.textContent = 'Locating...';
-
   navigator.geolocation.getCurrentPosition(pos => {
-    userLat = pos.coords.latitude;
-    userLng = pos.coords.longitude;
-
-    btn.innerHTML = '&#x1F4CD; Located!';
-    btn.classList.add('active');
-
+    userLat = pos.coords.latitude; userLng = pos.coords.longitude;
+    btn.innerHTML = '&#x1F4CD; Located!'; btn.classList.add('active');
+    setTimeout(() => { btn.innerHTML = '&#x1F4CD; Find me'; btn.classList.remove('active'); }, 2500);
     if (userMarker) map.removeLayer(userMarker);
-
-    userMarker = L.circleMarker([userLat, userLng], {
-      radius: 9,
-      fillColor: '#4285f4',
-      color: 'white',
-      weight: 2.5,
-      fillOpacity: 1
-    })
-    .bindPopup('<b>You are here</b>')
-    .addTo(map);
-
+    userMarker = L.circleMarker([userLat, userLng], { radius: 9, fillColor: '#4285f4', color: 'white', weight: 2.5, fillOpacity: 1 }).bindPopup('<b>You are here</b>').addTo(map);
     map.setView([userLat, userLng], 13, { animate: true });
     document.getElementById('legend-dist').textContent = 'Distances from your location';
-
-    if (document.getElementById('sort').value === 'nearest') {
-      render();
-    } else {
-      renderMarkers(currentFiltered);
-    }
-  }, () => {
-    btn.innerHTML = '&#x1F4CD; Find me';
-  });
+    if (document.getElementById('sort').value === 'nearest') render(); else renderMarkers(currentFiltered);
+  }, () => { btn.innerHTML = '&#x1F4CD; Find me'; });
 }
+
 function haversine(lat1, lng1, lat2, lng2) {
-  const R = 3958.8;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLng = (lng2 - lng1) * Math.PI / 180;
-
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1 * Math.PI / 180) *
-    Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLng / 2) ** 2;
-
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const R = 3958.8, dLat = (lat2-lat1)*Math.PI/180, dLng = (lng2-lng1)*Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
 function distLabel(m) {
@@ -834,31 +754,23 @@ function distLabel(m) {
 }
 
 function saveVisited() {
-  localStorage.setItem('md_visited', JSON.stringify([...visited]));
-  updatePassport();
-  renderMarkers(currentFiltered);
+  localStorage.setItem(VISITED_KEY, JSON.stringify([...visited]));
+  updatePassport(); renderMarkers(currentFiltered);
 }
 
 function updatePassport() {
-  const count = visited.size;
-  const total = P.length;
-
+  const count = visited.size, total = P.length;
   document.getElementById('passport-count').textContent = count + ' visited';
-  document.getElementById('passport-fill').style.width = (count / total * 100) + '%';
-
-  const msg = count === 0
-    ? "Check in at parks you've visited!"
-    : count < 10
-    ? (total - count) + ' parks still to explore!'
-    : count < 25
-    ? "You're getting out there!"
-    : count < 50
-    ? 'Mighty explorer!'
-    : 'Aurora Parks Legend!';
-
+  document.getElementById('passport-fill').style.width = (count/total*100) + '%';
+  const msg = count===0 ? "Check in at parks you've visited!"
+    : count<10 ? (total-count) + ' parks still to explore!'
+    : count<25 ? "You're getting out there!"
+    : count<50 ? 'Mighty explorer!'
+    : 'Park legend status!';
   document.getElementById('passport-msg').textContent = msg;
 }
-const P = [
+
+const P = (window.PARKS && window.PARKS.length ? window.PARKS : [
   {id:"co-aurora-alta-vista-park",n:"Alta Vista Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"16800 E. Idaho Cir.",ac:1.5,f:{},photos:[]},
   {n:"Altura Park",a:"15100 E. 17th Ave.",ac:3.9,f:{playground:1,baseball:1},photos:[]},
   {n:"Anchor Point Park",a:"6855 S. Robertsdale Way",ac:5,f:{playground:1,shelter:1},photos:[]},
@@ -977,7 +889,36 @@ const P = [
   {n:"Wheel Park",a:"2500 S. Wheel Park Cir.",ac:25.3,f:{trails:1,restroom:1,shelter:1,skate:1},photos:[]},
   {n:"Wheeling Park",a:"475 S. Potomac Way",ac:7.3,f:{baseball:1,soccer:1},photos:[]},
   {n:"Willow Bend Park",a:"20646 E. Eastman Ave.",ac:0.3,f:{playground:1,trails:1,shelter:1},photos:[]},
-];
+]).map(park => window.normalizePark ? window.normalizePark(park, DATASET_KEY) : park);
+
+document.querySelectorAll('.dataset-link').forEach((link) => {
+  link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
+});
+document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName;
+document.getElementById('hero-city').textContent = CITY;
+document.getElementById('hero-city-stat').textContent = CITY;
+document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
+document.getElementById('hero-total').textContent = P.length.toLocaleString();
+const heroCopyEl = document.getElementById('hero-copy');
+const heroBestForEl = document.getElementById('hero-best-for');
+const heroBestForCopyEl = document.getElementById('hero-best-for-copy');
+if (requestedFilters.includes('trails')) {
+  heroCopyEl.textContent = 'Browse ' + CITY + ' parks with trail access, compare nearby stops on the map, and use this as the fast route into greener walks, trailheads, and longer outdoor loops.';
+  heroBestForEl.textContent = 'Trail Access';
+  heroBestForCopyEl.textContent = 'Walking routes, greenways, and parks that connect to longer outings.';
+} else if (requestedFilters.includes('golf')) {
+  heroCopyEl.textContent = 'Browse ' + CITY + ' golf courses and golf-adjacent park spaces in one clean map-and-card view. This gives the site a stronger recreation layer without splitting users into a separate experience.';
+  heroBestForEl.textContent = 'Golf';
+  heroBestForCopyEl.textContent = 'Course discovery, quick comparison, and nearby recreation context.';
+} else if (requestedFilters.includes('dog_park')) {
+  heroCopyEl.textContent = 'Browse ' + CITY + ' dog-friendly parks and off-leash options with the same card-and-map experience, so it feels like one product instead of a pile of separate pages.';
+  heroBestForEl.textContent = 'Dogs';
+  heroBestForCopyEl.textContent = 'Off-leash spots, dog-friendly stops, and easier everyday planning.';
+} else {
+  heroCopyEl.textContent = 'Explore ' + CITY + ' park cards, zoom into the map, filter by amenities, and save the places you want to revisit.';
+  heroBestForEl.textContent = 'Families';
+  heroBestForCopyEl.textContent = 'Playgrounds, everyday stops, and easy park comparison.';
+}
 
 const FILTERS = [
   {k:'playground',l:'Playground',e:'&#x1F6DD;'},
@@ -990,15 +931,15 @@ const FILTERS = [
   {k:'pool',l:'Pool',e:'&#x1F3CA;'},
   {k:'sprayground',l:'Sprayground',e:'&#x1F4A6;'},
   {k:'dog_park',l:'Dog Park',e:'&#x1F415;'},
-  {k:'trails', l:'Trail Access', e:'&#x1F97E;'},
+  {k:'trails',l:'Trails',e:'&#x1F97E;'},
   {k:'fishing',l:'Fishing',e:'&#x1F3A3;'},
   {k:'disc_golf',l:'Disc Golf',e:'&#x1F94F;'},
   {k:'skate',l:'Skate/BMX',e:'&#x1F6F9;'},
+  {k:'golf',l:'Golf Course',e:'&#x26F3;'},
   {k:'garden',l:'Community Garden',e:'&#x1F331;'},
   {k:'boating',l:'Boating',e:'&#x1F6A3;'},
   {k:'restroom',l:'Restrooms',e:'&#x1F6BB;'},
   {k:'shelter',l:'Shelter',e:'&#x1F3D5;&#xFE0F;'},
-  {k:'golf',l:'Golf Course',e:'&#x26F3;'},
 ];
 
 const grid = document.getElementById('grid');
@@ -1031,6 +972,12 @@ resetBtn.className = 'pill reset'; resetBtn.textContent = '\u2715 Clear';
 resetBtn.onclick = () => { active.clear(); document.querySelectorAll('.pill.on').forEach(b => b.classList.remove('on')); searchEl.value = ''; render(); };
 filterBar.appendChild(resetBtn);
 
+function syncFilterButtons() {
+  document.querySelectorAll('.pill[data-k]').forEach(btn => {
+    btn.classList.toggle('on', active.has(btn.dataset.k));
+  });
+}
+
 function createGallery(park, idx) {
   const div = document.createElement('div');
   div.className = 'photo-gallery';
@@ -1058,11 +1005,27 @@ function createGallery(park, idx) {
     div.appendChild(mapBtn);
   }
 
-  const ph = document.createElement('div');
-  ph.className = 'placeholder';
-  ph.style.background = 'linear-gradient(135deg,' + c1 + ',' + c2 + ')';
-  ph.innerHTML = '<div class="placeholder-icon">' + icons[idx % icons.length] + '</div><div class="placeholder-text">Photo coming soon</div>';
-  div.appendChild(ph);
+  if (park.heroPhoto && park.heroPhoto.src) {
+    const img = document.createElement('img');
+    img.src = park.heroPhoto.src;
+    img.alt = park.heroPhoto.alt || (park.n + ' photo');
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    div.appendChild(img);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'placeholder';
+    ph.style.background = 'linear-gradient(135deg,' + c1 + ',' + c2 + ')';
+    ph.innerHTML = '<div class="placeholder-icon">' + icons[idx % icons.length] + '</div><div class="placeholder-text">Photo coming soon</div>';
+    div.appendChild(ph);
+  }
+  if (park.f && park.f.trails) {
+    const trailBadge = document.createElement('div');
+    trailBadge.className = 'media-trail-badge';
+    trailBadge.innerHTML = '&#x1F6B6; Trail Access';
+    div.appendChild(trailBadge);
+  }
   return div;
 }
 
@@ -1073,65 +1036,18 @@ function createGallery(park, idx) {
   if (f.restroom) icons += "🚻 ";
   if (f.shelter) icons += "🌳 ";
   if (f.trails) icons += "🚶 ";
-  if (f.dog_park) icons += "🐕";
+  if (f.dog_park) icons += "🐕 ";
   if (f.basketball) icons += "🏀 ";
   if (f.baseball) icons += "⚾ ";
   if (f.tennis) icons += "🎾 ";
   if (f.pool) icons += "💧 ";
 
   return `<div class="park-icons">${icons}</div>`;
-  }
-  function saveParkPageState() {
-  sessionStorage.setItem("parksPageState", JSON.stringify({
-    search: searchEl ? searchEl.value : "",
-    sort: sortEl ? sortEl.value : "",
-    activeFilters: [...active],
-    scrollY: window.scrollY
-  }));
-}
-function restoreParkPageState()
- {const params = new URLSearchParams(window.location.search);
-
-if (params.get('trails') === '1') {
-  active = new Set(['trails']);
-
-  document.querySelectorAll('.pill[data-k]').forEach(btn => {
-    btn.classList.toggle('on', btn.dataset.k === 'trails');
-  });
-}
-  const raw = sessionStorage.getItem("parksPageState");
-  if (!raw) return false;
-
-  try {
-    const state = JSON.parse(raw);
-
-    if (searchEl) searchEl.value = state.search || "";
-    if (sortEl) sortEl.value = state.sort || "";
-
-    active = new Set(state.activeFilters || []);
-    window._activeSet = active;
-
-    document.querySelectorAll(".pill[data-k]").forEach(btn => {
-      btn.classList.toggle("on", active.has(btn.dataset.k));
-    });
-
-    render();
-
-    requestAnimationFrame(() => {
-      window.scrollTo(0, state.scrollY || 0);
-    });
-
-    return true;
-  } catch (err) {
-    console.error("Failed to restore park page state:", err);
-    return false;
-  }
 }
 function render() {
   const q = searchEl.value.trim().toLowerCase();
   const s = sortEl.value;
   const af = [...active];
-  console.log("ACTIVE FILTERS:", af);
 
 let list = P.map((p, origIdx) => {
   const featureText = FILTERS
@@ -1203,108 +1119,91 @@ let list = P.map((p, origIdx) => {
     const distStr = p.dist ? '<span style="font-size:11px;color:#b07848;font-weight:500">\u{1F4CD} ' + distLabel(p.dist) + '</span>' : '';
 
     const card = document.createElement('div');
-card.className = 'card' + (isNone ? ' dimmed' : '');
-card.id = parkCardId(p.n);
-card.onclick = () => {
-  focusMapOnPark(p.n);
-};
-
-card.onmouseenter = () => {
-  const m = parkMarkers[p.n];
-  if (m) {
-    m.setStyle({
-      radius: 14,
-      weight: 4,
-      color: '#1f4d2e',
-      fillColor: '#f4b942',
-      fillOpacity: 1
-    });
-  }
+    card.className = 'card' + (isNone ? ' dimmed' : '');
+    card.onclick = () => {
+      sessionStorage.setItem('parksFilters', JSON.stringify({
+        search: document.getElementById('search')?.value || '',
+        sort: document.getElementById('sort')?.value || '',
+        active: [...active],
+        dataset: DATASET_KEY
+      }));
+      if (COORDS[p.n]) {
+        focusMapOnPark(p.n);
+      } else {
+        window.location.href = 'park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(p.n);
+      }
+    };
+    card.onmouseenter = () => {
+    const m = parkMarkers[p.n];
+  if (m) m.setStyle({ radius: 12, weight: 3 });
 };
 
 card.onmouseleave = () => {
   const m = parkMarkers[p.n];
-  if (m) styleMarkerByState(p.n, m);
+  if (m) {
+    const isVisited = visited.has(p.n);
+    const isMatch = active.size > 0 && p.score === active.size;
+    m.setStyle({ radius: isVisited || isMatch ? 8 : 6, weight: 2 });
+  }
 };
     card.style.animationDelay = Math.min(i, 25) * 16 + 'ms';
     card.appendChild(createGallery(p, p.origIdx));
     const body = document.createElement('div');
     body.className = 'card-body';
-    body.innerHTML = `
-  <div class="card-top">
-    <a class="card-title"
-       href="park.html?name=${encodeURIComponent(p.n)}"
-       onclick="event.stopPropagation(); saveParkPageState();">
-      ${p.n}
-    </a>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
-      ${acStr ? `<div class="acres">${acStr}</div>` : ''}
-      ${matchBadge}
-    </div>
-  </div>
-
-  <div class="addr">
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
-      <circle cx="12" cy="10" r="3"></circle>
-    </svg>
-    ${p.a}, ${CITY} ${STATE} ${distStr}
-  </div>
-
-  <div class="tags">${tagsHtml}</div>
-
-  <div class="card-actions">
-    <button class="dir-btn" onclick='event.stopPropagation(); focusMapOnPark(${JSON.stringify(p.n)})'>
-      Show on Map
-    </button>
-    <a href="${mapUrl}" target="_blank" class="dir-btn" onclick="event.stopPropagation()">
-      Get Directions
-    </a>
-    <a class="dir-btn"
-       href="park.html?name=${encodeURIComponent(p.n)}"
-       onclick="event.stopPropagation(); saveParkPageState();">
-      Info
-    </a>
-  </div>
-`;
+    body.innerHTML =
+      '<div class="card-head">' +
+        '<div class="park-name">' + p.n + '</div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">' +
+          (acStr ? '<div class="acres">' + acStr + '</div>' : '') + matchBadge +
+        '</div>' +
+      '</div>' +
+      '<div class="addr"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + formatPlace(p.a) + ' ' + distStr + '</div>' +
+      '<div class="tags">' + tagsHtml + '</div>' +
+      '<div class="card-actions">' +
+  '<a href="./park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(p.n) + '" class="city-btn" onclick="event.stopPropagation()">Mini Guide</a>' +
+  '<a href="' + mapUrl + '" target="_blank" class="dir-btn" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Get Directions</a>' +
+'</div>';
     card.appendChild(body);
     grid.appendChild(card);
   });
-  const loadWrap = document.getElementById('load-more-wrap');
-  loadWrap.innerHTML = '';
 
-  if (visibleCount < list.length) {
-    const btn = document.createElement('button');
-    btn.textContent = 'Load More Parks';
-    btn.className = 'map-btn';
-    btn.style.margin = '0 auto';
-    btn.onclick = () => {
-      visibleCount += 12;
-      render();
-    };
-    loadWrap.appendChild(btn);
+  const loadWrap = document.getElementById('load-more-wrap');
+loadWrap.innerHTML = '';
+
+if (visibleCount < list.length) {
+  const btn = document.createElement('button');
+  btn.textContent = 'Load More Parks';
+  btn.className = 'map-btn';
+  btn.style.margin = '0 auto';
+  btn.onclick = () => {
+    visibleCount += 12;
+    render();
+  };
+  loadWrap.appendChild(btn);
+}
+}
+updatePassport();
+const hasRequestedFilters = requestedFilters.length > 0;
+const savedPageState = sessionStorage.getItem('parksFilters');
+if (!hasRequestedFilters && savedPageState) {
+  const parsed = JSON.parse(savedPageState);
+
+  if (parsed.search !== undefined) searchEl.value = parsed.search;
+  if (parsed.sort !== undefined) sortEl.value = parsed.sort;
+
+  if (Array.isArray(parsed.active)) {
+    active = new Set(parsed.active);
+    window._activeSet = active;
   }
 }
-const params = new URLSearchParams(window.location.search);
-const urlFilter = params.get("filter");
-
-if (urlFilter) {
-  active = new Set([urlFilter]);
+if (hasRequestedFilters) {
+  active = new Set(requestedFilters.filter(key => FILTERS.some(filter => filter.k === key)));
   window._activeSet = active;
-
-  document.querySelectorAll(".pill[data-k]").forEach(btn => {
-    btn.classList.toggle("on", active.has(btn.dataset.k));
-  });
 }
-if (urlFilter) {
-  render();
-} else {
-  const restored = restoreParkPageState();
-  if (!restored) render();
-}
+syncFilterButtons();
+render();
 searchEl.addEventListener('input', render);
 sortEl.addEventListener('change', render);
-
 if (typeof L !== 'undefined') {
   initMap();
   renderMarkers(currentFiltered);
@@ -1319,7 +1218,8 @@ if (typeof L !== 'undefined') {
     }
   });
 }
-  // MOBILE FILTER TOGGLE
+
+// MOBILE FILTER TOGGLE
 const filterToggle = document.getElementById('filter-toggle');
 const filterBarEl = document.getElementById('filter-bar');
 
@@ -1328,7 +1228,6 @@ if (filterToggle && filterBarEl) {
     filterBarEl.classList.toggle('open');
   };
 }
-
 </script>
 </body>
 </html>

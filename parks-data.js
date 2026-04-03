@@ -1,4 +1,7 @@
-window.PARKS = [
+(window.registerParkDataset || ((datasetKey, parks) => {
+  window.PARKS = parks;
+  return parks;
+}))("aurora", [
 {id:"co-aurora-alta-vista-park",n:"Alta Vista Park",a:"16800 E. Idaho Cir.",ac:1.5,f:{},photos:[],d:`About as simple as it gets. Small patch of grass in a quiet neighborhood. No features, no distractions — just space. Good spot if you’ve got a toddler who just needs to run around for a bit without a lot going on.
 
 <strong>Features</strong>
