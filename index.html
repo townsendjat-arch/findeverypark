@@ -446,6 +446,7 @@
           <select id="citySelect" class="city-select" aria-label="Choose a city">
             <option value="aurora">Aurora</option>
             <option value="centennial">Centennial</option>
+            <option value="parker">Parker</option>
           </select>
           <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
           <button class="search-submit" id="searchSubmit" type="button">Search</button>
@@ -457,7 +458,7 @@
         <a href="./parks.html" class="quick-link" data-base="./parks.html">Parks</a>
         <a href="./parks.html?filter=dog_park" class="quick-link" data-base="./parks.html?filter=dog_park">Dog Parks</a>
         <a href="./parks.html?filter=trails" class="quick-link" data-base="./parks.html?filter=trails">Trails</a>
-        <a href="./parks.html?filter=golf" class="quick-link" data-base="./parks.html?filter=golf">Golf</a>
+        <a href="./parks.html?filter=golf" class="quick-link" data-base="./parks.html?filter=golf" id="golfQuickLink">Golf</a>
         <a href="./events.html" class="quick-link">Local Events</a>
       </section>
     </div>
@@ -513,9 +514,9 @@
       <a href="https://mightydads.org" target="_blank">Mighty Dads</a>
     </div>
     <div class="footer-meta">
-      Connecting families through parks in Aurora, Colorado.<br>
-      Park data sourced from the <a href="https://www.auroragov.org" target="_blank">City of Aurora</a><br>
-      &copy; 2026 Aurora Parks Finder
+      Connecting families through parks across Colorado's Front Range.<br>
+      Park data sourced from local agencies and city GIS datasets.<br>
+      &copy; 2026 Find Every Park Colorado
     </div>
   </footer>
 
@@ -524,10 +525,16 @@
     const searchSubmit = document.getElementById('searchSubmit');
     const citySelect = document.getElementById('citySelect');
     const cityAwareLinks = document.querySelectorAll('.quick-link[data-base]');
+    const golfQuickLink = document.getElementById('golfQuickLink');
 
     function updateCityLinks() {
       if (!citySelect) return;
       const dataset = citySelect.value;
+      const golfBase = dataset === 'parker' ? './parks.html?filter=disc_golf' : './parks.html?filter=golf';
+      if (golfQuickLink) {
+        golfQuickLink.dataset.base = golfBase;
+        golfQuickLink.textContent = dataset === 'parker' ? 'Disc Golf' : 'Golf';
+      }
       cityAwareLinks.forEach(function (link) {
         const base = link.dataset.base;
         const separator = base.indexOf('?') === -1 ? '?' : '&';

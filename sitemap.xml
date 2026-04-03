@@ -32,6 +32,12 @@
     <changefreq>weekly</changefreq>
   </url>
 
+  <url>
+    <loc>https://findeverypark.com/city.html?dataset=parker</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
   <!-- Park Pages -->
   <url><loc>https://findeverypark.com/park.html?dataset=aurora&amp;name=Alta%20Vista%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=aurora&amp;name=Altura%20Park</loc></url>
@@ -228,5 +234,33 @@
   <url><loc>https://findeverypark.com/park.html?dataset=centennial&amp;name=Willow%20Creek%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=centennial&amp;name=Willow%20Spring%20Open%20Space</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=centennial&amp;name=Willow%20Spring%20Service%20Center</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Arapahoe%20County%20Community%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Auburn%20Hills%20Community%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Bar%20CCC%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Bayou%20Gulch%20Regional%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Broncos%20Parkway%20Trailhead</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Challenger%20Regional%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Cherry%20Creek%20Valley%20Ecological%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Cottonwood%20Trailhead</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Discovery%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Former%20Skate%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Harvie%20Open%20Space</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Iron%20Horse%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Lakeshore%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Living%20Wheel%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Norton%20Farms%20Open%20Space</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=O%27Brien%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Parker%20Jordan%20Centennial%20Open%20Space</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Parker%20Recreation%20Center</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Preservation%20Park%20and%20Trailhead</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Railbender%20Skate%20%26%20Tennis%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=McCabe%20Meadows</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Salisbury%20Regional%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Seventeen%20Mile%20House%20Park%20%26%20Open%20Space</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Slemmer%20Barn</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Stroh%20Ranch%20Soccer%20Fields</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Tallman%20Meadow%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=20-Mile%20Historic%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Dog%20Park%20and%20Disc%20Golf%20Course</loc></url>
 
 </urlset>

@@ -408,6 +408,7 @@
       <span class="city-switch-label">City Guide</span>
       <a class="city-pill" data-dataset="aurora" href="./city.html?dataset=aurora">Aurora</a>
       <a class="city-pill" data-dataset="centennial" href="./city.html?dataset=centennial">Centennial</a>
+      <a class="city-pill" data-dataset="parker" href="./city.html?dataset=parker">Parker</a>
     </div>
 
     <section class="city-hero">
@@ -532,11 +533,12 @@
     document.getElementById("coverage-status").textContent = DATASET_KEY === "aurora" ? "Live" : "Preview";
     document.getElementById("coverage-copy").textContent = DATASET_KEY === "aurora"
       ? "Aurora is the strongest city guide in the product right now."
-      : "Centennial is now locally browseable and ready for richer polish.";
+      : meta.city + " is now locally browseable and ready for richer polish.";
     document.getElementById("city-supporting").textContent = guide.supporting;
     document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
     document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
-    document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=golf";
+    document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
+    document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
     document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
     document.querySelectorAll(".city-pill").forEach((pill) => {
       pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);

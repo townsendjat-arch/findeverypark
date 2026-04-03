@@ -319,13 +319,34 @@ document.getElementById("park-description").innerHTML = (park.description || par
 const featureContainer = document.getElementById("park-features");
   if (park.f && Object.keys(park.f).length > 0) {
    const featureNames = Object.keys(park.f);
+   const FEATURE_LABELS = {
+     playground: "Playground",
+     pickleball: "Pickleball",
+     tennis: "Tennis",
+     basketball: "Basketball",
+     baseball: "Baseball/Softball",
+     soccer: "Soccer",
+     volleyball: "Volleyball",
+     pool: "Pool",
+     sprayground: "Sprayground",
+     dog_park: "Dog Park",
+     trails: "Trails",
+     fishing: "Fishing",
+     disc_golf: "Disc Golf",
+     skate: "Skate/BMX",
+     golf: "Golf Course",
+     garden: "Community Garden",
+     boating: "Boating",
+     restroom: "Restrooms",
+     shelter: "Shelter"
+   };
 
 featureContainer.innerHTML = "";
 
 featureNames.forEach(feature=>{
   const badge=document.createElement("span");
   badge.className="feature-badge";
-  badge.textContent=feature;
+  badge.textContent = FEATURE_LABELS[feature] || feature.replace(/_/g, " ");
   featureContainer.appendChild(badge);
 });
   } else {

@@ -182,7 +182,7 @@
     .media-trail-badge { position: absolute; left: 12px; bottom: 12px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.92); color: var(--grass); border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 700; box-shadow: 0 10px 22px rgba(20,31,23,0.12); }
     .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
     .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; }
-    .park-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; line-height: 1.2; color: var(--ink); letter-spacing: -0.03em; }
+    .park-name { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--ink); letter-spacing: -0.01em; }
     .acres { font-size: 11px; color: #89918a; white-space: nowrap; padding-top: 2px; flex-shrink: 0; font-weight: 700; }
     .addr { font-size: 12px; color: #7f877f; display: flex; align-items: flex-start; gap: 5px; }
     .addr svg { flex-shrink: 0; margin-top: 1px; opacity: 0.6; }
@@ -259,6 +259,7 @@
     <span class="filter-label">City:</span>
     <a class="dataset-link" data-dataset="aurora" href="./parks.html?dataset=aurora">Aurora</a>
     <a class="dataset-link" data-dataset="centennial" href="./parks.html?dataset=centennial">Centennial</a>
+    <a class="dataset-link" data-dataset="parker" href="./parks.html?dataset=parker">Parker</a>
     <span class="dataset-note" id="dataset-note">Colorado park guide</span>
   </div>
   <div class="top-controls">
@@ -756,7 +757,7 @@ const P = (window.PARKS && window.PARKS.length ? window.PARKS : [
 document.querySelectorAll('.dataset-link').forEach((link) => {
   link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
 });
-document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName;
+document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
 document.getElementById('hero-city').textContent = CITY;
 document.getElementById('hero-city-stat').textContent = CITY;
 document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
@@ -768,6 +769,10 @@ if (requestedFilters.includes('trails')) {
   heroCopyEl.textContent = 'Browse ' + CITY + ' parks with trail access, compare nearby stops on the map, and use this as the fast route into greener walks, trailheads, and longer outdoor loops.';
   heroBestForEl.textContent = 'Trail Access';
   heroBestForCopyEl.textContent = 'Walking routes, greenways, and parks that connect to longer outings.';
+} else if (requestedFilters.includes('disc_golf')) {
+  heroCopyEl.textContent = 'Browse ' + CITY + ' disc golf parks and nearby recreation stops in one map-and-card view.';
+  heroBestForEl.textContent = 'Disc Golf';
+  heroBestForCopyEl.textContent = 'Course access, quick comparison, and nearby park context.';
 } else if (requestedFilters.includes('golf')) {
   heroCopyEl.textContent = 'Browse ' + CITY + ' golf courses and golf-adjacent park spaces in one clean map-and-card view. This gives the site a stronger recreation layer without splitting users into a separate experience.';
   heroBestForEl.textContent = 'Golf';
@@ -803,6 +808,7 @@ const FILTERS = [
   {k:'restroom',l:'Restrooms',e:'&#x1F6BB;'},
   {k:'shelter',l:'Shelter',e:'&#x1F3D5;&#xFE0F;'},
 ];
+const AVAILABLE_FILTERS = FILTERS.filter(f => P.some(p => p.f && p.f[f.k]));
 
 const grid = document.getElementById('grid');
 
@@ -822,7 +828,7 @@ if (searchQuery && searchEl) {
   let active = new Set();
 window._activeSet = active;
 
-FILTERS.forEach(f => {
+AVAILABLE_FILTERS.forEach(f => {
   const b = document.createElement('button');
   b.className = 'pill'; b.dataset.k = f.k;
   b.innerHTML = f.e + ' ' + f.l;
@@ -902,7 +908,17 @@ function createGallery(park, idx) {
   if (f.basketball) icons += "🏀 ";
   if (f.baseball) icons += "⚾ ";
   if (f.tennis) icons += "🎾 ";
+  if (f.pickleball) icons += "🏓 ";
+  if (f.soccer) icons += "⚽ ";
+  if (f.volleyball) icons += "🏐 ";
   if (f.pool) icons += "💧 ";
+  if (f.sprayground) icons += "💦 ";
+  if (f.fishing) icons += "🎣 ";
+  if (f.boating) icons += "🛶 ";
+  if (f.golf) icons += "⛳ ";
+  if (f.disc_golf) icons += "🥏 ";
+  if (f.skate) icons += "🛹 ";
+  if (f.garden) icons += "🌻 ";
 
   return `<div class="park-icons">${icons}</div>`;
 }
@@ -913,6 +929,7 @@ function render() {
 
 let list = P.map((p, origIdx) => {
   const featureText = FILTERS
+    .filter(f => AVAILABLE_FILTERS.some(available => available.k === f.k))
     .filter(f => p.f[f.k])
     .map(f => f.l.toLowerCase())
     .join(' ');
@@ -961,7 +978,7 @@ let list = P.map((p, origIdx) => {
   if (!list.length) return;
 
   list.slice(0, visibleCount).forEach((p, i) => {
-    const amenities = FILTERS.filter(f => p.f[f.k]);
+    const amenities = AVAILABLE_FILTERS.filter(f => p.f[f.k]);
     const isPerfect = af.length && p.score === af.length;
     const isPartial = af.length && p.score > 0 && p.score < af.length;
     const isNone = af.length && p.score === 0;
@@ -1059,7 +1076,7 @@ if (!hasRequestedFilters && savedPageState) {
   }
 }
 if (hasRequestedFilters) {
-  active = new Set(requestedFilters.filter(key => FILTERS.some(filter => filter.k === key)));
+  active = new Set(requestedFilters.filter(key => AVAILABLE_FILTERS.some(filter => filter.k === key)));
   window._activeSet = active;
 }
 syncFilterButtons();

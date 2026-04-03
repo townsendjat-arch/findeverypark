@@ -1,0 +1,73 @@
+(function () {
+  window.PARK_COORDS = window.PARK_COORDS || {};
+  window.PARK_COORDS.parker = {
+    "Arapahoe County Community Park": [39.575028, -104.824598],
+    "Auburn Hills Community Park": [39.50803, -104.79897],
+    "Bar CCC Park": [39.516271, -104.775953],
+    "Bayou Gulch Regional Park": [39.430217, -104.735177],
+    "Broncos Parkway Trailhead": [39.578384, -104.797504],
+    "Challenger Regional Park": [39.536047, -104.786771],
+    "Cherry Creek Valley Ecological Park": [39.582539, -104.801586],
+    "Cottonwood Trailhead": [39.555201, -104.787775],
+    "Discovery Park": [39.518666, -104.755338],
+    "Former Skate Park": [39.537169, -104.784106],
+    "Harvie Open Space": [39.520408, -104.722946],
+    "Iron Horse Park": [39.505007, -104.755306],
+    "Lakeshore Park": [39.450736, -104.738018],
+    "Living Wheel Park": [39.519126, -104.767119],
+    "Norton Farms Open Space": [39.564146, -104.788756],
+    "O'Brien Park": [39.519793, -104.76397],
+    "Parker Jordan Centennial Open Space": [39.573721, -104.796819],
+    "Parker Recreation Center": [39.53529, -104.785212],
+    "Preservation Park and Trailhead": [39.563551, -104.784269],
+    "Railbender Skate & Tennis Park": [39.524991, -104.777798],
+    "McCabe Meadows": [39.502167, -104.766016],
+    "Salisbury Regional Park": [39.499721, -104.771258],
+    "Seventeen Mile House Park & Open Space": [39.567763, -104.791773],
+    "Slemmer Barn": [39.506924, -104.753057],
+    "Stroh Ranch Soccer Fields": [39.479703, -104.770391],
+    "Tallman Meadow Park": [39.492511, -104.734675],
+    "20-Mile Historic Park": [39.518814, -104.767885],
+    "Dog Park and Disc Golf Course": [39.546511, -104.782141]
+  };
+
+  (window.registerParkDataset || function (_datasetKey, list) { window.PARKS = list; return list; })(
+    "parker",
+    [
+      {id:"co-parker-arapahoe-county-community-park",n:"Arapahoe County Community Park",a:"",ac:91.3,f:{},photos:[],d:"Public park in Parker listed in the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Arapahoe County",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-auburn-hills-community-park",n:"Auburn Hills Community Park",a:"11682 Bradbury Ranch Rd.",ac:8.3,f:{},photos:[],d:"Community park in Parker completed through a partnership between the Town, Ryland Homes, and Prairie Crossing Elementary School.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-bar-ccc",n:"Bar CCC Park",a:"Mainstreet just east of Cherry Creek",ac:10.6,f:{trails:1,baseball:1,shelter:1},photos:[],d:"Parker park with Cherry Creek and Sulphur Gulch Trail access, a trailhead, parking, a ballfield, and two shade shelters.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-bayou-gulch-regional-park",n:"Bayou Gulch Regional Park",a:"4815 Fox Sparrow Rd.",ac:180.2,f:{},photos:[],d:"Regional park near Parker owned and managed by Douglas County Parks.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Douglas County",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-broncos-parkway-trailhead",n:"Broncos Parkway Trailhead",a:"",ac:0.9,f:{trails:1},photos:[],d:"Trail access point in Parker. Good starting spot when you want to get onto a longer path or open-space corridor.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Arapahoe County",sourceCategory:"Open Space",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-challenger-regional-park",n:"Challenger Regional Park",a:"17299 E. Lincoln Ave.",ac:28.0,f:{},photos:[],d:"Regional park near Parker owned and managed by Douglas County Parks.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Douglas County",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-cherry-creek-valley-ecological-park",n:"Cherry Creek Valley Ecological Park",a:"",ac:77.6,f:{},photos:[],d:"Public park in Parker listed in the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Arapahoe County",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-cottonwood-trailhead",n:"Cottonwood Trailhead",a:"",ac:8.0,f:{trails:1},photos:[],d:"Trail access point in Parker. Good starting spot when you want to get onto a longer path or open-space corridor.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Open Space",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-discovery-park",n:"Discovery Park",a:"Mainstreet and Pine Drive",ac:1.4,f:{sprayground:1},photos:[],d:"Downtown Parker gathering place next to the library with interactive summer fountains, a winter ice trail, and year-round events.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-former-skate-park",n:"Former Skate Park",a:"",ac:1.3,f:{skate:1},photos:[],d:"Public park in Parker listed in the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Douglas County",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-harvie-open-space",n:"Harvie Open Space",a:"",ac:71.4,f:{trails:1},photos:[],d:"Public open space in Parker with room to walk and explore. Acreage and map location are sourced from the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Open Space",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-iron-horse-park",n:"Iron Horse Park",a:"20151 Tallman Ave.",ac:5.2,f:{trails:1,baseball:1,shelter:1,restroom:1},photos:[],d:"Parker park with Tallman Gulch Trail access, three ball fields, shade structures, a seasonal port-a-potty, and the historic Slemmer Ranch Barn nearby.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-lakeshore-park",n:"Lakeshore Park",a:"",ac:3.9,f:{},photos:[],d:"Public park in Parker listed in the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Pinery HOA",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-living-wheel-park",n:"Living Wheel Park",a:"",ac:0.9,f:{},photos:[],d:"Public park in Parker listed in the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-norton-farms-open-space",n:"Norton Farms Open Space",a:"",ac:69.7,f:{trails:1},photos:[],d:"Public open space in Parker with room to walk and explore. Acreage and map location are sourced from the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Open Space",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-o-brien-park",n:"O'Brien Park",a:"Mainstreet, downtown Parker",ac:10.7,f:{playground:1,basketball:1,baseball:1,pool:1},photos:[],d:"Downtown Parker park with a lighted softball field, basketball court, playground, and outdoor pool with slides and water features.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-parker-jordan-centennial-open-space",n:"Parker Jordan Centennial Open Space",a:"",ac:107.9,f:{trails:1},photos:[],d:"Public open space in Parker with room to walk and explore. Acreage and map location are sourced from the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"City of Centennial",sourceCategory:"Open Space",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-parker-recreation-center",n:"Parker Recreation Center",a:"",ac:7.2,f:{},photos:[],d:"Public recreation stop in Parker listed in the local parks dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-preservation-park",n:"Preservation Park and Trailhead",a:"Northern gateway into Parker",ac:5.3,f:{trails:1},photos:[],d:"Northern gateway into Parker and Douglas County with trailhead access.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Open Space",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-railbender-skate-tennis-park",n:"Railbender Skate & Tennis Park",a:"Twenty Mile Rd. between E. Plaza Dr. and Longs Way",ac:8.1,f:{skate:1,tennis:1,playground:1,shelter:1,restroom:1,trails:1},photos:[],d:"Parker park with six lighted tennis courts, a playground, three picnic shelters, restrooms, and trail access to the Cherry Creek Regional Trail.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-salisbury-mccabe-meadows-arboretum",n:"McCabe Meadows",a:"West side of Parker Rd., north of Indian Pipe Ln.",ac:65.9,f:{trails:1},photos:[],d:"Parker park area with a trailhead, picnic area, parking, and the Town arboretum.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-salisbury-park-open-space",n:"Salisbury Regional Park",a:"Along Motsenbocker Rd.",ac:90.5,f:{trails:1},photos:[],d:"Large Parker regional park area serving equestrian users along with youth and adult sports leagues.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-seventeen-mile-house-park-open-space",n:"Seventeen Mile House Park & Open Space",a:"",ac:69.1,f:{trails:1},photos:[],d:"Public open space in Parker with room to walk and explore. Acreage and map location are sourced from the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Arapahoe County",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-slemmer-barn",n:"Slemmer Barn",a:"",ac:4.4,f:{},photos:[],d:"Public park in Parker listed in the local GIS dataset.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-stroh-ranch-soccer-park",n:"Stroh Ranch Soccer Fields",a:"North side of Stroh Rd., west of Cherry Creek",ac:17.0,f:{soccer:1,playground:1,shelter:1},photos:[],d:"Parker soccer complex with two regulation-size soccer fields, a playground, and two picnic shelters.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-tallman-meadow-park",n:"Tallman Meadow Park",a:"Idyllwilde, east Parker",ac:12.1,f:{playground:1,shelter:1,baseball:1,trails:1},photos:[],d:"Parker neighborhood park with picnic and barbecue facilities, a shade shelter, playground, baseball field, multi-use sports field, and trail connection to Tallman Gulch.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-twenty-mile-house",n:"20-Mile Historic Park",a:"Near Parker Rd. and Mainstreet",ac:0.3,f:{},photos:[],d:"Historic park in Parker featuring the 20-Mile House, formerly the Pine Grove Post Office.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Historic Landmark",sourceLink:"https://www.parkeronline.org/"},
+      {id:"co-parker-usmc-cpl-david-m-sonka-dog-park-and-westcreek-disc-golf-course",n:"Dog Park and Disc Golf Course",a:"17855 Pine Lane",ac:33.8,f:{dog_park:1,disc_golf:1},photos:[],d:"Parker dog park with nearly five acres of off-leash space, shade structures, drinking fountains, a small-dog area, agility course, and an adjacent 18-hole disc golf course.",city:"Parker",state:"CO",stateName:"Colorado",owner:"Town of Parker",sourceCategory:"Park",sourceLink:"https://www.parkeronline.org/"}
+    ],
+    {
+      city: "Parker",
+      state: "CO",
+      stateName: "Colorado",
+      brandName: "Find Every Park Colorado"
+    }
+  );
+})();
