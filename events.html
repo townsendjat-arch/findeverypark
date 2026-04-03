@@ -361,9 +361,9 @@
 <body>
 
 <nav>
-  <a class="nav-brand" href="./index.html">Find Every Park</a>
+  <a class="nav-brand" href="./index.html" id="nav-home-brand">Find Every Park</a>
   <ul class="nav-links">
-    <li><a href="./index.html">Home</a></li>
+    <li><a href="./index.html" id="nav-home-link">Home</a></li>
     <li><a href="./parks.html" id="nav-parks-link">Parks</a></li>
     <li><a href="./trails.html">Trails</a></li>
     <li><a href="./events.html" class="active" id="nav-events-link">Events</a></li>
@@ -428,6 +428,8 @@
   document.title = cityMeta.label + ' Events | Find Every Park Colorado';
   document.querySelector('meta[name="description"]').setAttribute('content', 'Browse curated family-friendly events in ' + cityMeta.label + ' on Find Every Park Colorado.');
   document.getElementById('canonical-link').href = 'https://findeverypark.com/events.html?city=' + encodeURIComponent(cityKey);
+  document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(cityKey);
+  document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(cityKey);
   document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(cityKey);
   document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(cityKey);
 

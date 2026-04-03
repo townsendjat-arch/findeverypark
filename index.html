@@ -521,6 +521,7 @@
   </footer>
 
   <script>
+    const homeParams = new URLSearchParams(window.location.search);
     const homeSearch = document.getElementById('parkSearch');
     const searchSubmit = document.getElementById('searchSubmit');
     const citySelect = document.getElementById('citySelect');
@@ -529,10 +530,12 @@
     const golfQuickLink = document.getElementById('golfQuickLink');
     const eventsQuickLink = document.getElementById('eventsQuickLink');
 
-    if (citySelect && window.localStorage) {
-      const savedDataset = localStorage.getItem('activeDataset');
-      if (savedDataset && Array.from(citySelect.options).some(function (option) { return option.value === savedDataset; })) {
-        citySelect.value = savedDataset;
+    if (citySelect) {
+      const requestedDataset = homeParams.get('dataset') || homeParams.get('city') || '';
+      const savedDataset = window.localStorage ? localStorage.getItem('activeDataset') : '';
+      const preferredDataset = requestedDataset || savedDataset;
+      if (preferredDataset && Array.from(citySelect.options).some(function (option) { return option.value === preferredDataset; })) {
+        citySelect.value = preferredDataset;
       }
     }
 
