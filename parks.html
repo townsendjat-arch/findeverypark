@@ -139,8 +139,20 @@
     .pill { padding: 6px 12px; border-radius: 999px; border: 1px solid #ddd; background: rgba(255,255,255,0.86); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.14s; white-space: nowrap; line-height: 1; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     .pill:hover { border-color: rgba(61,107,74,0.35); color: var(--grass); transform: translateY(-1px); }
     .pill.on { background: linear-gradient(135deg, var(--grass), #2e5238); border-color: var(--grass); color: var(--white); box-shadow: 0 10px 22px rgba(61,107,74,0.18); }
-    .pill.reset { color: #bbb; border-color: transparent; font-size: 11px; }
-    .pill.reset:hover { color: var(--ink); border-color: #ddd; }
+    .pill.reset {
+      border: 1px solid rgba(176,120,72,0.28);
+      background: rgba(255,247,241,0.96);
+      color: #8a5032;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(176,120,72,0.08);
+    }
+    .pill.reset:hover {
+      border-color: rgba(176,120,72,0.5);
+      background: #fff2e9;
+      color: #a24f34;
+      transform: translateY(-1px);
+    }
     .dataset-switch { max-width: 1100px; margin: 12px auto 0; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .dataset-link { text-decoration: none; padding: 7px 13px; border-radius: 999px; border: 1px solid #ddd; color: #555; font-size: 12px; font-weight: 700; background: rgba(255,255,255,0.9); }
     .dataset-link.active { background: var(--grass); border-color: var(--grass); color: white; }
@@ -180,6 +192,23 @@
     .card { background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(251,249,246,0.98)); border-radius: 20px; box-shadow: 0 18px 34px rgba(20,31,23,0.08); display: flex; flex-direction: column; transition: box-shadow 0.18s, transform 0.18s; animation: up 0.28s ease both; overflow: hidden; border: 1px solid rgba(228,221,212,0.88); }
     .card:hover { box-shadow: 0 26px 44px rgba(20,31,23,0.12); transform: translateY(-4px); }
     @keyframes up { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+    .top-picks-block { background: rgba(255,255,255,0.97); border-radius: 18px; box-shadow: 0 18px 34px rgba(20,31,23,0.08); border: 1px solid rgba(228,221,212,0.92); padding: 18px; margin-bottom: 16px; }
+    .top-picks-head { display: flex; justify-content: space-between; align-items: end; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+    .top-picks-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--ink); margin: 0 0 4px; }
+    .top-picks-copy { font-size: 13px; color: #6f7771; line-height: 1.5; margin: 0; }
+    .top-picks-viewall { color: var(--grass); text-decoration: none; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .top-picks-viewall:hover { text-decoration: underline; }
+    .top-picks-list { display: grid; gap: 10px; }
+    .top-pick-row { border: 1px solid rgba(228,221,212,0.92); border-radius: 14px; background: #fbfaf7; padding: 14px; }
+    .top-pick-row.clickable { cursor: pointer; transition: transform 0.14s, box-shadow 0.14s; }
+    .top-pick-row.clickable:hover { transform: translateY(-1px); box-shadow: 0 12px 22px rgba(20,31,23,0.06); }
+    .top-pick-top { display: flex; justify-content: space-between; align-items: start; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .top-pick-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+    .top-pick-badge { padding: 5px 10px; border-radius: 999px; background: rgba(61,107,74,0.1); color: var(--grass); font-size: 11px; font-weight: 700; }
+    .top-pick-copy-text { margin: 0; color: #5f6762; font-size: 13px; line-height: 1.55; }
+    .top-pick-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .top-pick-link { color: var(--grass); text-decoration: none; font-size: 12px; font-weight: 700; }
+    .top-pick-link:hover { text-decoration: underline; }
     .photo-gallery { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: linear-gradient(135deg, #dce9df, #d5e3ef); }
     .photo-gallery::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,28,20,0) 34%, rgba(16,28,20,0.42) 100%); pointer-events: none; }
     .placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
@@ -321,6 +350,16 @@
 
   <div class="browse-shell">
     <div class="browse-main">
+      <section class="top-picks-block" id="top-picks-block" style="display:none">
+        <div class="top-picks-head">
+          <div>
+            <h2 class="top-picks-title" id="top-picks-title">Top Picks</h2>
+            <p class="top-picks-copy" id="top-picks-copy">Quick featured picks pulled from the current Top Picks guide.</p>
+          </div>
+          <a class="top-picks-viewall" id="top-picks-viewall" href="./top-picks.html">View all Top Picks</a>
+        </div>
+        <div class="top-picks-list" id="top-picks-list"></div>
+      </section>
       <div class="meta" id="meta"></div>
       <div class="grid" id="grid"></div>
       <div id="load-more-wrap" style="text-align:center; margin-top:20px;"></div>
@@ -374,6 +413,7 @@
 <script src="data/photos/park-photo-manifest.js"></script>
 <script src="park-data-registry.js"></script>
 <script src="dataset-loader.js"></script>
+<script src="best-parks-data.js"></script>
 <script>
   // Get search term from homepage
 const urlParams = new URLSearchParams(window.location.search);
@@ -382,17 +422,34 @@ const requestedFilters = (urlParams.get('filter') || "")
   .split(',')
   .map(value => value.trim().toLowerCase())
   .filter(Boolean);
-const DATASET_KEY = window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
-const DATASET_META = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
-  city: "Aurora",
-  state: "CO",
-  stateName: "Colorado",
-  brandName: (window.SITE_CONFIG && window.SITE_CONFIG.brandName) || "Find Every Park Colorado"
-};
-const CITY = DATASET_META.city;
-const STATE = DATASET_META.state;
-document.title = "Parks Finder — " + DATASET_META.brandName;
-  const COORDS = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {
+const datasetFromUrl = urlParams.get('dataset');
+const DATASET_KEY = datasetFromUrl || window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
+let DATASET_META = null;
+let CITY = "";
+let STATE = "";
+let COORDS = {};
+
+function titleCaseDataset(value) {
+  return String(value || "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function getDatasetMeta(datasetKey) {
+  const siteMeta = window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[datasetKey];
+  if (siteMeta) {
+    return siteMeta;
+  }
+
+  return {
+    city: titleCaseDataset(datasetKey || "parks"),
+    state: "CO",
+    stateName: "Colorado",
+    brandName: (window.SITE_CONFIG && window.SITE_CONFIG.brandName) || "Find Every Park Colorado"
+  };
+}
+
+const AURORA_COORDS_FALLBACK = Object.assign({
   "Alta Vista Park": [39.690588,-104.791457],
   "Altura Park": [39.742784,-104.813072],
   "Anchor Point Park": [39.592131,-104.676356],
@@ -406,6 +463,7 @@ document.title = "Parks Finder — " + DATASET_META.brandName;
   "Bicentennial Park": [39.714069,-104.832475],
   "Blue Grama Grass Park": [39.656322,-104.751684],
   "Canterbury Park": [39.692003,-104.860246],
+  "Central Park": [39.5990278,-104.7795185],
   "Carson Park": [39.641355,-104.82353],
   "Centre Hills Park": [39.714523,-104.80067],
   "CentrePointe Park": [39.702523,-104.793197],
@@ -508,7 +566,7 @@ document.title = "Parks Finder — " + DATASET_META.brandName;
   "Wheel Park": [39.671393,-104.806083],
   "Wheeling Park": [39.703522,-104.83104],
   "Willow Bend Park": [39.657365,-104.74796],
-};
+}, (window.PARK_COORDS && window.PARK_COORDS.aurora) || {});
 
 const VISITED_KEY = 'md_visited:' + DATASET_KEY;
 const FILTERS_KEY = 'parkFilters:' + DATASET_KEY;
@@ -518,7 +576,6 @@ let mapMode = 'all';
 let map, markersLayer, userMarker;
 let parkMarkers = {};
 let currentFiltered = [];
-const DATASET_CENTER = Object.values(COORDS)[0] || [39.710, -104.800];
 let activeFilters = {
   mapMode: 'all'
 };
@@ -529,13 +586,22 @@ if (savedFilters) {
   mapMode = activeFilters.mapMode || 'all';
 }
 
+if (mapMode === 'visited' && !visited.size) {
+  mapMode = 'all';
+  activeFilters.mapMode = 'all';
+}
+
 function initMap() {
-  map = L.map("map").setView(DATASET_CENTER, 11);
+  const initialCenter = Object.values(COORDS)[0] || [39.710, -104.800];
+  map = L.map("map").setView(initialCenter, 11);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19, attribution: "&copy; OpenStreetMap contributors"
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
   parkMarkers = {};
+  window.setTimeout(() => {
+    if (map) map.invalidateSize();
+  }, 0);
 }
 
 function formatPlace(address) {
@@ -545,22 +611,54 @@ function formatPlace(address) {
     : address + ", " + CITY + " " + STATE;
 }
 
+function parkGuideUrl(park) {
+  const search = new URLSearchParams();
+  search.set("dataset", DATASET_KEY);
+  search.set("id", park.id || park.n);
+  return "./park.html?" + search.toString();
+}
+
+function getVisibleMarkerParks(filteredList) {
+  const baseList = Array.isArray(filteredList) ? filteredList : visibleParks;
+
+  if (mapMode === 'visited') {
+    return allParks.filter((park) => visited.has(park.n) && COORDS[park.n]);
+  }
+
+  return baseList.filter((park) => COORDS[park.n]);
+}
+
+function updateMapViewport(filteredList, options) {
+  if (!map) return;
+
+  const visibleParks = getVisibleMarkerParks(filteredList);
+  const coordsList = visibleParks
+    .map((park) => COORDS[park.n])
+    .filter((coords) => Array.isArray(coords) && coords.length === 2);
+
+  if (!coordsList.length) {
+    return;
+  }
+
+  if (coordsList.length === 1) {
+    map.setView(coordsList[0], (options && options.singleZoom) || 14, { animate: true });
+    return;
+  }
+
+  const bounds = L.latLngBounds(coordsList.map((coords) => L.latLng(coords[0], coords[1])));
+  map.fitBounds(bounds.pad(0.18), { animate: true, maxZoom: (options && options.maxZoom) || 13 });
+}
+
 function renderMarkers(filteredList) {
   if (!markersLayer) return;
   parkMarkers = {};
   markersLayer.clearLayers();
   const hasFilters = window._activeSet && window._activeSet.size > 0;
   const matchNames = hasFilters
-    ? new Set(filteredList.map(p => p.n))
+    ? new Set((filteredList || []).map(p => p.n))
     : new Set();
 
-  P.filter(p => {
-    const c = COORDS[p.n];
-    if (!c) return false;
-    if (mapMode === 'filtered') return matchNames.has(p.n) || !hasFilters;
-    if (mapMode === 'visited') return visited.has(p.n);
-    return true;
-  }).forEach(p => {
+  getVisibleMarkerParks(filteredList).forEach(p => {
     const c = COORDS[p.n];
     const isVisited = visited.has(p.n);
     const isMatch = matchNames.has(p.n);
@@ -571,11 +669,19 @@ function renderMarkers(filteredList) {
  '<b>' + p.n + '</b>' +
 '<div class="popup-acres">' + (p.ac > 0 ? p.ac.toLocaleString() + ' acres' : 'Open space') + '</div>' +
 '<div style="font-size:11px;color:#999;margin-top:2px">' + formatPlace(p.a) + '</div>' +
+( '<div style="margin-top:8px"><a href="' + parkGuideUrl(p) + '">Open mini guide</a></div>' ) +
 (isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
 ).addTo(markersLayer);
 
 parkMarkers[p.n] = marker;
   });
+
+  if (!Object.keys(parkMarkers).length && (filteredList || []).length && mapMode !== 'all') {
+    mapMode = 'all';
+    activeFilters.mapMode = 'all';
+    localStorage.setItem(FILTERS_KEY, JSON.stringify(activeFilters));
+    renderMarkers(filteredList);
+  }
 }
 
 function focusMapOnPark(name) {
@@ -597,7 +703,8 @@ function setMapMode(mode) {
   activeFilters.mapMode = mode;
   localStorage.setItem(FILTERS_KEY, JSON.stringify(activeFilters));
 
-  renderMarkers(filteredParks);
+  renderMarkers(currentFiltered);
+  updateMapViewport(currentFiltered, { singleZoom: 14, maxZoom: 13 });
 }
 
 
@@ -629,14 +736,16 @@ function distLabel(m) {
 
 function saveVisited() {
   localStorage.setItem(VISITED_KEY, JSON.stringify([...visited]));
-  updatePassport(); renderMarkers(currentFiltered);
+  updatePassport();
+  renderMarkers(visibleParks);
 }
 
 function updatePassport() {
-  const count = visited.size, total = P.length;
+  const count = visited.size, total = allParks.length;
   document.getElementById('passport-count').textContent = count + ' visited';
-  document.getElementById('passport-fill').style.width = (count/total*100) + '%';
-  const msg = count===0 ? "Check in at parks you've visited!"
+  document.getElementById('passport-fill').style.width = total ? (count/total*100) + '%' : '0%';
+  const msg = total === 0 ? 'Loading parks...'
+    : count===0 ? "Check in at parks you've visited!"
     : count<10 ? (total-count) + ' parks still to explore!'
     : count<25 ? "You're getting out there!"
     : count<50 ? 'Mighty explorer!'
@@ -644,7 +753,7 @@ function updatePassport() {
   document.getElementById('passport-msg').textContent = msg;
 }
 
-const P = (window.PARKS && window.PARKS.length ? window.PARKS : [
+const INLINE_AURORA_FALLBACK = [
   {id:"co-aurora-alta-vista-park",n:"Alta Vista Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"16800 E. Idaho Cir.",ac:1.5,f:{},photos:[]},
   {n:"Altura Park",a:"15100 E. 17th Ave.",ac:3.9,f:{playground:1,baseball:1},photos:[]},
   {n:"Anchor Point Park",a:"6855 S. Robertsdale Way",ac:5,f:{playground:1,shelter:1},photos:[]},
@@ -763,46 +872,61 @@ const P = (window.PARKS && window.PARKS.length ? window.PARKS : [
   {n:"Wheel Park",a:"2500 S. Wheel Park Cir.",ac:25.3,f:{trails:1,restroom:1,shelter:1,skate:1},photos:[]},
   {n:"Wheeling Park",a:"475 S. Potomac Way",ac:7.3,f:{baseball:1,soccer:1},photos:[]},
   {n:"Willow Bend Park",a:"20646 E. Eastman Ave.",ac:0.3,f:{playground:1,trails:1,shelter:1},photos:[]},
-]).map(park => window.normalizePark ? window.normalizePark(park, DATASET_KEY) : park);
+].map(park => window.normalizePark ? window.normalizePark(park, 'aurora') : park);
 
-document.querySelectorAll('.dataset-link').forEach((link) => {
-  link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
-});
-document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('footer-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('footer-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('footer-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
-document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
-document.getElementById('hero-city').textContent = CITY;
-document.getElementById('hero-city-stat').textContent = CITY;
-document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
-document.getElementById('hero-total').textContent = P.length.toLocaleString();
+let allParks = [];
+let visibleParks = [];
 const heroCopyEl = document.getElementById('hero-copy');
 const heroBestForEl = document.getElementById('hero-best-for');
 const heroBestForCopyEl = document.getElementById('hero-best-for-copy');
-if (requestedFilters.includes('trails')) {
-  heroCopyEl.textContent = 'Browse ' + CITY + ' parks with trail access, compare nearby stops on the map, and use this as the fast route into greener walks, trailheads, and longer outdoor loops.';
-  heroBestForEl.textContent = 'Trail Access';
-  heroBestForCopyEl.textContent = 'Walking routes, greenways, and parks that connect to longer outings.';
-} else if (requestedFilters.includes('disc_golf')) {
-  heroCopyEl.textContent = 'Browse ' + CITY + ' disc golf parks and nearby recreation stops in one map-and-card view.';
-  heroBestForEl.textContent = 'Disc Golf';
-  heroBestForCopyEl.textContent = 'Course access, quick comparison, and nearby park context.';
-} else if (requestedFilters.includes('golf')) {
-  heroCopyEl.textContent = 'Browse ' + CITY + ' golf courses and golf-adjacent park spaces in one clean map-and-card view. This gives the site a stronger recreation layer without splitting users into a separate experience.';
-  heroBestForEl.textContent = 'Golf';
-  heroBestForCopyEl.textContent = 'Course discovery, quick comparison, and nearby recreation context.';
-} else if (requestedFilters.includes('dog_park')) {
-  heroCopyEl.textContent = 'Browse ' + CITY + ' dog-friendly parks and off-leash options with the same card-and-map experience, so it feels like one product instead of a pile of separate pages.';
-  heroBestForEl.textContent = 'Dogs';
-  heroBestForCopyEl.textContent = 'Off-leash spots, dog-friendly stops, and easier everyday planning.';
-} else {
-  heroCopyEl.textContent = 'Explore ' + CITY + ' park cards, zoom into the map, filter by amenities, and save the places you want to revisit.';
-  heroBestForEl.textContent = 'Families';
-  heroBestForCopyEl.textContent = 'Playgrounds, everyday stops, and easy park comparison.';
+document.getElementById('hero-total').textContent = '0';
+
+function applyDatasetContext() {
+  DATASET_META = getDatasetMeta(DATASET_KEY);
+  CITY = DATASET_META.city;
+  STATE = DATASET_META.state;
+  const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {};
+  COORDS = DATASET_KEY === 'aurora'
+    ? Object.assign({}, AURORA_COORDS_FALLBACK, datasetCoords)
+    : datasetCoords;
+
+  document.title = "Parks Finder — " + DATASET_META.brandName;
+  document.querySelectorAll('.dataset-link').forEach((link) => {
+    link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
+  });
+  document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('footer-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('footer-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('footer-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
+  document.getElementById('hero-city').textContent = CITY;
+  document.getElementById('hero-city-stat').textContent = CITY;
+  document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
+
+  if (requestedFilters.includes('trails')) {
+    heroCopyEl.textContent = 'Browse ' + CITY + ' parks with trail access, compare nearby stops on the map, and use this as the fast route into greener walks, trailheads, and longer outdoor loops.';
+    heroBestForEl.textContent = 'Trail Access';
+    heroBestForCopyEl.textContent = 'Walking routes, greenways, and parks that connect to longer outings.';
+  } else if (requestedFilters.includes('disc_golf')) {
+    heroCopyEl.textContent = 'Browse ' + CITY + ' disc golf parks and nearby recreation stops in one map-and-card view.';
+    heroBestForEl.textContent = 'Disc Golf';
+    heroBestForCopyEl.textContent = 'Course access, quick comparison, and nearby park context.';
+  } else if (requestedFilters.includes('golf')) {
+    heroCopyEl.textContent = 'Browse ' + CITY + ' golf courses and golf-adjacent park spaces in one clean map-and-card view. This gives the site a stronger recreation layer without splitting users into a separate experience.';
+    heroBestForEl.textContent = 'Golf';
+    heroBestForCopyEl.textContent = 'Course discovery, quick comparison, and nearby recreation context.';
+  } else if (requestedFilters.includes('dog_park')) {
+    heroCopyEl.textContent = 'Browse ' + CITY + ' dog-friendly parks and off-leash options with the same card-and-map experience, so it feels like one product instead of a pile of separate pages.';
+    heroBestForEl.textContent = 'Dogs';
+    heroBestForCopyEl.textContent = 'Off-leash spots, dog-friendly stops, and easier everyday planning.';
+  } else {
+    heroCopyEl.textContent = 'Explore ' + CITY + ' park cards, zoom into the map, filter by amenities, and save the places you want to revisit.';
+    heroBestForEl.textContent = 'Families';
+    heroBestForCopyEl.textContent = 'Playgrounds, everyday stops, and easy park comparison.';
+  }
 }
 
 const FILTERS = [
@@ -814,7 +938,7 @@ const FILTERS = [
   {k:'soccer',l:'Soccer',e:'&#x26BD;'},
   {k:'volleyball',l:'Volleyball',e:'&#x1F3D0;'},
   {k:'pool',l:'Pool',e:'&#x1F3CA;'},
-  {k:'sprayground',l:'Sprayground',e:'&#x1F4A6;'},
+  {k:'sprayground',l:'Splash Pad',e:'&#x1F4A6;'},
   {k:'dog_park',l:'Dog Park',e:'&#x1F415;'},
   {k:'trails',l:'Trails',e:'&#x1F97E;'},
   {k:'fishing',l:'Fishing',e:'&#x1F3A3;'},
@@ -826,9 +950,14 @@ const FILTERS = [
   {k:'restroom',l:'Restrooms',e:'&#x1F6BB;'},
   {k:'shelter',l:'Shelter',e:'&#x1F3D5;&#xFE0F;'},
 ];
-const AVAILABLE_FILTERS = FILTERS.filter(f => P.some(p => p.f && p.f[f.k]));
+let AVAILABLE_FILTERS = [];
 
 const grid = document.getElementById('grid');
+const topPicksBlockEl = document.getElementById('top-picks-block');
+const topPicksListEl = document.getElementById('top-picks-list');
+const topPicksViewAllEl = document.getElementById('top-picks-viewall');
+const topPicksTitleEl = document.getElementById('top-picks-title');
+const topPicksCopyEl = document.getElementById('top-picks-copy');
 
 const searchEl = document.getElementById('search');
 const sortEl = document.getElementById('sort');
@@ -846,14 +975,36 @@ if (searchQuery && searchEl) {
   let active = new Set();
 window._activeSet = active;
 
-AVAILABLE_FILTERS.forEach(f => {
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.className = 'pill'; b.dataset.k = f.k;
-  b.innerHTML = f.e + ' ' + f.l;
-  b.onclick = () => {
-    active.has(f.k) ? active.delete(f.k) : active.add(f.k);
-    b.classList.toggle('on');
+function buildFilterButtons() {
+  filterBar.innerHTML = '<span class="filter-label">Filter:</span>';
+  AVAILABLE_FILTERS.forEach(f => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pill'; b.dataset.k = f.k;
+    b.innerHTML = f.e + ' ' + f.l;
+    b.onclick = () => {
+      active.has(f.k) ? active.delete(f.k) : active.add(f.k);
+      b.classList.toggle('on');
+      render();
+      if (window.innerWidth <= 700) {
+        const filterBarEl = document.getElementById('filter-bar');
+        const filterToggle = document.getElementById('filter-toggle');
+        if (filterBarEl) filterBarEl.classList.remove('open');
+        if (filterToggle) {
+          filterToggle.setAttribute('aria-expanded', 'false');
+          filterToggle.textContent = 'Filter Parks \u25BE';
+        }
+      }
+    };
+    filterBar.appendChild(b);
+  });
+  const resetBtn = document.createElement('button');
+  resetBtn.type = 'button';
+  resetBtn.className = 'pill reset'; resetBtn.textContent = '\u2715 Clear Filters';
+  resetBtn.onclick = () => {
+    active.clear();
+    document.querySelectorAll('.pill.on').forEach(b => b.classList.remove('on'));
+    searchEl.value = '';
     render();
     if (window.innerWidth <= 700) {
       const filterBarEl = document.getElementById('filter-bar');
@@ -865,27 +1016,85 @@ AVAILABLE_FILTERS.forEach(f => {
       }
     }
   };
-  filterBar.appendChild(b);
-});
-const resetBtn = document.createElement('button');
-resetBtn.type = 'button';
-resetBtn.className = 'pill reset'; resetBtn.textContent = '\u2715 Clear';
-resetBtn.onclick = () => {
-  active.clear();
-  document.querySelectorAll('.pill.on').forEach(b => b.classList.remove('on'));
-  searchEl.value = '';
-  render();
-  if (window.innerWidth <= 700) {
-    const filterBarEl = document.getElementById('filter-bar');
-    const filterToggle = document.getElementById('filter-toggle');
-    if (filterBarEl) filterBarEl.classList.remove('open');
-    if (filterToggle) {
-      filterToggle.setAttribute('aria-expanded', 'false');
-      filterToggle.textContent = 'Filter Parks \u25BE';
-    }
+  filterBar.appendChild(resetBtn);
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function titleFromParkId(parkId) {
+  return String(parkId || '')
+    .replace(/^co-[a-z]+-/, '')
+    .split('-')
+    .map((part) => part ? part.charAt(0).toUpperCase() + part.slice(1) : '')
+    .join(' ');
+}
+
+function renderTopPicksForCurrentCity() {
+  if (!topPicksBlockEl || !topPicksListEl) return;
+
+  const guide = window.HOME_TOP_PICKS || {};
+  const editorialMap = window.HOME_TOP_PICK_DATA || {};
+  const cityPrefix = 'co-' + DATASET_KEY + '-';
+  const guideIds = (guide.featuredParkIds || []).filter((parkId) => String(parkId).indexOf(cityPrefix) === 0);
+  const editorialIds = Object.keys(editorialMap).filter((parkId) => String(parkId).indexOf(cityPrefix) === 0);
+  const cityIds = (guideIds.length ? guideIds : editorialIds).filter((parkId, index, list) => list.indexOf(parkId) === index);
+
+  const items = cityIds.map((parkId) => {
+    const park = allParks.find((entry) => entry.id === parkId) || null;
+    const editorial = editorialMap[parkId] || null;
+    if (!editorial) return null;
+    return { parkId, park, editorial };
+  }).filter(Boolean);
+
+  if (!items.length) {
+    topPicksBlockEl.style.display = 'none';
+    topPicksListEl.innerHTML = '';
+    return;
   }
-};
-filterBar.appendChild(resetBtn);
+
+  if (topPicksTitleEl) {
+    topPicksTitleEl.textContent = 'Top Picks in ' + CITY;
+  }
+  if (topPicksCopyEl) {
+    topPicksCopyEl.textContent = 'Quick featured picks pulled from the current Top Picks guide for ' + CITY + '.';
+  }
+  topPicksViewAllEl.href = './top-picks.html';
+  topPicksListEl.innerHTML = items.map((item) => {
+    const name = item.park ? item.park.n : titleFromParkId(item.parkId);
+    const miniHref = item.park ? parkGuideUrl(item.park) : './top-picks.html';
+    const mapHref = item.park
+      ? './parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(name)
+      : './top-picks.html';
+    return '' +
+      '<article class="top-pick-row' + (item.park ? ' clickable' : '') + '"' + (item.park ? ' data-park-name="' + escapeHtml(name) + '"' : '') + '>' +
+        '<div class="top-pick-top">' +
+          '<div class="top-pick-name">' + escapeHtml(name) + '</div>' +
+          '<div class="top-pick-badge">' + escapeHtml(item.editorial.top_pick_label || '') + '</div>' +
+        '</div>' +
+        '<p class="top-pick-copy-text">' + escapeHtml(item.editorial.short_reason || '') + '</p>' +
+        '<div class="top-pick-actions">' +
+          '<a class="top-pick-link" href="' + miniHref + '">Open mini guide</a>' +
+          '<a class="top-pick-link" href="' + mapHref + '">' + (item.park ? 'Show on map' : 'View Top Picks') + '</a>' +
+        '</div>' +
+      '</article>';
+  }).join('');
+
+  topPicksBlockEl.style.display = '';
+  topPicksListEl.querySelectorAll('.top-pick-row.clickable').forEach((row) => {
+    row.addEventListener('click', function (event) {
+      if (event.target.closest('a')) return;
+      const parkName = row.getAttribute('data-park-name');
+      if (parkName) focusMapOnPark(parkName);
+    });
+  });
+}
 
 function syncFilterButtons() {
   document.querySelectorAll('.pill[data-k]').forEach(btn => {
@@ -974,7 +1183,7 @@ function render() {
   const s = sortEl.value;
   const af = [...active];
 
-let list = P.map((p, origIdx) => {
+let list = allParks.map((p, origIdx) => {
   const featureText = FILTERS
     .filter(f => AVAILABLE_FILTERS.some(available => available.k === f.k))
     .filter(f => p.f[f.k])
@@ -993,6 +1202,8 @@ let list = P.map((p, origIdx) => {
   return { ...p, score, matchSearch, origIdx, dist };
 }).filter(p => p.matchSearch && (!af.length || p.score === af.length));
 
+  console.log('visibleParks datasets:', [...new Set(list.map(p => p.datasetKey || DATASET_KEY))]);
+
   if (af.length) list.sort((a,b) => b.score - a.score);
   else if (s === 'alpha') list.sort((a,b) => a.n.localeCompare(b.n));
   else if (s === 'big') list.sort((a,b) => b.ac - a.ac);
@@ -1007,10 +1218,11 @@ let list = P.map((p, origIdx) => {
   } else list.sort((a,b) => a.ac - b.ac);
 
   currentFiltered = list;
+  visibleParks = list;
   badge.textContent = list.length + ' shown';
 
   if (!af.length) {
-    meta.textContent = q ? list.length + ' of ' + P.length + ' match "' + q + '"' : 'Showing all ' + P.length + ' parks & open spaces';
+    meta.textContent = q ? list.length + ' of ' + allParks.length + ' match "' + q + '"' : 'Showing all ' + allParks.length + ' parks & open spaces';
   } else {
     const perfect = list.filter(p => p.score === af.length).length;
     const partial = list.filter(p => p.score > 0 && p.score < af.length).length;
@@ -1020,6 +1232,9 @@ let list = P.map((p, origIdx) => {
   }
 
   renderMarkers(list);
+  if (map && !(s === 'nearest' && userLat)) {
+    updateMapViewport(list, { singleZoom: 14, maxZoom: 13 });
+  }
   grid.innerHTML = '';
   emptyEl.style.display = list.length ? 'none' : '';
   if (!list.length) return;
@@ -1056,7 +1271,7 @@ let list = P.map((p, origIdx) => {
       if (COORDS[p.n]) {
         focusMapOnPark(p.n);
       } else {
-        window.location.href = 'park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(p.n);
+        window.location.href = parkGuideUrl(p);
       }
     };
     card.onmouseenter = () => {
@@ -1086,7 +1301,7 @@ card.onmouseleave = () => {
       '<div class="addr"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + formatPlace(p.a) + ' ' + distStr + '</div>' +
       '<div class="tags">' + tagsHtml + '</div>' +
       '<div class="card-actions">' +
-  '<a href="./park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(p.n) + '" class="city-btn" onclick="event.stopPropagation()">Mini Guide</a>' +
+  '<a href="' + parkGuideUrl(p) + '" class="city-btn" onclick="event.stopPropagation()">Mini Guide</a>' +
   '<a href="' + mapUrl + '" target="_blank" class="dir-btn" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Get Directions</a>' +
 '</div>';
     card.appendChild(body);
@@ -1109,41 +1324,78 @@ if (visibleCount < list.length) {
 }
 }
 updatePassport();
-const hasRequestedFilters = requestedFilters.length > 0;
-const savedPageState = sessionStorage.getItem('parksFilters');
-if (!hasRequestedFilters && savedPageState) {
-  const parsed = JSON.parse(savedPageState);
+function getDatasetParksForView() {
+  const datasetParks = window.getParkDataset ? window.getParkDataset(DATASET_KEY) : null;
+  if (Array.isArray(datasetParks) && datasetParks.length) {
+    return datasetParks.filter(park => (park.datasetKey || DATASET_KEY) === DATASET_KEY);
+  }
 
-  if (parsed.search !== undefined) searchEl.value = parsed.search;
-  if (parsed.sort !== undefined) sortEl.value = parsed.sort;
+  return DATASET_KEY === 'aurora' ? INLINE_AURORA_FALLBACK : [];
+}
 
-  if (Array.isArray(parsed.active)) {
-    active = new Set(parsed.active);
+function initializeParksView() {
+  applyDatasetContext();
+  allParks = getDatasetParksForView();
+  visibleParks = allParks.slice();
+  const datasetPool = window.ALL_PARKS || [];
+  console.log('dataset from URL:', datasetFromUrl);
+  console.log('activeDataset:', DATASET_KEY);
+  console.log('all datasets in allParks:', [...new Set(datasetPool.map(p => p.datasetKey || p.dataset || p.source || 'unknown'))]);
+  console.log('cityParks count:', allParks.length);
+  console.log('cityParks datasets:', [...new Set(allParks.map(p => p.datasetKey || DATASET_KEY))]);
+  AVAILABLE_FILTERS = FILTERS.filter(f => allParks.some(p => p.f && p.f[f.k]));
+  buildFilterButtons();
+  document.getElementById('hero-total').textContent = allParks.length.toLocaleString();
+  updatePassport();
+
+  const hasRequestedFilters = requestedFilters.length > 0;
+  const hasDatasetNavigation = !!datasetFromUrl;
+  const savedPageState = sessionStorage.getItem('parksFilters');
+  if (!hasRequestedFilters && !hasDatasetNavigation && savedPageState) {
+    const parsed = JSON.parse(savedPageState);
+
+    if (parsed.search !== undefined) searchEl.value = parsed.search;
+    if (parsed.sort !== undefined) sortEl.value = parsed.sort;
+
+    if (Array.isArray(parsed.active)) {
+      active = new Set(parsed.active.filter(key => AVAILABLE_FILTERS.some(filter => filter.k === key)));
+      window._activeSet = active;
+    }
+  }
+  if (hasRequestedFilters) {
+    active = new Set(requestedFilters.filter(key => AVAILABLE_FILTERS.some(filter => filter.k === key)));
     window._activeSet = active;
   }
+
+  if (typeof L !== 'undefined') {
+    initMap();
+  }
+
+  renderTopPicksForCurrentCity();
+  syncFilterButtons();
+  render();
+  searchEl.addEventListener('input', render);
+  sortEl.addEventListener('change', render);
+  if (typeof L === 'undefined') {
+    window.addEventListener('load', () => {
+      if (typeof L !== 'undefined') {
+        initMap();
+        render();
+      } else {
+        document.getElementById('map').innerHTML =
+          '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;font-size:13px;">Map unavailable</div>';
+      }
+    });
+  }
 }
-if (hasRequestedFilters) {
-  active = new Set(requestedFilters.filter(key => AVAILABLE_FILTERS.some(filter => filter.k === key)));
-  window._activeSet = active;
-}
-syncFilterButtons();
-render();
-searchEl.addEventListener('input', render);
-sortEl.addEventListener('change', render);
-if (typeof L !== 'undefined') {
-  initMap();
-  renderMarkers(currentFiltered);
-} else {
-  window.addEventListener('load', () => {
-    if (typeof L !== 'undefined') {
-      initMap();
-      renderMarkers(currentFiltered);
-    } else {
-      document.getElementById('map').innerHTML =
-        '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;font-size:13px;">Map unavailable</div>';
-    }
+
+const datasetReadyPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();
+datasetReadyPromise
+  .catch(() => null)
+  .then(() => window.waitForParkDataset ? window.waitForParkDataset(DATASET_KEY, { timeout: 5000 }).catch(() => []) : [])
+  .then(() => {
+    initializeParksView();
   });
-}
 
 // MOBILE FILTER TOGGLE
 const filterToggle = document.getElementById('filter-toggle');

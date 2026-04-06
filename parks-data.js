@@ -1,3 +1,8 @@
+(window.PARK_COORDS = window.PARK_COORDS || {});
+window.PARK_COORDS.aurora = Object.assign({}, window.PARK_COORDS.aurora || {}, {
+  "Central Park": [39.5990278, -104.7795185]
+});
+
 (window.registerParkDataset || ((datasetKey, parks) => {
   window.PARKS = parks;
   return parks;
@@ -104,6 +109,20 @@ d:`Recently renovated in 2022 with a clubhouse theme and new shade panels over t
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Nome Park (~1 mi), Jewell Park (~1 mi)`
 },
+{id:"co-aurora-central-park",
+n:"Central Park",
+a:"6461 S. Waco St.",
+ac:0,
+f:{playground:1,trails:1,shelter:1,pickleball:1,tennis:1,basketball:1},
+photos:[],
+d:`Strong family park with two playgrounds, a climbing structure kids actually want to come back to, and enough open grass to keep the day from feeling cramped. The inclusive play equipment helps this one work for a wider range of families, while the courts, Gaga Ball, and trail loop give older kids more to do than just circle the playground. The covered pavilion makes it easier to stay a little longer. There is some shade near the play area, but not much shade across the rest of the park.
+
+<strong>Features</strong>
+📍 Community park 🛝 2 Playgrounds 🧗 Climbing Structure ♿ Inclusive Play Equipment 🥎 Gaga Ball 🏓 Pickleball 🎾 Tennis 🏀 Basketball 🏃 Walking Trails 🌿 Large Open Lawn 🐕 Leashed Dogs
+
+🏕️ <strong>Shelter:</strong> Covered pavilion.
+
+🗺️ <strong>Nearby (1–3 mi):</strong> Appaloosa Park, Anchor Point Park, Red-tailed Hawk Park)`},
 {id:"co-aurora-carson-park",n:"Carson Park",a:"14000 E. Oxford Pl.",ac:7.9,f:{playground:1},photos:[],d:`A spring favorite among Aurora locals. The pond loop is an easy, calm walk — and in spring you’ll likely see baby ducks, frogs, birds, and the occasional snake coming out. It’s one of those parks that feels quiet without being empty.
 
 Playground and tot swings are on site. Doesn’t get as much attention as it should. Best March through May.
@@ -1470,4 +1489,9 @@ d:`Tiny, but useful. Playground, shelter, and trail access — this is a greenwa
 { n:"Springhill Golf Course", a:"800 N. Telluride St.", ac:112.3, f:{golf:1}, d:"Full golf course guide coming soon. This location is included in the directory now and more details will be added later.", photos:[] },
 { n:"Upland Park", a:"2800 N. Walden St.", ac:1.4, f:{}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
 { n:"Village East Park", a:"1400 S. Moline St.", ac:5.9, f:{playground:1,baseball:1,trails:1}, d:"Full park guide coming soon. Basic park info is available now.", photos:[] },
-];
+], {
+  city: "Aurora",
+  state: "CO",
+  stateName: "Colorado",
+  brandName: "Find Every Park Colorado"
+});

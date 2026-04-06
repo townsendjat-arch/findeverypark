@@ -235,7 +235,7 @@
     .hero-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      min-height: 280px;
+      min-height: 180px;
     }
 
     .hero-grid img {
@@ -245,67 +245,9 @@
       display: block;
     }
 
-    .page-section {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 30px 20px 0;
-    }
-
-    .intro-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .intro-copy h2 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
-      color: var(--grass-dark);
-    }
-
-    .intro-copy p {
-      font-size: 15px;
-      line-height: 1.75;
-      color: var(--muted);
-    }
-
-    .intro-points {
-      display: grid;
-      gap: 12px;
-    }
-
-    .intro-point {
-      background: var(--grass-soft);
-      border-radius: 16px;
-      padding: 14px 16px;
-    }
-
-    .intro-point strong {
-      display: block;
-      font-size: 14px;
-      color: var(--grass-dark);
-      margin-bottom: 4px;
-    }
-
-    .intro-point span {
-      font-size: 13px;
-      line-height: 1.55;
-      color: #48604f;
-    }
-
     .about-strip {
       text-align: center;
-      padding: 32px 20px 10px;
+      padding: 26px 20px 10px;
     }
 
     .about-strip h3 {
@@ -365,13 +307,10 @@
     }
 
     @media (max-width: 800px) {
-      .intro-card {
-        grid-template-columns: 1fr;
-      }
-
       .hero-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
     @media (max-width: 600px) {
@@ -427,10 +366,6 @@
       .hero-grid img {
         aspect-ratio: 1 / 1;
       }
-
-      .intro-card {
-        padding: 20px;
-      }
     }
   </style>
 </head>
@@ -465,6 +400,7 @@
 
       <section class="quick-links">
         <a href="./parks.html" class="quick-link" data-base="./parks.html">Parks</a>
+        <a href="./top-parks.html" class="quick-link">Top Picks</a>
         <a href="./parks.html?filter=dog_park" class="quick-link" data-base="./parks.html?filter=dog_park">Dog Parks</a>
         <a href="./parks.html?filter=trails" class="quick-link" data-base="./parks.html?filter=trails">Trails</a>
         <a href="./parks.html?filter=golf" class="quick-link" data-base="./parks.html?filter=golf" id="golfQuickLink">Golf</a>
@@ -479,29 +415,6 @@
       <img src="images/park-two.jpg" alt="Aurora park photo 2">
       <img src="images/park-three.jpg" alt="Aurora park photo 3">
       <img src="images/park-four.jpg" alt="Aurora park photo 4">
-    </div>
-  </section>
-
-  <section class="page-section">
-    <div class="intro-card">
-      <div class="intro-copy">
-        <h2>Start with search, then browse.</h2>
-        <p>The homepage should feel simple right away. Search comes first, and the main categories are still easy to reach when you want to browse.</p>
-      </div>
-      <div class="intro-points">
-        <div class="intro-point">
-          <strong>Search first</strong>
-          <span>Type what you need and get to the right park faster.</span>
-        </div>
-        <div class="intro-point">
-          <strong>Quick browse</strong>
-          <span>The main shortcuts are still easy to reach when you want to browse.</span>
-        </div>
-        <div class="intro-point">
-          <strong>Visual support</strong>
-          <span>Photos add context without taking attention away from search.</span>
-        </div>
-      </div>
     </div>
   </section>
 

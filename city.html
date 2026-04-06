@@ -420,6 +420,7 @@
           <div class="hero-actions">
             <a class="hero-btn primary" id="browse-link" href="./parks.html?dataset=aurora">Browse All Parks</a>
             <a class="hero-btn secondary" id="trail-link" href="./parks.html?dataset=aurora&filter=trails">Trail Access</a>
+            <a class="hero-btn secondary" id="best-link" href="./best-parks.html?dataset=aurora">Best Parks</a>
             <a class="hero-btn ghost" id="golf-link" href="./parks.html?dataset=aurora&filter=golf">Golf Courses</a>
           </div>
         </div>
@@ -495,101 +496,123 @@
       featured: [],
       categories: []
     };
-    const parks = (window.PARKS || []).map((park) => window.normalizePark ? window.normalizePark(park, DATASET_KEY) : park);
+    function initializeCityGuide() {
+      const parks = (window.getParkDataset ? window.getParkDataset(DATASET_KEY) : window.PARKS || [])
+        .map((park) => window.normalizePark ? window.normalizePark(park, DATASET_KEY) : park)
+        .filter((park) => (park.datasetKey || DATASET_KEY) === DATASET_KEY);
 
-    function byName(name) {
-      return parks.find((park) => park.n === name || park.name === name);
-    }
+      function byName(name) {
+        return parks.find((park) => park.n === name || park.name === name);
+      }
 
-    function fallbackPhoto(park) {
-      if (park.heroPhoto && park.heroPhoto.src) return park.heroPhoto.src;
-      const photos = Array.isArray(park.photos) ? park.photos : [];
-      return photos[0] || "";
-    }
+      function fallbackPhoto(park) {
+        if (park.heroPhoto && park.heroPhoto.src) return park.heroPhoto.src;
+        const photos = Array.isArray(park.photos) ? park.photos : [];
+        return photos[0] || "";
+      }
 
-    function featureLabels(park) {
-      const labels = [];
-      const f = park.f || {};
-      if (f.playground) labels.push("Playground");
-      if (f.trails) labels.push("Trails");
-      if (f.dog_park) labels.push("Dog-friendly");
-      if (f.shelter) labels.push("Shelter");
-      if (f.restroom) labels.push("Restroom");
-      if (f.baseball) labels.push("Ballfields");
-      if (f.tennis) labels.push("Tennis");
-      return labels.slice(0, 4);
-    }
+      function featureLabels(park) {
+        const labels = [];
+        const f = park.f || {};
+        if (f.playground) labels.push("Playground");
+        if (f.trails) labels.push("Trails");
+        if (f.dog_park) labels.push("Dog-friendly");
+        if (f.shelter) labels.push("Shelter");
+        if (f.restroom) labels.push("Restroom");
+        if (f.baseball) labels.push("Ballfields");
+        if (f.tennis) labels.push("Tennis");
+        return labels.slice(0, 4);
+      }
 
-    const featuredParks = guide.featured.map(byName).filter(Boolean);
+      const featuredParks = guide.featured.map(byName).filter(Boolean);
 
-    document.title = meta.city + " City Guide | " + meta.brandName;
-    document.querySelector('meta[name="description"]').setAttribute("content", "Explore the " + meta.city + " city guide on " + meta.brandName + " with featured parks, neighborhood picks, and trail access.");
-    document.getElementById("canonical-link").href = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("guide-eyebrow").textContent = guide.eyebrow;
-    document.getElementById("city-title").textContent = meta.city + ", " + meta.stateName;
-    document.getElementById("city-summary").textContent = guide.summary;
-    document.getElementById("city-total").textContent = parks.length.toLocaleString();
-    document.getElementById("featured-total").textContent = featuredParks.length.toLocaleString();
-    document.getElementById("coverage-status").textContent = DATASET_KEY === "aurora" ? "Live" : "Preview";
-    document.getElementById("coverage-copy").textContent = DATASET_KEY === "aurora"
-      ? "Aurora is the strongest city guide in the product right now."
-      : meta.city + " is now locally browseable and ready for richer polish.";
-    document.getElementById("city-supporting").textContent = guide.supporting;
-    document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
-    document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
-    document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
-    document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("nav-home-brand").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("nav-home-link").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("nav-city-link").href = "./city.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("nav-parks-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
-    document.getElementById("nav-events-link").href = "./events.html?city=" + encodeURIComponent(DATASET_KEY);
-    document.querySelectorAll(".city-pill").forEach((pill) => {
-      pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
-    });
+      function parkGuideUrl(park) {
+        const search = new URLSearchParams();
+        search.set("dataset", DATASET_KEY);
+        search.set("id", park.id || park.n);
+        return "./park.html?" + search.toString();
+      }
 
-    const featuredStrip = document.getElementById("featured-strip");
-    featuredParks.forEach((park, index) => {
-      const photo = fallbackPhoto(park);
-      const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
-      const mediaClass = photo ? "featured-media has-photo" : "featured-media";
-      const tags = featureLabels(park).map((label) => '<span class="feature-tag">' + label + '</span>').join("");
-      const card = document.createElement("article");
-      card.className = "featured-card";
-      card.innerHTML =
-        '<div class="' + mediaClass + '"' + mediaStyle + '>' +
-          '<span class="featured-badge">Featured Pick</span>' +
-          '<span class="featured-placeholder">' + ["🌲", "🏞️", "🛝", "🌿", "🏕️"][index % 5] + '</span>' +
-        '</div>' +
-        '<div class="featured-body">' +
-          '<div class="featured-meta">' + meta.city + ' guide</div>' +
-          '<h3 class="featured-title">' + park.n + '</h3>' +
-          '<p class="featured-summary">' + ((park.d || "Guide notes coming soon.").split(". ")[0] + ".") + '</p>' +
-          '<div class="feature-tags">' + tags + '</div>' +
-          '<div class="featured-actions">' +
-            '<a class="text-btn" href="./park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(park.n) + '">Open mini guide</a>' +
-            '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(park.n) + '">Show on map</a>' +
+      document.title = meta.city + " City Guide | " + meta.brandName;
+      document.querySelector('meta[name="description"]').setAttribute("content", "Explore the " + meta.city + " city guide on " + meta.brandName + " with featured parks, neighborhood picks, and trail access.");
+      document.getElementById("canonical-link").href = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("guide-eyebrow").textContent = guide.eyebrow;
+      document.getElementById("city-title").textContent = meta.city + ", " + meta.stateName;
+      document.getElementById("city-summary").textContent = guide.summary;
+      document.getElementById("city-total").textContent = parks.length.toLocaleString();
+      document.getElementById("featured-total").textContent = featuredParks.length.toLocaleString();
+      document.getElementById("coverage-status").textContent = DATASET_KEY === "aurora" ? "Live" : "Preview";
+      document.getElementById("coverage-copy").textContent = DATASET_KEY === "aurora"
+        ? "Aurora is the strongest city guide in the product right now."
+        : meta.city + " is now locally browseable and ready for richer polish.";
+      document.getElementById("city-supporting").textContent = guide.supporting;
+      document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
+      document.getElementById("best-link").href = "./best-parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
+      document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
+      document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("nav-home-brand").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("nav-home-link").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("nav-city-link").href = "./city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("nav-parks-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("nav-events-link").href = "./events.html?city=" + encodeURIComponent(DATASET_KEY);
+      document.querySelectorAll(".city-pill").forEach((pill) => {
+        pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
+      });
+
+      const featuredStrip = document.getElementById("featured-strip");
+      featuredStrip.innerHTML = "";
+      featuredParks.forEach((park, index) => {
+        const photo = fallbackPhoto(park);
+        const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
+        const mediaClass = photo ? "featured-media has-photo" : "featured-media";
+        const tags = featureLabels(park).map((label) => '<span class="feature-tag">' + label + '</span>').join("");
+        const card = document.createElement("article");
+        card.className = "featured-card";
+        card.innerHTML =
+          '<div class="' + mediaClass + '"' + mediaStyle + '>' +
+            '<span class="featured-badge">Featured Pick</span>' +
+            '<span class="featured-placeholder">' + ["🌲", "🏞️", "🛝", "🌿", "🏕️"][index % 5] + '</span>' +
           '</div>' +
-        '</div>';
-      featuredStrip.appendChild(card);
-    });
+          '<div class="featured-body">' +
+            '<div class="featured-meta">' + meta.city + ' guide</div>' +
+            '<h3 class="featured-title">' + park.n + '</h3>' +
+            '<p class="featured-summary">' + ((park.d || "Guide notes coming soon.").split(". ")[0] + ".") + '</p>' +
+            '<div class="feature-tags">' + tags + '</div>' +
+            '<div class="featured-actions">' +
+              '<a class="text-btn" href="' + parkGuideUrl(park) + '">Open mini guide</a>' +
+              '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(park.n) + '">Show on map</a>' +
+            '</div>' +
+          '</div>';
+        featuredStrip.appendChild(card);
+      });
 
-    const categoryGrid = document.getElementById("category-grid");
-    guide.categories.forEach((category) => {
-      const card = document.createElement("section");
-      card.className = "category-card";
-      const links = category.parks
-        .map((name) => byName(name))
-        .filter(Boolean)
-        .map((park) => '<a href="./park.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&name=' + encodeURIComponent(park.n) + '">' + park.n + '</a>')
-        .join("");
-      card.innerHTML =
-        '<h3>' + category.title + '</h3>' +
-        '<p>' + category.copy + '</p>' +
-        '<div class="category-list">' + links + '</div>';
-      categoryGrid.appendChild(card);
-    });
+      const categoryGrid = document.getElementById("category-grid");
+      categoryGrid.innerHTML = "";
+      guide.categories.forEach((category) => {
+        const card = document.createElement("section");
+        card.className = "category-card";
+        const links = category.parks
+          .map((name) => byName(name))
+          .filter(Boolean)
+          .map((park) => '<a href="' + parkGuideUrl(park) + '">' + park.n + '</a>')
+          .join("");
+        card.innerHTML =
+          '<h3>' + category.title + '</h3>' +
+          '<p>' + category.copy + '</p>' +
+          '<div class="category-list">' + links + '</div>';
+        categoryGrid.appendChild(card);
+      });
+    }
+
+    const datasetReadyPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();
+    datasetReadyPromise
+      .catch(() => null)
+      .then(() => window.waitForParkDataset ? window.waitForParkDataset(DATASET_KEY, { timeout: 5000 }).catch(() => []) : [])
+      .then(() => {
+        initializeCityGuide();
+      });
   </script>
 </body>
 </html>

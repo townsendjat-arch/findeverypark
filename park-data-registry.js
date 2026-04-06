@@ -26,6 +26,18 @@
       .replace(/^-+|-+$/g, "");
   }
 
+  function getDataset(datasetKey) {
+    if (datasets[datasetKey]) {
+      return datasets[datasetKey];
+    }
+
+    if (datasetKey === site.defaultDataset && Array.isArray(window.PARKS)) {
+      return window.PARKS;
+    }
+
+    return null;
+  }
+
   function normalizePark(park, datasetKey) {
     const meta = site.datasetsMeta[datasetKey] || {};
     const name = park.n || park.name || "";
@@ -88,6 +100,79 @@
     return normalizePark(park, datasetKey || site.defaultDataset);
   };
 
+  window.slugifyParkValue = slugify;
+  window.getParkDataset = getDataset;
+
+  window.waitForParkDataset = function (datasetKey, options) {
+    const key = datasetKey || site.defaultDataset;
+    const timeout = options && typeof options.timeout === "number" ? options.timeout : 4000;
+    const existing = getDataset(key);
+
+    if (existing && existing.length) {
+      return Promise.resolve(existing);
+    }
+
+    return new Promise((resolve, reject) => {
+      let timerId = 0;
+
+      function cleanup() {
+        window.removeEventListener("park-dataset-ready", handleReady);
+        if (timerId) {
+          window.clearTimeout(timerId);
+        }
+      }
+
+      function handleReady(event) {
+        const detail = event && event.detail ? event.detail : {};
+        if (detail.datasetKey !== key) {
+          return;
+        }
+
+        const list = getDataset(key);
+        if (list && list.length) {
+          cleanup();
+          resolve(list);
+        }
+      }
+
+      window.addEventListener("park-dataset-ready", handleReady);
+      timerId = window.setTimeout(() => {
+        cleanup();
+        reject(new Error("Timed out waiting for park dataset: " + key));
+      }, timeout);
+    });
+  };
+
+  window.findParkInDataset = function (datasetKey, query) {
+    const raw = String(query || "").trim();
+    if (!raw) {
+      return null;
+    }
+
+    const normalized = slugify(raw);
+    const parks = getDataset(datasetKey) || [];
+
+    return parks.find((park) => {
+      const name = park.name || park.n || "";
+      return (
+        String(park.id || "").toLowerCase() === raw.toLowerCase() ||
+        String(park.id || "").toLowerCase() === normalized ||
+        name.toLowerCase() === raw.toLowerCase() ||
+        slugify(name) === normalized
+      );
+    }) || null;
+  };
+
+  window.findParkByIdInDataset = function (datasetKey, parkId) {
+    const raw = String(parkId || "").trim().toLowerCase();
+    if (!raw) {
+      return null;
+    }
+
+    const parks = getDataset(datasetKey) || [];
+    return parks.find((park) => String(park.id || "").toLowerCase() === raw) || null;
+  };
+
   window.registerParkDataset = function (datasetKey, parks, meta) {
     if (meta) {
       site.datasetsMeta[datasetKey] = {
@@ -104,6 +189,14 @@
     }
 
     window.ALL_PARKS = Object.values(datasets).flat();
+    window.dispatchEvent(
+      new CustomEvent("park-dataset-ready", {
+        detail: {
+          datasetKey,
+          count: normalized.length
+        }
+      })
+    );
     return normalized;
   };
 })();
