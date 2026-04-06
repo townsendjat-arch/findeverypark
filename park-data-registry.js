@@ -8,6 +8,24 @@
         state: "CO",
         stateName: "Colorado",
         brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      centennial: {
+        city: "Centennial",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      parker: {
+        city: "Parker",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      "lone-tree": {
+        city: "Lone Tree",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
       }
     }
   });

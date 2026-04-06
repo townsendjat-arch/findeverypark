@@ -37,6 +37,11 @@
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://findeverypark.com/city.html?dataset=lone-tree</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
   <!-- Park Pages -->
   <url><loc>https://findeverypark.com/park.html?dataset=aurora&amp;name=Alta%20Vista%20Park</loc></url>
@@ -252,6 +257,19 @@
   <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=O%27Brien%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Parker%20Jordan%20Centennial%20Open%20Space</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Parker%20Recreation%20Center</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Sweetwater%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Prairie%20Sky%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Belvedere%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Promenade%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Lincoln%20Commons%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=The%20Park%20at%20Lone%20Tree%20Elementary</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Altair%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Carriage%20Club%20Estates%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Centennial%20Ridge%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Fairways%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=LaQuinta%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Lonesome%20Pine%20Park</loc></url>
+  <url><loc>https://findeverypark.com/park.html?dataset=lone-tree&amp;name=Timberline%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Preservation%20Park%20and%20Trailhead</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=Railbender%20Skate%20%26%20Tennis%20Park</loc></url>
   <url><loc>https://findeverypark.com/park.html?dataset=parker&amp;name=McCabe%20Meadows</loc></url>

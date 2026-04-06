@@ -409,6 +409,7 @@
       <a class="city-pill" data-dataset="aurora" href="./city.html?dataset=aurora">Aurora</a>
       <a class="city-pill" data-dataset="centennial" href="./city.html?dataset=centennial">Centennial</a>
       <a class="city-pill" data-dataset="parker" href="./city.html?dataset=parker">Parker</a>
+      <a class="city-pill" data-dataset="lone-tree" href="./city.html?dataset=lone-tree">Lone Tree</a>
     </div>
 
     <section class="city-hero">
@@ -428,7 +429,7 @@
           <div class="hero-stat">
             <span class="hero-stat-label">Parks In Guide</span>
             <div class="hero-stat-value" id="city-total">0</div>
-            <div class="hero-stat-copy">The current searchable city dataset.</div>
+            <div class="hero-stat-copy">All parks currently included in this city guide.</div>
           </div>
           <div class="hero-stat">
             <span class="hero-stat-label">Featured Now</span>
@@ -578,7 +579,7 @@
           '<div class="featured-body">' +
             '<div class="featured-meta">' + meta.city + ' guide</div>' +
             '<h3 class="featured-title">' + park.n + '</h3>' +
-            '<p class="featured-summary">' + ((park.d || "Guide notes coming soon.").split(". ")[0] + ".") + '</p>' +
+            '<p class="featured-summary">' + ((park.d || "A quick park overview is available here.").split(". ")[0] + ".") + '</p>' +
             '<div class="feature-tags">' + tags + '</div>' +
             '<div class="featured-actions">' +
               '<a class="text-btn" href="' + parkGuideUrl(park) + '">Open mini guide</a>' +

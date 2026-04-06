@@ -14,7 +14,7 @@
     centennial: {
       eyebrow: "Best Parks",
       title: "Best Parks in Centennial, Colorado",
-      summary: "A first curated Centennial list built from the strongest family, trail, and neighborhood picks in the current city dataset.",
+      summary: "A first curated Centennial list built around strong family, trail, and neighborhood picks.",
       featuredParkIds: [
         "co-centennial-cherry-creek-valley-ecological-park",
         "co-centennial-dekoevend-park",
@@ -31,6 +31,17 @@
         "co-parker-railbender-skate-tennis-park",
         "co-parker-salisbury-park-open-space",
         "co-parker-discovery-park"
+      ]
+    },
+    "lone-tree": {
+      eyebrow: "Best Parks",
+      title: "Best Parks in Lone Tree, Colorado",
+      summary: "A first curated Lone Tree short list built to highlight the easiest parks to start with.",
+      featuredParkIds: [
+        "co-lone-tree-sweetwater-park",
+        "co-lone-tree-promenade-park",
+        "co-lone-tree-lonesome-pine-park",
+        "co-lone-tree-altair-park"
       ]
     }
   };
@@ -131,12 +142,36 @@
       local_tip: "Best when you want a shorter outing with a built-in downtown Parker walk or snack stop.",
       seasonal_note: "The warm-weather fountain season is when this park shines most.",
       standout_feature: "Interactive fountains"
+    },
+    "co-lone-tree-sweetwater-park": {
+      best_for: "Best First Lone Tree Stop",
+      short_reason: "A clean starting point for getting oriented in Lone Tree without needing a long scouting trip.",
+      local_tip: "Use this as an anchor stop while you learn how the smaller Lone Tree park network fits together.",
+      standout_feature: "Easy first-look park"
+    },
+    "co-lone-tree-promenade-park": {
+      best_for: "Best Central Browse Pick",
+      short_reason: "A strong early Lone Tree pick for map-first browsing and quick comparison against nearby parks.",
+      local_tip: "Good candidate for an early repeat visit while richer park notes are still being built out.",
+      standout_feature: "Good map anchor"
+    },
+    "co-lone-tree-lonesome-pine-park": {
+      best_for: "Best Local Favorite Candidate",
+      short_reason: "One of the Lone Tree parks worth prioritizing for deeper guide polish as the city coverage expands.",
+      local_tip: "Pair this with another nearby Lone Tree stop if you want a faster read on the city’s park mix.",
+      standout_feature: "High-upside polish pick"
+    },
+    "co-lone-tree-altair-park": {
+      best_for: "Best Early Guide Candidate",
+      short_reason: "A useful Lone Tree park to feature early as the city guide grows into a richer local guide.",
+      local_tip: "Good one to keep on your shortlist as photos and additional field notes come online.",
+      standout_feature: "Strong early feature candidate"
     }
   };
 
   window.HOME_TOP_PICKS = {
     title: "Top Picks on the Front Range",
-    subtitle: "A few parks worth starting with across Aurora, Centennial, and Parker.",
+    subtitle: "A few parks worth starting with across Aurora, Centennial, Parker, and Lone Tree.",
     featuredParkIds: [
       "co-aurora-central-park",
       "co-aurora-great-plains-park",
@@ -148,7 +183,10 @@
       "co-centennial-dekoevend-park",
       "co-parker-o-brien-park",
       "co-parker-discovery-park",
-      "co-parker-salisbury-park"
+      "co-parker-salisbury-park",
+      "co-lone-tree-sweetwater-park",
+      "co-lone-tree-promenade-park",
+      "co-lone-tree-lonesome-pine-park"
     ]
   };
 
@@ -207,6 +245,21 @@
       top_pick_label: "Best Sports + Trails",
       short_reason: "Big multi-use park with room for sports and trail access.",
       local_tip: "Arrive early for major events and fireworks days."
+    },
+    "co-lone-tree-sweetwater-park": {
+      top_pick_label: "Best First Stop",
+      short_reason: "A simple starting point for getting your bearings in Lone Tree.",
+      local_tip: "A good first park to pair with another nearby Lone Tree stop."
+    },
+    "co-lone-tree-promenade-park": {
+      top_pick_label: "Best Central Pick",
+      short_reason: "One of the easiest Lone Tree parks to use as a map-and-card anchor.",
+      local_tip: "Helpful when you want a quick city browse without a long list."
+    },
+    "co-lone-tree-lonesome-pine-park": {
+      top_pick_label: "Best Early Favorite",
+      short_reason: "A strong Lone Tree park to keep in the first-wave shortlist as coverage expands.",
+      local_tip: "Worth revisiting once photos and richer field notes are added."
     }
   };
 })();

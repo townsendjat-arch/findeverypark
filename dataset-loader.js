@@ -8,7 +8,8 @@
   const datasetScripts = {
     aurora: "parks-data.js",
     centennial: "centennial-parks-data.js",
-    parker: "parker-parks-data.js"
+    parker: "parker-parks-data.js",
+    "lone-tree": "lone-tree-parks-data.js"
   };
 
   function resolveDatasetKey(value) {

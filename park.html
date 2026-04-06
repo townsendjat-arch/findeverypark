@@ -917,7 +917,7 @@ body{
     document.getElementById("park-acreage").textContent = formatAcreage(park);
     document.getElementById("park-description").innerHTML = (park.description || park.d)
       ? String(park.description || park.d).replace(/\n/g, "<br>")
-      : "<p class='empty-copy'>Park notes are coming soon.</p>";
+      : "<p class='empty-copy'>A quick overview for this park will be added here soon.</p>";
 
     directionsBtn.style.display = "inline-block";
     directionsBtn.href = buildDirectionsUrl(park, coords);

@@ -92,6 +92,36 @@
           parks: ["Railbender Skate & Tennis Park", "Stroh Ranch Soccer Fields", "Dog Park and Disc Golf Course"]
         }
       ]
+    },
+    "lone-tree": {
+      eyebrow: "Front Range City Guide",
+      summary:
+        "Lone Tree is a tighter, neighborhood-scale city browse with a compact park list that is easy to scan quickly and refine over time.",
+      supporting:
+        "This first Lone Tree release is intentionally lean and source-driven. It gives the city a working browse, map, and park-detail layer now, with room to add richer local notes and photos next.",
+      featured: [
+        "Sweetwater Park",
+        "Promenade Park",
+        "Lonesome Pine Park",
+        "Altair Park"
+      ],
+      categories: [
+        {
+          title: "Good First Lone Tree Stops",
+          copy: "A fast way to get oriented in the current Lone Tree dataset without overthinking the first visit.",
+          parks: ["Sweetwater Park", "Promenade Park", "Lonesome Pine Park"]
+        },
+        {
+          title: "Neighborhood Park Picks",
+          copy: "Parks that make sense as repeat local stops while the city guide keeps growing.",
+          parks: ["Lincoln Commons Park", "Fairways Park", "Timberline Park"]
+        },
+        {
+          title: "Early Parks To Polish",
+          copy: "The Lone Tree parks that are worth expanding first with photos, local notes, and stronger editorial coverage.",
+          parks: ["Altair Park", "Prairie Sky Park", "The Park at Lone Tree Elementary"]
+        }
+      ]
     }
   };
 })();
