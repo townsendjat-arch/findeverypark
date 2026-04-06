@@ -263,12 +263,22 @@
     @media (max-width: 980px) {
       .page-hero { grid-template-columns: 1fr; }
       .hero-stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 900px) {
       .browse-shell { grid-template-columns: 1fr; }
-      .browse-sidebar { position: static; }
+      .browse-main { order: 2; }
+      .browse-sidebar {
+        order: 1;
+        position: static;
+        top: auto;
+      }
+      .map-section { margin-bottom: 16px; }
+      #map { height: 320px; }
     }
     @media (max-width: 700px) {
       .page-hero { padding: 18px; }
       .hero-stats-grid { grid-template-columns: 1fr; }
+      #map { height: 280px; }
     }
   </style>
 </head>
