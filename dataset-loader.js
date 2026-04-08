@@ -9,7 +9,8 @@
     aurora: "parks-data.js",
     centennial: "centennial-parks-data.js",
     parker: "parker-parks-data.js",
-    "lone-tree": "lone-tree-parks-data.js"
+    "lone-tree": "lone-tree-parks-data.js",
+    denver: "denver-parks-data.js"
   };
 
   function resolveDatasetKey(value) {

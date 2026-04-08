@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Playgrounds in Centennial, Colorado | Find Every Park</title>
+  <meta name="description" content="Best playgrounds in Centennial for families who want a fast shortlist. Compare Centennial playground parks, splash-play options, and easy neighborhood stops.">
+  <link rel="canonical" href="https://findeverypark.com/best-playgrounds-centennial.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Best Playgrounds in Centennial, Colorado | Find Every Park">
+  <meta property="og:description" content="Best playgrounds in Centennial for families who want a fast shortlist. Compare Centennial playground parks, splash-play options, and easy neighborhood stops.">
+  <meta property="og:url" content="https://findeverypark.com/best-playgrounds-centennial.html">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Best Playgrounds in Centennial, Colorado | Find Every Park">
+  <meta name="twitter:description" content="Best playgrounds in Centennial for families who want a fast shortlist. Compare Centennial playground parks, splash-play options, and easy neighborhood stops.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="best-playgrounds-page.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="./index.html?dataset=centennial" class="nav-brand">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="./index.html?dataset=centennial">Home</a></li>
+      <li><a href="./city.html?dataset=centennial">City Guide</a></li>
+      <li><a href="./best-playgrounds-centennial.html" class="active">Best Centennial Playgrounds</a></li>
+      <li><a href="./parks.html?dataset=centennial">Parks</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <span class="eyebrow">Centennial Playgrounds</span>
+      <h1>Best Playgrounds in Centennial, Colorado</h1>
+      <p>Centennial has a solid mix of signature parks and easier neighborhood playgrounds. This page keeps the list focused so parents can find a strong fit quickly without relying only on the full map.</p>
+      <div class="hero-actions">
+        <a class="hero-btn primary" href="./city.html?dataset=centennial">Open Centennial city page</a>
+        <a class="hero-btn secondary" href="./parks.html?dataset=centennial&filter=playground">Browse Centennial playground map</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Centennial Playground Short List</h2>
+          <p class="section-copy">This list only includes Centennial parks with playgrounds and surfaces the stronger family options first.</p>
+        </div>
+      </div>
+      <div class="best-grid" id="best-grid"></div>
+      <div class="empty-state" id="empty-state" style="display:none;">No playground parks are available for this city yet.</div>
+    </section>
+
+    <section class="map-cta">
+      <div class="map-cta-copy">
+        <h2 class="section-title">Need the full Centennial playground map?</h2>
+        <p>Use the full city map when you want more playground options, park search, or neighborhood comparisons beyond this shortlist.</p>
+      </div>
+      <a class="hero-btn primary" href="./parks.html?dataset=centennial&filter=playground">Browse Centennial map</a>
+    </section>
+
+    <section class="community-callout">
+      <p>Have a park we should include? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
+    </section>
+  </main>
+
+  <script src="site-config.js"></script>
+  <script src="data/photos/park-photo-manifest.js"></script>
+  <script src="park-data-registry.js"></script>
+  <script src="centennial-parks-data.js"></script>
+  <script src="top-picks.js"></script>
+  <script>
+    window.PLAYGROUND_PAGE_CONFIG = {
+      datasetKey: "centennial",
+      city: "Centennial",
+      limit: 10
+    };
+  </script>
+  <script src="best-playgrounds-page.js"></script>
+</body>
+</html>

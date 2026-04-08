@@ -6,8 +6,18 @@
   <title>City Guide | Find Every Park Colorado</title>
   <meta name="description" content="Explore city guides on Find Every Park Colorado with featured parks, trail picks, and browse links for Aurora and more Front Range cities.">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/city.html?dataset=aurora">
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="og-title" content="Aurora Parks Map | Find Every Park Colorado">
+  <meta property="og:description" id="og-description" content="Find Aurora parks, playgrounds, trails, dog parks, and top local picks on Find Every Park Colorado.">
+  <meta property="og:url" id="og-url" content="https://findeverypark.com/city.html?dataset=aurora">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitter-title" content="Aurora Parks Map | Find Every Park Colorado">
+  <meta name="twitter:description" id="twitter-description" content="Find Aurora parks, playgrounds, trails, dog parks, and top local picks on Find Every Park Colorado.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --grass: #3d6b4a;
@@ -88,6 +98,13 @@
       border-color: var(--grass);
       color: white;
     }
+    .city-switch-link {
+      margin-left: auto;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--grass);
+    }
 
     .city-hero {
       background: linear-gradient(135deg, rgba(61,107,74,0.96), rgba(40,77,54,0.94));
@@ -138,6 +155,27 @@
       color: rgba(255,255,255,0.82);
       font-size: 15px;
       line-height: 1.7;
+    }
+    .hero-utility {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 16px;
+    }
+    .hero-utility-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     .hero-actions {
       display: flex;
@@ -211,6 +249,63 @@
       font-size: 14px;
       line-height: 1.6;
       max-width: 64ch;
+    }
+    .section-head-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .section-link,
+    .section-head-actions > a {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--grass);
+    }
+    .community-callout {
+      margin-top: 24px;
+      text-align: center;
+      color: #637168;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .community-callout a {
+      color: var(--grass);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .intent-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .intent-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: 0 8px 20px rgba(20, 31, 23, 0.04);
+    }
+    .intent-link:hover {
+      border-color: #d1c7bb;
+    }
+    .intent-label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .intent-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: #728076;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     .featured-strip {
@@ -382,6 +477,7 @@
     @media (max-width: 980px) {
       .city-hero-grid { grid-template-columns: 1fr; }
       .category-grid { grid-template-columns: 1fr; }
+      .intent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 700px) {
       .city-hero { padding: 22px; border-radius: 22px; }
@@ -389,6 +485,27 @@
       .featured-strip { grid-auto-columns: minmax(84vw, 1fr); }
       .main-nav { padding: 14px 16px; }
       main { padding: 22px 16px 60px; }
+      .city-switch-link { width: 100%; margin-left: 0; }
+      .section-head { align-items: start; flex-direction: column; }
+      .intent-grid { grid-template-columns: 1fr; }
+    }
+    .city-hero h1,
+    .section-title,
+    .featured-title,
+    .category-card h3 {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .city-hero h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-title {
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .featured-title,
+    .category-card h3 {
+      font-weight: 500;
     }
   </style>
 </head>
@@ -410,6 +527,8 @@
       <a class="city-pill" data-dataset="centennial" href="./city.html?dataset=centennial">Centennial</a>
       <a class="city-pill" data-dataset="parker" href="./city.html?dataset=parker">Parker</a>
       <a class="city-pill" data-dataset="lone-tree" href="./city.html?dataset=lone-tree">Lone Tree</a>
+      <a class="city-pill" data-dataset="denver" href="./city.html?dataset=denver">Denver</a>
+      <a class="city-switch-link" id="top-picks-link" href="./best-parks.html?dataset=aurora">See city top picks</a>
     </div>
 
     <section class="city-hero">
@@ -417,11 +536,17 @@
         <div>
           <span class="eyebrow" id="guide-eyebrow">Front Range City Guide</span>
           <h1 id="city-title">Aurora, Colorado</h1>
-          <p id="city-summary"></p>
+          <p id="city-summary">Find playgrounds, trails, dog parks, splash pads, and open spaces across Aurora. Browse the map, filter by features, and start with the top picks below.</p>
+          <div class="hero-utility" id="hero-utility">
+            <span class="hero-utility-pill" id="utility-count">0 parks shown</span>
+            <span class="hero-utility-pill" id="utility-proof">Curated picks + full city map</span>
+            <span class="hero-utility-pill" id="utility-browse">Browse by playgrounds, trails, dog parks, and more</span>
+          </div>
           <div class="hero-actions">
             <a class="hero-btn primary" id="browse-link" href="./parks.html?dataset=aurora">Browse All Parks</a>
             <a class="hero-btn secondary" id="trail-link" href="./parks.html?dataset=aurora&filter=trails">Trail Access</a>
             <a class="hero-btn secondary" id="best-link" href="./best-parks.html?dataset=aurora">Best Parks</a>
+            <a class="hero-btn secondary" id="playgrounds-link" href="./best-playgrounds-aurora.html">Best Playgrounds</a>
             <a class="hero-btn ghost" id="golf-link" href="./parks.html?dataset=aurora&filter=golf">Golf Courses</a>
           </div>
         </div>
@@ -452,8 +577,23 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <h2 class="section-title">Featured Parks</h2>
-          <p class="section-copy">This is the first step toward the swipeable city landing experience you described: strong featured parks, tighter storytelling, and clear click-throughs into the full browse flow.</p>
+          <h2 class="section-title" id="feature-section-title">Find Parks by Feature in Aurora</h2>
+          <p class="section-copy">Jump straight into the most common park searches for this city using the existing map and filter flow.</p>
+        </div>
+      </div>
+      <div class="intent-grid" id="intent-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Top Picks</h2>
+          <p class="section-copy">Start with the strongest parks first, then jump into the full city map when you want more options.</p>
+        </div>
+        <div class="section-head-actions">
+          <a href="best-parks-aurora.html">View full guide → Best Parks in Aurora</a>
+          <a class="section-link" id="open-top-picks-link" href="./best-parks.html?dataset=aurora">Open top picks page</a>
+          <a class="section-link" id="open-full-map-link" href="./parks.html?dataset=aurora">Open full city map</a>
         </div>
       </div>
       <div class="featured-strip" id="featured-strip"></div>
@@ -467,6 +607,10 @@
         </div>
       </div>
       <div class="category-grid" id="category-grid"></div>
+    </section>
+
+    <section class="community-callout">
+      <p>Know a great park in Aurora we should add? Email <a id="community-email-link" href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
     </section>
   </main>
 
@@ -497,13 +641,51 @@
       featured: [],
       categories: []
     };
+    const INTENT_LINKS = [
+      { label: "Playground", filter: "playground", fallback: true },
+      { label: "Dog Park", filter: "dog_park", fallback: true },
+      { label: "Trails", filter: "trails", fallback: true },
+      { label: "Splash Pad", filter: "sprayground" },
+      { label: "Picnic Shelters", filter: "shelter" },
+      { label: "Restrooms", filter: "restroom" },
+      { label: "Golf", filter: "golf", parkerFilter: "disc_golf" },
+      { label: "Basketball", filter: "basketball" }
+    ];
+    const cityGuidePages = {
+      aurora: "best-parks-aurora.html",
+      centennial: "best-parks-centennial.html",
+      parker: "best-parks-parker.html",
+      denver: "best-parks-denver.html",
+      "lone-tree": "best-parks-lone-tree.html"
+    };
+    const playgroundGuidePages = {
+      aurora: "./best-playgrounds-aurora.html",
+      centennial: "./best-playgrounds-centennial.html",
+      parker: "./best-playgrounds-parker.html",
+      denver: "./best-playgrounds-denver.html"
+    };
     function initializeCityGuide() {
       const parks = (window.getParkDataset ? window.getParkDataset(DATASET_KEY) : window.PARKS || [])
         .map((park) => window.normalizePark ? window.normalizePark(park, DATASET_KEY) : park)
         .filter((park) => (park.datasetKey || DATASET_KEY) === DATASET_KEY);
+      const bestParksUrl = cityGuidePages[DATASET_KEY]
+        ? "./" + cityGuidePages[DATASET_KEY].replace(/^\.\//, "")
+        : "./best-parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
 
       function byName(name) {
-        return parks.find((park) => park.n === name || park.name === name);
+        return parks.find((park) => park.name === name || park.n === name);
+      }
+
+      function parkName(park) {
+        return park.name || park.n || "";
+      }
+
+      function parkDescription(park) {
+        return park.description || park.d || "";
+      }
+
+      function parkFeatures(park) {
+        return park.features || park.f || {};
       }
 
       function fallbackPhoto(park) {
@@ -514,7 +696,7 @@
 
       function featureLabels(park) {
         const labels = [];
-        const f = park.f || {};
+        const f = parkFeatures(park);
         if (f.playground) labels.push("Playground");
         if (f.trails) labels.push("Trails");
         if (f.dog_park) labels.push("Dog-friendly");
@@ -525,20 +707,37 @@
         return labels.slice(0, 4);
       }
 
-      const featuredParks = guide.featured.map(byName).filter(Boolean);
+      const featuredEntries = guide.featured.map((entry) => {
+        if (typeof entry === "string") {
+          const park = byName(entry);
+          return park ? { park, badge: "Top Pick", reason: parkDescription(park) } : null;
+        }
+        const park = byName(entry.name);
+        return park ? { park, badge: entry.badge || "Top Pick", reason: entry.reason || parkDescription(park) } : null;
+      }).filter(Boolean);
+      const featuredParks = featuredEntries.map((entry) => entry.park);
 
       function parkGuideUrl(park) {
         const search = new URLSearchParams();
         search.set("dataset", DATASET_KEY);
-        search.set("id", park.id || park.n);
+        search.set("id", park.id || parkName(park));
         return "./park.html?" + search.toString();
       }
 
-      document.title = meta.city + " City Guide | " + meta.brandName;
-      document.querySelector('meta[name="description"]').setAttribute("content", "Explore the " + meta.city + " city guide on " + meta.brandName + " with featured parks, neighborhood picks, and trail access.");
-      document.getElementById("canonical-link").href = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      const pageTitle = meta.city + " Parks Map | " + meta.brandName;
+      const pageDescription = "Find " + meta.city + " parks, playgrounds, trails, dog parks, and top local picks on " + meta.brandName + ".";
+      const canonicalUrl = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.title = pageTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", pageDescription);
+      document.getElementById("canonical-link").href = canonicalUrl;
+      document.getElementById("og-title").setAttribute("content", pageTitle);
+      document.getElementById("og-description").setAttribute("content", pageDescription);
+      document.getElementById("og-url").setAttribute("content", canonicalUrl);
+      document.getElementById("twitter-title").setAttribute("content", pageTitle);
+      document.getElementById("twitter-description").setAttribute("content", pageDescription);
       document.getElementById("guide-eyebrow").textContent = guide.eyebrow;
-      document.getElementById("city-title").textContent = meta.city + ", " + meta.stateName;
+      document.getElementById("city-title").textContent = meta.city + " Parks Map";
+      document.getElementById("feature-section-title").textContent = "Find Parks by Feature in " + meta.city;
       document.getElementById("city-summary").textContent = guide.summary;
       document.getElementById("city-total").textContent = parks.length.toLocaleString();
       document.getElementById("featured-total").textContent = featuredParks.length.toLocaleString();
@@ -547,9 +746,33 @@
         ? "Aurora is the strongest city guide in the product right now."
         : meta.city + " is now locally browseable and ready for richer polish.";
       document.getElementById("city-supporting").textContent = guide.supporting;
+      document.getElementById("utility-count").textContent = parks.length.toLocaleString() + " parks shown";
       document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
-      document.getElementById("best-link").href = "./best-parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("best-link").href = bestParksUrl;
+      const playgroundGuideUrl = playgroundGuidePages[DATASET_KEY];
+      const playgroundLinkEl = document.getElementById("playgrounds-link");
+      if (playgroundGuideUrl) {
+        playgroundLinkEl.href = playgroundGuideUrl;
+        playgroundLinkEl.textContent = "Best Playgrounds";
+        playgroundLinkEl.style.display = "";
+      } else {
+        playgroundLinkEl.style.display = "none";
+      }
+      document.getElementById("top-picks-link").href = bestParksUrl;
+      document.getElementById("open-top-picks-link").href = bestParksUrl;
+      document.getElementById("open-full-map-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      const fullGuideLink = document.querySelector('.section-head-actions > a[href="best-parks-aurora.html"]');
+      if (fullGuideLink) {
+        const fullGuideUrl = cityGuidePages[DATASET_KEY];
+        if (fullGuideUrl) {
+          fullGuideLink.href = fullGuideUrl;
+          fullGuideLink.textContent = "View full guide → Best Parks in " + meta.city;
+          fullGuideLink.style.display = "";
+        } else {
+          fullGuideLink.style.display = "none";
+        }
+      }
       document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
       document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
       document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
@@ -558,13 +781,16 @@
       document.getElementById("nav-city-link").href = "./city.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("nav-parks-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("nav-events-link").href = "./events.html?city=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("community-email-link").innerHTML = "jason@findeverypark.com";
+      document.querySelector(".community-callout p").innerHTML = "Know a great park in " + meta.city + " we should add? Email <a id=\"community-email-link\" href=\"mailto:jason@findeverypark.com\">jason@findeverypark.com</a>";
       document.querySelectorAll(".city-pill").forEach((pill) => {
         pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
       });
 
       const featuredStrip = document.getElementById("featured-strip");
       featuredStrip.innerHTML = "";
-      featuredParks.forEach((park, index) => {
+      featuredEntries.forEach((entry, index) => {
+        const park = entry.park;
         const photo = fallbackPhoto(park);
         const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
         const mediaClass = photo ? "featured-media has-photo" : "featured-media";
@@ -573,20 +799,37 @@
         card.className = "featured-card";
         card.innerHTML =
           '<div class="' + mediaClass + '"' + mediaStyle + '>' +
-            '<span class="featured-badge">Featured Pick</span>' +
+            '<span class="featured-badge">' + entry.badge + '</span>' +
             '<span class="featured-placeholder">' + ["🌲", "🏞️", "🛝", "🌿", "🏕️"][index % 5] + '</span>' +
           '</div>' +
           '<div class="featured-body">' +
-            '<div class="featured-meta">' + meta.city + ' guide</div>' +
-            '<h3 class="featured-title">' + park.n + '</h3>' +
-            '<p class="featured-summary">' + ((park.d || "A quick park overview is available here.").split(". ")[0] + ".") + '</p>' +
+            '<div class="featured-meta">' + meta.city + ' top pick</div>' +
+            '<h3 class="featured-title">' + parkName(park) + '</h3>' +
+            '<p class="featured-summary">' + entry.reason + '</p>' +
             '<div class="feature-tags">' + tags + '</div>' +
             '<div class="featured-actions">' +
-              '<a class="text-btn" href="' + parkGuideUrl(park) + '">Open mini guide</a>' +
-              '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(park.n) + '">Show on map</a>' +
+              '<a class="text-btn" href="' + parkGuideUrl(park) + '">Open park page</a>' +
+              '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(parkName(park)) + '">Show on map</a>' +
             '</div>' +
           '</div>';
         featuredStrip.appendChild(card);
+      });
+
+      const intentGrid = document.getElementById("intent-grid");
+      intentGrid.innerHTML = "";
+      INTENT_LINKS.forEach((intent) => {
+        const filterKey = DATASET_KEY === "parker" && intent.parkerFilter ? intent.parkerFilter : intent.filter;
+        const hasMatch = parks.some((park) => parkFeatures(park)[filterKey]);
+        if (!hasMatch && !intent.fallback) {
+          return;
+        }
+        const link = document.createElement("a");
+        link.className = "intent-link";
+        link.href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(filterKey);
+        link.innerHTML =
+          '<span class="intent-label">' + intent.label + '</span>' +
+          '<span class="intent-meta">Open filter</span>';
+        intentGrid.appendChild(link);
       });
 
       const categoryGrid = document.getElementById("category-grid");
@@ -597,7 +840,7 @@
         const links = category.parks
           .map((name) => byName(name))
           .filter(Boolean)
-          .map((park) => '<a href="' + parkGuideUrl(park) + '">' + park.n + '</a>')
+          .map((park) => '<a href="' + parkGuideUrl(park) + '">' + parkName(park) + '</a>')
           .join("");
         card.innerHTML =
           '<h3>' + category.title + '</h3>' +

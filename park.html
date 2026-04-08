@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" id="page-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
+<meta name="robots" id="robots-meta" content="index, follow">
 <link rel="canonical" id="canonical-link" href="https://findeverypark.com/park.html">
 <meta property="og:type" content="article">
 <meta property="og:title" id="og-title" content="Park Guide | Find Every Park Colorado">
@@ -14,6 +15,8 @@
 <meta name="twitter:title" id="twitter-title" content="Park Guide | Find Every Park Colorado">
 <meta name="twitter:description" id="twitter-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
 <meta name="twitter:image" id="twitter-image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <title>Park Guide | Find Every Park Colorado</title>
@@ -274,6 +277,25 @@ body{
     max-width:100%;
   }
 }
+.park-title,
+.section h2,
+.answer-card h3{
+  font-family:'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.park-title{
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+
+.section h2{
+  font-weight:600;
+  letter-spacing:-0.005em;
+}
+
+.answer-card h3{
+  font-weight:500;
+}
 </style>
 </head>
 <body>
@@ -304,16 +326,6 @@ body{
       <p class="intro-copy" id="park-summary">We are loading the park summary now.</p>
     </section>
 
-    <section class="section" id="answers-section">
-      <h2>Park highlights</h2>
-      <div class="answer-grid" id="park-answers"></div>
-    </section>
-
-    <section class="section">
-      <h2>Photos</h2>
-      <div id="park-photos" class="park-photos"></div>
-    </section>
-
     <section class="section">
       <h2>Location</h2>
       <div id="park-map"></div>
@@ -329,6 +341,16 @@ body{
         </div>
       </div>
       <a id="directions-btn" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin:16px 0 0 0;padding:10px 16px;background:#2f5d50;color:white;border-radius:8px;text-decoration:none;font-weight:600;">Get Directions</a>
+    </section>
+
+    <section class="section" id="answers-section">
+      <h2>Park highlights</h2>
+      <div class="answer-grid" id="park-answers"></div>
+    </section>
+
+    <section class="section">
+      <h2>Photos</h2>
+      <div id="park-photos" class="park-photos"></div>
     </section>
 
     <section class="section">
@@ -449,10 +471,26 @@ body{
       : address + ", " + DATASET_META.city + ", " + DATASET_META.state;
   }
 
+  function parkName(park) {
+    return park.name || park.n || "";
+  }
+
+  function parkAddress(park) {
+    return park.address || park.a || "";
+  }
+
+  function parkDescription(park) {
+    return park.description || park.d || "";
+  }
+
+  function parkFeatures(park) {
+    return park.features || park.f || {};
+  }
+
   function parkGuideUrl(park) {
     const search = new URLSearchParams();
     search.set("dataset", DATASET_KEY);
-    search.set("id", park.id || park.n || "");
+    search.set("id", park.id || parkName(park));
     return "https://findeverypark.com/park.html?" + search.toString();
   }
 
@@ -471,7 +509,7 @@ body{
     }
 
     const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {};
-    return datasetCoords[park.name || park.n] || null;
+    return datasetCoords[parkName(park)] || null;
   }
 
   function formatAcreage(park) {
@@ -480,15 +518,15 @@ body{
   }
 
   function featureKeys(park) {
-    return Object.keys(park.features || park.f || {}).filter((key) => park.features ? park.features[key] : park.f[key]);
+    return Object.keys(parkFeatures(park)).filter((key) => parkFeatures(park)[key]);
   }
 
   function hasDescriptionKeyword(park, pattern) {
-    return pattern.test(stripHtml(park.description || park.d || ""));
+    return pattern.test(stripHtml(parkDescription(park)));
   }
 
   function buildConfirmedHighlights(park) {
-    const features = park.features || park.f || {};
+    const features = parkFeatures(park);
     const highlights = [];
 
     if (features.playground) {
@@ -499,7 +537,7 @@ body{
       highlights.push({ label: "Trails", value: "Available" });
     }
 
-    if (features.restroom) {
+    if (park.bathrooms || features.restroom) {
       highlights.push({ label: "Bathrooms", value: "Available" });
     }
 
@@ -567,7 +605,7 @@ body{
   }
 
   function buildSummary(park) {
-    const sentence = firstSentence(park.description || park.d || "");
+    const sentence = firstSentence(parkDescription(park));
     if (sentence) {
       return sentence;
     }
@@ -576,10 +614,10 @@ body{
     const labels = featureKeys(park).slice(0, 3).map((key) => FEATURE_LABELS[key] || key.replace(/_/g, " "));
     const typeLabel = labels.length ? labels.join(", ").toLowerCase() : "general park access";
     if (acreage > 0) {
-      return (park.name || park.n) + " is a " + acreage.toLocaleString() + "-acre park in " + DATASET_META.city + " with " + typeLabel + ".";
+      return parkName(park) + " is a " + acreage.toLocaleString() + "-acre park in " + DATASET_META.city + " with " + typeLabel + ".";
     }
 
-    return (park.name || park.n) + " is a park in " + DATASET_META.city + " with " + typeLabel + ".";
+    return parkName(park) + " is a park in " + DATASET_META.city + " with " + typeLabel + ".";
   }
 
   function buildDirectionsUrl(park, coords) {
@@ -587,7 +625,7 @@ body{
       return "https://www.google.com/maps/dir/?api=1&destination=" + coords[0] + "," + coords[1];
     }
 
-    return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent((park.name || park.n || "Park") + " " + DATASET_META.city + " " + DATASET_META.stateName);
+    return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent((parkName(park) || "Park") + " " + DATASET_META.city + " " + DATASET_META.stateName);
   }
 
   function renderAnswers(park) {
@@ -679,8 +717,8 @@ body{
     matches.forEach((match) => {
       const link = document.createElement("a");
       link.className = "nearby-link";
-      link.href = "park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&id=" + encodeURIComponent(match.park.id || match.park.n);
-      link.textContent = match.park.n + " (" + match.distance.toFixed(1) + " mi)";
+      link.href = "park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&id=" + encodeURIComponent(match.park.id || parkName(match.park));
+      link.textContent = parkName(match.park) + " (" + match.distance.toFixed(1) + " mi)";
       nearbyLinksEl.appendChild(link);
     });
   }
@@ -725,7 +763,7 @@ body{
         {
           "@type": "ListItem",
           "position": 4,
-          "name": park.name || park.n,
+          "name": parkName(park),
           "item": pageUrl
         }
       ]
@@ -740,7 +778,7 @@ body{
     const schema = {
       "@context": "https://schema.org",
       "@type": "Place",
-      "name": park.name || park.n,
+      "name": parkName(park),
       "description": summary,
       "url": pageUrl,
       "isPartOf": {
@@ -754,10 +792,10 @@ body{
       }
     };
 
-    if (park.address || park.a) {
+    if (parkAddress(park)) {
       schema.address = {
         "@type": "PostalAddress",
-        "streetAddress": park.address || park.a,
+        "streetAddress": parkAddress(park),
         "addressLocality": DATASET_META.city,
         "addressRegion": DATASET_META.state,
         "addressCountry": "US"
@@ -804,7 +842,7 @@ body{
     }).addTo(mapInstance);
 
     L.marker(coords).addTo(mapInstance)
-      .bindPopup((park.name || park.n) + "<br>" + escapeHtml(formatPlace(park.address || park.a || "")))
+      .bindPopup(parkName(park) + "<br>" + escapeHtml(formatPlace(parkAddress(park))))
       .openPopup();
   }
 
@@ -817,7 +855,7 @@ body{
 
     if (park.heroPhoto && park.heroPhoto.src) {
       headerImgEl.src = park.heroPhoto.src;
-      headerImgEl.alt = park.heroPhoto.alt || ((park.name || park.n) + " photo");
+      headerImgEl.alt = park.heroPhoto.alt || (parkName(park) + " photo");
       headerImgEl.onerror = function () {
         headerImgEl.style.display = "none";
       };
@@ -833,7 +871,7 @@ body{
 
       const img = document.createElement("img");
       img.src = photo.src;
-      img.alt = photo.alt || ((park.name || park.n) + " photo");
+      img.alt = photo.alt || (parkName(park) + " photo");
       img.loading = "lazy";
       img.onerror = function () {
         img.remove();
@@ -851,6 +889,7 @@ body{
 
   function renderNotFound(message) {
     document.title = "Park Not Found | " + DATASET_META.brandName;
+    document.getElementById("robots-meta").setAttribute("content", "noindex, follow");
     document.getElementById("canonical-link").href = "https://findeverypark.com/park.html?dataset=" + encodeURIComponent(DATASET_KEY);
     setMeta("og-title", document.title);
     setMeta("twitter-title", document.title);
@@ -892,13 +931,14 @@ body{
     const coords = getCoords(park);
     const pageUrl = parkGuideUrl(park);
     const summary = buildSummary(park);
-    const descriptionText = stripHtml(park.description || park.d || "");
+    const descriptionText = stripHtml(parkDescription(park));
     const metaDescription = summary.slice(0, 155);
     const imageUrl = park.heroPhoto && park.heroPhoto.src
       ? new URL(park.heroPhoto.src, window.location.origin).href
       : DEFAULT_OG_IMAGE;
 
-    document.title = (park.name || park.n) + " Park Guide | " + DATASET_META.brandName;
+    document.title = parkName(park) + " Park Guide | " + DATASET_META.brandName;
+    document.getElementById("robots-meta").setAttribute("content", "index, follow");
     document.getElementById("page-description").setAttribute("content", metaDescription);
     document.getElementById("canonical-link").href = pageUrl;
     setMeta("og-title", document.title);
@@ -909,14 +949,14 @@ body{
     setMeta("og-image", imageUrl);
     setMeta("twitter-image", imageUrl);
 
-    document.getElementById("park-name").textContent = park.name || park.n || "";
-    document.getElementById("crumb-current").textContent = park.name || park.n || "";
-    document.getElementById("park-location").textContent = formatPlace(park.address || park.a || "");
+    document.getElementById("park-name").textContent = parkName(park);
+    document.getElementById("crumb-current").textContent = parkName(park);
+    document.getElementById("park-location").textContent = formatPlace(parkAddress(park));
     document.getElementById("park-summary").textContent = summary;
-    document.getElementById("park-address").textContent = formatPlace(park.address || park.a || "");
+    document.getElementById("park-address").textContent = formatPlace(parkAddress(park));
     document.getElementById("park-acreage").textContent = formatAcreage(park);
-    document.getElementById("park-description").innerHTML = (park.description || park.d)
-      ? String(park.description || park.d).replace(/\n/g, "<br>")
+    document.getElementById("park-description").innerHTML = parkDescription(park)
+      ? String(parkDescription(park)).replace(/\n/g, "<br>")
       : "<p class='empty-copy'>A quick overview for this park will be added here soon.</p>";
 
     directionsBtn.style.display = "inline-block";

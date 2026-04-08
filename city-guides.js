@@ -3,15 +3,15 @@
     aurora: {
       eyebrow: "Front Range City Guide",
       summary:
-        "Aurora is the deepest city guide in the project so far: destination parks, reservoirs, neighborhood playgrounds, and long trail corridors all in one place.",
+        "Find playgrounds, trails, dog parks, splash pads, golf, and open spaces across Aurora. Browse the map, filter by features, and start with the strongest picks below.",
       supporting:
-        "Start here if you want the broadest Colorado preview right now. Aurora has the strongest park coverage, the most varied amenities, and the clearest path to premium guides and photo storytelling.",
+        "Curated picks plus the full Aurora park map make this the easiest place to start if you want the broadest local browse right now.",
       featured: [
-        "Aurora Reservoir",
-        "Utah Park",
-        "Great Plains Park",
-        "Del Mar Park",
-        "Red-tailed Hawk Park"
+        { name: "Aurora Reservoir", badge: "Destination Pick", reason: "Best when you want a bigger outing with water, trails, and room to spread out." },
+        { name: "Utah Park", badge: "Family Pick", reason: "A reliable family stop with a strong everyday mix of play space and amenities." },
+        { name: "Great Plains Park", badge: "All-Around Pick", reason: "One of the easiest Aurora parks to recommend for variety, space, and repeat visits." },
+        { name: "Del Mar Park", badge: "Neighborhood Pick", reason: "A solid local park when you want a quick stop without overthinking the plan." },
+        { name: "Red-tailed Hawk Park", badge: "Scenic Pick", reason: "A stronger choice for open views, trails, and a more spacious feel." }
       ],
       categories: [
         {
@@ -34,15 +34,15 @@
     centennial: {
       eyebrow: "Front Range City Guide",
       summary:
-        "Centennial leans greener and quieter, with trail corridors, neighborhood parks, and open-space pockets that already feel promising in the local preview.",
+        "Find playgrounds, trails, dog-friendly parks, and open-space stops across Centennial. Use the map, browse by feature, and start with the best local picks below.",
       supporting:
-        "This city guide is still early, but it is a strong test bed for how Find Every Park can scale beyond Aurora without losing a curated, local feel.",
+        "This guide gives you a quicker way to sort through Centennial without losing the map, filters, and full-city browse underneath it.",
       featured: [
-        "Cherry Creek Valley Ecological Park",
-        "Piney Creek Trail",
-        "deKoevend Park",
-        "Cherry Park",
-        "Clarkson Park"
+        { name: "Cherry Creek Valley Ecological Park", badge: "Nature Pick", reason: "A good first stop when you want open space, scenery, and a greener feel." },
+        { name: "Piney Creek Trail", badge: "Trail Pick", reason: "One of the clearest trail-led starting points in the current Centennial guide." },
+        { name: "deKoevend Park", badge: "Local Favorite", reason: "An easy park to start with if you want a stronger all-around Centennial stop." },
+        { name: "Cherry Park", badge: "Family Pick", reason: "A practical family option with a friendly neighborhood-park feel." },
+        { name: "Clarkson Park", badge: "Quick Stop", reason: "A reliable everyday park for shorter visits and repeat local use." }
       ],
       categories: [
         {
@@ -65,15 +65,15 @@
     parker: {
       eyebrow: "Front Range City Guide",
       summary:
-        "Parker adds a more south-metro mix: destination parks, open-space corridors, dog-park access, and a handful of civic parks that are easy to browse in one pass.",
+        "Find Parker playgrounds, trails, dog parks, disc golf, and open-space corridors in one place. Browse the map, use the filters, and start with the top picks below.",
       supporting:
-        "This is a lean first Parker release built from the public parks and open-space records in the local GIS dataset. It is enough to browse confidently now, with room to layer in better photos and richer park notes next.",
+        "This page helps you narrow Parker faster with curated starting points plus the full browse and map flow behind them.",
       featured: [
-        "O'Brien Park",
-        "Salisbury Regional Park",
-        "Harvie Open Space",
-        "Railbender Skate & Tennis Park",
-        "Dog Park and Disc Golf Course"
+        { name: "O'Brien Park", badge: "Town-Center Pick", reason: "A strong first Parker stop if you want an easy, central park to start with." },
+        { name: "Salisbury Regional Park", badge: "Destination Pick", reason: "Best when you want a bigger park with room for a fuller outing." },
+        { name: "Harvie Open Space", badge: "Trail Pick", reason: "A good choice when trail access and open space matter more than playground time." },
+        { name: "Railbender Skate & Tennis Park", badge: "Activity Pick", reason: "A cleaner first click if your group wants active features instead of a generic park stop." },
+        { name: "Dog Park and Disc Golf Course", badge: "Dog-Friendly Pick", reason: "The fastest Parker option for dog-park use and disc golf in one stop." }
       ],
       categories: [
         {
@@ -96,14 +96,14 @@
     "lone-tree": {
       eyebrow: "Front Range City Guide",
       summary:
-        "Lone Tree is a tighter, neighborhood-scale city browse with a compact park list that is easy to scan quickly and refine over time.",
+        "Find Lone Tree playgrounds, trails, neighborhood parks, and easy local stops in one compact guide. Browse the map, filter by features, and start with the best picks below.",
       supporting:
-        "This first Lone Tree release is intentionally lean and source-driven. It gives the city a working browse, map, and park-detail layer now, with room to add richer local notes and photos next.",
+        "This city guide is built to help you get oriented fast, with curated picks up front and the full Lone Tree browse behind them.",
       featured: [
-        "Sweetwater Park",
-        "Promenade Park",
-        "Lonesome Pine Park",
-        "Altair Park"
+        { name: "Sweetwater Park", badge: "Start Here", reason: "A simple, dependable first stop if you are getting oriented in Lone Tree." },
+        { name: "Promenade Park", badge: "Central Pick", reason: "An easy local option when you want a quick stop near other Lone Tree errands." },
+        { name: "Lonesome Pine Park", badge: "Accessible Pick", reason: "A stronger family choice when inclusive play matters." },
+        { name: "Altair Park", badge: "Unique Pick", reason: "Worth opening first if you want a park with more personality than a basic neighborhood stop." }
       ],
       categories: [
         {
@@ -120,6 +120,37 @@
           title: "Early Parks To Polish",
           copy: "The Lone Tree parks that are worth expanding first with photos, local notes, and stronger editorial coverage.",
           parks: ["Altair Park", "Prairie Sky Park", "The Park at Lone Tree Elementary"]
+        }
+      ]
+    },
+    denver: {
+      eyebrow: "Front Range City Guide",
+      summary:
+        "Find Denver playgrounds, trails, dog-friendly stops, and big city parks in one place. Use the map, browse by feature, and start with the strongest local picks below.",
+      supporting:
+        "This Denver guide starts with curated top picks while the broader city dataset continues to grow behind the scenes.",
+      featured: [
+        { name: "Paco Sánchez Park", badge: "Top Pick", reason: "A standout Denver park when you want a more memorable playground stop." },
+        { name: "Central Park", badge: "Big-Outing Pick", reason: "A strong first click for families who want playgrounds, splash-pad access, and room to spread out." },
+        { name: "City Park Nature Play", badge: "Nature Pick", reason: "A better fit when you want climbing and a more creative nature-play feel." },
+        { name: "Crestmoor Park", badge: "Neighborhood Pick", reason: "An easy local favorite with shade, open space, and a reliable family layout." },
+        { name: "James A. Bible Park", badge: "Trail Pick", reason: "A strong southeast Denver option when you want both play space and trails." }
+      ],
+      categories: [
+        {
+          title: "Best First Denver Stops",
+          copy: "A quick way to start with the strongest family-friendly Denver picks.",
+          parks: ["Paco Sánchez Park", "Central Park", "Crestmoor Park"]
+        },
+        {
+          title: "Nature And Open Space Picks",
+          copy: "Better options when you want trails, room to roam, or a more natural feel.",
+          parks: ["City Park Nature Play", "James A. Bible Park", "Johnson-Habitat Park"]
+        },
+        {
+          title: "Playground-Led Picks",
+          copy: "Good first clicks when the main goal is simple: find a strong place for kids to play.",
+          parks: ["Central Park Playground", "City Park Playground", "Belleview Park"]
         }
       ]
     }

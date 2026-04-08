@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Best Parks | Find Every Park Colorado</title>
   <meta name="description" content="Curated Best Parks picks for Aurora, Centennial, Parker, and Lone Tree using park data plus local editorial notes.">
+  <meta name="robots" content="noindex, follow">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/best-parks.html?dataset=aurora">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --grass: #3d6b4a;
@@ -270,9 +272,35 @@
       padding: 24px;
       color: #66736b;
     }
+    .community-callout {
+      margin-top: 24px;
+      text-align: center;
+      color: #637168;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .community-callout a {
+      color: var(--grass);
+      font-weight: 700;
+      text-decoration: none;
+    }
 
     @media (max-width: 720px) {
       .page-hero { padding: 22px; }
+    }
+    .page-hero h1,
+    .section-title,
+    .best-title {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .page-hero h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-title,
+    .best-title {
+      font-weight: 600;
+      letter-spacing: -0.005em;
     }
   </style>
 </head>
@@ -316,6 +344,10 @@
       <div class="best-grid" id="best-grid"></div>
       <div class="empty-state" id="empty-state" style="display:none;">This city does not have curated best-park picks yet.</div>
     </section>
+
+    <section class="community-callout">
+      <p>Have a park we should include? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
+    </section>
   </main>
 
   <script src="site-config.js"></script>
@@ -337,6 +369,13 @@
       title: "Best Parks",
       summary: "Curated park picks built from the core dataset plus local research notes.",
       featuredParkIds: []
+    };
+    const dedicatedBestParkPages = {
+      aurora: "https://findeverypark.com/best-parks-aurora.html",
+      centennial: "https://findeverypark.com/best-parks-centennial.html",
+      parker: "https://findeverypark.com/best-parks-parker.html",
+      denver: "https://findeverypark.com/best-parks-denver.html",
+      "lone-tree": "https://findeverypark.com/best-parks-lone-tree.html"
     };
     const FEATURE_LABELS = {
       playground: "Playground",
@@ -378,12 +417,12 @@
     function parkGuideUrl(park) {
       const search = new URLSearchParams();
       search.set("dataset", DATASET_KEY);
-      search.set("id", park.id || park.n);
+      search.set("id", park.id || park.name || park.n);
       return "./park.html?" + search.toString();
     }
 
     function featureLabels(park) {
-      const features = park.f || {};
+      const features = park.features || park.f || {};
       return Object.keys(features)
         .filter((key) => features[key])
         .map((key) => FEATURE_LABELS[key] || key.replace(/_/g, " "))
@@ -414,7 +453,7 @@
 
       document.title = pageGuide.title + " | " + meta.brandName;
       document.querySelector('meta[name="description"]').setAttribute("content", pageGuide.summary);
-      document.getElementById("canonical-link").href = "https://findeverypark.com/best-parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("canonical-link").href = dedicatedBestParkPages[DATASET_KEY] || ("https://findeverypark.com/best-parks.html?dataset=" + encodeURIComponent(DATASET_KEY));
       document.getElementById("page-eyebrow").textContent = pageGuide.eyebrow;
       document.getElementById("page-title").textContent = pageGuide.title;
       document.getElementById("page-summary").textContent = pageGuide.summary;
@@ -444,8 +483,9 @@
         const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
         const featureTags = featureLabels(park).map((label) => '<span class="feature-tag">' + escapeHtml(label) + '</span>').join("");
         const noteTags = noteChips(editorial).map((note) => '<span class="note-chip">' + escapeHtml(note) + '</span>').join("");
-        const address = park.a || park.address || "";
-        const acres = Number(park.ac || park.acreage || 0);
+        const address = park.address || park.a || "";
+        const acres = Number(park.acreage || park.ac || 0);
+        const name = park.name || park.n || "";
         const article = document.createElement("article");
         article.className = "best-card";
         article.innerHTML =
@@ -455,7 +495,7 @@
           '</div>' +
           '<div class="best-body">' +
             '<div class="best-meta">' + escapeHtml(meta.city) + '</div>' +
-            '<h2 class="best-title">' + escapeHtml(park.n) + '</h2>' +
+            '<h2 class="best-title">' + escapeHtml(name) + '</h2>' +
             (address ? '<div class="best-address">' + escapeHtml(address) + '</div>' : '') +
             (acres > 0 ? '<div class="best-acres">' + escapeHtml(acres.toLocaleString() + ' acres') + '</div>' : '') +
             '<p class="best-reason">' + escapeHtml(editorial.short_reason || "") + '</p>' +
@@ -464,7 +504,7 @@
             (noteTags ? '<div class="note-list">' + noteTags + '</div>' : '') +
             '<div class="best-actions">' +
               '<a class="text-btn" href="' + parkGuideUrl(park) + '">Open mini guide</a>' +
-              '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(park.n) + '">Show on map</a>' +
+              '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(name) + '">Show on map</a>' +
             '</div>' +
           '</div>';
         grid.appendChild(article);

@@ -26,6 +26,12 @@
         state: "CO",
         stateName: "Colorado",
         brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      denver: {
+        city: "Denver",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
       }
     }
   });
@@ -56,6 +62,16 @@
     return null;
   }
 
+  function normalizeBoolean(value) {
+    if (typeof value === "string") {
+      const normalized = value.trim().toLowerCase();
+      if (!normalized) return false;
+      return normalized === "true" || normalized === "1" || normalized === "yes" || normalized === "y";
+    }
+
+    return value === true || value === 1;
+  }
+
   function normalizePark(park, datasetKey) {
     const meta = site.datasetsMeta[datasetKey] || {};
     const name = park.n || park.name || "";
@@ -64,12 +80,17 @@
     const stateName = park.stateName || meta.stateName || "";
     const address = park.a || park.address || "";
     const features = park.f || park.features || {};
+    const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[datasetKey]) || {};
+    const coordPair = Array.isArray(datasetCoords[name]) ? datasetCoords[name] : null;
+    const lat = Number.isFinite(Number(park.lat)) ? Number(park.lat) : coordPair ? Number(coordPair[0]) : null;
+    const lng = Number.isFinite(Number(park.lng)) ? Number(park.lng) : coordPair ? Number(coordPair[1]) : null;
     const acreage =
       typeof park.ac === "number"
         ? park.ac
         : typeof park.acreage === "number"
           ? park.acreage
           : Number(park.ac || park.acreage) || 0;
+    const description = park.description || park.d || "";
     const baseId = park.id || [state.toLowerCase(), slugify(city), slugify(name)].filter(Boolean).join("-");
     const manifestPhotos = Array.isArray(photoManifest.parks[baseId]) ? photoManifest.parks[baseId].slice() : [];
     const inlinePhotos = Array.isArray(park.photos)
@@ -104,6 +125,15 @@
       acreage,
       f: features,
       features,
+      lat: Number.isFinite(lat) ? lat : null,
+      lng: Number.isFinite(lng) ? lng : null,
+      playground: normalizeBoolean(park.playground) || normalizeBoolean(features.playground),
+      dog_park: normalizeBoolean(park.dog_park) || normalizeBoolean(features.dog_park),
+      trails: normalizeBoolean(park.trails) || normalizeBoolean(features.trails),
+      bathrooms: normalizeBoolean(park.bathrooms) || normalizeBoolean(park.restroom) || normalizeBoolean(features.bathrooms) || normalizeBoolean(features.restroom),
+      parking: normalizeBoolean(park.parking) || normalizeBoolean(features.parking),
+      description,
+      d: description,
       photos: photoRecords.map((photo) => photo.src),
       photoGallery: photoRecords,
       heroPhoto,

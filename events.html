@@ -6,6 +6,15 @@
   <title>Front Range Events — Find Every Park Colorado</title>
   <meta name="description" content="Browse curated family-friendly events from Find Every Park Colorado, starting with Aurora and expanding city by city across the Front Range.">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/events.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="og-title" content="Aurora Events | Find Every Park Colorado">
+  <meta property="og:description" id="og-description" content="Browse curated family-friendly events in Aurora on Find Every Park Colorado.">
+  <meta property="og:url" id="og-url" content="https://findeverypark.com/events.html?city=aurora">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitter-title" content="Aurora Events | Find Every Park Colorado">
+  <meta name="twitter:description" id="twitter-description" content="Browse curated family-friendly events in Aurora on Find Every Park Colorado.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
   <script>
@@ -16,6 +25,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #1a1a18;
@@ -356,6 +366,19 @@
       .event-row { grid-template-columns: 1fr; }
       .event-link { justify-self: start; }
     }
+    .page-header h1,
+    .submit-box h3,
+    .empty-city h3 {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .page-header h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .submit-box h3,
+    .empty-city h3 {
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -425,9 +448,17 @@
   document.getElementById('page-subtitle').textContent = cityMeta.subtitle || ('A curated, human-maintained list of community events in ' + cityMeta.label + '.');
   document.getElementById('submit-heading').textContent = cityMeta.submitHeading || ('Know a ' + cityMeta.label + ' event?');
   document.getElementById('footer-note-copy').textContent = cityMeta.footerNote || ('Event listings currently focus on ' + cityMeta.label + '.');
-  document.title = cityMeta.label + ' Events | Find Every Park Colorado';
-  document.querySelector('meta[name="description"]').setAttribute('content', 'Browse curated family-friendly events in ' + cityMeta.label + ' on Find Every Park Colorado.');
-  document.getElementById('canonical-link').href = 'https://findeverypark.com/events.html?city=' + encodeURIComponent(cityKey);
+  const pageTitle = cityMeta.label + ' Events | Find Every Park Colorado';
+  const pageDescription = 'Browse curated family-friendly events in ' + cityMeta.label + ' on Find Every Park Colorado.';
+  const canonicalUrl = 'https://findeverypark.com/events.html?city=' + encodeURIComponent(cityKey);
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', pageDescription);
+  document.getElementById('canonical-link').href = canonicalUrl;
+  document.getElementById('og-title').setAttribute('content', pageTitle);
+  document.getElementById('og-description').setAttribute('content', pageDescription);
+  document.getElementById('og-url').setAttribute('content', canonicalUrl);
+  document.getElementById('twitter-title').setAttribute('content', pageTitle);
+  document.getElementById('twitter-description').setAttribute('content', pageDescription);
   document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(cityKey);
   document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(cityKey);
   document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(cityKey);

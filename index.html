@@ -10,11 +10,37 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Every Park in Colorado | Maps, Trails, Playgrounds</title>
-  <meta name="description" content="Discover parks across Colorado's Front Range with maps, trails, playgrounds, and local guides. Start with Aurora and explore more cities.">
+  <title>Find Parks Near You | Aurora, Denver, Parker & Front Range Parks Map</title>
+  <meta name="description" content="Find parks near you across Aurora, Denver, Parker, and the Front Range. Browse playgrounds, trails, dog parks, and local park maps fast.">
   <link rel="canonical" href="https://findeverypark.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Find Parks Near You | Aurora, Denver, Parker & Front Range Parks Map">
+  <meta property="og:description" content="Find parks near you across Aurora, Denver, Parker, and the Front Range. Browse playgrounds, trails, dog parks, and local park maps fast.">
+  <meta property="og:url" content="https://findeverypark.com/">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Find Parks Near You | Aurora, Denver, Parker & Front Range Parks Map">
+  <meta name="twitter:description" content="Find parks near you across Aurora, Denver, Parker, and the Front Range. Browse playgrounds, trails, dog parks, and local park maps fast.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Find Every Park",
+      "url": "https://findeverypark.com/"
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Find Every Park",
+      "url": "https://findeverypark.com/"
+    }
+  </script>
   <style>
     :root {
       --grass: #2f7d4f;
@@ -123,45 +149,95 @@
 
     .search-row {
       display: flex;
+      flex-direction: column;
       gap: 12px;
-      align-items: center;
+    }
+
+    .search-controls {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
       flex-wrap: wrap;
     }
 
+    .city-field {
+      min-width: 182px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .city-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.82);
+      padding-left: 2px;
+    }
+
+    .city-select-wrap {
+      position: relative;
+    }
+
+    .city-select-wrap::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid var(--grass-dark);
+      border-bottom: 2px solid var(--grass-dark);
+      transform: translateY(-65%) rotate(45deg);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
     .city-select {
-      min-width: 150px;
+      width: 100%;
+      height: 44px;
       border: none;
       outline: none;
       border-radius: 14px;
-      padding: 16px 40px 16px 16px;
-      font-size: 15px;
-      font-weight: 600;
+      padding: 0 48px 0 16px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
       color: var(--ink);
-      background:
-        linear-gradient(45deg, transparent 50%, #4d6653 50%) calc(100% - 18px) calc(50% - 3px) / 8px 8px no-repeat,
-        linear-gradient(135deg, #4d6653 50%, transparent 50%) calc(100% - 13px) calc(50% - 3px) / 8px 8px no-repeat,
-        rgba(255, 255, 255, 0.98);
-      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.08);
+      background: rgba(255, 255, 255, 0.99);
+      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.12), 0 8px 18px rgba(16, 31, 21, 0.08);
       appearance: none;
+      -webkit-appearance: none;
       cursor: pointer;
-      transition: box-shadow 0.15s ease;
+      box-sizing: border-box;
+      transition: box-shadow 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .city-select:hover {
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.18), 0 10px 22px rgba(16, 31, 21, 0.12);
     }
 
     .city-select:focus {
-      box-shadow: inset 0 0 0 2px rgba(39, 95, 63, 0.25);
+      box-shadow: inset 0 0 0 2px rgba(39, 95, 63, 0.35), 0 10px 22px rgba(16, 31, 21, 0.12);
     }
 
     #parkSearch {
       flex: 1;
       min-width: 240px;
+      height: 44px;
       border: none;
       outline: none;
       border-radius: 14px;
-      padding: 16px 18px;
+      padding: 0 18px;
       font-size: 16px;
+      line-height: 1;
       color: var(--ink);
       background: rgba(255, 255, 255, 0.98);
       box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.08);
+      box-sizing: border-box;
       transition: box-shadow 0.15s ease, transform 0.15s ease;
     }
 
@@ -172,12 +248,15 @@
     .search-submit {
       border: none;
       border-radius: 14px;
-      padding: 16px 22px;
+      height: 44px;
+      padding: 0 22px;
       font-size: 15px;
       font-weight: 800;
+      line-height: 1;
       color: var(--grass-dark);
       background: #ffffff;
       cursor: pointer;
+      box-sizing: border-box;
       box-shadow: 0 10px 20px rgba(16, 31, 21, 0.12);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
@@ -204,7 +283,8 @@
       margin: 0 auto;
     }
 
-    .quick-link {
+    .quick-link,
+    .quick-links > a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -219,7 +299,8 @@
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
 
-    .quick-link:hover {
+    .quick-link:hover,
+    .quick-links > a:hover {
       background: #ffffff;
       transform: translateY(-1px);
       box-shadow: 0 10px 22px rgba(24, 40, 29, 0.12);
@@ -230,6 +311,28 @@
       padding: 0;
       overflow: hidden;
       box-shadow: var(--shadow-soft);
+    }
+
+    .seo-strip {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 22px 20px 8px;
+      text-align: center;
+    }
+
+    .seo-strip h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .seo-strip p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
     }
 
     .hero-grid {
@@ -262,6 +365,14 @@
       line-height: 1.7;
       color: var(--muted);
       font-size: 14px;
+    }
+    .about-strip .inline-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--grass-dark);
+      text-decoration: none;
     }
 
     .contact-strip {
@@ -340,10 +451,12 @@
         padding: 14px;
       }
 
-      .search-row {
+      .search-controls {
         flex-direction: column;
+        align-items: stretch;
       }
 
+      .city-field,
       .city-select,
       #parkSearch,
       .search-submit {
@@ -354,7 +467,8 @@
         gap: 10px;
       }
 
-      .quick-link {
+      .quick-link,
+      .quick-links > a {
         width: 100%;
         max-width: 280px;
       }
@@ -366,6 +480,22 @@
       .hero-grid img {
         aspect-ratio: 1 / 1;
       }
+    }
+    .hero-title,
+    .seo-strip h2,
+    .about-strip h3 {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .hero-title {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .seo-strip h2 {
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .about-strip h3 {
+      font-weight: 500;
     }
   </style>
 </head>
@@ -382,30 +512,35 @@
     </nav>
 
     <div class="hero-inner">
-      <h1 class="hero-title">Find a park fast.</h1>
-      <p class="hero-subtitle">Search by park name or features like playgrounds, trails, dog parks, and golf, then jump straight to the parks that fit.</p>
+      <h1 class="hero-title">Find parks near you fast.</h1>
+      <p class="hero-subtitle">Browse playgrounds, trails, dog parks, and local park maps across Aurora, Centennial, Parker, Denver, and nearby Front Range cities.</p>
 
       <div class="search-panel">
         <div class="search-row">
-          <select id="citySelect" class="city-select" aria-label="Choose a city">
-            <option value="aurora">Aurora</option>
-            <option value="centennial">Centennial</option>
-            <option value="parker">Parker</option>
-            <option value="lone-tree">Lone Tree</option>
-          </select>
-          <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
-          <button class="search-submit" id="searchSubmit" type="button">Search</button>
+          <div class="search-controls">
+            <div class="city-field">
+              <label class="city-label" for="citySelect">City</label>
+              <div class="city-select-wrap">
+                <select id="citySelect" class="city-select" aria-label="Choose a city">
+                  <option value="aurora">Aurora</option>
+                  <option value="centennial">Centennial</option>
+                  <option value="parker">Parker</option>
+                  <option value="lone-tree">Lone Tree</option>
+                  <option value="denver">Denver</option>
+                </select>
+              </div>
+            </div>
+            <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
+            <button class="search-submit" id="searchSubmit" type="button">Search</button>
+          </div>
         </div>
-        <div class="search-hint">Choose a city, then search: playground, trail, dog park, golf, picnic shelter</div>
+        <div class="search-hint">Browse playgrounds, trails, dog parks, and local park maps across Aurora, Denver, Parker, and nearby Front Range cities.</div>
       </div>
 
       <section class="quick-links">
-        <a href="./parks.html" class="quick-link" data-base="./parks.html">Parks</a>
-        <a href="./top-parks.html" class="quick-link">Top Picks</a>
-        <a href="./parks.html?filter=dog_park" class="quick-link" data-base="./parks.html?filter=dog_park">Dog Parks</a>
-        <a href="./parks.html?filter=trails" class="quick-link" data-base="./parks.html?filter=trails">Trails</a>
-        <a href="./parks.html?filter=golf" class="quick-link" data-base="./parks.html?filter=golf" id="golfQuickLink">Golf</a>
-        <a href="./events.html" class="quick-link" data-base="./events.html" id="eventsQuickLink">Local Events</a>
+        <a href="best-parks-aurora.html">Best Parks in Aurora</a>
+        <a href="best-parks-centennial.html">Best Parks in Centennial</a>
+        <a href="best-parks-parker.html">Best Parks in Parker</a>
       </section>
     </div>
   </header>
@@ -422,10 +557,12 @@
   <section class="about-strip">
     <h3>About Find Every Park</h3>
     <p>Helping families discover parks, trails, and local events across the city. Built by a local dad, it is designed to get kids outside, explore new places, and make finding your next adventure simple.</p>
+    <p>Start with local guides for <a class="inline-link" href="./city.html?dataset=aurora">Aurora</a>, <a class="inline-link" href="./city.html?dataset=centennial">Centennial</a>, <a class="inline-link" href="./city.html?dataset=parker">Parker</a>, and <a class="inline-link" href="./city.html?dataset=denver">Denver</a>, or jump straight to the <a class="inline-link" href="./parks.html">full parks map</a>.</p>
+    <a class="inline-link" href="./best-parks-aurora.html">Looking for a faster Aurora short list? See the best parks in Aurora, Colorado.</a>
   </section>
 
   <section class="contact-strip">
-    <p>Have a park suggestion, event, or feedback? <a href="mailto:Jason@findeverypark.com">Jason@findeverypark.com</a></p>
+    <p>Don’t see your favorite park? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
   </section>
 
   <footer>
@@ -448,10 +585,7 @@
     const homeSearch = document.getElementById('parkSearch');
     const searchSubmit = document.getElementById('searchSubmit');
     const citySelect = document.getElementById('citySelect');
-    const cityAwareLinks = document.querySelectorAll('.quick-link[data-base]');
     const cityAwareNavLinks = document.querySelectorAll('.city-aware-nav[data-base]');
-    const golfQuickLink = document.getElementById('golfQuickLink');
-    const eventsQuickLink = document.getElementById('eventsQuickLink');
 
     if (citySelect) {
       const requestedDataset = homeParams.get('dataset') || homeParams.get('city') || '';
@@ -468,20 +602,6 @@
       if (window.localStorage) {
         localStorage.setItem('activeDataset', dataset);
       }
-      const golfBase = dataset === 'parker' ? './parks.html?filter=disc_golf' : './parks.html?filter=golf';
-      if (golfQuickLink) {
-        golfQuickLink.dataset.base = golfBase;
-        golfQuickLink.textContent = dataset === 'parker' ? 'Disc Golf' : 'Golf';
-      }
-      cityAwareLinks.forEach(function (link) {
-        const base = link.dataset.base;
-        if (link === eventsQuickLink) {
-          link.href = base + '?city=' + encodeURIComponent(dataset);
-          return;
-        }
-        const separator = base.indexOf('?') === -1 ? '?' : '&';
-        link.href = base + separator + 'dataset=' + encodeURIComponent(dataset);
-      });
       cityAwareNavLinks.forEach(function (link) {
         const base = link.dataset.base;
         link.href = base.indexOf('events.html') !== -1

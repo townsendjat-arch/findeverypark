@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Parks in Aurora, Colorado | Find Every Park</title>
+  <meta name="description" content="Best parks in Aurora for families who want a fast, practical shortlist. Compare playgrounds, trails, open space, and standout Aurora park picks.">
+  <link rel="canonical" href="https://findeverypark.com/best-parks-aurora.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Best Parks in Aurora, Colorado | Find Every Park">
+  <meta property="og:description" content="Best parks in Aurora for families who want a fast, practical shortlist. Compare playgrounds, trails, open space, and standout Aurora park picks.">
+  <meta property="og:url" content="https://findeverypark.com/best-parks-aurora.html">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Best Parks in Aurora, Colorado | Find Every Park">
+  <meta name="twitter:description" content="Best parks in Aurora for families who want a fast, practical shortlist. Compare playgrounds, trails, open space, and standout Aurora park picks.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --grass: #3d6b4a;
+      --grass-deep: #284d36;
+      --grass-soft: #dceadf;
+      --earth: #b07848;
+      --ink: #1a1a1a;
+      --mist: #f0ede8;
+      --white: #ffffff;
+      --line: #e4ddd4;
+      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); }
+    .main-nav { background: var(--grass); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .nav-brand { font-family: 'Syne', sans-serif; color: white; font-size: 18px; font-weight: 800; text-decoration: none; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 4px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 100px; }
+    .nav-links a:hover, .nav-links a.active { color: white; background: rgba(255,255,255,0.16); }
+    main { max-width: 1180px; margin: 0 auto; padding: 28px 20px 70px; }
+
+    .page-hero {
+      background: linear-gradient(135deg, rgba(61,107,74,0.96), rgba(40,77,54,0.94));
+      color: white;
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 14px;
+    }
+    .page-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      margin-bottom: 14px;
+    }
+    .page-hero p {
+      max-width: 64ch;
+      color: rgba(255,255,255,0.82);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 11px 18px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .hero-btn.primary { background: white; color: var(--grass); }
+    .hero-btn.secondary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.24); }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 24px; letter-spacing: -0.03em; }
+    .section-copy { color: #637168; font-size: 14px; line-height: 1.6; max-width: 64ch; }
+
+    .best-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .best-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .best-media {
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #dceadf, #c8dff0);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .best-badge {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255,255,255,0.92);
+      color: var(--grass);
+      font-size: 11px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+    .best-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 100%;
+    }
+    .best-meta {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6a766e;
+    }
+    .best-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+    .best-description,
+    .best-tip {
+      color: #314039;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .best-feature-line {
+      color: #5f6b64;
+      font-size: 13px;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+    .best-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+    .text-btn {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--grass);
+    }
+    .map-cta {
+      margin-top: 26px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .map-cta-copy p {
+      color: #637168;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 58ch;
+      margin-top: 6px;
+    }
+    .community-callout {
+      margin-top: 24px;
+      text-align: center;
+      color: #637168;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .community-callout a {
+      color: var(--grass);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    @media (max-width: 720px) {
+      .page-hero { padding: 22px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .map-cta { align-items: start; }
+    }
+    .page-hero h1,
+    .section-title,
+    .best-title {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .page-hero h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-title,
+    .best-title {
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+  </style>
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="./index.html?dataset=aurora" class="nav-brand">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="./index.html?dataset=aurora">Home</a></li>
+      <li><a href="./city.html?dataset=aurora">City Guide</a></li>
+      <li><a href="./best-parks-aurora.html" class="active">Best Aurora Parks</a></li>
+      <li><a href="./parks.html?dataset=aurora">Parks</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <span class="eyebrow">Aurora Park Picks</span>
+      <h1>Best Parks in Aurora, Colorado</h1>
+      <p>Aurora has enough solid parks that it helps to start with a real short list. These are the Aurora picks that make fast sense for playground time, bigger outings, trail walks, and repeat family stops.</p>
+      <div class="hero-actions">
+        <a class="hero-btn primary" href="./city.html?dataset=aurora">Open Aurora city page</a>
+        <a class="hero-btn secondary" href="./parks.html?dataset=aurora">Browse Aurora map</a>
+        <a class="hero-btn secondary" href="./top-parks.html">Front Range Top Picks</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Aurora Short List</h2>
+          <p class="section-copy">Each pick combines cleaned park details with editorial judgment so families can choose quickly without reading a long article first.</p>
+        </div>
+      </div>
+      <div class="best-grid" id="best-grid"></div>
+    </section>
+
+    <section class="map-cta">
+      <div class="map-cta-copy">
+        <h2 class="section-title">Need the full Aurora park map?</h2>
+        <p>Use the full city map when you want to compare more playgrounds, trail stops, or neighborhood parks beyond this curated shortlist.</p>
+      </div>
+      <a class="hero-btn primary" href="./parks.html?dataset=aurora">Browse Aurora map</a>
+    </section>
+
+    <section class="community-callout">
+      <p>Have a park we should include? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
+    </section>
+  </main>
+
+  <script src="site-config.js"></script>
+  <script src="data/photos/park-photo-manifest.js"></script>
+  <script src="park-data-registry.js"></script>
+  <script src="parks-data.js"></script>
+  <script src="top-picks.js"></script>
+  <script>
+    (function () {
+      const DATASET_KEY = "aurora";
+      const FEATURE_LABELS = {
+        playground: "Playground",
+        trails: "Trails",
+        bathrooms: "Restrooms",
+        parking: "Parking",
+        dog_park: "Dog Park"
+      };
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function plainText(value) {
+        return String(value || "")
+          .replace(/<[^>]+>/g, " ")
+          .replace(/\*\*/g, " ")
+          .replace(/[`#_]/g, " ")
+          .replace(/[\u2600-\u27BF]/g, " ")
+          .replace(/[\u{1F300}-\u{1FAFF}]/gu, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function shortDescription(park) {
+        const raw = plainText(park.description || park.d || "");
+        if (!raw) return "";
+        const sentences = raw.match(/[^.!?]+[.!?]?/g) || [raw];
+        let summary = "";
+        for (let i = 0; i < sentences.length; i += 1) {
+          const next = (summary ? summary + " " : "") + sentences[i].trim();
+          if (next.length > 220 && summary) break;
+          summary = next;
+          if (summary.length >= 140) break;
+        }
+        return summary || raw.slice(0, 220);
+      }
+
+      function featureSummary(park) {
+        const items = [];
+        Object.keys(FEATURE_LABELS).forEach((key) => {
+          if (park[key]) items.push(FEATURE_LABELS[key]);
+        });
+        return items.join(" • ");
+      }
+
+      function parkUrl(park) {
+        return "./park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&id=" + encodeURIComponent(park.id || park.name || park.n);
+      }
+
+      const parks = window.getParkDataset ? window.getParkDataset(DATASET_KEY) || [] : [];
+      const byName = new Map(parks.map((park) => [park.name || park.n, park]));
+      const editorialByName = (window.TOP_PICK_EDITORIAL && window.TOP_PICK_EDITORIAL[DATASET_KEY]) || {};
+      const picks = ((window.TOP_PICKS && window.TOP_PICKS[DATASET_KEY]) || [])
+        .map((name) => {
+          const park = byName.get(name);
+          const editorial = editorialByName[name];
+          if (!park || !editorial) return null;
+          return { park, editorial };
+        })
+        .filter(Boolean);
+
+      const grid = document.getElementById("best-grid");
+      picks.forEach(({ park, editorial }) => {
+        const article = document.createElement("article");
+        article.className = "best-card";
+        const photo = park.heroPhoto && park.heroPhoto.src ? park.heroPhoto.src : "";
+        const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
+        const featureLine = featureSummary(park);
+        article.innerHTML =
+          '<div class="best-media"' + mediaStyle + '><span class="best-badge">' + escapeHtml(editorial.label || "Top Pick") + '</span></div>' +
+          '<div class="best-body">' +
+            '<div class="best-meta">Aurora family pick</div>' +
+            '<h2 class="best-title">' + escapeHtml(park.name || park.n) + '</h2>' +
+            '<p class="best-description">' + escapeHtml(shortDescription(park)) + '</p>' +
+            (featureLine ? '<div class="best-feature-line">' + escapeHtml(featureLine) + '</div>' : '') +
+            (editorial.local_tip ? '<p class="best-tip"><strong>Why it makes the short list:</strong> ' + escapeHtml(editorial.local_tip) + '</p>' : '') +
+            '<div class="best-actions">' +
+              '<a class="text-btn" href="' + parkUrl(park) + '">Open park page</a>' +
+              '<a class="text-btn" href="./parks.html?dataset=aurora&search=' + encodeURIComponent(park.name || park.n) + '">Show on Aurora map</a>' +
+            '</div>' +
+          '</div>';
+        grid.appendChild(article);
+      });
+    })();
+  </script>
+</body>
+</html>
