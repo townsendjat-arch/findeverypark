@@ -140,7 +140,7 @@
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 20px;
-      padding: 16px;
+      padding: 18px;
       max-width: 760px;
       margin: 0 auto;
       box-shadow: var(--shadow-soft);
@@ -150,12 +150,12 @@
     .search-row {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .search-controls {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       align-items: flex-end;
       flex-wrap: wrap;
     }
@@ -164,7 +164,7 @@
       min-width: 182px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       text-align: left;
     }
 
@@ -197,7 +197,7 @@
 
     .city-select {
       width: 100%;
-      height: 44px;
+      height: 48px;
       border: none;
       outline: none;
       border-radius: 14px;
@@ -227,7 +227,7 @@
     #parkSearch {
       flex: 1;
       min-width: 240px;
-      height: 44px;
+      height: 48px;
       border: none;
       outline: none;
       border-radius: 14px;
@@ -248,7 +248,7 @@
     .search-submit {
       border: none;
       border-radius: 14px;
-      height: 44px;
+      height: 48px;
       padding: 0 22px;
       font-size: 15px;
       font-weight: 800;
@@ -264,13 +264,6 @@
     .search-submit:hover {
       transform: translateY(-1px);
       box-shadow: 0 12px 24px rgba(16, 31, 21, 0.16);
-    }
-
-    .search-hint {
-      margin-top: 12px;
-      font-size: 12px;
-      letter-spacing: 0.01em;
-      color: rgba(255, 255, 255, 0.78);
     }
 
     .quick-links {
@@ -448,12 +441,17 @@
       }
 
       .search-panel {
-        padding: 14px;
+        padding: 16px;
       }
 
       .search-controls {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
+      }
+
+      .city-label {
+        display: none;
       }
 
       .city-field,
@@ -461,6 +459,28 @@
       #parkSearch,
       .search-submit {
         width: 100%;
+      }
+
+      .city-field {
+        gap: 8px;
+      }
+
+      .city-select,
+      #parkSearch,
+      .search-submit {
+        height: 50px;
+      }
+
+      .city-select {
+        padding: 0 48px 0 16px;
+      }
+
+      #parkSearch {
+        padding: 0 16px;
+      }
+
+      .search-submit {
+        min-height: 52px;
       }
 
       .quick-links {
@@ -513,7 +533,7 @@
 
     <div class="hero-inner">
       <h1 class="hero-title">Find parks near you fast.</h1>
-      <p class="hero-subtitle">Browse playgrounds, trails, dog parks, and local park maps across Aurora, Centennial, Parker, Denver, and nearby Front Range cities.</p>
+      <p class="hero-subtitle">Playgrounds, trails, and dog parks across the Front Range.</p>
 
       <div class="search-panel">
         <div class="search-row">
@@ -534,7 +554,6 @@
             <button class="search-submit" id="searchSubmit" type="button">Search</button>
           </div>
         </div>
-        <div class="search-hint">Browse playgrounds, trails, dog parks, and local park maps across Aurora, Denver, Parker, and nearby Front Range cities.</div>
       </div>
 
       <section class="quick-links">

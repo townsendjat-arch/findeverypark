@@ -153,6 +153,15 @@
       line-height: 1.05;
       letter-spacing: -0.03em;
     }
+    .best-media-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+    .best-title-link {
+      color: inherit;
+      text-decoration: none;
+    }
     .best-description,
     .best-tip {
       color: #314039;
@@ -359,16 +368,20 @@
         const photo = park.heroPhoto && park.heroPhoto.src ? park.heroPhoto.src : "";
         const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
         const featureLine = featureSummary(park);
+        const detailHref = parkUrl(park);
+        const parkLabel = park.name || park.n;
         article.innerHTML =
-          '<div class="best-media"' + mediaStyle + '><span class="best-badge">' + escapeHtml(editorial.label || "Top Pick") + '</span></div>' +
+          '<a class="best-media-link" href="' + detailHref + '" aria-label="View park details for ' + escapeHtml(parkLabel) + '">' +
+            '<div class="best-media"' + mediaStyle + '><span class="best-badge">' + escapeHtml(editorial.label || "Top Pick") + '</span></div>' +
+          '</a>' +
           '<div class="best-body">' +
             '<div class="best-meta">Aurora family pick</div>' +
-            '<h2 class="best-title">' + escapeHtml(park.name || park.n) + '</h2>' +
+            '<h2 class="best-title"><a class="best-title-link" href="' + detailHref + '">' + escapeHtml(parkLabel) + '</a></h2>' +
             '<p class="best-description">' + escapeHtml(shortDescription(park)) + '</p>' +
             (featureLine ? '<div class="best-feature-line">' + escapeHtml(featureLine) + '</div>' : '') +
             (editorial.local_tip ? '<p class="best-tip"><strong>Why it makes the short list:</strong> ' + escapeHtml(editorial.local_tip) + '</p>' : '') +
             '<div class="best-actions">' +
-              '<a class="text-btn" href="' + parkUrl(park) + '">Open park page</a>' +
+              '<a class="text-btn" href="' + detailHref + '">View park details</a>' +
               '<a class="text-btn" href="./parks.html?dataset=aurora&search=' + encodeURIComponent(park.name || park.n) + '">Show on Aurora map</a>' +
             '</div>' +
           '</div>';
