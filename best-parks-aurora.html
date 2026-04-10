@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Best Parks in Aurora, Colorado | Find Every Park</title>
-  <meta name="description" content="Best parks in Aurora for families who want a fast, practical shortlist. Compare playgrounds, trails, open space, and standout Aurora park picks.">
+  <title>Best Parks in Aurora, Colorado (Playgrounds, Trails, Family Picks)</title>
+  <meta name="description" content="Find the best parks in Aurora, Colorado for playgrounds, trails, and family outings. Quick picks for toddlers, big parks, and easy trips.">
   <link rel="canonical" href="https://findeverypark.com/best-parks-aurora.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Best Parks in Aurora, Colorado | Find Every Park">
-  <meta property="og:description" content="Best parks in Aurora for families who want a fast, practical shortlist. Compare playgrounds, trails, open space, and standout Aurora park picks.">
+  <meta property="og:title" content="Best Parks in Aurora, Colorado (Playgrounds, Trails, Family Picks)">
+  <meta property="og:description" content="Find the best parks in Aurora, Colorado for playgrounds, trails, and family outings. Quick picks for toddlers, big parks, and easy trips.">
   <meta property="og:url" content="https://findeverypark.com/best-parks-aurora.html">
   <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Best Parks in Aurora, Colorado | Find Every Park">
-  <meta name="twitter:description" content="Best parks in Aurora for families who want a fast, practical shortlist. Compare playgrounds, trails, open space, and standout Aurora park picks.">
+  <meta name="twitter:title" content="Best Parks in Aurora, Colorado (Playgrounds, Trails, Family Picks)">
+  <meta name="twitter:description" content="Find the best parks in Aurora, Colorado for playgrounds, trails, and family outings. Quick picks for toddlers, big parks, and easy trips.">
   <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -38,7 +38,8 @@
     .nav-links { display: flex; gap: 4px; list-style: none; flex-wrap: wrap; }
     .nav-links a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 13px; font-weight: 500; padding: 6px 13px; border-radius: 100px; }
     .nav-links a:hover, .nav-links a.active { color: white; background: rgba(255,255,255,0.16); }
-    main { max-width: 1180px; margin: 0 auto; padding: 28px 20px 70px; }
+    main { max-width: 1060px; margin: 0 auto; padding: 40px 20px 88px; }
+    main > section { margin-bottom: 36px; }
 
     .page-hero {
       background: linear-gradient(135deg, rgba(61,107,74,0.96), rgba(40,77,54,0.94));
@@ -46,7 +47,7 @@
       border-radius: 28px;
       padding: 30px;
       box-shadow: var(--shadow);
-      margin-bottom: 24px;
+      margin-bottom: 40px;
     }
     .eyebrow {
       display: inline-block;
@@ -62,19 +63,21 @@
       font-size: clamp(34px, 5vw, 58px);
       line-height: 0.96;
       letter-spacing: -0.05em;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .page-hero p {
       max-width: 64ch;
       color: rgba(255,255,255,0.82);
       font-size: 15px;
       line-height: 1.7;
+      margin-bottom: 14px;
     }
+    .page-hero p:last-of-type { margin-bottom: 0; }
     .hero-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 22px;
+      margin-top: 26px;
     }
     .hero-btn {
       display: inline-flex;
@@ -94,15 +97,49 @@
       align-items: end;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
     .section-title { font-family: 'Syne', sans-serif; font-size: 24px; letter-spacing: -0.03em; }
     .section-copy { color: #637168; font-size: 14px; line-height: 1.6; max-width: 64ch; }
+    .section-copy + .section-copy { margin-top: 10px; }
+    section p + p { margin-top: 14px; }
+    section ul { padding-left: 20px; }
+    section li { margin-bottom: 12px; line-height: 1.7; }
+    section li:last-child { margin-bottom: 0; }
+    .quick-picks-list,
+    .more-parks-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .quick-picks-list li {
+      margin-bottom: 10px;
+      color: #314039;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .more-parks-list {
+      columns: 2;
+      column-gap: 32px;
+    }
+    .more-parks-list li {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      padding-right: 10px;
+      color: #314039;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .quick-picks-list a,
+    .more-parks-list a {
+      color: var(--grass);
+      font-weight: 700;
+      text-decoration: none;
+    }
 
     .best-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
     .best-card {
       background: white;
@@ -112,6 +149,7 @@
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
     .best-media {
       aspect-ratio: 16 / 9;
@@ -134,10 +172,10 @@
       padding: 6px 10px;
     }
     .best-body {
-      padding: 18px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       min-height: 100%;
     }
     .best-meta {
@@ -208,11 +246,26 @@
       margin-top: 6px;
     }
     .community-callout {
-      margin-top: 24px;
+      margin-top: 12px;
       text-align: center;
       color: #637168;
       font-size: 13px;
       line-height: 1.6;
+    }
+    .sponsor-slot {
+      margin-top: 48px;
+      margin-bottom: 44px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(61, 107, 74, 0.12);
+    }
+    .community-callout ~ section {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(61, 107, 74, 0.12);
+    }
+    .sponsor-slot .section-head,
+    .community-callout ~ section .section-head {
+      margin-bottom: 22px;
     }
     .community-callout a {
       color: var(--grass);
@@ -221,9 +274,26 @@
     }
 
     @media (max-width: 720px) {
-      .page-hero { padding: 22px; }
+      main { padding: 28px 16px 64px; }
+      main > section { margin-bottom: 28px; }
+      .page-hero { padding: 22px; margin-bottom: 32px; }
       .section-head { align-items: start; flex-direction: column; }
       .map-cta { align-items: start; }
+      .best-grid { gap: 16px; }
+      .best-body { padding: 16px; gap: 12px; }
+      .hero-actions { gap: 10px; }
+      .sponsor-slot {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding-top: 22px;
+      }
+      .community-callout ~ section {
+        margin-top: 36px;
+        margin-bottom: 36px;
+        padding-top: 20px;
+      }
+      .hero-btn { min-height: 42px; }
+      .more-parks-list { columns: 1; }
     }
     .page-hero h1,
     .section-title,
@@ -238,6 +308,16 @@
     .best-title {
       font-weight: 600;
       letter-spacing: -0.005em;
+    }
+    h2.section-title {
+      margin-bottom: 0;
+    }
+    section p {
+      margin-bottom: 0;
+    }
+    section .section-copy,
+    section ul {
+      margin-top: 0;
     }
   </style>
 </head>
@@ -256,12 +336,46 @@
     <section class="page-hero">
       <span class="eyebrow">Aurora Park Picks</span>
       <h1>Best Parks in Aurora, Colorado</h1>
+      <p>Looking for the best parks in Aurora, Colorado? These are the top parks for playgrounds, trails, open space, and quick family outings.</p>
       <p>Aurora has enough solid parks that it helps to start with a real short list. These are the Aurora picks that make fast sense for playground time, bigger outings, trail walks, and repeat family stops.</p>
       <div class="hero-actions">
         <a class="hero-btn primary" href="./city.html?dataset=aurora">Open Aurora city page</a>
         <a class="hero-btn secondary" href="./parks.html?dataset=aurora">Browse Aurora map</a>
         <a class="hero-btn secondary" href="./top-parks.html">Front Range Top Picks</a>
       </div>
+    </section>
+
+    <section class="sponsor-slot">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Quick Picks</h2>
+        </div>
+      </div>
+      <ul class="quick-picks-list">
+        <li>Best for toddlers -> <a href="park.html?dataset=aurora&id=co-aurora-great-plains-park">Great Plains Park</a></li>
+        <li>Best for big playground -> <a href="park.html?dataset=aurora&id=co-aurora-central-park">Central Park</a></li>
+        <li>Best for walking -> <a href="park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a></li>
+        <li>Best for water / summer -> <a href="park.html?dataset=aurora&id=co-aurora-red-tailed-hawk-park">Red-tailed Hawk Park</a></li>
+      </ul>
+      <p class="section-copy">Bookmark this list if you want a fast Aurora park shortlist for future family outings.</p>
+    </section>
+
+    <section class="sponsor-slot">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Sponsored</h2>
+        </div>
+      </div>
+      <p class="section-copy">☕ Coffee nearby: Grab coffee or snacks before heading to the park.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">How We Picked These Parks</h2>
+        </div>
+      </div>
+      <p class="section-copy">These Aurora picks are based on real-world family use, not just a long amenity list. We focused on playground quality, walkability, shade and restroom value when available, and whether a park feels like somewhere families would actually want to visit again.</p>
     </section>
 
     <section>
@@ -284,6 +398,79 @@
 
     <section class="community-callout">
       <p>Have a park we should include? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Best Parks in Aurora for Toddlers</h2>
+        </div>
+      </div>
+      <ul>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-great-plains-park">Great Plains Park</a> - Easy layout, lots of tot swings, and a setup that works well for repeat toddler visits.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-anchor-point-park">Anchor Point Park</a> - Smaller scale and lower-key traffic make this a comfortable park for younger kids.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-appaloosa-park">Appaloosa Park</a> - Simple playground, restroom access, and a practical neighborhood setup for easy family stops.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Best Parks in Aurora for Walking</h2>
+        </div>
+      </div>
+      <ul>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a> - The paved loop and open space make this one of the strongest walking parks in Aurora.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-star-k-ranch">Star K Ranch</a> - Trail access, shade, and nature-center surroundings make it a strong pick for slower family walks.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-quincy-reservoir">Quincy Reservoir</a> - Wide-open reservoir space and gravel trails work well for stroller-friendly walks and calmer outings.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Best Parks in Aurora with Playgrounds</h2>
+        </div>
+      </div>
+      <ul>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-central-park">Central Park</a> - Two playgrounds and a bigger family-friendly setup make it one of the best all-around playground stops.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-red-tailed-hawk-park">Red-tailed Hawk Park</a> - Inclusive play features and a wide layout make this one of Aurora's standout playground parks.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-great-plains-park">Great Plains Park</a> - The playground and splash-pad combo gives families more variety than a standard park stop.</li>
+        <li><a href="park.html?dataset=aurora&id=co-aurora-utah-park">Utah Park</a> - Playground, trails, and pool access make it an easy choice for mixed-age family outings.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Local Partner</h2>
+        </div>
+      </div>
+      <p class="section-copy">🍦 Treat stop: Easy after-park stop when the kids need a snack.</p>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Tips for Visiting Aurora Parks</h2>
+        </div>
+      </div>
+      <ul>
+        <li>Arrive earlier in the day if you want easier parking at Aurora's bigger destination parks.</li>
+        <li>Bring extra shade and water for parks with wide-open trails or less tree cover.</li>
+        <li>Weekday mornings are usually the easiest time for calmer playground visits.</li>
+        <li>Expect splash pads and summer water features to draw bigger crowds on hot afternoons.</li>
+        <li>Check restroom and pool details before you go if those amenities matter for your outing.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">More Parks in Aurora</h2>
+        </div>
+      </div>
+      <ul class="more-parks-list" id="more-parks-list"></ul>
     </section>
   </main>
 
@@ -337,6 +524,17 @@
         return summary || raw.slice(0, 220);
       }
 
+      function linkedDescription(park, detailHref) {
+        const parkLabel = park.name || park.n || "This park";
+        const summary = shortDescription(park);
+        if (!summary) {
+          return '<a href="' + detailHref + '">' + escapeHtml(parkLabel) + '</a> is one of the best parks in Aurora for family outings, playground time, and easy repeat visits.';
+        }
+
+        const lowered = summary.charAt(0).toLowerCase() + summary.slice(1);
+        return '<a href="' + detailHref + '">' + escapeHtml(parkLabel) + '</a> is one of the best parks in Aurora for families because ' + escapeHtml(lowered);
+      }
+
       function featureSummary(park) {
         const items = [];
         Object.keys(FEATURE_LABELS).forEach((key) => {
@@ -345,8 +543,27 @@
         return items.join(" • ");
       }
 
+      function whyFamiliesLikeIt(park, editorial) {
+        if (editorial && editorial.short_reason) {
+          return editorial.short_reason;
+        }
+
+        const reasons = [];
+        if (park.playground) reasons.push("playground time");
+        if (park.trails) reasons.push("walking room");
+        if (park.bathrooms || park.restroom) reasons.push("restroom access");
+        if (park.sprayground || park.splash_pad) reasons.push("summer water play");
+        if (park.shelter) reasons.push("an easier longer stay");
+
+        if (reasons.length) {
+          return "Families like it for " + reasons.slice(0, 3).join(", ") + ".";
+        }
+
+        return "Easy family stop with enough to do for a repeat visit.";
+      }
+
       function parkUrl(park) {
-        return "./park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&id=" + encodeURIComponent(park.id || park.name || park.n);
+        return "park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&id=" + encodeURIComponent(park.id || park.name || park.n);
       }
 
       const parks = window.getParkDataset ? window.getParkDataset(DATASET_KEY) || [] : [];
@@ -362,14 +579,17 @@
         .filter(Boolean);
 
       const grid = document.getElementById("best-grid");
+      const moreParksList = document.getElementById("more-parks-list");
       picks.forEach(({ park, editorial }) => {
         const article = document.createElement("article");
         article.className = "best-card";
+        article.tabIndex = 0;
         const photo = park.heroPhoto && park.heroPhoto.src ? park.heroPhoto.src : "";
         const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
         const featureLine = featureSummary(park);
         const detailHref = parkUrl(park);
         const parkLabel = park.name || park.n;
+        article.dataset.href = detailHref;
         article.innerHTML =
           '<a class="best-media-link" href="' + detailHref + '" aria-label="View park details for ' + escapeHtml(parkLabel) + '">' +
             '<div class="best-media"' + mediaStyle + '><span class="best-badge">' + escapeHtml(editorial.label || "Top Pick") + '</span></div>' +
@@ -377,16 +597,50 @@
           '<div class="best-body">' +
             '<div class="best-meta">Aurora family pick</div>' +
             '<h2 class="best-title"><a class="best-title-link" href="' + detailHref + '">' + escapeHtml(parkLabel) + '</a></h2>' +
-            '<p class="best-description">' + escapeHtml(shortDescription(park)) + '</p>' +
+            '<p class="best-description">' + linkedDescription(park, detailHref) + '</p>' +
+            '<p class="best-tip"><strong>Why families like this park:</strong> ' + escapeHtml(whyFamiliesLikeIt(park, editorial)) + '</p>' +
             (featureLine ? '<div class="best-feature-line">' + escapeHtml(featureLine) + '</div>' : '') +
             (editorial.local_tip ? '<p class="best-tip"><strong>Why it makes the short list:</strong> ' + escapeHtml(editorial.local_tip) + '</p>' : '') +
             '<div class="best-actions">' +
-              '<a class="text-btn" href="' + detailHref + '">View park details</a>' +
+              '<a class="text-btn" href="' + detailHref + '">View Park</a>' +
               '<a class="text-btn" href="./parks.html?dataset=aurora&search=' + encodeURIComponent(park.name || park.n) + '">Show on Aurora map</a>' +
             '</div>' +
           '</div>';
         grid.appendChild(article);
       });
+
+      grid.addEventListener("click", function (event) {
+        const card = event.target.closest(".best-card");
+        if (!card || event.target.closest("a")) {
+          return;
+        }
+        window.location.href = card.dataset.href;
+      });
+
+      grid.addEventListener("keydown", function (event) {
+        const card = event.target.closest(".best-card");
+        if (!card) {
+          return;
+        }
+        if (event.key === "Enter" || event.key === " ") {
+          if (event.target.closest("a")) {
+            return;
+          }
+          event.preventDefault();
+          window.location.href = card.dataset.href;
+        }
+      });
+
+      parks
+        .slice()
+        .sort((a, b) => String(a.name || a.n || "").localeCompare(String(b.name || b.n || "")))
+        .slice(0, 15)
+        .forEach((park) => {
+          const item = document.createElement("li");
+          const label = park.name || park.n;
+          item.innerHTML = '<a href="' + parkUrl(park) + '">' + escapeHtml(label) + '</a>';
+          moreParksList.appendChild(item);
+        });
     })();
   </script>
 </body>
