@@ -69,7 +69,7 @@
       background: linear-gradient(180deg, #2f7d4f 0%, #399258 100%);
       color: white;
       text-align: center;
-      padding: 20px 20px 28px;
+      padding: 26px 20px 38px;
     }
 
     .top-nav {
@@ -133,7 +133,7 @@
       color: rgba(255, 255, 255, 0.92);
       font-weight: 500;
       max-width: 48ch;
-      margin: 0 auto 10px;
+      margin: 0 auto 14px;
     }
 
     .search-panel {
@@ -298,6 +298,12 @@
       transform: translateY(-1px);
       box-shadow: 0 10px 22px rgba(24, 40, 29, 0.12);
     }
+    .quick-links-secondary {
+      padding-top: 12px;
+    }
+    .quick-links-secondary > a {
+      padding: 10px 15px;
+    }
 
     .hero-gallery {
       background: var(--white);
@@ -309,20 +315,51 @@
     .seo-strip {
       max-width: 920px;
       margin: 0 auto;
-      padding: 22px 20px 8px;
+      padding: 28px 20px 10px;
       text-align: center;
+    }
+    .quick-paths {
+      padding-top: 24px;
+      padding-bottom: 4px;
+    }
+    .quick-paths-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto;
+      padding-top: 14px;
+    }
+    .quick-paths-grid .quick-link {
+      width: 100%;
+      max-width: none;
+      min-height: 54px;
+      text-align: center;
+    }
+    .hero-header + .seo-strip {
+      margin-top: 6px;
+    }
+    .seo-strip + .seo-strip {
+      margin-top: 6px;
+      padding-top: 24px;
     }
 
     .seo-strip h2 {
       font-family: 'Syne', sans-serif;
       font-size: 26px;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       color: var(--ink);
     }
 
     .seo-strip p {
-      max-width: 760px;
+      max-width: 700px;
       margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .start-here-note {
+      padding-top: 18px;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.7;
@@ -378,6 +415,22 @@
       font-weight: 700;
       text-decoration: none;
     }
+    .search-home-section {
+      margin-top: 6px;
+      padding: 8px 20px 0;
+    }
+    .search-home-section .search-panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
+    }
+    .search-home-section .city-label {
+      color: var(--muted);
+    }
+    .search-home-section .search-submit {
+      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.12), 0 10px 20px rgba(16, 31, 21, 0.08);
+    }
 
     footer {
       margin-top: 36px;
@@ -419,7 +472,7 @@
 
     @media (max-width: 600px) {
       .hero-header {
-        padding: 18px 16px 22px;
+        padding: 22px 16px 28px;
       }
 
       .brand {
@@ -437,7 +490,7 @@
 
       .hero-subtitle {
         font-size: 15px;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
       }
 
       .search-panel {
@@ -492,6 +545,13 @@
         width: 100%;
         max-width: 280px;
       }
+      .quick-paths-grid {
+        grid-template-columns: 1fr;
+        max-width: 280px;
+      }
+      .search-home-section {
+        padding: 8px 16px 0;
+      }
 
       .hero-grid {
         min-height: 0;
@@ -526,43 +586,56 @@
       <ul class="nav-links">
         <li><a href="./index.html" class="active">Home</a></li>
         <li><a href="./parks.html" data-base="./parks.html" class="city-aware-nav">Parks</a></li>
+        <li><a href="/parks.html?dataset=aurora">Aurora</a></li>
+        <li><a href="/parks.html?dataset=centennial">Centennial</a></li>
+        <li><a href="/parks.html?dataset=parker">Parker</a></li>
+        <li><a href="/parks.html?dataset=denver">Denver</a></li>
         <li><a href="./trails.html">Trails</a></li>
         <li><a href="./events.html" data-base="./events.html" class="city-aware-nav">Local Events</a></li>
       </ul>
     </nav>
 
     <div class="hero-inner">
-      <h1 class="hero-title">Find parks near you fast.</h1>
-      <p class="hero-subtitle">Playgrounds, trails, and dog parks across the Front Range.</p>
-
-      <div class="search-panel">
-        <div class="search-row">
-          <div class="search-controls">
-            <div class="city-field">
-              <label class="city-label" for="citySelect">City</label>
-              <div class="city-select-wrap">
-                <select id="citySelect" class="city-select" aria-label="Choose a city">
-                  <option value="aurora">Aurora</option>
-                  <option value="centennial">Centennial</option>
-                  <option value="parker">Parker</option>
-                  <option value="lone-tree">Lone Tree</option>
-                  <option value="denver">Denver</option>
-                </select>
-              </div>
-            </div>
-            <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
-            <button class="search-submit" id="searchSubmit" type="button">Search</button>
-          </div>
-        </div>
-      </div>
+      <h1 class="hero-title">Find parks near you fast</h1>
+      <p class="hero-subtitle">Playgrounds, trails, dog parks, and family spots across the Front Range</p>
 
       <section class="quick-links">
-        <a href="best-parks-aurora.html">Best Parks in Aurora</a>
-        <a href="best-parks-centennial.html">Best Parks in Centennial</a>
-        <a href="best-parks-parker.html">Best Parks in Parker</a>
+        <a href="/parks.html?dataset=aurora">Browse Aurora Parks</a>
+        <a href="/parks.html?dataset=centennial">Browse Centennial Parks</a>
+        <a href="/parks.html?dataset=parker">Browse Parker Parks</a>
+        <a href="/parks.html?dataset=denver">Browse Denver Parks</a>
       </section>
     </div>
   </header>
+
+  <section class="seo-strip quick-paths">
+    <h2>Choose a park faster</h2>
+    <p>Start with what you need most.</p>
+    <div class="quick-paths-grid">
+      <a class="quick-link" href="/best-parks-aurora.html">Best Parks Near Me</a>
+      <a class="quick-link" href="/best-playgrounds-aurora.html">Parks with Playgrounds</a>
+      <a class="quick-link" href="/dog-parks.html">Dog Parks</a>
+      <a class="quick-link" href="/parks.html?dataset=aurora&filter=trails">Parks with Trails</a>
+    </div>
+  </section>
+
+  <section class="seo-strip">
+    <p>FindEveryPark helps families discover the best parks, playgrounds, and outdoor spaces across Aurora, Centennial, Parker, and Denver. Browse local park maps, compare features, and quickly decide where to go.</p>
+  </section>
+
+  <section class="seo-strip">
+    <h2>Start Here</h2>
+    <div class="quick-links">
+      <a href="/best-parks-aurora.html">Best Parks in Aurora</a>
+      <a href="/best-parks-centennial.html">Best Parks in Centennial</a>
+      <a href="/best-parks-parker.html">Best Parks in Parker</a>
+      <a href="/best-parks-denver.html">Best Parks in Denver</a>
+    </div>
+    <div class="quick-links quick-links-secondary">
+      <a href="/dog-parks.html">Dog Parks</a>
+    </div>
+    <p class="start-here-note">Helping families find better parks across the Front Range.</p>
+  </section>
 
   <section class="hero-gallery">
     <div class="hero-grid">
@@ -582,6 +655,29 @@
 
   <section class="contact-strip">
     <p>Don’t see your favorite park? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
+  </section>
+
+  <section class="search-home-section">
+    <div class="search-panel">
+      <div class="search-row">
+        <div class="search-controls">
+          <div class="city-field">
+            <label class="city-label" for="citySelect">City</label>
+            <div class="city-select-wrap">
+              <select id="citySelect" class="city-select" aria-label="Choose a city">
+                <option value="aurora">Aurora</option>
+                <option value="centennial">Centennial</option>
+                <option value="parker">Parker</option>
+                <option value="lone-tree">Lone Tree</option>
+                <option value="denver">Denver</option>
+              </select>
+            </div>
+          </div>
+          <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
+          <button class="search-submit" id="searchSubmit" type="button">Search</button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer>

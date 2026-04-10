@@ -171,10 +171,16 @@
 
     /* MAIN */
     main { max-width: 1100px; margin: 0 auto; padding: 24px 20px 64px; }
+    .page-intro { background: rgba(255,255,255,0.97); border: 1px solid rgba(228,221,212,0.95); border-radius: 20px; box-shadow: 0 18px 34px rgba(20,31,23,0.08); padding: 22px 24px; margin-bottom: 18px; }
+    .page-intro h1 { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.02; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .page-intro-subtitle { font-size: 15px; line-height: 1.65; color: #4d5c53; max-width: 60ch; margin-bottom: 8px; }
+    .page-intro-copy { font-size: 14px; line-height: 1.7; color: #5f6762; max-width: 70ch; }
     .page-hero { background: radial-gradient(circle at top left, rgba(255,255,255,0.82), rgba(255,255,255,0) 36%), linear-gradient(135deg, rgba(61,107,74,0.16), rgba(200,223,240,0.78)); border: 1px solid #e8e4de; border-radius: 24px; padding: 26px; margin-bottom: 22px; display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 20px; align-items: end; box-shadow: 0 24px 48px rgba(20,31,23,0.06); }
     .page-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grass); margin-bottom: 10px; }
     .page-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.04em; margin-bottom: 12px; }
     .page-hero p { font-size: 14px; line-height: 1.65; color: #4d5c53; max-width: 58ch; }
+    .hero-actions { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-clear-link[hidden] { display: none; }
     .hero-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .hero-stat { background: rgba(255,255,255,0.86); border: 1px solid rgba(255,255,255,0.8); border-radius: 18px; padding: 15px; box-shadow: 0 14px 28px rgba(61,107,74,0.08); }
     .hero-stat-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #7e8a82; margin-bottom: 8px; }
@@ -255,6 +261,7 @@
     .match-badge.perfect { background: rgba(61,107,74,0.13); color: var(--grass); }
     .match-badge.partial { background: rgba(176,120,72,0.12); color: var(--earth); }
     .match-badge.none-match { background: rgba(0,0,0,0.05); color: #ccc; }
+    .match-note { font-size: 12px; line-height: 1.45; color: #5f6762; font-weight: 600; }
     .card.dimmed { opacity: 0.42; }
     .empty { text-align: center; padding: 80px 20px; color: #ccc; }
     .empty .ico { font-size: 42px; margin-bottom: 10px; }
@@ -292,7 +299,8 @@
       #map { height: 320px; }
     }
     @media (max-width: 700px) {
-      .page-hero { padding: 18px; }
+      .page-intro { padding: 16px; margin-bottom: 14px; }
+      .page-hero { padding: 16px; margin-bottom: 18px; gap: 16px; }
       .hero-stats-grid { grid-template-columns: 1fr; }
       #map { height: 280px; }
     }
@@ -367,11 +375,20 @@
 </div>
 
 <main>
+  <section class="page-intro" aria-labelledby="page-intro-title">
+    <h1 id="page-intro-title">Parks in Aurora</h1>
+    <p class="page-intro-subtitle" id="page-intro-subtitle">Browse playgrounds, trails, dog parks, and family-friendly outdoor spaces in Aurora.</p>
+    <p class="page-intro-copy" id="page-intro-copy">FindEveryPark helps families quickly compare parks, playgrounds, and outdoor spaces in Aurora with maps, filters, and local park details designed for fast decisions.</p>
+  </section>
+
   <section class="page-hero">
     <div>
       <div class="page-kicker">Browse Parks</div>
       <h1><span id="hero-city">Aurora</span> Parks</h1>
       <p id="hero-copy">Explore park cards, zoom into the map, filter by amenities, and save the places you want to revisit. This is the browse layer that will scale across Colorado city by city.</p>
+      <div class="hero-actions">
+        <a id="hero-clear-filter" class="top-pick-link hero-clear-link" href="./parks.html?dataset=aurora" hidden>Clear filter</a>
+      </div>
     </div>
     <div class="hero-stats-grid">
       <div class="hero-stat">
@@ -474,7 +491,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const searchQuery = urlParams.get('search')?.toLowerCase() || "";
 const requestedFilters = (urlParams.get('filter') || "")
   .split(',')
-  .map(value => value.trim().toLowerCase())
+  .map(value => {
+    const normalizedValue = value.trim().toLowerCase();
+    return normalizedValue === 'dog' ? 'dog_park' : normalizedValue;
+  })
   .filter(Boolean);
 const datasetFromUrl = urlParams.get('dataset');
 const DATASET_KEY = datasetFromUrl || window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
@@ -698,6 +718,69 @@ function parkAcreage(park) {
 
 function parkDescription(park) {
   return park.description || park.d || '';
+}
+
+function getIntentFilterKey(activeFilterKeys) {
+  if (!Array.isArray(activeFilterKeys) || activeFilterKeys.length !== 1) return '';
+  const key = activeFilterKeys[0];
+  return key === 'trails' || key === 'playground' || key === 'dog_park' ? key : '';
+}
+
+function getIntentPriorityScore(park, intentKey) {
+  const features = parkFeatures(park);
+  const acreage = parkAcreage(park);
+
+  if (intentKey === 'trails') {
+    return (features.trails ? 4 : 0) +
+      (features.restroom ? 2 : 0) +
+      (features.shelter ? 1 : 0) +
+      (acreage >= 40 ? 1 : 0);
+  }
+
+  if (intentKey === 'playground') {
+    return (features.playground ? 4 : 0) +
+      (features.restroom ? 2 : 0) +
+      (features.shelter ? 1 : 0) +
+      (features.sprayground ? 1 : 0);
+  }
+
+  if (intentKey === 'dog_park') {
+    return (features.dog_park ? 4 : 0) +
+      (features.trails ? 1 : 0) +
+      (features.restroom ? 1 : 0) +
+      (acreage >= 10 ? 1 : 0);
+  }
+
+  return 0;
+}
+
+function getIntentMatchCue(park, intentKey) {
+  if (intentKey === 'trails' && parkFeatures(park).trails) return 'Good for trail walks';
+  if (intentKey === 'playground' && parkFeatures(park).playground) return 'Playground match';
+  if (intentKey === 'dog_park' && parkFeatures(park).dog_park) return 'Dog park match';
+  return '';
+}
+
+function updateHeroIntentContent(filterKeys) {
+  const intentKey = getIntentFilterKey(filterKeys);
+  let heroTitle = 'All Parks in ' + CITY;
+  let helperCopy = 'Browse parks across ' + CITY + ' using the map and filters.';
+
+  if (intentKey === 'trails') {
+    heroTitle = 'Parks with Trails in ' + CITY;
+    helperCopy = 'Parks with walking trails, trail loops, or trail access.';
+  } else if (intentKey === 'playground') {
+    heroTitle = 'Parks with Playgrounds in ' + CITY;
+    helperCopy = 'Parks with playgrounds that are good for family stops.';
+  } else if (intentKey === 'dog_park') {
+    heroTitle = 'Dog Parks in ' + CITY;
+    helperCopy = 'Dog-friendly parks and off-leash spots in ' + CITY + '.';
+  }
+
+  pageHeroTitleEl.textContent = heroTitle;
+  heroCopyEl.textContent = helperCopy;
+  heroClearFilterEl.href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  heroClearFilterEl.hidden = !intentKey;
 }
 
 function parkCoords(park) {
@@ -974,7 +1057,12 @@ const INLINE_AURORA_FALLBACK = [
 
 let allParks = [];
 let visibleParks = [];
+const pageIntroTitleEl = document.getElementById('page-intro-title');
+const pageIntroSubtitleEl = document.getElementById('page-intro-subtitle');
+const pageIntroCopyEl = document.getElementById('page-intro-copy');
+const pageHeroTitleEl = document.querySelector('.page-hero h1');
 const heroCopyEl = document.getElementById('hero-copy');
+const heroClearFilterEl = document.getElementById('hero-clear-filter');
 const heroBestForEl = document.getElementById('hero-best-for');
 const heroBestForCopyEl = document.getElementById('hero-best-for-copy');
 document.getElementById('hero-total').textContent = '0';
@@ -1002,31 +1090,30 @@ function applyDatasetContext() {
   document.getElementById('canonical-link').href = 'https://findeverypark.com/parks.html';
   document.getElementById('robots-meta').setAttribute('content', (searchQuery || requestedFilters.length) ? 'noindex, follow' : 'index, follow');
   document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
+  pageIntroTitleEl.textContent = 'Parks in ' + CITY;
+  pageIntroSubtitleEl.textContent = 'Browse playgrounds, trails, dog parks, and family-friendly outdoor spaces in ' + CITY + '.';
+  pageIntroCopyEl.textContent = 'FindEveryPark helps families quickly compare parks, playgrounds, and outdoor spaces in ' + CITY + ' with maps, filters, and local park details designed for fast decisions.';
   document.getElementById('hero-city').textContent = CITY;
   document.getElementById('hero-city-stat').textContent = CITY;
   document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
 
   if (requestedFilters.includes('trails')) {
-    heroCopyEl.textContent = 'Browse ' + CITY + ' parks with trail access, compare nearby stops on the map, and use this as the fast route into greener walks, trailheads, and longer outdoor loops.';
     heroBestForEl.textContent = 'Trail Access';
     heroBestForCopyEl.textContent = 'Walking routes, greenways, and parks that connect to longer outings.';
   } else if (requestedFilters.includes('disc_golf')) {
-    heroCopyEl.textContent = 'Browse ' + CITY + ' disc golf parks and nearby recreation stops in one map-and-card view.';
     heroBestForEl.textContent = 'Disc Golf';
     heroBestForCopyEl.textContent = 'Course access, quick comparison, and nearby park context.';
   } else if (requestedFilters.includes('golf')) {
-    heroCopyEl.textContent = 'Browse ' + CITY + ' golf courses and golf-adjacent park spaces in one clean map-and-card view. This gives the site a stronger recreation layer without splitting users into a separate experience.';
     heroBestForEl.textContent = 'Golf';
     heroBestForCopyEl.textContent = 'Course discovery, quick comparison, and nearby recreation context.';
   } else if (requestedFilters.includes('dog_park')) {
-    heroCopyEl.textContent = 'Browse ' + CITY + ' dog-friendly parks and off-leash options with the same card-and-map experience, so it feels like one product instead of a pile of separate pages.';
     heroBestForEl.textContent = 'Dogs';
     heroBestForCopyEl.textContent = 'Off-leash spots, dog-friendly stops, and easier everyday planning.';
   } else {
-    heroCopyEl.textContent = 'Explore ' + CITY + ' park cards, zoom into the map, filter by amenities, and save the places you want to revisit.';
     heroBestForEl.textContent = 'Families';
     heroBestForCopyEl.textContent = 'Playgrounds, everyday stops, and easy park comparison.';
   }
+  updateHeroIntentContent(requestedFilters);
 
   const seoSupportTitleEl = document.getElementById('seo-support-title');
   const seoSupportCopyEl = document.getElementById('seo-support-copy');
@@ -1313,6 +1400,8 @@ function render() {
   const q = searchEl.value.trim().toLowerCase();
   const s = sortEl.value;
   const af = [...active];
+  const intentFilterKey = getIntentFilterKey(af);
+  updateHeroIntentContent(af);
 
 let list = allParks.map((p, origIdx) => {
   const features = parkFeatures(p);
@@ -1338,7 +1427,19 @@ let list = allParks.map((p, origIdx) => {
 
   console.log('visibleParks datasets:', [...new Set(list.map(p => p.datasetKey || DATASET_KEY))]);
 
-  if (af.length) list.sort((a,b) => b.score - a.score);
+  if (af.length) {
+    if (intentFilterKey) {
+      list.sort((a, b) => {
+        const priorityDiff = getIntentPriorityScore(b, intentFilterKey) - getIntentPriorityScore(a, intentFilterKey);
+        if (priorityDiff) return priorityDiff;
+        if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+        if (parkAcreage(b) !== parkAcreage(a)) return parkAcreage(b) - parkAcreage(a);
+        return parkName(a).localeCompare(parkName(b));
+      });
+    } else {
+      list.sort((a,b) => b.score - a.score);
+    }
+  }
   else if (s === 'alpha') list.sort((a,b) => parkName(a).localeCompare(parkName(b)));
   else if (s === 'big') list.sort((a,b) => parkAcreage(b) - parkAcreage(a));
   else if (s === 'visited') list.sort((a,b) => (visited.has(parkName(b))?1:0)-(visited.has(parkName(a))?1:0));
@@ -1385,6 +1486,7 @@ let list = allParks.map((p, origIdx) => {
     const tagsHtml = amenities.length
       ? amenities.map(f => '<span class="tag' + (active.has(f.k)?' hi':'') + '">' + f.e + ' ' + f.l + '</span>').join('')
       : '<span class="tag none">Open space</span>';
+    const matchCue = getIntentMatchCue(p, intentFilterKey);
     const matchBadge = af.length
       ? isPerfect ? '<div class="match-badge perfect">\u2713 ' + p.score + '/' + af.length + '</div>'
       : isPartial ? '<div class="match-badge partial">' + p.score + '/' + af.length + '</div>'
@@ -1437,6 +1539,7 @@ card.onmouseleave = () => {
         '</div>' +
       '</div>' +
       '<div class="addr"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + formatPlace(address) + ' ' + distStr + '</div>' +
+      (matchCue ? '<div class="match-note">' + matchCue + '</div>' : '') +
       '<div class="tags">' + tagsHtml + '</div>' +
       '<div class="card-actions">' +
   '<a href="' + parkGuideUrl(p) + '" class="city-btn" onclick="event.stopPropagation()">Mini Guide</a>' +
