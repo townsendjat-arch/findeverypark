@@ -24,26 +24,27 @@
     gtag('config', 'G-9GWTHQXZNY');
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #1a1a18;
       --ink-light: #5a5a52;
       --ink-faint: #9a9a90;
-      --rule: #e2e0d8;
-      --bg: #f9f8f4;
-      --bg-warm: #f2f0e8;
-      --grass: #3d6b4a;
-      --grass-light: #e8f0ea;
-      --accent: #c4501a;
+      --rule: #e4ddd4;
+      --bg: #f0ede8;
+      --bg-warm: #f0ede8;
+      --grass: #0f6e56;
+      --grass-deep: #085041;
+      --grass-light: #e8f4f0;
+      --accent: #b07848;
       --white: #ffffff;
+      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
       background: var(--bg);
       color: var(--ink);
       font-size: 15px;
@@ -130,7 +131,7 @@
       color: white;
     }
     .page-header h1 {
-      font-family: 'Lora', serif;
+      font-family: 'Outfit', sans-serif;
       font-size: clamp(28px, 5vw, 38px);
       font-weight: 600;
       letter-spacing: -0.5px;
@@ -289,7 +290,7 @@
       margin-top: 48px;
     }
     .submit-box h3 {
-      font-family: 'Lora', serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 8px;
@@ -347,7 +348,7 @@
       margin-bottom: 28px;
     }
     .empty-city h3 {
-      font-family: 'Lora', serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 8px;
@@ -378,6 +379,30 @@
     .submit-box h3,
     .empty-city h3 {
       font-weight: 500;
+    }
+    .nav-brand,
+    .page-header h1,
+    .submit-box h3,
+    .empty-city h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .update-badge,
+    .free-badge {
+      background: var(--grass-light);
+      color: var(--grass);
+    }
+    .submit-box,
+    .empty-city {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow);
+    }
+    .submit-box .email-line,
+    .footer-note a,
+    .event-link:hover {
+      color: var(--grass);
     }
   </style>
 </head>

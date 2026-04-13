@@ -6,7 +6,7 @@
   const shouldIgnoreSavedDataset = pageName === "park.html" && !requestedDataset;
 
   const datasetScripts = {
-    aurora: "parks-data.js",
+    aurora: "aurora-parks-data.js",
     centennial: "centennial-parks-data.js",
     parker: "parker-parks-data.js",
     "lone-tree": "lone-tree-parks-data.js",

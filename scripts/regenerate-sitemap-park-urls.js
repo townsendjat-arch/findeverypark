@@ -5,13 +5,19 @@ const vm = require("vm");
 const ROOT = path.resolve(__dirname, "..");
 const SITEMAP_PATH = path.join(ROOT, "sitemap.xml");
 
-const DATASET_SCRIPTS = {
-  aurora: "parks-data.js",
-  centennial: "centennial-parks-data.js",
-  parker: "parker-parks-data.js",
-  "lone-tree": "lone-tree-parks-data.js",
-  denver: "denver-parks-data.js"
-};
+function discoverDatasets(root, allowedKeys) {
+  const allowed = new Set(allowedKeys || []);
+
+  return fs.readdirSync(root)
+    .filter((filename) => filename.endsWith("-parks-data.js"))
+    .reduce((acc, filename) => {
+      const key = filename.replace("-parks-data.js", "");
+      if (allowed.has(key)) {
+        acc[key] = filename;
+      }
+      return acc;
+    }, {});
+}
 
 function createBrowserContext() {
   const window = {
@@ -61,11 +67,11 @@ function buildParkUrl(datasetKey, park) {
   );
 }
 
-function buildParkSection(context) {
+function buildParkSection(context, datasetScripts) {
   const lines = ["  <!-- Park Pages -->"];
   const seenUrls = new Set();
 
-  Object.entries(DATASET_SCRIPTS).forEach(([datasetKey, scriptName]) => {
+  Object.entries(datasetScripts).forEach(([datasetKey, scriptName]) => {
     runScript(context, scriptName);
     const parks = context.window.getParkDataset(datasetKey) || [];
 
@@ -99,9 +105,13 @@ function replaceParkSection(xml, replacement) {
 function main() {
   const context = createBrowserContext();
   runScript(context, "park-data-registry.js");
+  const allowedKeys = Object.keys((context.window.PARK_SITE && context.window.PARK_SITE.datasetsMeta) || {});
+  const datasetScripts = discoverDatasets(ROOT, allowedKeys);
+
+  console.log("Discovered datasets:", Object.keys(datasetScripts).join(", "));
 
   const sitemapXml = fs.readFileSync(SITEMAP_PATH, "utf8");
-  const parkSection = buildParkSection(context);
+  const parkSection = buildParkSection(context, datasetScripts);
   const updatedXml = replaceParkSection(sitemapXml, parkSection);
 
   fs.writeFileSync(SITEMAP_PATH, updatedXml);

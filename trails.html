@@ -15,19 +15,17 @@
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://findeverypark.com/trails.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
-      --grass: #3d6b4a; --grass-light: #5a8f6a; --earth: #b07848;
-      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff;
-      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --grass: #0f6e56; --grass-deep: #085041; --grass-soft: #e8f4f0; --earth: #b07848;
+      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff; --line: #e4ddd4; --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
       --shadow-hover: 0 8px 28px rgba(0,0,0,0.15);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
+    body { font-family: 'Outfit', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
 
     /* NAV */
     .main-nav {
@@ -312,6 +310,30 @@
     .empty-state h3 {
       font-weight: 500;
     }
+    .nav-brand,
+    .page-header h1,
+    .trail-name,
+    .empty-state h3,
+    .leaflet-popup-content b {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .controls-bar,
+    .map-wrap,
+    .trail-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .pill.on,
+    .locate-btn.active {
+      background: var(--grass);
+      border-color: var(--grass);
+      color: var(--white);
+    }
+    .locate-btn:hover,
+    .pill:hover { color: var(--grass); border-color: var(--grass); }
   </style>
 </head>
 <body>

@@ -23,8 +23,7 @@
   <meta name="twitter:description" content="Find parks near you across Aurora, Denver, Parker, and the Front Range. Browse playgrounds, trails, dog parks, and local park maps fast.">
   <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -38,660 +37,643 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Find Every Park",
-      "url": "https://findeverypark.com/"
+      "url": "https://findeverypark.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://findeverypark.com/parks.html?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     }
   </script>
   <style>
     :root {
-      --grass: #2f7d4f;
-      --grass-dark: #275f3f;
-      --grass-soft: #eff6f1;
-      --mist: #f5f2ec;
-      --ink: #1d2b20;
-      --muted: #66756b;
-      --line: rgba(29, 43, 32, 0.12);
+      --grass: #0f6e56;
+      --grass-deep: #085041;
+      --grass-soft: #e8f4f0;
+      --earth: #b07848;
+      --ink: #1a1f1c;
+      --ink-muted: #5a6460;
+      --mist: #f0ede8;
       --white: #ffffff;
-      --shadow: 0 14px 34px rgba(24, 40, 29, 0.1);
-      --shadow-soft: 0 8px 18px rgba(24, 40, 29, 0.08);
+      --line: #e4ddd4;
+      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', system-ui, sans-serif;
       background: var(--mist);
       color: var(--ink);
+      min-height: 100vh;
     }
 
-    a { color: inherit; }
-
-    .hero-header {
-      background: linear-gradient(180deg, #2f7d4f 0%, #399258 100%);
-      color: white;
-      text-align: center;
-      padding: 26px 20px 38px;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .top-nav {
-      max-width: 1120px;
-      margin: 0 auto 18px;
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding: 20px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      flex-wrap: wrap;
     }
 
-    .brand {
-      font-family: 'Syne', sans-serif;
-      font-size: 19px;
-      font-weight: 800;
-      text-decoration: none;
-      letter-spacing: -0.03em;
+    .nav-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
 
     .nav-links {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       list-style: none;
-      flex-wrap: wrap;
-      justify-content: center;
     }
 
     .nav-links a {
-      text-decoration: none;
-      color: rgba(255, 255, 255, 0.88);
+      color: rgba(255,255,255,0.82);
       font-size: 13px;
-      font-weight: 700;
-      padding: 8px 12px;
+      font-weight: 500;
+      padding: 7px 13px;
       border-radius: 999px;
-      transition: background 0.15s ease, color 0.15s ease;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      background: rgba(255, 255, 255, 0.14);
-      color: white;
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
     }
 
-    .hero-inner {
-      max-width: 860px;
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: var(--grass-deep);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/parks/co/aurora/utah-park/utah-park-09.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.72);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8, 28, 20, 0.88) 0%,
+        rgba(8, 28, 20, 0.3) 50%,
+        transparent 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
       margin: 0 auto;
+      padding: 0 24px 52px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 14px;
     }
 
     .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(34px, 5vw, 56px);
-      line-height: 1;
-      letter-spacing: -0.05em;
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(38px, 6vw, 62px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #fff;
       margin-bottom: 10px;
     }
 
-    .hero-subtitle {
+    .hero-title em {
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .hero-sub {
       font-size: 16px;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.92);
-      font-weight: 500;
-      max-width: 48ch;
-      margin: 0 auto 14px;
+      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+      margin-bottom: 28px;
+      line-height: 1.6;
     }
 
-    .search-panel {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 20px;
-      padding: 18px;
-      max-width: 760px;
+    .search-box {
+      display: flex;
+      gap: 0;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      max-width: 620px;
       margin: 0 auto;
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(6px);
     }
 
-    .search-row {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .search-controls {
-      display: flex;
-      gap: 14px;
-      align-items: flex-end;
-      flex-wrap: wrap;
-    }
-
-    .city-field {
-      min-width: 182px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      text-align: left;
-    }
-
-    .city-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.82);
-      padding-left: 2px;
-    }
-
-    .city-select-wrap {
-      position: relative;
-    }
-
-    .city-select-wrap::after {
-      content: "";
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      width: 10px;
-      height: 10px;
-      border-right: 2px solid var(--grass-dark);
-      border-bottom: 2px solid var(--grass-dark);
-      transform: translateY(-65%) rotate(45deg);
-      pointer-events: none;
-      opacity: 0.9;
-    }
-
-    .city-select {
-      width: 100%;
-      height: 48px;
+    .search-city {
       border: none;
       outline: none;
-      border-radius: 14px;
-      padding: 0 48px 0 16px;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1;
+      padding: 0 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
       color: var(--ink);
-      background: rgba(255, 255, 255, 0.99);
-      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.12), 0 8px 18px rgba(16, 31, 21, 0.08);
+      background: var(--mist);
+      border-right: 1px solid var(--line);
+      cursor: pointer;
       appearance: none;
       -webkit-appearance: none;
-      cursor: pointer;
-      box-sizing: border-box;
-      transition: box-shadow 0.15s ease, background 0.15s ease, transform 0.15s ease;
+      min-width: 130px;
     }
 
-    .city-select:hover {
-      background: #ffffff;
-      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.18), 0 10px 22px rgba(16, 31, 21, 0.12);
-    }
-
-    .city-select:focus {
-      box-shadow: inset 0 0 0 2px rgba(39, 95, 63, 0.35), 0 10px 22px rgba(16, 31, 21, 0.12);
-    }
-
-    #parkSearch {
+    .search-input {
       flex: 1;
-      min-width: 240px;
-      height: 48px;
       border: none;
       outline: none;
-      border-radius: 14px;
-      padding: 0 18px;
-      font-size: 16px;
-      line-height: 1;
+      padding: 16px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
       color: var(--ink);
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.08);
-      box-sizing: border-box;
-      transition: box-shadow 0.15s ease, transform 0.15s ease;
+      background: transparent;
+      min-width: 0;
     }
 
-    #parkSearch:focus {
-      box-shadow: inset 0 0 0 2px rgba(39, 95, 63, 0.25);
-    }
+    .search-input::placeholder { color: #aaa; }
 
-    .search-submit {
+    .search-btn {
       border: none;
-      border-radius: 14px;
-      height: 48px;
+      background: var(--grass);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
       padding: 0 22px;
-      font-size: 15px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--grass-dark);
-      background: #ffffff;
       cursor: pointer;
-      box-sizing: border-box;
-      box-shadow: 0 10px 20px rgba(16, 31, 21, 0.12);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition: background 0.15s;
+      white-space: nowrap;
     }
 
-    .search-submit:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(16, 31, 21, 0.16);
-    }
+    .search-btn:hover { background: var(--grass-deep); }
 
-    .quick-links {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 20px 20px 0;
-      max-width: 920px;
+    .main {
+      max-width: 1060px;
       margin: 0 auto;
+      padding: 0 24px 64px;
     }
 
-    .quick-link,
-    .quick-links > a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 16px;
-      background: rgba(255, 255, 255, 0.95);
-      color: var(--grass-dark);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      border-radius: 999px;
-      box-shadow: 0 6px 18px rgba(24, 40, 29, 0.08);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    .section {
+      margin-top: 48px;
     }
 
-    .quick-link:hover,
-    .quick-links > a:hover {
-      background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(24, 40, 29, 0.12);
-    }
-    .quick-links-secondary {
-      padding-top: 12px;
-    }
-    .quick-links-secondary > a {
-      padding: 10px 15px;
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
     }
 
-    .hero-gallery {
-      background: var(--white);
-      padding: 0;
-      overflow: hidden;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .seo-strip {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 28px 20px 10px;
-      text-align: center;
-    }
-    .quick-paths {
-      padding-top: 24px;
-      padding-bottom: 4px;
-    }
-    .quick-paths-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      max-width: 760px;
-      margin: 0 auto;
-      padding-top: 14px;
-    }
-    .quick-paths-grid .quick-link {
-      width: 100%;
-      max-width: none;
-      min-height: 54px;
-      text-align: center;
-    }
-    .hero-header + .seo-strip {
-      margin-top: 6px;
-    }
-    .seo-strip + .seo-strip {
-      margin-top: 6px;
-      padding-top: 24px;
-    }
-
-    .seo-strip h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 26px;
-      margin-bottom: 12px;
-      color: var(--ink);
-    }
-
-    .seo-strip p {
-      max-width: 700px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
-    .start-here-note {
-      padding-top: 18px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .hero-grid {
+    .city-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      min-height: 180px;
+      gap: 12px;
     }
 
-    .hero-grid img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .about-strip {
-      text-align: center;
-      padding: 26px 20px 10px;
-    }
-
-    .about-strip h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .about-strip p {
-      max-width: 760px;
-      margin: 0 auto;
-      line-height: 1.7;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .about-strip .inline-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--grass-dark);
-      text-decoration: none;
-    }
-
-    .contact-strip {
-      text-align: center;
-      padding: 10px 20px 18px;
-    }
-
-    .contact-strip a {
-      color: var(--grass-dark);
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .search-home-section {
-      margin-top: 6px;
-      padding: 8px 20px 0;
-    }
-    .search-home-section .search-panel {
+    .city-card {
       background: var(--white);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: none;
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
     }
-    .search-home-section .city-label {
-      color: var(--muted);
+
+    .city-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.09);
     }
-    .search-home-section .search-submit {
-      box-shadow: inset 0 0 0 1px rgba(29, 43, 32, 0.12), 0 10px 20px rgba(16, 31, 21, 0.08);
+
+    .city-card-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .city-card-count {
+      font-size: 12px;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .city-card-arrow {
+      margin-top: auto;
+      padding-top: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grass);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .city-card-arrow svg {
+      transition: transform 0.15s;
+    }
+
+    .city-card:hover .city-card-arrow svg {
+      transform: translateX(3px);
+    }
+
+    .intent-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .intent-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .intent-card:hover {
+      background: var(--grass-soft);
+      border-color: #b8d8cf;
+    }
+
+    .intent-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      background: var(--mist);
+      border-radius: 8px;
+    }
+
+    .intent-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .intent-sub {
+      font-size: 12px;
+      color: var(--ink-muted);
+      font-weight: 400;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .trust-strip {
+      margin-top: 48px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .trust-text h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .trust-text p {
+      font-size: 15px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .trust-text p a {
+      color: var(--grass);
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .trust-badge {
+      flex-shrink: 0;
+      background: var(--grass-soft);
+      border: 1px solid #b8d8cf;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 130px;
+    }
+
+    .trust-badge-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--grass);
+      line-height: 1;
+    }
+
+    .trust-badge-label {
+      font-size: 12px;
+      color: var(--grass-deep);
+      font-weight: 500;
+      margin-top: 4px;
     }
 
     footer {
-      margin-top: 36px;
-      background: linear-gradient(180deg, #2f7d4f, #3fa34d);
-      color: rgba(255, 255, 255, 0.8);
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 12px;
+      background: var(--ink);
+      color: rgba(255,255,255,0.6);
+      padding: 36px 32px;
+      font-size: 13px;
     }
 
-    .footer-nav {
+    .footer-inner {
+      max-width: 1060px;
+      margin: 0 auto;
       display: flex;
-      gap: 18px;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
       flex-wrap: wrap;
-      margin-bottom: 12px;
     }
 
-    .footer-nav a {
-      color: white;
-      text-decoration: none;
+    .footer-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
       font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .footer-meta {
-      line-height: 1.7;
+    .footer-links a {
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      transition: color 0.15s;
     }
 
-    @media (max-width: 800px) {
-      .hero-grid {
+    .footer-links a:hover { color: #fff; }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    @media (max-width: 860px) {
+      .city-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-    }
-
-    @media (max-width: 600px) {
-      .hero-header {
-        padding: 22px 16px 28px;
+      .intent-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .brand {
-        font-size: 22px;
-      }
-
-      .hero-title {
-        font-size: clamp(24px, 7vw, 32px);
-      }
-
-      .top-nav {
-        justify-content: center;
-        margin-bottom: 14px;
-      }
-
-      .hero-subtitle {
-        font-size: 15px;
-        margin-bottom: 18px;
-      }
-
-      .search-panel {
-        padding: 16px;
-      }
-
-      .search-controls {
+      .trust-strip {
         flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
+        gap: 20px;
       }
 
-      .city-label {
-        display: none;
-      }
-
-      .city-field,
-      .city-select,
-      #parkSearch,
-      .search-submit {
+      .trust-badge {
         width: 100%;
       }
 
-      .city-field {
+      .nav {
+        padding: 16px 20px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .city-grid {
+        grid-template-columns: 1fr 1fr;
         gap: 8px;
       }
 
-      .city-select,
-      #parkSearch,
-      .search-submit {
-        height: 50px;
+      .intent-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
       }
 
-      .city-select {
-        padding: 0 48px 0 16px;
+      .hero-content {
+        padding-bottom: 40px;
       }
 
-      #parkSearch {
-        padding: 0 16px;
+      .search-box {
+        flex-direction: column;
+        border-radius: var(--radius-md);
       }
 
-      .search-submit {
-        min-height: 52px;
+      .search-city {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 14px 16px;
+        border-radius: 0;
+        min-width: 0;
       }
 
-      .quick-links {
-        gap: 10px;
+      .search-btn {
+        padding: 14px 20px;
       }
 
-      .quick-link,
-      .quick-links > a {
-        width: 100%;
-        max-width: 280px;
-      }
-      .quick-paths-grid {
-        grid-template-columns: 1fr;
-        max-width: 280px;
-      }
-      .search-home-section {
-        padding: 8px 16px 0;
+      .nav-links {
+        display: none;
       }
 
-      .hero-grid {
-        min-height: 0;
+      .trust-strip {
+        padding: 24px 20px;
       }
-
-      .hero-grid img {
-        aspect-ratio: 1 / 1;
-      }
-    }
-    .hero-title,
-    .seo-strip h2,
-    .about-strip h3 {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-    .hero-title {
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .seo-strip h2 {
-      font-weight: 600;
-      letter-spacing: -0.005em;
-    }
-    .about-strip h3 {
-      font-weight: 500;
     }
   </style>
 </head>
 <body>
-  <header class="hero-header">
-    <nav class="top-nav">
-      <a href="./index.html" class="brand">Find Every Park</a>
-      <ul class="nav-links">
-        <li><a href="./index.html" class="active">Home</a></li>
-        <li><a href="./parks.html" data-base="./parks.html" class="city-aware-nav">Parks</a></li>
-        <li><a href="/parks.html?dataset=aurora">Aurora</a></li>
-        <li><a href="/parks.html?dataset=centennial">Centennial</a></li>
-        <li><a href="/parks.html?dataset=parker">Parker</a></li>
-        <li><a href="/parks.html?dataset=denver">Denver</a></li>
-        <li><a href="./trails.html">Trails</a></li>
-        <li><a href="./events.html" data-base="./events.html" class="city-aware-nav">Local Events</a></li>
-      </ul>
-    </nav>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="./index.html" class="nav-brand">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="/parks.html?dataset=aurora">Aurora</a></li>
+      <li><a href="/parks.html?dataset=centennial">Centennial</a></li>
+      <li><a href="/parks.html?dataset=parker">Parker</a></li>
+      <li><a href="/parks.html?dataset=denver">Denver</a></li>
+      <li><a href="./trails.html">Trails</a></li>
+      <li><a href="./events.html">Events</a></li>
+    </ul>
+  </nav>
 
-    <div class="hero-inner">
-      <h1 class="hero-title">Find parks near you fast</h1>
-      <p class="hero-subtitle">Playgrounds, trails, dog parks, and family spots across the Front Range</p>
-
-      <section class="quick-links">
-        <a href="/parks.html?dataset=aurora">Browse Aurora Parks</a>
-        <a href="/parks.html?dataset=centennial">Browse Centennial Parks</a>
-        <a href="/parks.html?dataset=parker">Browse Parker Parks</a>
-        <a href="/parks.html?dataset=denver">Browse Denver Parks</a>
-      </section>
-    </div>
-  </header>
-
-  <section class="seo-strip quick-paths">
-    <h2>Choose a park faster</h2>
-    <p>Start with what you need most.</p>
-    <div class="quick-paths-grid">
-      <a class="quick-link" href="/best-parks-aurora.html">Best Parks Near Me</a>
-      <a class="quick-link" href="/best-playgrounds-aurora.html">Parks with Playgrounds</a>
-      <a class="quick-link" href="/dog-parks.html">Dog Parks</a>
-      <a class="quick-link" href="/parks.html?dataset=aurora&filter=trails">Parks with Trails</a>
-    </div>
-  </section>
-
-  <section class="seo-strip">
-    <p>FindEveryPark helps families discover the best parks, playgrounds, and outdoor spaces across Aurora, Centennial, Parker, and Denver. Browse local park maps, compare features, and quickly decide where to go.</p>
-  </section>
-
-  <section class="seo-strip">
-    <h2>Start Here</h2>
-    <div class="quick-links">
-      <a href="/best-parks-aurora.html">Best Parks in Aurora</a>
-      <a href="/best-parks-centennial.html">Best Parks in Centennial</a>
-      <a href="/best-parks-parker.html">Best Parks in Parker</a>
-      <a href="/best-parks-denver.html">Best Parks in Denver</a>
-    </div>
-    <div class="quick-links quick-links-secondary">
-      <a href="/dog-parks.html">Dog Parks</a>
-    </div>
-    <p class="start-here-note">Helping families find better parks across the Front Range.</p>
-  </section>
-
-  <section class="hero-gallery">
-    <div class="hero-grid">
-      <img src="images/park-one.jpg" alt="Aurora park photo 1">
-      <img src="images/park-two.jpg" alt="Aurora park photo 2">
-      <img src="images/park-three.jpg" alt="Aurora park photo 3">
-      <img src="images/park-four.jpg" alt="Aurora park photo 4">
-    </div>
-  </section>
-
-  <section class="about-strip">
-    <h3>About Find Every Park</h3>
-    <p>Helping families discover parks, trails, and local events across the city. Built by a local dad, it is designed to get kids outside, explore new places, and make finding your next adventure simple.</p>
-    <p>Start with local guides for <a class="inline-link" href="./city.html?dataset=aurora">Aurora</a>, <a class="inline-link" href="./city.html?dataset=centennial">Centennial</a>, <a class="inline-link" href="./city.html?dataset=parker">Parker</a>, and <a class="inline-link" href="./city.html?dataset=denver">Denver</a>, or jump straight to the <a class="inline-link" href="./parks.html">full parks map</a>.</p>
-    <a class="inline-link" href="./best-parks-aurora.html">Looking for a faster Aurora short list? See the best parks in Aurora, Colorado.</a>
-  </section>
-
-  <section class="contact-strip">
-    <p>Don’t see your favorite park? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
-  </section>
-
-  <section class="search-home-section">
-    <div class="search-panel">
-      <div class="search-row">
-        <div class="search-controls">
-          <div class="city-field">
-            <label class="city-label" for="citySelect">City</label>
-            <div class="city-select-wrap">
-              <select id="citySelect" class="city-select" aria-label="Choose a city">
-                <option value="aurora">Aurora</option>
-                <option value="centennial">Centennial</option>
-                <option value="parker">Parker</option>
-                <option value="lone-tree">Lone Tree</option>
-                <option value="denver">Denver</option>
-              </select>
-            </div>
-          </div>
-          <input type="text" id="parkSearch" placeholder="Search parks or features like playground, dog park, basketball...">
-          <button class="search-submit" id="searchSubmit" type="button">Search</button>
-        </div>
+  <section class="hero" aria-label="Search parks">
+    <div class="hero-bg" role="presentation"></div>
+    <div class="hero-overlay" role="presentation"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Colorado Front Range</span>
+      <h1 class="hero-title">Find the right park<br><em>for right now</em></h1>
+      <p class="hero-sub">Playgrounds, trails, dog parks, and family spots across Aurora, Denver, Parker, and beyond</p>
+      <div class="search-box" role="search">
+        <select id="citySelect" class="search-city" aria-label="Choose a city">
+          <option value="aurora">Aurora</option>
+          <option value="centennial">Centennial</option>
+          <option value="parker">Parker</option>
+          <option value="lone-tree">Lone Tree</option>
+          <option value="denver">Denver</option>
+        </select>
+        <input type="text" id="parkSearch" class="search-input" placeholder="Playground, dog park, trails..." aria-label="Search parks">
+        <button class="search-btn" id="searchSubmit" type="button">Search</button>
       </div>
     </div>
   </section>
 
+  <main class="main">
+    <section class="section" aria-labelledby="cities-heading">
+      <p class="section-label" id="cities-heading">Browse by city</p>
+      <div class="city-grid">
+        <a href="/parks.html?dataset=aurora" class="city-card">
+          <span class="city-card-name">Aurora</span>
+          <span class="city-card-count">122 parks</span>
+          <span class="city-card-arrow">Browse parks
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a href="/parks.html?dataset=centennial" class="city-card">
+          <span class="city-card-name">Centennial</span>
+          <span class="city-card-count">Parks &amp; open space</span>
+          <span class="city-card-arrow">Browse parks
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a href="/parks.html?dataset=parker" class="city-card">
+          <span class="city-card-name">Parker</span>
+          <span class="city-card-count">Parks &amp; trails</span>
+          <span class="city-card-arrow">Browse parks
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <a href="/parks.html?dataset=denver" class="city-card">
+          <span class="city-card-name">Denver</span>
+          <span class="city-card-count">City parks &amp; rec</span>
+          <span class="city-card-arrow">Browse parks
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="intent-heading">
+      <p class="section-label" id="intent-heading">I'm looking for...</p>
+      <div class="intent-grid">
+        <a href="/best-playgrounds-aurora.html" class="intent-card">
+          <span class="intent-icon">🛝</span>
+          <div>
+            <div class="intent-label">Playgrounds</div>
+            <div class="intent-sub">Best spots for kids</div>
+          </div>
+        </a>
+        <a href="/dog-parks.html" class="intent-card">
+          <span class="intent-icon">🐕</span>
+          <div>
+            <div class="intent-label">Dog Parks</div>
+            <div class="intent-sub">Off-leash &amp; trails</div>
+          </div>
+        </a>
+        <a href="/parks.html?dataset=aurora&filter=trails" class="intent-card">
+          <span class="intent-icon">🥾</span>
+          <div>
+            <div class="intent-label">Trails</div>
+            <div class="intent-sub">Walks &amp; hikes</div>
+          </div>
+        </a>
+        <a href="/events.html" class="intent-card">
+          <span class="intent-icon">📅</span>
+          <div>
+            <div class="intent-label">Events</div>
+            <div class="intent-sub">What's happening</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="About Find Every Park">
+      <div class="trust-text">
+        <h2>Built by someone who actually goes to these parks</h2>
+        <p>
+          Every park on this site has been personally researched, not scraped from a database.
+          Built by a local dad in Aurora, Colorado, to help families spend less time Googling
+          and more time outside. Missing a park?
+          <a href="mailto:jason@findeverypark.com">Send it our way.</a>
+        </p>
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-num">122+</div>
+        <div class="trust-badge-label">Parks documented</div>
+      </div>
+    </section>
+  </main>
+
   <footer>
-    <div class="footer-nav">
-      <a href="./index.html">Home</a>
-      <a href="./parks.html" data-base="./parks.html" class="city-aware-nav">Parks</a>
-      <a href="./trails.html">Trails</a>
-      <a href="./events.html" data-base="./events.html" class="city-aware-nav">Local Events</a>
-      <a href="https://mightydads.org" target="_blank">Mighty Dads</a>
-    </div>
-    <div class="footer-meta">
-      Connecting families through parks across Colorado's Front Range.<br>
-      Park data sourced from local agencies and city GIS datasets.<br>
-      &copy; 2026 Find Every Park Colorado
+    <div class="footer-inner">
+      <span class="footer-brand">Find Every Park</span>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/parks.html?dataset=aurora">Aurora</a>
+        <a href="/parks.html?dataset=centennial">Centennial</a>
+        <a href="/parks.html?dataset=parker">Parker</a>
+        <a href="/parks.html?dataset=denver">Denver</a>
+        <a href="./trails.html">Trails</a>
+        <a href="./events.html">Events</a>
+      </nav>
+      <span class="footer-copy">&copy; 2026 Find Every Park Colorado</span>
     </div>
   </footer>
 
@@ -700,7 +682,6 @@
     const homeSearch = document.getElementById('parkSearch');
     const searchSubmit = document.getElementById('searchSubmit');
     const citySelect = document.getElementById('citySelect');
-    const cityAwareNavLinks = document.querySelectorAll('.city-aware-nav[data-base]');
 
     if (citySelect) {
       const requestedDataset = homeParams.get('dataset') || homeParams.get('city') || '';
@@ -711,27 +692,15 @@
       }
     }
 
-    function updateCityLinks() {
-      if (!citySelect) return;
-      const dataset = citySelect.value;
+    function submitHomeSearch() {
+      const query = homeSearch ? homeSearch.value.trim() : '';
+      const dataset = citySelect ? citySelect.value : 'aurora';
       if (window.localStorage) {
         localStorage.setItem('activeDataset', dataset);
       }
-      cityAwareNavLinks.forEach(function (link) {
-        const base = link.dataset.base;
-        link.href = base.indexOf('events.html') !== -1
-          ? base + '?city=' + encodeURIComponent(dataset)
-          : base + '?dataset=' + encodeURIComponent(dataset);
-      });
+      window.location.href = './parks.html?dataset=' + encodeURIComponent(dataset) +
+        (query ? '&search=' + encodeURIComponent(query) : '');
     }
-
-    function submitHomeSearch() {
-      const query = homeSearch.value.trim();
-      const dataset = citySelect ? citySelect.value : 'aurora';
-      window.location.href = './parks.html?dataset=' + encodeURIComponent(dataset) + '&search=' + encodeURIComponent(query);
-    }
-
-    updateCityLinks();
 
     if (homeSearch) {
       homeSearch.addEventListener('keydown', function (e) {
@@ -746,7 +715,11 @@
     }
 
     if (citySelect) {
-      citySelect.addEventListener('change', updateCityLinks);
+      citySelect.addEventListener('change', function () {
+        if (window.localStorage) {
+          localStorage.setItem('activeDataset', citySelect.value);
+        }
+      });
     }
   </script>
 </body>

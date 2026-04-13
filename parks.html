@@ -25,8 +25,7 @@
   <meta name="twitter:description" content="Explore every park on Find Every Park Colorado with filters for trail access, dog parks, golf, playgrounds, and more.">
   <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
  
@@ -40,14 +39,14 @@
 }
 
  :root {   
-      --grass: #3d6b4a; --grass-light: #5a8f6a; --earth: #b07848;
-      --sky: #c8dff0; --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff;
+      --grass: #0f6e56; --grass-deep: #085041; --grass-soft: #e8f4f0; --earth: #b07848;
+      --sky: #c8dff0; --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff; --line: #e4ddd4;
       --md-orange: #e8703a;
-      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
       --shadow-hover: 0 8px 28px rgba(0,0,0,0.15);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-     body { font-family: 'DM Sans', system-ui, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
+     body { font-family: 'Outfit', system-ui, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
     /* NAV */
     .main-nav {
       background: var(--grass);
@@ -320,6 +319,48 @@
     .empty h3 {
       font-weight: 500;
     }
+    .nav-brand,
+    .passport-title,
+    .page-intro h1,
+    .page-hero h1,
+    .hero-stat-value,
+    .map-title,
+    .top-picks-title,
+    .park-name,
+    .dog-section-title,
+    .dog-card-name,
+    .empty h3,
+    .leaflet-popup-content b {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .passport-bar,
+    .page-intro,
+    .map-section,
+    .card,
+    .top-picks-block,
+    .top-pick-row,
+    .dog-section,
+    .dog-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .pill.on,
+    .dataset-link.active,
+    .map-btn.active,
+    .dir-btn,
+    .filter-toggle,
+    .passport-count,
+    .passport-fill {
+      background: var(--grass);
+      border-color: var(--grass);
+      color: var(--white);
+    }
+    .dir-btn:hover {
+      background: var(--grass-deep);
+    }
   </style>
 </head>
 <body>
@@ -445,8 +486,8 @@
         <div class="map-header">
           <div class="map-title">&#x1F5FA;&#xFE0F; Park Map</div>
           <div class="map-controls">
-            <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Find me</button>
-            <span id="locate-error" style="display:none;font-size:11px;color:#e8703a;font-weight:500;">&#x26A0;&#xFE0F; Location access denied</span>
+            <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Parks Near Me</button>
+            <span id="locate-error" style="display:none;font-size:11px;color:#e8703a;font-weight:500;">Location wasn't shared. You can still browse the map.</span>
           </div>
         </div>
         <div id="map"></div>
@@ -890,19 +931,34 @@ function setMapMode(mode) {
 
 
 function locateMe() {
-  if (!navigator.geolocation) { alert("Geolocation not supported."); return; }
   const btn = document.getElementById('btn-locate');
+  const err = document.getElementById('locate-error');
+  if (!navigator.geolocation) {
+    if (err) {
+      err.textContent = "Location isn't available in this browser. You can still browse the map.";
+      err.style.display = 'inline';
+      setTimeout(() => { err.style.display = 'none'; }, 3000);
+    }
+    return;
+  }
   btn.textContent = 'Locating...';
   navigator.geolocation.getCurrentPosition(pos => {
     userLat = pos.coords.latitude; userLng = pos.coords.longitude;
-    btn.innerHTML = '&#x1F4CD; Located!'; btn.classList.add('active');
-    setTimeout(() => { btn.innerHTML = '&#x1F4CD; Find me'; btn.classList.remove('active'); }, 2500);
+    btn.innerHTML = '&#x1F4CD; Showing Nearby'; btn.classList.add('active');
+    setTimeout(() => { btn.innerHTML = '&#x1F4CD; Parks Near Me'; btn.classList.remove('active'); }, 2500);
     if (userMarker) map.removeLayer(userMarker);
     userMarker = L.circleMarker([userLat, userLng], { radius: 9, fillColor: '#4285f4', color: 'white', weight: 2.5, fillOpacity: 1 }).bindPopup('<b>You are here</b>').addTo(map);
     map.setView([userLat, userLng], 13, { animate: true });
     document.getElementById('legend-dist').textContent = 'Distances from your location';
     if (document.getElementById('sort').value === 'nearest') render(); else renderMarkers(currentFiltered);
-  }, () => { btn.innerHTML = '&#x1F4CD; Find me'; });
+  }, () => {
+    btn.innerHTML = '&#x1F4CD; Parks Near Me';
+    if (err) {
+      err.textContent = "Location wasn't shared. You can still browse the map.";
+      err.style.display = 'inline';
+      setTimeout(() => { err.style.display = 'none'; }, 3000);
+    }
+  });
 }
 
 function haversine(lat1, lng1, lat2, lng2) {
@@ -1448,7 +1504,7 @@ let list = allParks.map((p, origIdx) => {
     else {
       sortEl.value = 'alpha'; list.sort((a,b) => parkName(a).localeCompare(parkName(b)));
       const err = document.getElementById('locate-error');
-      if (err) { err.textContent = '\u26A0\uFE0F Click "Find me" first'; err.style.display = 'inline'; setTimeout(() => { err.style.display = 'none'; }, 3000); }
+      if (err) { err.textContent = '\u26A0\uFE0F Click "Parks Near Me" first'; err.style.display = 'inline'; setTimeout(() => { err.style.display = 'none'; }, 3000); }
     }
   } else list.sort((a,b) => parkAcreage(a) - parkAcreage(b));
 
