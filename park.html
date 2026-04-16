@@ -350,6 +350,9 @@ body{
 }
 
 /* ── About / description ── */
+.nearby-in-location { margin-top: 18px; padding-top: 18px; border-top: 1px solid #e8e2d6; }
+.nearby-heading { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: #1a1f1c; margin: 0 0 10px; }
+.nearby-in-location #nearby-links { display: flex; flex-direction: column; gap: 6px; }
 #park-description{
   font-size:15px;
   color:#3a3a3a;
@@ -416,16 +419,6 @@ body{
       <!-- Main column -->
       <div class="main-col">
 
-        <section class="section" id="intro-section">
-          <h2>What to know before you go</h2>
-          <p class="intro-copy" id="park-summary">Loading park summary…</p>
-        </section>
-
-        <section class="section" id="answers-section">
-          <h2>Park highlights</h2>
-          <div class="answer-grid" id="park-answers"></div>
-        </section>
-
         <section class="section">
           <h2>Photos</h2>
           <div id="park-photos" class="park-photos"></div>
@@ -437,14 +430,9 @@ body{
           <div id="park-feature-links"></div>
         </section>
 
-        <section class="section">
+        <section class="section" id="about-section">
           <h2>About this park</h2>
           <div id="park-description"></div>
-        </section>
-
-        <section class="section" id="nearby-section">
-          <h2>Nearby parks</h2>
-          <div id="nearby-links"></div>
         </section>
 
       </div><!-- /main-col -->
@@ -467,6 +455,10 @@ body{
             </div>
           </div>
           <a id="directions-btn" target="_blank" rel="noopener noreferrer">Get Directions</a>
+          <div class="nearby-in-location" id="nearby-links-wrapper">
+            <h3 class="nearby-heading">Other parks nearby</h3>
+            <div id="nearby-links"></div>
+          </div>
         </section>
 
       </div><!-- /sidebar -->
@@ -738,12 +730,14 @@ body{
     const items = buildConfirmedHighlights(park);
 
     if (!items.length) {
-      sectionEl.style.display = "none";
+      if (sectionEl) sectionEl.style.display = "none";
+      if (!answersEl) return;
       answersEl.innerHTML = "";
       return;
     }
 
-    sectionEl.style.display = "";
+    if (!answersEl) return;
+    if (sectionEl) sectionEl.style.display = "";
     answersEl.innerHTML = items.map((item) => {
       return '<article class="answer-card">' +
         '<h3>' + escapeHtml(item.label) + '</h3>' +
@@ -1004,7 +998,8 @@ body{
     setMeta("og-url", "https://findeverypark.com/park.html?dataset=" + encodeURIComponent(DATASET_KEY));
     document.getElementById("park-name").textContent = "Park Not Found";
     document.getElementById("crumb-current").textContent = "Park Not Found";
-    document.getElementById("park-summary").textContent = message;
+    const notFoundSummary = document.getElementById("park-summary");
+    if (notFoundSummary) notFoundSummary.textContent = message;
     document.getElementById("park-address").textContent = "Check the shared link or browse the city park map.";
     document.getElementById("park-acreage").textContent = "Not available";
     document.getElementById("park-description").innerHTML = "<p>" + escapeHtml(message) + "</p><p><a href='parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "'>Browse " + escapeHtml(DATASET_META.city) + " parks</a></p>";
@@ -1012,8 +1007,9 @@ body{
     mapEl.style.display = "none";
     mapStatusEl.textContent = "";
     photosEl.innerHTML = "<p class='empty-copy'>No photos to show for this URL.</p>";
-    document.getElementById("answers-section").style.display = "none";
-    answersEl.innerHTML = "";
+    const notFoundAnswersSection = document.getElementById("answers-section");
+    if (notFoundAnswersSection) notFoundAnswersSection.style.display = "none";
+    if (answersEl) answersEl.innerHTML = "";
     featuresEl.innerHTML = "<p class='empty-copy'>Try opening the park from the city browse page.</p>";
     featureLinksEl.innerHTML = "";
     nearbyLinksEl.innerHTML = "<a class='nearby-link' href='parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "'>Back to " + escapeHtml(DATASET_META.city) + " parks</a>";
@@ -1060,12 +1056,26 @@ body{
     document.getElementById("park-name").textContent = parkName(park);
     document.getElementById("crumb-current").textContent = parkName(park);
     document.getElementById("park-location").textContent = formatPlace(parkAddress(park));
-    document.getElementById("park-summary").textContent = summary;
+    const mainSummary = document.getElementById("park-summary");
+    if (mainSummary) mainSummary.textContent = summary;
     document.getElementById("park-address").textContent = formatPlace(parkAddress(park));
     document.getElementById("park-acreage").textContent = formatAcreage(park);
-    document.getElementById("park-description").innerHTML = parkDescription(park)
-      ? String(parkDescription(park)).replace(/\n/g, "<br>")
-      : "<p class='empty-copy'>A quick overview for this park will be added here soon.</p>";
+    const rawDescription = parkDescription(park) ? String(parkDescription(park)) : "";
+    const descLower = rawDescription.toLowerCase();
+    const isPlaceholder =
+      !rawDescription.trim() ||
+      rawDescription.trim().length < 40 ||
+      descLower.includes("background dataset") ||
+      descLower.includes("future city coverage") ||
+      descLower.includes("kept in the background");
+    const aboutSection = document.getElementById("about-section");
+    if (isPlaceholder) {
+      if (aboutSection) aboutSection.style.display = "none";
+      document.getElementById("park-description").innerHTML = "";
+    } else {
+      if (aboutSection) aboutSection.style.display = "";
+      document.getElementById("park-description").innerHTML = rawDescription.replace(/\n/g, "<br>");
+    }
 
     directionsBtn.style.display = "inline-block";
     directionsBtn.href = buildDirectionsUrl(park, coords);
