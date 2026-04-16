@@ -5,7 +5,7 @@
 
   const loneTree_baseParks = [
     {id:"co-lone-tree-sweetwater-park",n:"Sweetwater Park",a:"",ac:0,f:{},photos:[],d:"A neighborhood Lone Tree park for an easy local stop.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
-    {id:"co-lone-tree-prairie-sky-park",n:"Prairie Sky Park",a:"",ac:0,f:{},photos:[],d:"A Lone Tree neighborhood park with space for a quick family outing.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
+    {id:"co-lone-tree-prairie-sky-park",n:"Prairie Sky Park",a:"",ac:0,f:{},photos:[],d:`Probably the top playground in Lone Tree. Two play areas cover toddlers through older kids, plus swings, tunnels, climbing features, and fun extras like the dinosaur climber and spring riders. Big shaded gazebo, picnic tables, and open space make this one easy for longer hangs or birthday meetups.`,city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
     {id:"co-lone-tree-belvedere-park",n:"Belvedere Park",a:"",ac:0,f:{},photos:[],d:"A quieter Lone Tree park that works well for a short stop outdoors.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
     {id:"co-lone-tree-promenade-park",n:"Promenade Park",a:"",ac:0,f:{},photos:[],d:"A central Lone Tree park that is easy to pair with nearby stops.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
     {id:"co-lone-tree-lincoln-commons-park",n:"Lincoln Commons Park",a:"",ac:0,f:{},photos:[],d:"A neighborhood park for a quick break outside in Lone Tree.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
@@ -15,7 +15,7 @@
     {id:"co-lone-tree-centennial-ridge-park",n:"Centennial Ridge Park",a:"",ac:0,f:{},photos:[],d:"A Lone Tree park that works well for an easy neighborhood outing.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
     {id:"co-lone-tree-fairways-park",n:"Fairways Park",a:"",ac:0,f:{},photos:[],d:"A local park with an easy neighborhood feel in Lone Tree.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
     {id:"co-lone-tree-laquinta-park",n:"LaQuinta Park",a:"",ac:0,f:{},photos:[],d:"A smaller Lone Tree park that fits a quick stop outdoors.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
-    {id:"co-lone-tree-lonesome-pine-park",n:"Lonesome Pine Park",a:"",ac:0,f:{},photos:[],d:"A neighborhood park in Lone Tree with room for a simple park stop.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
+    {id:"co-lone-tree-lonesome-pine-park",n:"Lonesome Pine Park",a:"",ac:0,f:{},photos:[],d:`A smaller neighborhood park that's better for a quick outing than an all-day destination. You've got a basic playground, nearby tennis courts, and walking paths — the kind of place you hit when the kids need outside time and you don't want the hassle of crowds. Quiet, simple, useful.`,city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink},
     {id:"co-lone-tree-timberline-park",n:"Timberline Park",a:"",ac:0,f:{},photos:[],d:"A Lone Tree neighborhood park for a short visit outside.",city:"Lone Tree",state:"CO",stateName:"Colorado",owner:"City of Lone Tree",sourceCategory:"Park",sourceLink:loneTree_sourceLink}
   ];
 
@@ -29,7 +29,7 @@
       f: { playground: 1, restroom: 1, shelter: 1 },
       restroom_details: "Porta-potty",
       amenity_summary: "2 playgrounds, gazebo, grill",
-      d: "A family-friendly park with two playgrounds, a gazebo, a grill, and a porta-potty."
+      d: `Probably the top playground in Lone Tree. Two play areas cover toddlers through older kids, plus swings, tunnels, climbing features, and fun extras like the dinosaur climber and spring riders. Big shaded gazebo, picnic tables, and open space make this one easy for longer hangs or birthday meetups.`
     },
     {
       id: "co-lone-tree-belvedere-park",
@@ -54,7 +54,7 @@
       restroom_details: "Yes",
       amenity_summary: "Seasonal pool, splash pad",
       photos: [],
-      d: "A warm-weather park stop with a seasonal pool, splash pad, and bathrooms.",
+      d: `This is one of the best summer spots in Lone Tree. Two outdoor pools, water slides, a giant dump bucket, basketball hoops in the water, and a zero-entry area for little kids make it an easy family win. Add in concessions, tennis courts, and solid pricing, and it's easy to spend a few hours here.`,
       city: "Lone Tree",
       state: "CO",
       stateName: "Colorado",
@@ -116,7 +116,7 @@
       restroom_details: "No",
       amenity_summary: "Fully ADA accessible, sand digger",
       accessibility_note: "Fully ADA accessible",
-      d: "A fully ADA-accessible park with inclusive play features and a sand digger."
+      d: `A smaller neighborhood park that's better for a quick outing than an all-day destination. You've got a basic playground, nearby tennis courts, and walking paths — the kind of place you hit when the kids need outside time and you don't want the hassle of crowds. Quiet, simple, useful.`
     },
     {
       id: "co-lone-tree-kimmer-plaza",
