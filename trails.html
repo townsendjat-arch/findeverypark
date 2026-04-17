@@ -11,20 +11,21 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trails — Aurora Parks Finder</title>
+  <title>Trails — Find Every Park Colorado</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://findeverypark.com/trails.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
-      --grass: #3d6b4a; --grass-light: #5a8f6a; --earth: #b07848;
-      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff;
-      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --grass: #0f6e56; --grass-deep: #085041; --grass-soft: #e8f4f0; --earth: #b07848;
+      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff; --line: #e4ddd4; --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
       --shadow-hover: 0 8px 28px rgba(0,0,0,0.15);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
+    body { font-family: 'Outfit', sans-serif; background: var(--mist); color: var(--ink); min-height: 100vh; }
 
     /* NAV */
     .main-nav {
@@ -298,12 +299,47 @@
     /* POPUP */
     .leaflet-popup-content { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.5; min-width: 140px; }
     .leaflet-popup-content b { font-family: 'Syne', sans-serif; font-size: 13px; display: block; margin-bottom: 3px; }
+    .page-header h1,
+    .empty-state h3 {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .page-header h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .empty-state h3 {
+      font-weight: 500;
+    }
+    .nav-brand,
+    .page-header h1,
+    .trail-name,
+    .empty-state h3,
+    .leaflet-popup-content b {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .controls-bar,
+    .map-wrap,
+    .trail-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .pill.on,
+    .locate-btn.active {
+      background: var(--grass);
+      border-color: var(--grass);
+      color: var(--white);
+    }
+    .locate-btn:hover,
+    .pill:hover { color: var(--grass); border-color: var(--grass); }
   </style>
 </head>
 <body>
 
 <nav class="main-nav">
-  <a href="./index.html" class="nav-brand">Aurora Parks Finder</a>
+  <a href="./index.html" class="nav-brand">Find Every Park</a>
   <ul class="nav-links">
     <li><a href="./index.html">Home</a></li>
     <li><a href="./parks.html">Parks</a></li>
@@ -314,8 +350,8 @@
 
 <div class="page-header">
   <div class="page-header-inner">
-    <h1>&#x1F97E; Aurora Trails</h1>
-    <p>Browse Aurora's trail network — filter by surface type, click a trail to highlight it on the map.</p>
+    <h1>&#x1F97E; Front Range Trails</h1>
+    <p>Browse trail data as Colorado coverage expands. Aurora is the current starting point, with more Front Range cities coming next.</p>
   </div>
 </div>
 
@@ -358,7 +394,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <span>Building community for dads in Aurora, Colorado</span>
+      <span>Front Range-first park discovery across Colorado</span>
     </div>
     <div class="footer-links">
       <a href="./index.html">Home</a>
@@ -367,7 +403,7 @@
       <a href="./events.html">Events</a>
       <a href="https://mightydads.org" target="_blank">mightydads.org</a>
     </div>
-    <div class="footer-copy">Trail data sourced from the City of Aurora &bull; Aurora, Colorado</div>
+    <div class="footer-copy">Current trail data on this page is sourced from Aurora while Front Range coverage expands.</div>
   </div>
 </footer>
 

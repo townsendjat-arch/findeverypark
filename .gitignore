@@ -1,0 +1,13 @@
+.codex
+photo-workspace/inbox/*
+photo-workspace/processed/*
+photo-workspace/approved/*
+!photo-workspace/inbox/.gitkeep
+!photo-workspace/processed/.gitkeep
+!photo-workspace/approved/.gitkeep
+event-workspace/inbox/*
+event-workspace/processed/*
+event-workspace/approved/*
+!event-workspace/inbox/.gitkeep
+!event-workspace/processed/.gitkeep
+!event-workspace/approved/.gitkeep

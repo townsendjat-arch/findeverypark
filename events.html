@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aurora Events — Aurora Parks Finder</title>
+  <title>Front Range Events — Find Every Park Colorado</title>
+  <meta name="description" content="Browse curated family-friendly events from Find Every Park Colorado, starting with Aurora and expanding city by city across the Front Range.">
+  <link rel="canonical" id="canonical-link" href="https://findeverypark.com/events.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="og-title" content="Aurora Events | Find Every Park Colorado">
+  <meta property="og:description" id="og-description" content="Browse curated family-friendly events in Aurora on Find Every Park Colorado.">
+  <meta property="og:url" id="og-url" content="https://findeverypark.com/events.html?city=aurora">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitter-title" content="Aurora Events | Find Every Park Colorado">
+  <meta name="twitter:description" id="twitter-description" content="Browse curated family-friendly events in Aurora on Find Every Park Colorado.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
   <script>
@@ -13,25 +24,27 @@
     gtag('config', 'G-9GWTHQXZNY');
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #1a1a18;
       --ink-light: #5a5a52;
       --ink-faint: #9a9a90;
-      --rule: #e2e0d8;
-      --bg: #f9f8f4;
-      --bg-warm: #f2f0e8;
-      --grass: #3d6b4a;
-      --grass-light: #e8f0ea;
-      --accent: #c4501a;
+      --rule: #e4ddd4;
+      --bg: #f0ede8;
+      --bg-warm: #f0ede8;
+      --grass: #0f6e56;
+      --grass-deep: #085041;
+      --grass-light: #e8f4f0;
+      --accent: #b07848;
       --white: #ffffff;
+      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
       background: var(--bg);
       color: var(--ink);
       font-size: 15px;
@@ -87,8 +100,38 @@
       padding-bottom: 32px;
       border-bottom: 2px solid var(--ink);
     }
+    .city-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .city-switch-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .city-pill {
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1.5px solid #d7d0c8;
+      color: #566159;
+      background: rgba(255,255,255,0.84);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .city-pill.active {
+      background: var(--grass);
+      border-color: var(--grass);
+      color: white;
+    }
     .page-header h1 {
-      font-family: 'Lora', serif;
+      font-family: 'Outfit', sans-serif;
       font-size: clamp(28px, 5vw, 38px);
       font-weight: 600;
       letter-spacing: -0.5px;
@@ -247,7 +290,7 @@
       margin-top: 48px;
     }
     .submit-box h3 {
-      font-family: 'Lora', serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 8px;
@@ -296,6 +339,26 @@
       color: var(--grass);
       text-decoration: none;
     }
+    .empty-city {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .empty-city h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .empty-city p {
+      font-size: 13px;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
 
     @media (max-width: 520px) {
       nav { padding: 12px 16px; }
@@ -304,230 +367,79 @@
       .event-row { grid-template-columns: 1fr; }
       .event-link { justify-self: start; }
     }
+    .page-header h1,
+    .submit-box h3,
+    .empty-city h3 {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .page-header h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .submit-box h3,
+    .empty-city h3 {
+      font-weight: 500;
+    }
+    .nav-brand,
+    .page-header h1,
+    .submit-box h3,
+    .empty-city h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .update-badge,
+    .free-badge {
+      background: var(--grass-light);
+      color: var(--grass);
+    }
+    .submit-box,
+    .empty-city {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      box-shadow: var(--shadow);
+    }
+    .submit-box .email-line,
+    .footer-note a,
+    .event-link:hover {
+      color: var(--grass);
+    }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="./index.html">Aurora Parks Finder</a>
+  <a class="nav-brand" href="./index.html" id="nav-home-brand">Find Every Park</a>
   <ul class="nav-links">
-    <li><a href="./index.html">Home</a></li>
-    <li><a href="./parks.html">Parks</a></li>
+    <li><a href="./index.html" id="nav-home-link">Home</a></li>
+    <li><a href="./parks.html" id="nav-parks-link">Parks</a></li>
     <li><a href="./trails.html">Trails</a></li>
-    <li><a href="./events.html" class="active">Events</a></li>
+    <li><a href="./events.html" class="active" id="nav-events-link">Events</a></li>
   </ul>
 </nav>
 
 <div class="page">
 
   <header class="page-header">
-    <div class="update-badge">Updated March 3, 2026</div>
-    <h1>Aurora Events</h1>
-    <p class="subtitle">A curated, human-maintained list of community events in Aurora. Updated weekly.</p>
+    <div class="update-badge" id="updated-label">Updated March 3, 2026</div>
+    <div class="city-switch" id="city-switch">
+      <span class="city-switch-label">City</span>
+    </div>
+    <h1 id="page-title">Aurora Events</h1>
+    <p class="subtitle" id="page-subtitle">A curated, human-maintained list of community events in Aurora. Updated weekly.</p>
   </header>
 
-  <!-- THIS WEEK -->
-  <section class="section">
-    <div class="section-label">This Week</div>
-
-    <div class="date-group">
-      <div class="date-heading">Thursday, March 5</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Fox Flix Film Series: "Vertigo"</span>
-            <span class="cost-badge">$5</span>
-          </div>
-          <div class="event-meta">
-            <span>7:00 PM</span>
-            <span class="separator">·</span>
-            <span>Aurora Fox Arts Center, 9900 E. Colfax Ave.</span>
-            <span class="separator">·</span>
-            <span>Ages 17+</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://aurorafoxartscenter.org" target="_blank">Details →</a>
-      </div>
-    </div>
-
-    <div class="date-group">
-      <div class="date-heading">Saturday, March 7</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Fire Station 9 Reopening Celebration</span>
-            <span class="free-badge">Free</span>
-          </div>
-          <div class="event-meta">
-            <span>10:00 AM – 1:00 PM</span>
-            <span class="separator">·</span>
-            <span>Fire Station 9, 17200 E. Mexico Ave.</span>
-            <span class="separator">·</span>
-            <span>All ages</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroragov.org" target="_blank">Details →</a>
-      </div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Fox Flix: "Little Mermaid" Sing-Along</span>
-            <span class="cost-badge">$5</span>
-          </div>
-          <div class="event-meta">
-            <span>2:00 PM</span>
-            <span class="separator">·</span>
-            <span>Aurora Fox Arts Center, 9900 E. Colfax Ave.</span>
-            <span class="separator">·</span>
-            <span>All ages</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://aurorafoxartscenter.org" target="_blank">Details →</a>
-      </div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Jigsaw Puzzle Competition</span>
-            <span class="free-badge">Free</span>
-          </div>
-          <div class="event-meta">
-            <span>2:00 PM</span>
-            <span class="separator">·</span>
-            <span>Tallyn's Reach Library</span>
-            <span class="separator">·</span>
-            <span>All ages · Registration required</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroragov.org/LibraryPrograms" target="_blank">Details →</a>
-      </div>
-    </div>
-
-    <div class="date-group">
-      <div class="date-heading">Sunday, March 8</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Reservas Nacionales del Perú Exhibit — Last Day</span>
-            <span class="cost-badge">$5 adults / $1 kids</span>
-          </div>
-          <div class="event-meta">
-            <span>Aurora History Museum, 15051 E. Alameda Pkwy.</span>
-            <span class="separator">·</span>
-            <span>All ages</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroramuseum.org" target="_blank">Details →</a>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- UPCOMING -->
-  <section class="section">
-    <div class="section-label">Upcoming — Next 30 Days</div>
-
-    <div class="date-group">
-      <div class="date-heading">March 9–20</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Spring Break Day Camps</span>
-            <span class="cost-badge">$40–$71</span>
-          </div>
-          <div class="event-meta">
-            <span>8:00 AM – 4:00 PM daily</span>
-            <span class="separator">·</span>
-            <span>Multiple rec centers</span>
-            <span class="separator">·</span>
-            <span>Ages 7–12</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroragov.org/DayCamps" target="_blank">Details →</a>
-      </div>
-    </div>
-
-    <div class="date-group">
-      <div class="date-heading">Sunday, March 15</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">She Plays Aurora — Free Sports Trial Day</span>
-            <span class="free-badge">Free</span>
-          </div>
-          <div class="event-meta">
-            <span>Noon – 4:00 PM</span>
-            <span class="separator">·</span>
-            <span>Southeast Recreation Center</span>
-            <span class="separator">·</span>
-            <span>Girls ages 5–13 · Registration required</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroragov.org/ShePlays" target="_blank">Details →</a>
-      </div>
-    </div>
-
-    <div class="date-group">
-      <div class="date-heading">Saturday, March 28</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">"Prehistoric Aurora" Exhibit Closing Celebration</span>
-            <span class="free-badge">Free</span>
-          </div>
-          <div class="event-meta">
-            <span>1:00 – 4:00 PM</span>
-            <span class="separator">·</span>
-            <span>Aurora History Museum</span>
-            <span class="separator">·</span>
-            <span>All ages</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroramuseum.org" target="_blank">Details →</a>
-      </div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Lifeguard Hiring Event</span>
-            <span class="free-badge">Free</span>
-          </div>
-          <div class="event-meta">
-            <span>2:00 – 4:00 PM</span>
-            <span class="separator">·</span>
-            <span>Central Recreation Center</span>
-            <span class="separator">·</span>
-            <span>Ages 15+ · Bring a swimsuit</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroragov.org/LifeguardHiring" target="_blank">Details →</a>
-      </div>
-    </div>
-
-      <div class="date-heading">Sunday, April 5</div>
-      <div class="event-row">
-        <div>
-          <div class="event-main">
-            <span class="event-title">Community Tipi Build</span>
-            <span class="free-badge">Free</span>
-          </div>
-          <div class="event-meta">
-            <span>10:00 AM – 4:00 PM</span>
-            <span class="separator">·</span>
-            <span>Plains Conservation Center</span>
-            <span class="separator">·</span>
-            <span>All ages · Registration required</span>
-          </div>
-        </div>
-        <a class="event-link" href="https://auroragov.org/PlainsCenter" target="_blank">Details →</a>
-      </div>
-    </div>
-
-  </section>
+  <div id="events-root"></div>
+  <div class="empty-city" id="empty-city" style="display:none;">
+    <h3>No city events live yet</h3>
+    <p id="empty-city-copy">This city will get its own event stream as coverage expands.</p>
+  </div>
 
   <!-- SUBMIT BOX -->
   <div class="submit-box">
-    <h3>Know an Aurora event?</h3>
+    <h3 id="submit-heading">Know an Aurora event?</h3>
     <p>This list is maintained by hand. If you know of a community event we should include, send it our way.</p>
-    <span class="email-line">events@auroraparksfinder.com</span>
+    <span class="email-line">events@findeverypark.com</span>
     <ul>
       <li>Event name</li>
       <li>Date &amp; time</li>
@@ -538,10 +450,106 @@
   </div>
 
   <div class="footer-note">
-    <span>Event data sourced from <a href="https://auroragov.org">City of Aurora</a> and community submissions.</span>
+    <span id="footer-note-copy">Event listings currently focus on Aurora while city-by-city coverage expands.</span>
     <span>Brought to you by <a href="https://mightydads.org">Mighty Dads</a></span>
   </div>
 
 </div>
+<script src="data/events/events-manifest.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const requestedCity = params.get('city') || 'aurora';
+  const eventsData = window.EVENTS_DATA || { cities: {}, events: [] };
+  const cities = eventsData.cities || {};
+  const cityKey = cities[requestedCity] ? requestedCity : 'aurora';
+  const cityMeta = cities[cityKey] || { label: 'Aurora', subtitle: '', submitHeading: 'Know an Aurora event?', footerNote: '' };
+  const citySwitch = document.getElementById('city-switch');
+  const eventsRoot = document.getElementById('events-root');
+  const emptyCity = document.getElementById('empty-city');
+  const emptyCityCopy = document.getElementById('empty-city-copy');
+
+  document.getElementById('updated-label').textContent = eventsData.updatedLabel || 'Updated';
+  document.getElementById('page-title').textContent = cityMeta.label + ' Events';
+  document.getElementById('page-subtitle').textContent = cityMeta.subtitle || ('A curated, human-maintained list of community events in ' + cityMeta.label + '.');
+  document.getElementById('submit-heading').textContent = cityMeta.submitHeading || ('Know a ' + cityMeta.label + ' event?');
+  document.getElementById('footer-note-copy').textContent = cityMeta.footerNote || ('Event listings currently focus on ' + cityMeta.label + '.');
+  const pageTitle = cityMeta.label + ' Events | Find Every Park Colorado';
+  const pageDescription = 'Browse curated family-friendly events in ' + cityMeta.label + ' on Find Every Park Colorado.';
+  const canonicalUrl = 'https://findeverypark.com/events.html?city=' + encodeURIComponent(cityKey);
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', pageDescription);
+  document.getElementById('canonical-link').href = canonicalUrl;
+  document.getElementById('og-title').setAttribute('content', pageTitle);
+  document.getElementById('og-description').setAttribute('content', pageDescription);
+  document.getElementById('og-url').setAttribute('content', canonicalUrl);
+  document.getElementById('twitter-title').setAttribute('content', pageTitle);
+  document.getElementById('twitter-description').setAttribute('content', pageDescription);
+  document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(cityKey);
+  document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(cityKey);
+  document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(cityKey);
+  document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(cityKey);
+
+  Object.entries(cities).forEach(([key, meta]) => {
+    const link = document.createElement('a');
+    link.className = 'city-pill' + (key === cityKey ? ' active' : '');
+    link.href = './events.html?city=' + encodeURIComponent(key);
+    link.textContent = meta.label;
+    citySwitch.appendChild(link);
+  });
+
+  const cityEvents = (eventsData.events || []).filter((event) => event.city === cityKey);
+  if (!cityEvents.length) {
+    emptyCity.style.display = '';
+    emptyCityCopy.textContent = cityMeta.subtitle || 'This city will get its own event stream as coverage expands.';
+  } else {
+    const grouped = {};
+    cityEvents.forEach((event) => {
+      if (!grouped[event.bucket]) grouped[event.bucket] = {};
+      if (!grouped[event.bucket][event.dateLabel]) grouped[event.bucket][event.dateLabel] = [];
+      grouped[event.bucket][event.dateLabel].push(event);
+    });
+
+    Object.entries(grouped).forEach(([bucket, dates]) => {
+      const section = document.createElement('section');
+      section.className = 'section';
+      const label = document.createElement('div');
+      label.className = 'section-label';
+      label.textContent = bucket;
+      section.appendChild(label);
+
+      Object.entries(dates).forEach(([dateLabel, items]) => {
+        const group = document.createElement('div');
+        group.className = 'date-group';
+        const heading = document.createElement('div');
+        heading.className = 'date-heading';
+        heading.textContent = dateLabel;
+        group.appendChild(heading);
+
+        items.forEach((event) => {
+          const row = document.createElement('div');
+          row.className = 'event-row';
+          const badgeClass = event.costType === 'free' ? 'free-badge' : 'cost-badge';
+          const metaParts = [event.timeLabel, event.locationLabel, event.audienceLabel].filter(Boolean);
+          row.innerHTML =
+            '<div>' +
+              '<div class="event-main">' +
+                '<span class="event-title">' + event.title + '</span>' +
+                (event.costLabel ? '<span class="' + badgeClass + '">' + event.costLabel + '</span>' : '') +
+              '</div>' +
+              '<div class="event-meta">' +
+                metaParts.map((part, index) => '<span>' + part + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '')).join('') +
+              '</div>' +
+            '</div>' +
+            '<a class="event-link" href="' + event.href + '" target="_blank">Details →</a>';
+          group.appendChild(row);
+        });
+
+        section.appendChild(group);
+      });
+
+      eventsRoot.appendChild(section);
+    });
+  }
+</script>
 </body>
 </html>

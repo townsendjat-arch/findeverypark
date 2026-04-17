@@ -1,327 +1,1150 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" id="page-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
+<meta name="robots" id="robots-meta" content="index, follow">
+<link rel="canonical" id="canonical-link" href="https://findeverypark.com/park.html">
+<meta property="og:type" content="article">
+<meta property="og:title" id="og-title" content="Park Guide | Find Every Park Colorado">
+<meta property="og:description" id="og-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
+<meta property="og:url" id="og-url" content="https://findeverypark.com/park.html">
+<meta property="og:image" id="og-image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="twitter-title" content="Park Guide | Find Every Park Colorado">
+<meta name="twitter:description" id="twitter-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
+<meta name="twitter:image" id="twitter-image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<title>Park</title>
-
+<title>Park Guide | Find Every Park Colorado</title>
+<script type="application/ld+json" id="organization-schema">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Find Every Park Colorado",
+  "url": "https://findeverypark.com/",
+  "description": "Colorado park discovery, starting with the Front Range."
+}
+</script>
+<script type="application/ld+json" id="website-schema">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Find Every Park Colorado",
+  "url": "https://findeverypark.com/",
+  "description": "Colorado park discovery, starting with the Front Range."
+}
+</script>
+<script type="application/ld+json" id="breadcrumb-schema">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": []
+}
+</script>
+<script type="application/ld+json" id="place-schema">
+{
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Find Every Park Guide"
+}
+</script>
 <style>
-  .park-header{
-  margin: 0 0 20px 0;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #f7f3ea;
-  border: 1px solid #d8cbb3;
+*{box-sizing:border-box}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  margin:0;
+  padding:0;
+  line-height:1.6;
+  background:#f0ede6;
+  color:#1a1a1a;
 }
 
-.park-header-image{
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  display: block;
+/* ── Layout shell ── */
+.page-wrapper{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px 60px;
 }
 
-.park-header-content{
-  padding: 18px 18px 16px 18px;
-}
-
-.park-title{
-  margin: 0 0 8px 0;
-  font-size: 30px;
-  line-height: 1.1;
-}
-
-.park-address{
-  margin: 0;
-  font-size: 16px;
-  color: #5c5c5c;
-}
-  #park-map{
-  width:100%;
-  height:320px;
- margin:16px 0 14px 0;
-  border-radius:10px;
-  overflow:hidden;
-  border:4px solid #8b6b43;
-}
-  .feature-badge{
-  display:inline-block;
-  background:#f4a261;
-  color:#2f5d50;
-  padding:6px 12px;
-  margin:6px 6px 0 0;
-  border-radius:999px;
+/* ── Breadcrumbs ── */
+.breadcrumbs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
   font-size:13px;
+  padding:18px 0 14px;
+  color:#6b6b6b;
+}
+.breadcrumbs a{
+  color:#0f6e56;
+  text-decoration:none;
+  font-weight:500;
+}
+.breadcrumbs a:hover{text-decoration:underline}
+.breadcrumbs .sep{opacity:0.4}
+
+/* ── Status banner ── */
+.status-message{
+  margin:0 0 12px;
+  padding:11px 14px;
+  border-radius:10px;
+  background:#f5f1e8;
+  color:#5c5c5c;
+  font-size:14px;
+}
+.status-message.error{
+  background:#fdf0ed;
+  color:#8b4e3b;
+  border-left:3px solid #c0593a;
+}
+
+/* ── Hero card ── */
+.park-header{
+  position:relative;
+  border-radius:18px;
+  overflow:hidden;
+  background:#0f6e56;
+  margin-bottom:28px;
+  min-height:180px;
+}
+.park-header-image{
+  width:100%;
+  height:400px;
+  object-fit:cover;
+  display:block;
+}
+.park-header-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(10,30,22,0.72) 0%, rgba(10,30,22,0.1) 55%, transparent 100%);
+}
+.park-header-content{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:24px 28px;
+}
+/* Fallback when no image */
+.park-header:not(:has(.park-header-image[style*="display:"])) .park-header-content,
+.park-header .park-header-content.no-image{
+  position:relative;
+  padding:28px;
+}
+
+.eyebrow{
+  margin:0 0 6px;
+  font-size:11px;
   font-weight:600;
-  letter-spacing:0.2px;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.65);
+}
+.park-title{
+  margin:0 0 6px;
+  font-size:34px;
+  font-weight:700;
+  line-height:1.1;
+  letter-spacing:-0.02em;
+  color:#fff;
+}
+.park-address{
+  margin:0;
+  font-size:15px;
+  color:rgba(255,255,255,0.78);
+  font-weight:400;
+}
+
+/* ── Two-column body ── */
+.park-body{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:28px;
+  align-items:start;
+}
+
+/* ── Sections ── */
+.section{
+  background:#fff;
+  border-radius:14px;
+  padding:22px 24px;
+  margin-bottom:16px;
+  border:1px solid #e8e2d8;
+}
+.section h2{
+  margin:0 0 14px;
+  font-size:18px;
+  font-weight:600;
+  letter-spacing:-0.01em;
+  color:#1a1a1a;
+}
+
+/* ── Intro summary ── */
+.intro-copy{
+  font-size:16px;
+  color:#3a3a3a;
+  margin:0;
+  line-height:1.7;
+}
+
+/* ── Directions button ── */
+#directions-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin:16px 0 0;
+  padding:10px 20px;
+  background:#0f6e56;
+  color:#fff;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  transition:background 0.15s;
+}
+#directions-btn:hover{background:#085041}
+#directions-btn::before{
+  content:'';
+  display:inline-block;
+  width:14px;height:14px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.75A1.75 1.75 0 1 1 8 4.25a1.75 1.75 0 0 1 0 3.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* ── Highlights (answer-cards restyled as chips) ── */
+.answer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;
+}
+.answer-card{
+  background:#f5f8f6;
+  border:1px solid #d2e4dc;
+  border-radius:12px;
+  padding:14px 14px 12px;
+  position:relative;
+}
+.answer-card::before{
+  content:'';
+  display:block;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#1d9e75;
+  margin-bottom:8px;
+}
+.answer-card h3{
+  margin:0 0 2px;
+  font-size:14px;
+  font-weight:600;
+  color:#1a1a1a;
+}
+.answer-card p{
+  margin:0;
+  font-size:12px;
+  color:#4d7a6a;
+  font-weight:500;
+}
+
+/* ── Map ── */
+#park-map{
+  width:100%;
+  height:280px;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #d8d0c4;
+  margin-bottom:14px;
+}
+.helper-copy{
+  color:#6b6b6b;
+  font-size:13px;
+  margin:0;
+}
+
+/* ── Stats grid ── */
+.stats-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.stat-box{
+  background:#f7f4ef;
+  border:1px solid #e6dfd3;
+  border-radius:10px;
+  padding:12px 14px;
+}
+.stat-box strong{
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#888;
+  margin-bottom:4px;
+}
+.stat-box span{
+  font-size:14px;
+  color:#1a1a1a;
+  font-weight:500;
+}
+
+/* ── Photos ── */
+.park-photos{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
 }
 .park-photos img{
   width:100%;
-  max-width:48%;
-  height:260px;
+  height:200px;
   object-fit:cover;
   border-radius:10px;
- border:4px solid #8b6b43;
   display:block;
+  border:none;
 }
-.park-photos{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-body{
-  
-    font-family:sans-serif;
-  max-width:1200px;
-  margin:0 auto;
-  padding:20px;
-  line-height:1.5;
-  background:#2f5d50;
-}
- .page-wrapper{
-  background:white;
-  padding:30px 40px;
-  border-radius:12px;
-  margin-top:30px;
-  box-shadow:0 4px 14px rgba(0,0,0,0.08);
-}
-.section{
-  margin-top: 18px;
+.park-photos img:first-child{
+  grid-column:1/-1;
+  height:260px;
 }
 
+/* ── Feature badges ── */
+.feature-badge{
+  display:inline-block;
+  padding:5px 12px;
+  margin:4px 4px 0 0;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  background:#e8f4f0;
+  color:#0f5e46;
+  border:1px solid #c2ddd6;
+}
 
+/* ── Feature & nearby links ── */
+.feature-link,
+.nearby-link{
+  display:inline-block;
+  padding:6px 14px;
+  margin:6px 6px 0 0;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:500;
+  text-decoration:none;
+  background:#fff;
+  color:#0f6e56;
+  border:1px solid #b8d8cf;
+  transition:background 0.12s,border-color 0.12s;
+}
+.feature-link:hover,
+.nearby-link:hover{
+  background:#edf5f2;
+  border-color:#0f6e56;
+}
+#park-feature-links,
+#nearby-links{
+  margin-top:10px;
+}
 
+/* ── About / description ── */
+.nearby-in-location { margin-top: 18px; padding-top: 18px; border-top: 1px solid #e8e2d6; }
+.nearby-heading { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: #1a1f1c; margin: 0 0 10px; }
+.nearby-in-location #nearby-links { display: flex; flex-direction: column; gap: 6px; }
+#park-description{
+  font-size:15px;
+  color:#3a3a3a;
+  line-height:1.75;
+}
+
+/* ── Empty states ── */
+.empty-copy{
+  color:#888;
+  font-style:italic;
+  font-size:14px;
+}
+
+/* ── Visually hidden ── */
+.visually-hidden{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* ── Sidebar column ── */
+.sidebar .section{margin-bottom:16px}
+
+/* ── Responsive ── */
+@media(max-width:760px){
+  .park-body{grid-template-columns:1fr}
+  .park-header-image{height:260px}
+  .park-title{font-size:26px}
+  .park-photos img{height:160px}
+  .park-photos img:first-child{height:200px}
+  .stats-grid{grid-template-columns:1fr}
+}
 </style>
-
 </head>
-</div>
 <body>
   <div class="page-wrapper">
-    <a href="parks.html">← Back to Aurora Parks Map</a>
 
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html" id="crumb-home">Home</a>
+      <span class="sep">/</span>
+      <a href="city.html" id="crumb-city">City Guide</a>
+      <span class="sep">/</span>
+      <a href="parks.html" id="back-link">Parks Map</a>
+      <span class="sep">/</span>
+      <span id="crumb-current">Loading park...</span>
+    </nav>
+
+    <p class="status-message" id="park-status" aria-live="polite">Loading park details...</p>
+
+    <!-- Hero card — image sits behind overlay, text floats over it -->
     <div class="park-header">
       <img class="park-header-image" id="park-header-image" src="" alt="Park photo" style="display:none;">
+      <div class="park-header-overlay"></div>
       <div class="park-header-content">
+        <p class="eyebrow" id="park-eyebrow">Colorado park guide</p>
         <h1 class="park-title" id="park-name">Loading park...</h1>
-<p class="park-address" id="park-location">Aurora, Colorado</p>
+        <p class="park-address" id="park-location">Colorado</p>
       </div>
     </div>
 
-    <div id="park-photos" class="park-photos"></div>
-    <div id="park-map"></div>
-    <p><strong>Address:</strong> <span id="park-address"></span></p>
-    <a id="directions-btn" target="_blank" style="
-      display:inline-block;
-      margin:10px 0 20px 0;
-      padding:10px 16px;
-      background:#2f5d50;
-      color:white;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:600;
-    ">
-Get Directions
-</a>
-<div class="section">
-  <p><strong>Acreage:</strong> <span id="park-acreage"></span></p>
-</div>
+    <!-- Two-column body -->
+    <div class="park-body">
 
-<div class="section">
-  <p><strong>Features:</strong></p>
-  <div id="park-features"></div>
-</div>
+      <!-- Main column -->
+      <div class="main-col">
 
-<div class="section">
-  <p><strong>About:</strong> <span id="park-description"></span></p>
-</div>
-<script src="parks-data.js"></script>
-<script src="aurora-parks.js"></script>
+        <section class="section">
+          <h2>Photos</h2>
+          <div id="park-photos" class="park-photos"></div>
+        </section>
 
+        <section class="section">
+          <h2>Features</h2>
+          <div id="park-features"></div>
+          <div id="park-feature-links"></div>
+        </section>
+
+        <section class="section" id="about-section">
+          <h2>About this park</h2>
+          <div id="park-description"></div>
+        </section>
+
+      </div><!-- /main-col -->
+
+      <!-- Sidebar column -->
+      <div class="sidebar">
+
+        <section class="section">
+          <h2>Location</h2>
+          <div id="park-map"></div>
+          <p class="helper-copy" id="park-map-status"></p>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <strong>Address</strong>
+              <span id="park-address"></span>
+            </div>
+            <div class="stat-box">
+              <strong>Acreage</strong>
+              <span id="park-acreage"></span>
+            </div>
+          </div>
+          <a id="directions-btn" target="_blank" rel="noopener noreferrer">Get Directions</a>
+          <div class="nearby-in-location" id="nearby-links-wrapper">
+            <h3 class="nearby-heading">Other parks nearby</h3>
+            <div id="nearby-links"></div>
+          </div>
+        </section>
+
+      </div><!-- /sidebar -->
+
+    </div><!-- /park-body -->
+
+  </div><!-- /page-wrapper -->
+
+<script src="site-config.js"></script>
+<script src="data/photos/park-photo-manifest.js"></script>
+<script src="park-data-registry.js"></script>
+<script src="dataset-loader.js"></script>
 <script>
-const params = new URLSearchParams(window.location.search);
-const parkName = params.get("name");
-const COORDS = {
-  "Alta Vista Park": [39.690588,-104.791457],
-  "Altura Park": [39.742784,-104.813072],
-  "Anchor Point Park": [39.592131,-104.676356],
-  "Apache Mesa Park": [39.72773,-104.799267],
-  "Appaloosa Park": [39.614964,-104.707423],
-  "Aqua Vista Park": [39.628431,-104.7698],
-  "Arapahoe Little League Complex": [39.699921,-104.790377],
-  "Aurora Hills Golf Course": [39.717047,-104.836477],
-  "Aurora Reservoir": [39.594941,-104.661717],
-  "Bellewood Park": [39.62528,-104.785948],
-  "Bicentennial Park": [39.714069,-104.832475],
-  "Blue Grama Grass Park": [39.656322,-104.751684],
-  "Canterbury Park": [39.692003,-104.860246],
-  "Carson Park": [39.641355,-104.82353],
-  "Centre Hills Park": [39.714523,-104.80067],
-  "CentrePointe Park": [39.702523,-104.793197],
-  "Cherry Creek Spillway": [39.662947,-104.818635],
-  "City Center Park": [39.71249,-104.816752],
-  "City Park": [39.742856,-104.874314],
-  "Coal Creek Arena": [39.72405,-104.751584],
-  "Cottonwood Park": [39.754091,-104.825453],
-  "Country Lane Park": [39.684745,-104.870806],
-  "Crestridge Park": [39.668023,-104.815967],
-  "Del Mar Park": [39.724436,-104.846784],
-  "DeLaney Farm": [39.713248,-104.805816],
-  "Eagle Park": [39.658242,-104.815445],
-  "Eldorado Park": [39.662606,-104.785521],
-  "Expo Park": [39.705567,-104.860337],
-  "Fairplay Park": [39.749457,-104.814135],
-  "Flanders Park": [39.661618,-104.758744],
-  "Fletcher Park": [39.733065,-104.883196],
-  "Fletcher Plaza": [39.739849,-104.873959],
-  "Freedom Park": [39.736317,-104.828513],
-  "Fulton Park": [39.728114,-104.872223],
-  "Generals Park": [39.74142,-104.845855],
-  "Golden Eagle Park": [39.589938,-104.713297],
-  "Grandview Dog Park": [39.636759,-104.784578],
-  "Great Plains Park": [39.679858,-104.755732],
-  "Hampden Run Park": [39.652712,-104.777687],
-  "Havana Heights Park": [39.67679,-104.861032],
-  "Havana Heights Pond Park": [39.681466,-104.859682],
-  "Havana Park": [39.732315,-104.863757],
-  "Highland Hollows Park": [39.691816,-104.776803],
-  "Hilltop Park": [39.655852,-104.78663],
-  "Hoffman Park": [39.728089,-104.841423],
-  "Homestead Park": [39.68995,-104.708268],
-  "Hoops Park": [39.724956,-104.798072],
-  "Horizon Park": [39.64534,-104.772435],
-  "Horseshoe Park": [39.679568,-104.800075],
-  "Jewell Park": [39.736668,-104.845475],
-  "Jewell Wetlands": [39.683077,-104.836801],
-  "Kalispell Park Ballfields": [39.631889,-104.803136],
-  "Kestrel Point Natural Area": [39.583631,-104.703013],
-  "Kingsborough Park": [39.689563,-104.806187],
-  "La Parquita Park": [39.643019,-104.796793],
-  "Larkspur Park": [39.589767,-104.725698],
-  "Los Ninos Park": [39.645483,-104.804967],
-  "Lowry Park": [39.731604,-104.877552],
-  "Marina Park": [39.627199,-104.779407],
-  "McMullen Park": [39.720009,-104.872917],
-  "Meadow Hills Golf Course": [39.64768,-104.82099],
-  "Meadowood Park": [39.660507,-104.798171],
-  "Mission Viejo Park": [39.646806,-104.797755],
-  "Montview Park": [39.745523,-104.880075],
-  "Moorhead Park": [39.751997,-104.865959],
-  "Mountain View Park": [39.699053,-104.787079],
-  "Murphy Creek Golf Course": [39.680419,-104.711844],
-  "Nome Park": [39.734064,-104.851523],
-  "Norfolk Glen Park": [39.746622,-104.804208],
-  "Olympic Neighborhood Park": [39.669435,-104.804601],
-  "Olympic Park Ballfields": [39.666749,-104.808591],
-  "Olympic Park Volleyball": [39.670335,-104.805318],
-  "Pagosa Park": [39.664834,-104.788167],
-  "Panorama Park": [39.693709,-104.786461],
-  "Parklane Park": [39.759814,-104.837669],
-  "Peoria Hills Park": [39.690863,-104.843266],
-  "Pheasant Run Park": [39.636701,-104.813993],
-  "Plains Conservation Center": [39.672398,-104.732622],
-  "Ponderosa Preserve": [39.568795,-104.700518],
-  "Pronghorn Natural Area": [39.63221,-104.667427],
-  "Quincy Reservoir": [39.632228,-104.763813],
-  "Red-tailed Hawk Park": [39.582314,-104.71349],
-  "Rocky Ridge Park": [39.695873,-104.799086],
-  "Saddle Rock Golf Course": [39.588199,-104.738403],
-  "Sagebrush Park": [39.630175,-104.818099],
-  "Sand Creek Park": [39.755801,-104.840753],
-  "Settlers Park": [39.702134,-104.815823],
-  "Seven Hills Park": [39.661756,-104.764025],
-  "Sidecreek Park": [39.684314,-104.764114],
-  "Singletree Park": [39.801454,-104.758465],
-  "Soccer Skills Area": [39.654008,-104.753898],
-  "Spencer Garrett Park": [39.743049,-104.860022],
-  "Sports Park": [39.734999,-104.761396],
-  "Springhill Golf Course": [39.732869,-104.779094],
-  "Springhill Park": [39.730395,-104.780852],
-  "Star K Ranch": [39.748673,-104.798532],
-  "Summer Valley Park": [39.6478,-104.784517],
-  "Sunburst Park": [39.635953,-104.799016],
-  "Sunrise Park": [39.642691,-104.757186],
-  "Switchgrass Park": [39.668404,-104.752372],
-  "Terrace Park": [39.748146,-104.768015],
-  "Tierra Park": [39.681325,-104.8148],
-  "Tollgate Crossing Neighborhood Park": [39.628145,-104.708543],
-  "Toll Gate Park": [39.702392,-104.804222],
-  "Traditions Neighborhood Park": [39.71534,-104.691805],
-  "Triangle Park": [39.742039,-104.759874],
-  "Upland Park": [39.756492,-104.775638],
-  "Utah Park": [39.683831,-104.842879],
-  "Village East Park": [39.691923,-104.85303],
-  "Village Green Park": [39.692763,-104.814144],
-  "Virginia Court Park": [39.705696,-104.840426],
-  "Wagon Trail Park": [39.631724,-104.795486],
-  "Wheel Park": [39.671393,-104.806083],
-  "Wheeling Park": [39.703522,-104.83104],
-  "Willow Bend Park": [39.657365,-104.74796]
-};
-const park = window.PARKS.find(p => (p.name || p.n) === parkName);
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const requestedId = (params.get("id") || "").trim();
+  const legacyParkKey = (params.get("park") || "").trim();
+  const legacyName = (params.get("name") || "").trim();
+  const DATASET_KEY = window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
+  const DATASET_META = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
+    city: "Aurora",
+    state: "CO",
+    stateName: "Colorado",
+    brandName: (window.SITE_CONFIG && window.SITE_CONFIG.brandName) || "Find Every Park Colorado"
+  };
+  const DEFAULT_OG_IMAGE = "https://findeverypark.com/images/aurora-parks-hero.png";
+  const FEATURE_LABELS = {
+    playground: "Playground",
+    pickleball: "Pickleball",
+    tennis: "Tennis",
+    basketball: "Basketball",
+    baseball: "Baseball/Softball",
+    soccer: "Soccer",
+    volleyball: "Volleyball",
+    pool: "Pool",
+    sprayground: "Splash Pad",
+    dog_park: "Dog Park",
+    trails: "Trails",
+    fishing: "Fishing",
+    disc_golf: "Disc Golf",
+    skate: "Skate/BMX",
+    golf: "Golf Course",
+    garden: "Community Garden",
+    boating: "Boating",
+    restroom: "Restrooms",
+    shelter: "Shelter"
+  };
 
-if (park) {
- document.getElementById("park-name").textContent = park.name || park.n || "";
-document.getElementById("park-address").textContent = park.address || park.a || "";
-const coords = COORDS[park.name || park.n];
+  const statusEl = document.getElementById("park-status");
+  const headerImgEl = document.getElementById("park-header-image");
+  const mapEl = document.getElementById("park-map");
+  const mapStatusEl = document.getElementById("park-map-status");
+  const photosEl = document.getElementById("park-photos");
+  const answersEl = document.getElementById("park-answers");
+  const featuresEl = document.getElementById("park-features");
+  const featureLinksEl = document.getElementById("park-feature-links");
+  const nearbyLinksEl = document.getElementById("nearby-links");
+  const directionsBtn = document.getElementById("directions-btn");
+  let mapInstance = null;
 
-let mapUrl;
+  function waitForDatasetReady(datasetKey) {
+    const loadPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();
+    return loadPromise
+      .catch(() => null)
+      .then(() => window.waitForParkDataset(datasetKey, { timeout: 5000 }));
+  }
 
-if (coords) {
-  mapUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + coords[0] + ',' + coords[1];
-} else {
-  mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((park.name || park.n) + ' Aurora Colorado');
-}
+  function setStaticNav() {
+    document.getElementById("crumb-home").href = "index.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("crumb-city").href = "city.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("crumb-city").textContent = DATASET_META.city + " City Guide";
+    document.getElementById("back-link").href = "parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    document.getElementById("back-link").textContent = DATASET_META.city + " Parks Map";
+    document.getElementById("park-location").textContent = DATASET_META.city + ", " + DATASET_META.stateName;
+    document.getElementById("park-eyebrow").textContent = DATASET_META.city + " park guide";
+  }
 
-document.getElementById("directions-btn").href = mapUrl;
-document.getElementById("park-acreage").textContent = park.acreage || park.ac || "";
-document.getElementById("park-description").innerHTML = (park.description || park.d || "Description coming soon.").replace(/\n/g, "<br>");
+  function slugify(value) {
+    return window.slugifyParkValue ? window.slugifyParkValue(value) : String(value || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
 
-  const parkCoords = COORDS[park.name || park.n];
-  if (parkCoords) {
-    const map = L.map('park-map').setView(parkCoords, 16);
+  function stripHtml(value) {
+    return String(value || "")
+      .replace(/<br\s*\/?>/gi, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  function firstSentence(value) {
+    const text = stripHtml(value);
+    if (!text) {
+      return "";
+    }
+
+    const match = text.match(/.+?[.!?](\s|$)/);
+    return (match ? match[0] : text).trim();
+  }
+
+  function formatPlace(address) {
+    if (!address) {
+      return DATASET_META.city + ", " + DATASET_META.state;
+    }
+
+    return address.toLowerCase().includes(DATASET_META.city.toLowerCase())
+      ? address
+      : address + ", " + DATASET_META.city + ", " + DATASET_META.state;
+  }
+
+  function parkName(park) {
+    return park.name || park.n || "";
+  }
+
+  function parkAddress(park) {
+    return park.address || park.a || "";
+  }
+
+  function parkDescription(park) {
+    return park.description || park.d || "";
+  }
+
+  function parkFeatures(park) {
+    return park.features || park.f || {};
+  }
+
+  function parkGuideUrl(park) {
+    const search = new URLSearchParams();
+    search.set("dataset", DATASET_KEY);
+    search.set("id", park.id || parkName(park));
+    return "https://findeverypark.com/park.html?" + search.toString();
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function getCoords(park) {
+    if (typeof park.lat === "number" && typeof park.lng === "number") {
+      return [park.lat, park.lng];
+    }
+
+    const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {};
+    return datasetCoords[parkName(park)] || null;
+  }
+
+  function formatAcreage(park) {
+    const acreage = Number(park.acreage || park.ac || 0);
+    return acreage > 0 ? acreage.toLocaleString() + " acres" : "Not listed yet";
+  }
+
+  function featureKeys(park) {
+    return Object.keys(parkFeatures(park)).filter((key) => parkFeatures(park)[key]);
+  }
+
+  function hasDescriptionKeyword(park, pattern) {
+    return pattern.test(stripHtml(parkDescription(park)));
+  }
+
+  function buildConfirmedHighlights(park) {
+    const features = parkFeatures(park);
+    const highlights = [];
+
+    if (features.playground) {
+      highlights.push({ label: "Playground", value: "Yes" });
+    }
+
+    if (features.trails) {
+      highlights.push({ label: "Trails", value: "Available" });
+    }
+
+    if (park.bathrooms || features.restroom) {
+      highlights.push({ label: "Bathrooms", value: "Available" });
+    }
+
+    if (features.dog_park) {
+      highlights.push({ label: "Dog Park", value: "Available" });
+    }
+
+    if (features.shelter) {
+      highlights.push({ label: "Shelter", value: "Available" });
+    }
+
+    if (features.pool) {
+      highlights.push({ label: "Pool", value: "Available" });
+    }
+
+    if (features.sprayground) {
+      highlights.push({ label: "Splash Pad", value: "Available" });
+    }
+
+    if (features.fishing) {
+      highlights.push({ label: "Fishing", value: "Available" });
+    }
+
+    if (features.boating) {
+      highlights.push({ label: "Boating", value: "Available" });
+    }
+
+    if (features.golf) {
+      highlights.push({ label: "Golf Course", value: "Available" });
+    }
+
+    if (features.disc_golf) {
+      highlights.push({ label: "Disc Golf", value: "Available" });
+    }
+
+    if (features.skate) {
+      highlights.push({ label: "Skate Area", value: "Available" });
+    }
+
+    if (features.tennis) {
+      highlights.push({ label: "Tennis", value: "Available" });
+    }
+
+    if (features.pickleball) {
+      highlights.push({ label: "Pickleball", value: "Available" });
+    }
+
+    if (features.basketball) {
+      highlights.push({ label: "Basketball", value: "Available" });
+    }
+
+    if (features.baseball) {
+      highlights.push({ label: "Baseball/Softball", value: "Available" });
+    }
+
+    if (features.soccer) {
+      highlights.push({ label: "Soccer", value: "Available" });
+    }
+
+    if (features.volleyball) {
+      highlights.push({ label: "Volleyball", value: "Available" });
+    }
+
+    return highlights.filter((item) => item && item.label && item.value);
+  }
+
+  function buildSummary(park) {
+    const sentence = firstSentence(parkDescription(park));
+    if (sentence) {
+      return sentence;
+    }
+
+    const acreage = Number(park.acreage || park.ac || 0);
+    const labels = featureKeys(park).slice(0, 3).map((key) => FEATURE_LABELS[key] || key.replace(/_/g, " "));
+    const typeLabel = labels.length ? labels.join(", ").toLowerCase() : "general park access";
+    if (acreage > 0) {
+      return parkName(park) + " is a " + acreage.toLocaleString() + "-acre park in " + DATASET_META.city + " with " + typeLabel + ".";
+    }
+
+    return parkName(park) + " is a park in " + DATASET_META.city + " with " + typeLabel + ".";
+  }
+
+  function buildDirectionsUrl(park, coords) {
+    if (coords) {
+      return "https://www.google.com/maps/dir/?api=1&destination=" + coords[0] + "," + coords[1];
+    }
+
+    return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent((parkName(park) || "Park") + " " + DATASET_META.city + " " + DATASET_META.stateName);
+  }
+
+  function renderAnswers(park) {
+    const sectionEl = document.getElementById("answers-section");
+    const items = buildConfirmedHighlights(park);
+
+    if (!items.length) {
+      if (sectionEl) sectionEl.style.display = "none";
+      if (!answersEl) return;
+      answersEl.innerHTML = "";
+      return;
+    }
+
+    if (!answersEl) return;
+    if (sectionEl) sectionEl.style.display = "";
+    answersEl.innerHTML = items.map((item) => {
+      return '<article class="answer-card">' +
+        '<h3>' + escapeHtml(item.label) + '</h3>' +
+        '<p>' + escapeHtml(item.value) + '</p>' +
+      '</article>';
+    }).join("");
+  }
+
+  function renderFeatures(park) {
+    const keys = featureKeys(park);
+    featuresEl.innerHTML = "";
+    featureLinksEl.innerHTML = "";
+
+    if (!keys.length) {
+      featuresEl.innerHTML = '<p class="empty-copy">Feature details are still being added.</p>';
+      return;
+    }
+
+    keys.forEach((feature) => {
+      const badge = document.createElement("span");
+      badge.className = "feature-badge";
+      badge.textContent = FEATURE_LABELS[feature] || feature.replace(/_/g, " ");
+      featuresEl.appendChild(badge);
+    });
+
+    keys.slice(0, 4).forEach((feature) => {
+      const link = document.createElement("a");
+      link.className = "feature-link";
+      link.href = "parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(feature);
+      link.textContent = "See more " + (FEATURE_LABELS[feature] || feature.replace(/_/g, " ")).toLowerCase() + " parks in " + DATASET_META.city;
+      featureLinksEl.appendChild(link);
+    });
+  }
+
+  function haversineMiles(aLat, aLng, bLat, bLng) {
+    const toRad = function (value) { return value * Math.PI / 180; };
+    const earthRadius = 3958.8;
+    const dLat = toRad(bLat - aLat);
+    const dLng = toRad(bLng - aLng);
+    const lat1 = toRad(aLat);
+    const lat2 = toRad(bLat);
+    const angle = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return earthRadius * 2 * Math.atan2(Math.sqrt(angle), Math.sqrt(1 - angle));
+  }
+
+  function renderNearbyParks(park, parks, coords) {
+    nearbyLinksEl.innerHTML = "";
+
+    if (!coords) {
+      nearbyLinksEl.innerHTML = '<p class="empty-copy">Nearby park links will appear here when coordinates are available.</p>';
+      return;
+    }
+
+    const matches = parks
+      .filter((candidate) => candidate.id !== park.id)
+      .map((candidate) => {
+        const candidateCoords = getCoords(candidate);
+        if (!candidateCoords) {
+          return null;
+        }
+
+        return {
+          park: candidate,
+          distance: haversineMiles(coords[0], coords[1], candidateCoords[0], candidateCoords[1])
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 3);
+
+    if (!matches.length) {
+      nearbyLinksEl.innerHTML = '<p class="empty-copy">Nearby park links will appear here when more location data is available.</p>';
+      return;
+    }
+
+    matches.forEach((match) => {
+      const link = document.createElement("a");
+      link.className = "nearby-link";
+      link.href = "park.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&id=" + encodeURIComponent(match.park.id || parkName(match.park));
+      link.textContent = parkName(match.park) + " (" + match.distance.toFixed(1) + " mi)";
+      nearbyLinksEl.appendChild(link);
+    });
+  }
+
+  function setMeta(name, content) {
+    const el = document.getElementById(name);
+    if (el) {
+      el.setAttribute("content", content);
+    }
+  }
+
+  function setSchema(id, data) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = JSON.stringify(data);
+    }
+  }
+
+  function updateSchemas(park, coords, summary, pageUrl, imageUrl) {
+    setSchema("breadcrumb-schema", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://findeverypark.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": DATASET_META.city + " City Guide",
+          "item": "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY)
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": DATASET_META.city + " Parks",
+          "item": "https://findeverypark.com/parks.html?dataset=" + encodeURIComponent(DATASET_KEY)
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": parkName(park),
+          "item": pageUrl
+        }
+      ]
+    });
+
+    const amenityFeature = featureKeys(park).map((feature) => ({
+      "@type": "LocationFeatureSpecification",
+      "name": FEATURE_LABELS[feature] || feature.replace(/_/g, " "),
+      "value": true
+    }));
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Place",
+      "name": parkName(park),
+      "description": summary,
+      "url": pageUrl,
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": DATASET_META.brandName,
+        "url": "https://findeverypark.com/"
+      },
+      "containedInPlace": {
+        "@type": "City",
+        "name": DATASET_META.city
+      }
+    };
+
+    if (parkAddress(park)) {
+      schema.address = {
+        "@type": "PostalAddress",
+        "streetAddress": parkAddress(park),
+        "addressLocality": DATASET_META.city,
+        "addressRegion": DATASET_META.state,
+        "addressCountry": "US"
+      };
+    }
+
+    if (coords) {
+      schema.geo = {
+        "@type": "GeoCoordinates",
+        "latitude": coords[0],
+        "longitude": coords[1]
+      };
+    }
+
+    if (imageUrl) {
+      schema.image = imageUrl;
+    }
+
+    if (amenityFeature.length) {
+      schema.amenityFeature = amenityFeature;
+    }
+
+    setSchema("place-schema", schema);
+  }
+
+  function renderMap(park, coords) {
+    if (!coords) {
+      mapEl.style.display = "none";
+      mapStatusEl.textContent = "Map coordinates are not available for this park yet.";
+      return;
+    }
+
+    mapEl.style.display = "";
+    mapStatusEl.textContent = "";
+
+    if (mapInstance) {
+      mapInstance.remove();
+    }
+
+    mapInstance = L.map("park-map").setView(coords, 16);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(mapInstance);
 
-    L.marker(parkCoords).addTo(map)
-      .bindPopup((park.name || park.n) + "<br>" + (park.address || park.a || ""))
+    L.marker(coords).addTo(mapInstance)
+      .bindPopup(parkName(park) + "<br>" + escapeHtml(formatPlace(parkAddress(park))))
       .openPopup();
   }
-const featureContainer = document.getElementById("park-features");
-  if (park.f && Object.keys(park.f).length > 0) {
-   const featureNames = Object.keys(park.f);
 
-featureContainer.innerHTML = "";
+  function renderPhotos(park) {
+    photosEl.innerHTML = "";
+    const gallery = Array.isArray(park.photoGallery) && park.photoGallery.length ? park.photoGallery : [];
 
-featureNames.forEach(feature=>{
-  const badge=document.createElement("span");
-  badge.className="feature-badge";
-  badge.textContent=feature;
-  featureContainer.appendChild(badge);
-});
-  } else {
-    featureContainer.textContent = "None listed";
-  }
+    headerImgEl.style.display = "none";
+    headerImgEl.removeAttribute("src");
 
-  const photoContainer = document.getElementById("park-photos");
-  if (park.photos && park.photos.length > 0) {
-    park.photos.forEach(src => {
+    if (park.heroPhoto && park.heroPhoto.src) {
+      headerImgEl.src = park.heroPhoto.src;
+      headerImgEl.alt = park.heroPhoto.alt || (parkName(park) + " photo");
+      headerImgEl.onerror = function () {
+        headerImgEl.style.display = "none";
+      };
+      headerImgEl.onload = function () {
+        headerImgEl.style.display = "";
+      };
+    }
+
+    gallery.forEach((photo) => {
+      if (!photo || !photo.src) {
+        return;
+      }
+
       const img = document.createElement("img");
-      img.src = src;
-      img.alt = park.n + " photo";
-     
-      photoContainer.appendChild(img);
+      img.src = photo.src;
+      img.alt = photo.alt || (parkName(park) + " photo");
+      img.loading = "lazy";
+      img.onerror = function () {
+        img.remove();
+        if (!photosEl.children.length) {
+          photosEl.innerHTML = "<p class='empty-copy'>Photos are not available for this park yet.</p>";
+        }
+      };
+      photosEl.appendChild(img);
     });
-  } else {
-    photoContainer.innerHTML = "<p>Photos coming soon.</p>";
+
+    if (!gallery.length) {
+      photosEl.innerHTML = "<p class='empty-copy'>Photos are not available for this park yet.</p>";
+    }
   }
-} else {
-  document.getElementById("park-description").textContent = JSON.stringify(park);
-}
+
+  function renderNotFound(message) {
+    document.title = "Park Not Found | " + DATASET_META.brandName;
+    document.getElementById("robots-meta").setAttribute("content", "noindex, follow");
+    document.getElementById("canonical-link").href = "https://findeverypark.com/park.html?dataset=" + encodeURIComponent(DATASET_KEY);
+    setMeta("og-title", document.title);
+    setMeta("twitter-title", document.title);
+    setMeta("og-description", message);
+    setMeta("twitter-description", message);
+    setMeta("page-description", message);
+    setMeta("og-url", "https://findeverypark.com/park.html?dataset=" + encodeURIComponent(DATASET_KEY));
+    document.getElementById("park-name").textContent = "Park Not Found";
+    document.getElementById("crumb-current").textContent = "Park Not Found";
+    const notFoundSummary = document.getElementById("park-summary");
+    if (notFoundSummary) notFoundSummary.textContent = message;
+    document.getElementById("park-address").textContent = "Check the shared link or browse the city park map.";
+    document.getElementById("park-acreage").textContent = "Not available";
+    document.getElementById("park-description").innerHTML = "<p>" + escapeHtml(message) + "</p><p><a href='parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "'>Browse " + escapeHtml(DATASET_META.city) + " parks</a></p>";
+    directionsBtn.style.display = "none";
+    mapEl.style.display = "none";
+    mapStatusEl.textContent = "";
+    photosEl.innerHTML = "<p class='empty-copy'>No photos to show for this URL.</p>";
+    const notFoundAnswersSection = document.getElementById("answers-section");
+    if (notFoundAnswersSection) notFoundAnswersSection.style.display = "none";
+    if (answersEl) answersEl.innerHTML = "";
+    featuresEl.innerHTML = "<p class='empty-copy'>Try opening the park from the city browse page.</p>";
+    featureLinksEl.innerHTML = "";
+    nearbyLinksEl.innerHTML = "<a class='nearby-link' href='parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "'>Back to " + escapeHtml(DATASET_META.city) + " parks</a>";
+    statusEl.textContent = message;
+    statusEl.className = "status-message error";
+    setSchema("breadcrumb-schema", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": []
+    });
+    setSchema("place-schema", {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Park Not Found",
+      "url": "https://findeverypark.com/park.html?dataset=" + encodeURIComponent(DATASET_KEY)
+    });
+  }
+
+  function renderPark(park, parks) {
+    const coords = getCoords(park);
+    const pageUrl = parkGuideUrl(park);
+    const summary = buildSummary(park);
+    const descriptionText = stripHtml(parkDescription(park));
+    const metaDescription = summary.slice(0, 155);
+    const imageUrl = park.heroPhoto && park.heroPhoto.src
+      ? new URL(park.heroPhoto.src, window.location.origin).href
+      : DEFAULT_OG_IMAGE;
+
+    const titleCity = park.city || DATASET_META.city || "";
+    const titleState = park.state || DATASET_META.state || "";
+    const titleLocation = [titleCity, titleState].filter(Boolean).join(" ");
+    document.title = parkName(park) + (titleLocation ? ", " + titleLocation : "") + " — Photos, Features & Visitor Guide";
+    document.getElementById("robots-meta").setAttribute("content", "index, follow");
+    document.getElementById("page-description").setAttribute("content", metaDescription);
+    document.getElementById("canonical-link").href = pageUrl;
+    setMeta("og-title", document.title);
+    setMeta("twitter-title", document.title);
+    setMeta("og-description", metaDescription);
+    setMeta("twitter-description", metaDescription);
+    setMeta("og-url", pageUrl);
+    setMeta("og-image", imageUrl);
+    setMeta("twitter-image", imageUrl);
+
+    document.getElementById("park-name").textContent = parkName(park);
+    document.getElementById("crumb-current").textContent = parkName(park);
+    document.getElementById("park-location").textContent = formatPlace(parkAddress(park));
+    const mainSummary = document.getElementById("park-summary");
+    if (mainSummary) mainSummary.textContent = summary;
+    document.getElementById("park-address").textContent = formatPlace(parkAddress(park));
+    document.getElementById("park-acreage").textContent = formatAcreage(park);
+    const rawDescription = parkDescription(park) ? String(parkDescription(park)) : "";
+    const descLower = rawDescription.toLowerCase();
+    const isPlaceholder =
+      !rawDescription.trim() ||
+      rawDescription.trim().length < 40 ||
+      descLower.includes("background dataset") ||
+      descLower.includes("future city coverage") ||
+      descLower.includes("kept in the background");
+    const aboutSection = document.getElementById("about-section");
+    if (isPlaceholder) {
+      if (aboutSection) aboutSection.style.display = "none";
+      document.getElementById("park-description").innerHTML = "";
+    } else {
+      if (aboutSection) aboutSection.style.display = "";
+      document.getElementById("park-description").innerHTML = rawDescription.replace(/\n/g, "<br>");
+    }
+
+    directionsBtn.style.display = "inline-block";
+    directionsBtn.href = buildDirectionsUrl(park, coords);
+
+    renderMap(park, coords);
+    renderPhotos(park);
+    renderAnswers(park);
+    renderFeatures(park);
+    renderNearbyParks(park, parks, coords);
+    updateSchemas(park, coords, descriptionText || summary, pageUrl, imageUrl);
+
+    statusEl.textContent = "";
+    statusEl.style.display = "none";
+
+    const canonicalId = String(park.id || "");
+    if (canonicalId && (requestedId !== canonicalId || params.get("park") || params.get("name"))) {
+      const canonicalParams = new URLSearchParams();
+      canonicalParams.set("dataset", DATASET_KEY);
+      canonicalParams.set("id", canonicalId);
+      const canonicalPath = window.location.pathname + "?" + canonicalParams.toString();
+      window.history.replaceState({}, "", canonicalPath);
+    }
+  }
+
+  function resolvePark(parks) {
+    const normalizedId = requestedId || legacyParkKey;
+    if (normalizedId) {
+      const byId = window.findParkByIdInDataset
+        ? window.findParkByIdInDataset(DATASET_KEY, normalizedId)
+        : parks.find((park) => String(park.id || "").toLowerCase() === normalizedId.toLowerCase());
+      if (byId) {
+        return byId;
+      }
+    }
+
+    if (legacyName && window.findParkInDataset) {
+      const byName = window.findParkInDataset(DATASET_KEY, legacyName);
+      if (byName) {
+        return byName;
+      }
+    }
+
+    return null;
+  }
+
+  setStaticNav();
+
+  if (!requestedId && !legacyParkKey && !legacyName) {
+    renderNotFound("This park link is missing a park ID, so we could not load a mini guide.");
+    return;
+  }
+
+  waitForDatasetReady(DATASET_KEY)
+    .then((parks) => {
+      const park = resolvePark(parks);
+      if (!park) {
+        const datasetMessage = window.REQUESTED_DATASET_INVALID
+          ? " The requested dataset was not available, so we loaded " + DATASET_META.city + " instead."
+          : "";
+        renderNotFound("We could not find that park in the " + DATASET_META.city + " dataset." + datasetMessage);
+        return;
+      }
+
+      renderPark(park, parks);
+    })
+    .catch(() => {
+      renderNotFound("Park data did not load in time. Please reload the page or return to the city parks map.");
+    });
+})();
 </script>
 </body>
 </html>
