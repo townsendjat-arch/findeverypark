@@ -11,19 +11,21 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="/manifest.json">
   <title>Parks Near Me in Aurora, CO — Find Every Park Colorado</title>
-  <meta name="description" content="Find parks near you in Aurora, Colorado. Filter by playground, splash pad, dog park, trails, pickleball, and more. 106+ Aurora parks mapped and searchable.">
+  <meta name="description" content="Find parks near you in Aurora, Colorado. Browse the Aurora park map, compare playgrounds, splash pads, dog parks, trails, and jump into the best local park guides.">
   <meta name="robots" id="robots-meta" content="index, follow">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/parks.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Parks Near Me in Aurora, CO — Find Every Park Colorado">
-  <meta property="og:description" content="Find parks near you in Aurora, Colorado. Filter by playground, splash pad, dog park, trails, pickleball, and more. 106+ Aurora parks mapped and searchable.">
+  <meta property="og:description" content="Find parks near you in Aurora, Colorado. Browse the Aurora park map, compare playgrounds, splash pads, dog parks, trails, and jump into the best local park guides.">
   <meta property="og:url" content="https://findeverypark.com/parks.html">
   <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Parks Near Me in Aurora, CO — Find Every Park Colorado">
-  <meta name="twitter:description" content="Find parks near you in Aurora, Colorado. Filter by playground, splash pad, dog park, trails, pickleball, and more. 106+ Aurora parks mapped and searchable.">
+  <meta name="twitter:description" content="Find parks near you in Aurora, Colorado. Browse the Aurora park map, compare playgrounds, splash pads, dog parks, trails, and jump into the best local park guides.">
   <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <link rel="stylesheet" href="growth-widgets.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -174,10 +176,10 @@
     .page-intro h1 { font-family: 'Outfit', sans-serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.02; letter-spacing: -0.01em; margin-bottom: 10px; }
     .page-intro-subtitle { font-size: 15px; line-height: 1.65; color: #4d5c53; max-width: 60ch; margin-bottom: 8px; }
     .page-intro-copy { font-size: 14px; line-height: 1.7; color: #5f6762; max-width: 70ch; }
-    .page-hero { background: radial-gradient(circle at top left, rgba(255,255,255,0.82), rgba(255,255,255,0) 36%), linear-gradient(135deg, rgba(61,107,74,0.16), rgba(200,223,240,0.78)); border: 1px solid #e8e4de; border-radius: 24px; padding: 26px; margin-bottom: 22px; display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 20px; align-items: end; box-shadow: 0 24px 48px rgba(20,31,23,0.06); }
+    .page-hero { background: #0f6e56; border: 1px solid #e8e4de; border-radius: 24px; padding: 26px; margin-bottom: 22px; display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 20px; align-items: end; box-shadow: 0 24px 48px rgba(20,31,23,0.06); }
     .page-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grass); margin-bottom: 10px; }
-    .page-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.04em; margin-bottom: 12px; }
-    .page-hero p { font-size: 14px; line-height: 1.65; color: #4d5c53; max-width: 58ch; }
+    .page-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.04em; margin-bottom: 12px; color: #ffffff; }
+    .page-hero p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.85); max-width: 58ch; }
     .hero-actions { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
     .hero-clear-link[hidden] { display: none; }
     .hero-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -185,9 +187,9 @@
     .hero-stat-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #7e8a82; margin-bottom: 8px; }
     .hero-stat-value { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; color: var(--ink); }
     .hero-stat-copy { font-size: 12px; color: #6d776f; margin-top: 6px; line-height: 1.45; }
-    .browse-shell { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr); gap: 20px; align-items: start; }
+    .browse-shell { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr); gap: 20px; align-items: stretch; }
     .browse-main { min-width: 0; }
-    .browse-sidebar { position: sticky; top: 136px; }
+    .browse-sidebar { position: sticky; top: 20px; align-self: start; }
 
     /* MAP */
     .map-section { background: rgba(255,255,255,0.97); border-radius: 18px; box-shadow: 0 22px 40px rgba(20,31,23,0.08); overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(228,221,212,0.95); }
@@ -380,16 +382,20 @@
 <main>
   <section class="page-intro" aria-labelledby="page-intro-title">
     <h1 id="page-intro-title">Parks in Aurora</h1>
-    <p class="page-intro-subtitle" id="page-intro-subtitle">Browse playgrounds, trails, dog parks, and family-friendly outdoor spaces in Aurora.</p>
-    <p class="page-intro-copy" id="page-intro-copy">FindEveryPark helps families quickly compare parks, playgrounds, and outdoor spaces in Aurora with maps, filters, and local park details designed for fast decisions.</p>
+    <p class="page-intro-subtitle" id="page-intro-subtitle">Browse Aurora playgrounds, trails, dog parks, splash pads, and everyday neighborhood stops in one place.</p>
+    <p class="page-intro-copy" id="page-intro-copy">Use the full Aurora parks map to compare park cards fast, then jump into the city guide, best parks list, or best playgrounds page when you want a tighter shortlist.</p>
   </section>
 
   <section class="page-hero">
     <div>
       <div class="page-kicker">Browse Parks</div>
       <h1><span id="hero-city">Aurora</span> Parks</h1>
-      <p id="hero-copy">Explore park cards, zoom into the map, filter by amenities, and save the places you want to revisit. This is the browse layer that will scale across Colorado city by city.</p>
+      <p id="hero-copy">Use the Aurora park map to compare playgrounds, trails, splash pads, dog parks, and everyday stops fast. Start here when you want the full browse layer, then jump into the tighter Aurora guides below.</p>
       <div class="hero-actions">
+        <a id="hero-weekend-link" class="top-pick-link" href="./this-weekend-aurora.html">This weekend in Aurora</a>
+        <a id="hero-city-guide-link" class="top-pick-link" href="./city.html?dataset=aurora">Aurora city guide</a>
+        <a id="hero-best-guide-link" class="top-pick-link" href="./best-parks-aurora.html">Best parks in Aurora</a>
+        <a id="hero-playground-guide-link" class="top-pick-link" href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
         <a id="hero-clear-filter" class="top-pick-link hero-clear-link" href="./parks.html?dataset=aurora" hidden>Clear filter</a>
       </div>
     </div>
@@ -412,6 +418,10 @@
     </div>
   </section>
 
+  <section class="section" id="parks-growth-section">
+    <div id="parks-weekend-teaser"></div>
+  </section>
+
   <div class="browse-shell">
     <div class="browse-main">
       <section class="seo-support" aria-labelledby="seo-support-title">
@@ -421,6 +431,9 @@
           <a id="seo-city-link" href="./city.html?dataset=aurora">Aurora city guide</a>
           <a id="seo-best-link" href="./best-parks-aurora.html">Best parks in Aurora</a>
           <a id="seo-playgrounds-link" href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
+          <a id="seo-reservoir-link" href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a>
+          <a id="seo-expo-link" href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a>
+          <a id="seo-sports-link" href="./park.html?dataset=aurora&id=co-aurora-sports-park">Sports Park</a>
         </div>
       </section>
       <section class="top-picks-block" id="top-picks-block" style="display:none">
@@ -448,7 +461,7 @@
         <div class="map-header">
           <div class="map-title">&#x1F5FA;&#xFE0F; Park Map</div>
           <div class="map-controls">
-            <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Find me</button>
+            <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Parks nearby</button>
             <span id="locate-error" style="display:none;font-size:11px;color:#e8703a;font-weight:500;">&#x26A0;&#xFE0F; Location access denied</span>
           </div>
         </div>
@@ -488,6 +501,7 @@
 <script src="dataset-loader.js"></script>
 <script src="top-picks.js"></script>
 <script src="best-parks-data.js"></script>
+<script src="growth-widgets.js"></script>
 <script>
   // Get search term from homepage
 const urlParams = new URLSearchParams(window.location.search);
@@ -767,17 +781,17 @@ function getIntentMatchCue(park, intentKey) {
 function updateHeroIntentContent(filterKeys) {
   const intentKey = getIntentFilterKey(filterKeys);
   let heroTitle = 'All Parks in ' + CITY;
-  let helperCopy = 'Browse parks across ' + CITY + ' using the map and filters.';
+  let helperCopy = 'Browse parks across ' + CITY + ' using the map, feature filters, and quick links into the strongest local guides.';
 
   if (intentKey === 'trails') {
     heroTitle = 'Parks with Trails in ' + CITY;
-    helperCopy = 'Parks with walking trails, trail loops, or trail access.';
+    helperCopy = 'Trail parks, trail loops, and greenway access that make sense for walking or longer family outings.';
   } else if (intentKey === 'playground') {
     heroTitle = 'Parks with Playgrounds in ' + CITY;
-    helperCopy = 'Parks with playgrounds that are good for family stops.';
+    helperCopy = 'Playground parks that work for family stops, quick outings, and easier Aurora shortlist building.';
   } else if (intentKey === 'dog_park') {
     heroTitle = 'Dog Parks in ' + CITY;
-    helperCopy = 'Dog-friendly parks and off-leash spots in ' + CITY + '.';
+    helperCopy = 'Dog-friendly parks and off-leash spots in ' + CITY + ', with quick links back to the broader city guides.';
   }
 
   pageHeroTitleEl.textContent = heroTitle;
@@ -1094,8 +1108,8 @@ function applyDatasetContext() {
   document.getElementById('robots-meta').setAttribute('content', (searchQuery || requestedFilters.length) ? 'noindex, follow' : 'index, follow');
   document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
   pageIntroTitleEl.textContent = 'Parks in ' + CITY;
-  pageIntroSubtitleEl.textContent = 'Browse playgrounds, trails, dog parks, and family-friendly outdoor spaces in ' + CITY + '.';
-  pageIntroCopyEl.textContent = 'FindEveryPark helps families quickly compare parks, playgrounds, and outdoor spaces in ' + CITY + ' with maps, filters, and local park details designed for fast decisions.';
+  pageIntroSubtitleEl.textContent = 'Browse playgrounds, trails, dog parks, splash pads, and family-friendly outdoor spaces in ' + CITY + '.';
+  pageIntroCopyEl.textContent = 'Use the full ' + CITY + ' parks map to compare park cards fast, then jump into the city guide, best parks list, or best playgrounds page when you want a tighter shortlist.';
   document.getElementById('hero-city').textContent = CITY;
   document.getElementById('hero-city-stat').textContent = CITY;
   document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
@@ -1123,6 +1137,15 @@ function applyDatasetContext() {
   const seoCityLinkEl = document.getElementById('seo-city-link');
   const seoBestLinkEl = document.getElementById('seo-best-link');
   const seoPlaygroundsLinkEl = document.getElementById('seo-playgrounds-link');
+  const auroraRelatedSeoLinks = [
+    document.getElementById('seo-reservoir-link'),
+    document.getElementById('seo-expo-link'),
+    document.getElementById('seo-sports-link')
+  ].filter(Boolean);
+  const heroWeekendLinkEl = document.getElementById('hero-weekend-link');
+  const heroCityGuideLinkEl = document.getElementById('hero-city-guide-link');
+  const heroBestGuideLinkEl = document.getElementById('hero-best-guide-link');
+  const heroPlaygroundGuideLinkEl = document.getElementById('hero-playground-guide-link');
   const bestGuideHref = BEST_PARK_GUIDE_PAGES[DATASET_KEY] || ('./best-parks.html?dataset=' + encodeURIComponent(DATASET_KEY));
   const playgroundGuideHref = PLAYGROUND_GUIDE_PAGES[DATASET_KEY] || '';
 
@@ -1132,12 +1155,42 @@ function applyDatasetContext() {
   seoCityLinkEl.textContent = CITY + ' city guide';
   seoBestLinkEl.href = bestGuideHref;
   seoBestLinkEl.textContent = 'Best parks in ' + CITY;
+  auroraRelatedSeoLinks.forEach((link) => {
+    link.style.display = DATASET_KEY === 'aurora' ? '' : 'none';
+  });
+  heroWeekendLinkEl.href = DATASET_KEY === 'aurora' ? './this-weekend-aurora.html' : './events.html?city=' + encodeURIComponent(DATASET_KEY);
+  heroWeekendLinkEl.textContent = DATASET_KEY === 'aurora' ? 'This weekend in Aurora' : 'City events';
+  heroCityGuideLinkEl.href = './city.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  heroCityGuideLinkEl.textContent = CITY + ' city guide';
+  heroBestGuideLinkEl.href = bestGuideHref;
+  heroBestGuideLinkEl.textContent = 'Best parks in ' + CITY;
   if (playgroundGuideHref) {
     seoPlaygroundsLinkEl.href = playgroundGuideHref;
     seoPlaygroundsLinkEl.textContent = 'Best playgrounds in ' + CITY;
     seoPlaygroundsLinkEl.style.display = '';
+    heroPlaygroundGuideLinkEl.href = playgroundGuideHref;
+    heroPlaygroundGuideLinkEl.textContent = 'Best playgrounds in ' + CITY;
+    heroPlaygroundGuideLinkEl.style.display = '';
   } else {
     seoPlaygroundsLinkEl.style.display = 'none';
+    heroPlaygroundGuideLinkEl.style.display = 'none';
+  }
+
+  if (window.FEPGrowth && DATASET_KEY === 'aurora') {
+    window.FEPGrowth.mountWeekendTeaser('#parks-weekend-teaser', {
+      copy: 'Use the Aurora weekend page when you want three fast park ideas plus the current Aurora events page.'
+    });
+    window.FEPGrowth.mountEmailCapture('#parks-email-capture', {
+      source: 'aurora-parks-map',
+      copy: 'Get three family park ideas for the weekend in Aurora while you browse the full city map.'
+    });
+  } else {
+    const parksGrowthSection = document.getElementById('parks-growth-section');
+    const parksWeekendTeaser = document.getElementById('parks-weekend-teaser');
+    const parksEmailCapture = document.getElementById('parks-email-capture');
+    if (parksGrowthSection) parksGrowthSection.style.display = 'none';
+    if (parksWeekendTeaser) parksWeekendTeaser.innerHTML = '';
+    if (parksEmailCapture) parksEmailCapture.innerHTML = '';
   }
 }
 
@@ -1716,5 +1769,6 @@ if (filterToggle && filterBarEl) {
   };
 }
 </script>
+<script src="ios-install-banner.js"></script>
 </body>
 </html>

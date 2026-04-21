@@ -24,21 +24,19 @@
     gtag('config', 'G-9GWTHQXZNY');
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #1a1a18;
       --ink-light: #5a5a52;
       --ink-faint: #9a9a90;
-      --rule: #e4ddd4;
-      --bg: #f0ede8;
-      --bg-warm: #f0ede8;
+      --rule: #e2e0d8;
+      --bg: #f9f8f4;
+      --bg-warm: #f2f0e8;
       --grass: #0f6e56;
-      --grass-deep: #085041;
-      --grass-light: #e8f4f0;
-      --accent: #b07848;
+      --grass-light: #e8f0ea;
+      --accent: #c4501a;
       --white: #ffffff;
-      --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,10 +60,10 @@
       flex-wrap: wrap;
     }
     .nav-brand {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       color: white;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 600;
       text-decoration: none;
       letter-spacing: -0.3px;
     }
@@ -131,7 +129,7 @@
       color: white;
     }
     .page-header h1 {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Lora', serif;
       font-size: clamp(28px, 5vw, 38px);
       font-weight: 600;
       letter-spacing: -0.5px;
@@ -290,7 +288,7 @@
       margin-top: 48px;
     }
     .submit-box h3 {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Lora', serif;
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 8px;
@@ -348,7 +346,7 @@
       margin-bottom: 28px;
     }
     .empty-city h3 {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Lora', serif;
       font-size: 17px;
       font-weight: 600;
       margin-bottom: 8px;
@@ -370,7 +368,7 @@
     .page-header h1,
     .submit-box h3,
     .empty-city h3 {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
     .page-header h1 {
       font-weight: 700;
@@ -379,30 +377,6 @@
     .submit-box h3,
     .empty-city h3 {
       font-weight: 500;
-    }
-    .nav-brand,
-    .page-header h1,
-    .submit-box h3,
-    .empty-city h3 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .update-badge,
-    .free-badge {
-      background: var(--grass-light);
-      color: var(--grass);
-    }
-    .submit-box,
-    .empty-city {
-      background: var(--white);
-      border: 1px solid var(--rule);
-      box-shadow: var(--shadow);
-    }
-    .submit-box .email-line,
-    .footer-note a,
-    .event-link:hover {
-      color: var(--grass);
     }
   </style>
 </head>
@@ -430,6 +404,17 @@
   </header>
 
   <div id="events-root"></div>
+  <div class="submit-box" id="aurora-events-link-paths" style="display:none;">
+    <h3>Plan the park part too</h3>
+    <p>When an Aurora event needs a nearby park stop before or after, jump back into the strongest Aurora planning pages.</p>
+    <ul>
+      <li><a href="./city.html?dataset=aurora">Aurora city guide</a></li>
+      <li><a href="./parks.html?dataset=aurora">Aurora parks browse map</a></li>
+      <li><a href="./best-parks-aurora.html">Best parks in Aurora</a></li>
+      <li><a href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a></li>
+      <li><a href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a> and <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a></li>
+    </ul>
+  </div>
   <div class="empty-city" id="empty-city" style="display:none;">
     <h3>No city events live yet</h3>
     <p id="empty-city-copy">This city will get its own event stream as coverage expands.</p>
@@ -488,6 +473,10 @@
   document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(cityKey);
   document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(cityKey);
   document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(cityKey);
+  const auroraEventsLinkPaths = document.getElementById('aurora-events-link-paths');
+  if (auroraEventsLinkPaths) {
+    auroraEventsLinkPaths.style.display = cityKey === 'aurora' ? '' : 'none';
+  }
 
   Object.entries(cities).forEach(([key, meta]) => {
     const link = document.createElement('a');

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/manifest.json">
 <meta name="description" id="page-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
 <meta name="robots" id="robots-meta" content="index, follow">
 <link rel="canonical" id="canonical-link" href="https://findeverypark.com/park.html">
@@ -15,6 +16,7 @@
 <meta name="twitter:title" id="twitter-title" content="Park Guide | Find Every Park Colorado">
 <meta name="twitter:description" id="twitter-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
 <meta name="twitter:image" id="twitter-image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+<link rel="stylesheet" href="growth-widgets.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -353,6 +355,7 @@ body{
 .nearby-in-location { margin-top: 18px; padding-top: 18px; border-top: 1px solid #e8e2d6; }
 .nearby-heading { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; color: #1a1f1c; margin: 0 0 10px; }
 .nearby-in-location #nearby-links { display: flex; flex-direction: column; gap: 6px; }
+.guide-links-block #guide-links { display: flex; flex-direction: column; gap: 6px; }
 #park-description{
   font-size:15px;
   color:#3a3a3a;
@@ -375,6 +378,7 @@ body{
 
 /* ── Sidebar column ── */
 .sidebar .section{margin-bottom:16px}
+.below-fold{margin-top:28px}
 
 /* ── Responsive ── */
 @media(max-width:760px){
@@ -455,15 +459,29 @@ body{
             </div>
           </div>
           <a id="directions-btn" target="_blank" rel="noopener noreferrer">Get Directions</a>
-          <div class="nearby-in-location" id="nearby-links-wrapper">
-            <h3 class="nearby-heading">Other parks nearby</h3>
-            <div id="nearby-links"></div>
-          </div>
         </section>
 
       </div><!-- /sidebar -->
 
     </div><!-- /park-body -->
+
+    <!-- Below-fold content — full width -->
+    <div class="below-fold">
+
+      <section class="section" id="nearby-links-wrapper">
+        <h2>Other parks nearby</h2>
+        <div id="nearby-links"></div>
+      </section>
+
+      <section class="section" id="guide-links-wrapper">
+        <h2>Plan more local park outings</h2>
+        <div id="guide-links"></div>
+      </section>
+
+      <div id="park-email-capture"></div>
+      <div id="near-this-park-block"></div>
+
+    </div><!-- /below-fold -->
 
   </div><!-- /page-wrapper -->
 
@@ -471,6 +489,7 @@ body{
 <script src="data/photos/park-photo-manifest.js"></script>
 <script src="park-data-registry.js"></script>
 <script src="dataset-loader.js"></script>
+<script src="growth-widgets.js"></script>
 <script>
 (function () {
   const params = new URLSearchParams(window.location.search);
@@ -516,6 +535,9 @@ body{
   const featuresEl = document.getElementById("park-features");
   const featureLinksEl = document.getElementById("park-feature-links");
   const nearbyLinksEl = document.getElementById("nearby-links");
+  const guideLinksEl = document.getElementById("guide-links");
+  const parkEmailCaptureEl = document.getElementById("park-email-capture");
+  const nearThisParkBlockEl = document.getElementById("near-this-park-block");
   const directionsBtn = document.getElementById("directions-btn");
   let mapInstance = null;
 
@@ -822,6 +844,83 @@ body{
     });
   }
 
+  function renderGuideLinks() {
+    if (!guideLinksEl) return;
+    guideLinksEl.innerHTML = "";
+
+    const bestGuidePages = {
+      aurora: "./best-parks-aurora.html",
+      centennial: "./best-parks-centennial.html",
+      parker: "./best-parks-parker.html",
+      denver: "./best-parks-denver.html",
+      "lone-tree": "./best-parks-lone-tree.html"
+    };
+    const playgroundGuidePages = {
+      aurora: "./best-playgrounds-aurora.html",
+      centennial: "./best-playgrounds-centennial.html",
+      parker: "./best-playgrounds-parker.html",
+      denver: "./best-playgrounds-denver.html"
+    };
+
+    const links = [
+      { href: "city.html?dataset=" + encodeURIComponent(DATASET_KEY), label: DATASET_META.city + " city guide" },
+      { href: "parks.html?dataset=" + encodeURIComponent(DATASET_KEY), label: "All " + DATASET_META.city + " parks map" }
+    ];
+
+    if (bestGuidePages[DATASET_KEY]) {
+      links.push({ href: bestGuidePages[DATASET_KEY], label: "Best parks in " + DATASET_META.city });
+    }
+    if (playgroundGuidePages[DATASET_KEY]) {
+      links.push({ href: playgroundGuidePages[DATASET_KEY], label: "Best playgrounds in " + DATASET_META.city });
+    }
+
+    links.forEach((item) => {
+      const link = document.createElement("a");
+      link.className = "nearby-link";
+      link.href = item.href;
+      link.textContent = item.label;
+      guideLinksEl.appendChild(link);
+    });
+  }
+
+  function renderAuroraGrowthBlocks(park) {
+    if (!parkEmailCaptureEl || !nearThisParkBlockEl) return;
+
+    if (!(window.FEPGrowth && DATASET_KEY === "aurora" && window.FEPGrowth.isTopAuroraPark(park.id))) {
+      parkEmailCaptureEl.innerHTML = "";
+      nearThisParkBlockEl.innerHTML = "";
+      return;
+    }
+
+    window.FEPGrowth.mountEmailCapture(parkEmailCaptureEl, {
+      source: "aurora-park-page:" + park.id,
+      copy: "Get three family park ideas for the weekend in Aurora while you are already comparing one of the strongest park pages."
+    });
+
+    const config = window.FEPGrowth.getNearParkLinks(park);
+    if (!config) {
+      nearThisParkBlockEl.innerHTML = "";
+      return;
+    }
+
+    nearThisParkBlockEl.innerHTML =
+      '<div class="growth-card">' +
+        '<span class="growth-eyebrow">Sponsor-ready placement</span>' +
+        '<h3 class="growth-title">' + config.title + '</h3>' +
+        '<p class="growth-copy">' + config.copy + '</p>' +
+        '<div class="growth-list">' +
+          config.items.map(function (item) {
+            return '' +
+              '<div class="growth-list-item">' +
+                '<div><strong>' + item.label + '</strong><span>' + item.note + '</span></div>' +
+                '<a class="growth-secondary-link" href="' + item.href + '" target="_blank" rel="noopener noreferrer">Open</a>' +
+              '</div>';
+          }).join("") +
+        '</div>' +
+        '<div class="growth-sponsor-note growth-note">Own this slot? <a href="' + config.sponsorHref + '">See Aurora guide sponsorship details</a>.</div>' +
+      '</div>';
+  }
+
   function setMeta(name, content) {
     const el = document.getElementById(name);
     if (el) {
@@ -1085,6 +1184,8 @@ body{
     renderAnswers(park);
     renderFeatures(park);
     renderNearbyParks(park, parks, coords);
+    renderGuideLinks();
+    renderAuroraGrowthBlocks(park);
     updateSchemas(park, coords, descriptionText || summary, pageUrl, imageUrl);
 
     statusEl.textContent = "";
@@ -1146,5 +1247,6 @@ body{
     });
 })();
 </script>
+<script src="ios-install-banner.js"></script>
 </body>
 </html>

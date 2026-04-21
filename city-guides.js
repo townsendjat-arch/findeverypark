@@ -3,9 +3,9 @@
     aurora: {
       eyebrow: "Front Range City Guide",
       summary:
-        "Find playgrounds, trails, dog parks, splash pads, golf, and open spaces across Aurora. Browse the map, filter by features, and start with the strongest picks below.",
+        "Find the best parks in Aurora for playground time, trail walks, splash-pad afternoons, dog stops, and everyday family outings. Start with the strongest picks below, then open the full map when you want more options.",
       supporting:
-        "Curated picks plus the full Aurora park map make this the easiest place to start if you want the broadest local browse right now.",
+        "Use the curated picks to start fast, then jump into the Aurora map and guide pages when you want nearby backups, neighborhood stops, or a tighter shortlist.",
       featured: [
         { name: "Aurora Reservoir", badge: "Destination Pick", reason: "Best when you want a bigger outing with water, trails, and room to spread out." },
         { name: "Utah Park", badge: "Family Pick", reason: "A reliable family stop with a strong everyday mix of play space and amenities." },

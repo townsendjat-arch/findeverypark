@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" id="page-description" content="Find park details, photos, directions, and amenity highlights on Find Every Park Colorado.">
-<meta name="robots" id="robots-meta" content="index, follow">
+<meta name="robots" id="robots-meta" content="noindex, follow">
 <link rel="canonical" id="canonical-link" href="https://findeverypark.com/park.html">
 <meta property="og:type" content="article">
 <meta property="og:title" id="og-title" content="Park Guide | Find Every Park Colorado">
@@ -1102,7 +1102,7 @@ body{
       : DEFAULT_OG_IMAGE;
 
     document.title = parkName(park) + " Park Guide | " + DATASET_META.brandName;
-    document.getElementById("robots-meta").setAttribute("content", "index, follow");
+    document.getElementById("robots-meta").setAttribute("content", "noindex, follow");
     document.getElementById("page-description").setAttribute("content", metaDescription);
     document.getElementById("canonical-link").href = pageUrl;
     setMeta("og-title", document.title);

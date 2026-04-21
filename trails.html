@@ -15,13 +15,14 @@
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://findeverypark.com/trails.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
-      --grass: #0f6e56; --grass-deep: #085041; --grass-soft: #e8f4f0; --earth: #b07848;
-      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff; --line: #e4ddd4; --shadow: 0 14px 36px rgba(20, 31, 23, 0.08);
+      --grass: #0f6e56; --grass-light: #5a8f6a; --earth: #b07848;
+      --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
       --shadow-hover: 0 8px 28px rgba(0,0,0,0.15);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,10 +39,10 @@
       flex-wrap: wrap;
     }
     .nav-brand {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       color: white;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 600;
       text-decoration: none;
       letter-spacing: -0.3px;
     }
@@ -85,9 +86,9 @@
       z-index: 1;
     }
     .page-header h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(24px, 4vw, 40px);
-      font-weight: 800;
+      font-weight: 600;
       color: white;
       line-height: 1.1;
       letter-spacing: -0.5px;
@@ -130,7 +131,7 @@
       border-radius: 100px;
       border: 1.5px solid #ddd;
       background: transparent;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 12px;
       font-weight: 500;
       color: #555;
@@ -140,10 +141,10 @@
     }
     .pill:hover { border-color: var(--grass); color: var(--grass); }
     .pill.on { border-color: var(--grass); color: var(--white); }
-    .pill.on.surface-hard { background: #3d6b4a; }
+    .pill.on.surface-hard { background: #0f6e56; }
     .pill.on.surface-soft { background: #8b6914; }
     .pill.on.surface-dual { background: #555; }
-    .pill.on.type-tl { background: #3d6b4a; }
+    .pill.on.type-tl { background: #0f6e56; }
     .pill.on.type-path { background: #4a7a8a; }
     .pill.on.type-sdwlk { background: #888; }
     .sep { width: 1px; height: 20px; background: #e8e4de; flex-shrink: 0; margin: 0 4px; }
@@ -153,7 +154,7 @@
       border-radius: 8px;
       border: 1.5px solid #ddd;
       background: transparent;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
       font-size: 12px;
       font-weight: 500;
       color: #555;
@@ -239,7 +240,7 @@
       margin-bottom: 6px;
     }
     .trail-name {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: 14px;
       font-weight: 700;
       line-height: 1.3;
@@ -263,10 +264,10 @@
       border-radius: 100px;
       font-weight: 500;
     }
-    .tag-hard { background: rgba(61,107,74,0.12); color: #3d6b4a; }
+    .tag-hard { background: rgba(61,107,74,0.12); color: #0f6e56; }
     .tag-soft { background: rgba(139,105,20,0.12); color: #8b6914; }
     .tag-dual { background: rgba(80,80,80,0.1); color: #555; }
-    .tag-tl { background: rgba(61,107,74,0.08); color: #3d6b4a; }
+    .tag-tl { background: rgba(61,107,74,0.08); color: #0f6e56; }
     .tag-path { background: rgba(74,122,138,0.12); color: #4a7a8a; }
     .tag-sdwlk { background: rgba(120,120,120,0.1); color: #777; }
 
@@ -283,7 +284,7 @@
       color: #ccc;
     }
     .empty-state .ico { font-size: 36px; margin-bottom: 8px; }
-    .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 16px; color: #ccc; }
+    .empty-state h3 { font-family: 'Fraunces', serif; font-size: 16px; color: #ccc; }
 
     /* FOOTER */
     footer { background: var(--grass); color: rgba(255,255,255,0.6); padding: 28px 20px; font-size: 12px; }
@@ -297,11 +298,11 @@
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); width: 100%; }
 
     /* POPUP */
-    .leaflet-popup-content { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.5; min-width: 140px; }
-    .leaflet-popup-content b { font-family: 'Syne', sans-serif; font-size: 13px; display: block; margin-bottom: 3px; }
+    .leaflet-popup-content { font-family: 'Outfit', sans-serif; font-size: 13px; line-height: 1.5; min-width: 140px; }
+    .leaflet-popup-content b { font-family: 'Fraunces', serif; font-size: 13px; display: block; margin-bottom: 3px; }
     .page-header h1,
     .empty-state h3 {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
     .page-header h1 {
       font-weight: 700;
@@ -310,30 +311,6 @@
     .empty-state h3 {
       font-weight: 500;
     }
-    .nav-brand,
-    .page-header h1,
-    .trail-name,
-    .empty-state h3,
-    .leaflet-popup-content b {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .controls-bar,
-    .map-wrap,
-    .trail-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-    .pill.on,
-    .locate-btn.active {
-      background: var(--grass);
-      border-color: var(--grass);
-      color: var(--white);
-    }
-    .locate-btn:hover,
-    .pill:hover { color: var(--grass); border-color: var(--grass); }
   </style>
 </head>
 <body>
@@ -374,7 +351,7 @@
   <div class="map-wrap">
     <div id="map"></div>
     <div class="map-legend">
-      <span class="legend-line"><span class="legend-swatch" style="background:#3d6b4a"></span> Paved trail</span>
+      <span class="legend-line"><span class="legend-swatch" style="background:#0f6e56"></span> Paved trail</span>
       <span class="legend-line"><span class="legend-swatch" style="background:#c8a000"></span> Natural surface</span>
       <span class="legend-line"><span class="legend-swatch" style="background:#777"></span> Dual / Sidewalk</span>
       <span class="legend-line"><span class="legend-swatch" style="background:#4285f4"></span> You</span>
@@ -425,7 +402,7 @@ function trailColor(surface, type) {
   if (surface === 'SOFT') return '#c8a000';
   if (type === 'SDWLK') return '#888';
   if (surface === 'DUAL') return '#666';
-  return '#3d6b4a';
+  return '#0f6e56';
 }
 
 function surfaceLabel(s) {

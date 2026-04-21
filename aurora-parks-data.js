@@ -1,13 +1,12 @@
 (window.PARK_COORDS = window.PARK_COORDS || {});
 window.PARK_COORDS.aurora = Object.assign({}, window.PARK_COORDS.aurora || {}, {
-  "Central Park": [39.5990278, -104.7795185]
 });
 
 (window.registerParkDataset || ((datasetKey, parks) => {
   window.PARKS = parks;
   return parks;
 }))("aurora", [
-{id:"co-aurora-alta-vista-park",n:"Alta Vista Park",a:"16800 E. Idaho Cir.",ac:1.5,
+{id:"co-aurora-alta-vista-park",park_type:"neighborhood",n:"Alta Vista Park",a:"16800 E. Idaho Cir.",ac:1.5,
 lat:39.6905876,lng:-104.7914571,f:{},photos:[],d:`About as simple as it gets. Small patch of grass in a quiet neighborhood. No features, no distractions — just space. Good spot if you’ve got a toddler who just needs to run around for a bit without a lot going on.
 
 <strong>Features</strong>
@@ -16,7 +15,7 @@ lat:39.6905876,lng:-104.7914571,f:{},photos:[],d:`About as simple as it gets. Sm
 🏕️ <strong>Shelter:</strong> No shelter.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Altura Park (~0.5 mi), Mountain View Park (~1 mi)`},
-{id:"co-aurora-altura-park",n:"Altura Park",a:"15100 E. 17th Ave.",ac:3.9,
+{id:"co-aurora-altura-park",park_type:"neighborhood",n:"Altura Park",a:"15100 E. 17th Ave.",ac:3.9,
 lat:39.7427842,lng:-104.813072,f:{playground:1,baseball:1},photos:[],d:`Sits next to a school, so it gets used the way you’d expect. Playground and a backstop — good for killing time before or after pickup. Weekends are quieter if you want it to yourself.
 
 <strong>Features</strong>
@@ -25,7 +24,7 @@ lat:39.7427842,lng:-104.813072,f:{playground:1,baseball:1},photos:[],d:`Sits nex
 🏕️ <strong>Shelter:</strong> No shelter.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Alta Vista Park (~0.5 mi), Norfolk Glen Park (~0.5 mi)`},
-{id:"co-aurora-anchor-point-park",n:"Anchor Point Park",a:"6855 S. Robertsdale Way",ac:5,
+{id:"co-aurora-anchor-point-park",park_type:"neighborhood",n:"Anchor Point Park",a:"6855 S. Robertsdale Way",ac:5,
 lat:39.5921313,lng:-104.676356,f:{playground:1,shelter:1},photos:[],d:`Quiet neighborhood, low traffic, easy setup. Playground, shelter, and two tot swings. Not big, but that’s the point — younger kids can move around without you chasing them nonstop.
 
 <strong>Features</strong>
@@ -34,7 +33,7 @@ lat:39.5921313,lng:-104.676356,f:{playground:1,shelter:1},photos:[],d:`Quiet nei
 🏕️ <strong>Shelter:</strong> Picnic shelter (first come, first serve).
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Apache Mesa Park (~2 mi), Red-Tailed Hawk Park (~2 mi)`},
-{id:"co-aurora-appaloosa-park",n:"Appaloosa Park",a:"5575 S. De Gaulle St.",ac:6.7,
+{id:"co-aurora-appaloosa-park",park_type:"neighborhood",n:"Appaloosa Park",a:"5575 S. De Gaulle St.",ac:6.7,
 lat:39.6149638,lng:-104.7074232,
 lat:39.6149638,lng:-104.7074232,f:{playground:1,restroom:1,shelter:1},photos:[],d:`Solid, no-surprises park. Playground, restroom, and a shelter — covers everything you need for a quick outing. One of those spots you hit when you don’t feel like overthinking it.
 
@@ -44,7 +43,7 @@ lat:39.6149638,lng:-104.7074232,f:{playground:1,restroom:1,shelter:1},photos:[],
 🏕️ <strong>Shelter:</strong> Picnic shelter (first come, first serve).
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Anchor Point Park (~1 mi), Red-Tailed Hawk Park (~2 mi)`},
-{id:"co-aurora-aqua-vista-park",
+{id:"co-aurora-aqua-vista-park",park_type:"flagship",
 n:"Aqua Vista Park",
 a:"18700 E. Wagon Trail Cir.",
 ac:12.1,
@@ -60,29 +59,28 @@ d:`Twelve acres with an outdoor pool, basketball half court, two tennis courts, 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Wagon Trail Park (~0.5 mi), Larkspur Park (~1 mi)`
 },
-{id:"co-aurora-appaloosa-park",n:"Appaloosa Park",a:"5575 S. De Gaulle St.",ac:6.7,f:{playground:1,restroom:1,shelter:1},photos:[],d:`Solid, no-surprises park. Playground, restroom, and a shelter — covers everything you need for a quick outing. One of those spots you hit when you don’t feel like overthinking it.
-
-<strong>Features</strong>
-📍 6.7 acres 🛝 Playground 🐣 2 Tot Swings 🏕️ Picnic Shelter 🚻 Restroom 🐕 Leashed Dogs
-
-🏕️ <strong>Shelter:</strong> Picnic shelter (first come, first serve).
-
-🗺️ <strong>Nearby (1–3 mi):</strong> Anchor Point Park (~1 mi), Red-Tailed Hawk Park (~2 mi)`},
   {
-  id:"co-aurora-aurora-reservoir",
+  id:"co-aurora-aurora-reservoir",park_type:"open_space",
   n:"Aurora Reservoir",
   a:"5800 S. Powhaton Rd.",
   ac:1861.5,
 lat:39.5949406,lng:-104.6617167,
   f:{playground:1,fishing:1,trails:1,restroom:1,shelter:1,boating:1},
   photos:[],
-  d: `Aurora’s crown jewel. An 8-mile paved loop circles the reservoir that is flat, wide, and stroller-friendly. The swim beach draws families all summer, while non-motorized boating, fishing, an archery range, and a playground round out the experience. There’s almost no shade on the trail, so bring hats and sunscreen. Entry fee required. Dogs allowed on leash (trails only).
+  d: `Aurora Reservoir is the Aurora park page to send families when they want one outing that can fill a half day without needing a second stop. The 8-mile paved loop is wide and useful for strollers, bikes, scooters, and longer walks, while the swim beach, fishing, boating, archery range, and playground give the park enough variety for mixed-age groups. It is one of the clearest "worth the drive" picks in the city.
 
-📍 1,861 acres 🏊 Swim Beach 🎣 Fishing 🚲 8-mi Trail 🐕 Leashed Dogs 🅿️ Large Lot ⛵ Boating 🏹 Archery
-🏕️ Shelter: Reservable shelter available. Book at auroragov.org (opens March 2026 for summer season).
-🗺️ Nearby (1–3 mi): Quincy Reservoir (~2 mi), Pronghorn Natural Area (~3 mi)`
+The tradeoff is exposure. There is very little shade on the main loop, so warm afternoons hit hard and the entry fee matters if you are only stopping briefly. Best for bigger outings, longer walks, summer reservoir days, and sponsor categories tied to post-park lunch, treats, or swim-related family services.
+
+<strong>Features</strong>
+📍 1,861.5 acres 🏊 Swim Beach 🎣 Fishing 🚲 8-mile Paved Loop ⛵ Non-Motorized Boating 🏹 Archery Range 🛝 Playground 🚻 Restrooms 🐕 Leashed Dogs (trails only)
+
+🏕️ <strong>Shelter:</strong> Reservable shelter available during the main season.
+
+🔗 <strong>Plan next:</strong> <a href="./best-parks-aurora.html">Best parks in Aurora</a> · <a href="./best-playgrounds-aurora.html">Best Aurora playgrounds</a> · <a href="./parks.html?dataset=aurora&filter=trails">Aurora trail parks</a>
+
+🗺️ <strong>Nearby (1–3 mi):</strong> Quincy Reservoir (~2 mi), Pronghorn Natural Area (~3 mi), Red-tailed Hawk Park (~3 mi)`
 },
-{id:"co-aurora-bellewood-park",n:"Bellewood Park",a:"17427 E. Bellewood Cir.",ac:2.2,
+{id:"co-aurora-bellewood-park",park_type:"neighborhood",n:"Bellewood Park",a:"17427 E. Bellewood Cir.",ac:2.2,
 lat:39.6252795,lng:-104.7859476,f:{playground:1},photos:[],d:`Small neighborhood park with a playground. Quiet, residential, and easy. Good for a quick stop with little ones if you’re nearby.
 
 **Features**
@@ -91,7 +89,7 @@ lat:39.6252795,lng:-104.7859476,f:{playground:1},photos:[],d:`Small neighborhood
 🏕️ Shelter: No shelter.
 
 🗺️ Nearby (1–3 mi): Eldorado Park (~0.5 mi), Mountain View Park (~1 mi)`},
-{id:"co-aurora-bicentennial-park",n:"Bicentennial Park",a:"13655 E. Alameda Ave.",ac:35.3,
+{id:"co-aurora-bicentennial-park",park_type:"neighborhood",n:"Bicentennial Park",a:"13655 E. Alameda Ave.",ac:35.3,
 lat:39.7140688,lng:-104.8324745,f:{dog_park:1,shelter:1},photos:[],d:`One of the larger parks with a dedicated off-leash dog park — a rarity in Aurora. If you’ve got a dog, this is one of the better setups in the city.
 
 The reservable shelter makes it a strong option for parties or gatherings. Open green space is solid, and amplified sound is allowed with a Temporary Use Permit, which makes it one of the few parks set up for bigger events.
@@ -103,7 +101,7 @@ The reservable shelter makes it a strong option for parties or gatherings. Open 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> DeLaney Farm (~1 mi), City Center Park (~0.5 mi)`},
 
-{id:"co-aurora-canterbury-park",
+{id:"co-aurora-canterbury-park",park_type:"neighborhood",
 n:"Canterbury Park",
 a:"1400 S. Joliet St.",
 ac:7.4,
@@ -119,13 +117,16 @@ d:`Recently renovated in 2022 with a clubhouse theme and new shade panels over t
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Nome Park (~1 mi), Jewell Park (~1 mi)`
 },
-{id:"co-aurora-central-park",
+{id:"co-aurora-central-park",park_type:"flagship",
 n:"Central Park",
 a:"6461 S. Waco St.",
 ac:0,
+lat:39.5990278,lng:-104.7795185,
 f:{playground:1,trails:1,shelter:1,pickleball:1,tennis:1,basketball:1},
 photos:[],
 d:`Strong family park with two playgrounds, a climbing structure kids actually want to come back to, and enough open grass to keep the day from feeling cramped. The inclusive play equipment helps this one work for a wider range of families, while the courts, Gaga Ball, and trail loop give older kids more to do than just circle the playground. The covered pavilion makes it easier to stay a little longer. There is some shade near the play area, but not much shade across the rest of the park.
+
+This is one of the better "works for different ages at the same time" parks in southeast Aurora. Younger kids can stay busy on the play side while older kids bounce between courts, the climbing setup, and the trail loop. It is less of a one-feature destination and more of a dependable family park you can revisit without getting bored.
 
 <strong>Features</strong>
 📍 Community park 🛝 2 Playgrounds 🧗 Climbing Structure ♿ Inclusive Play Equipment 🥎 Gaga Ball 🏓 Pickleball 🎾 Tennis 🏀 Basketball 🏃 Walking Trails 🌿 Large Open Lawn 🐕 Leashed Dogs
@@ -133,7 +134,7 @@ d:`Strong family park with two playgrounds, a climbing structure kids actually w
 🏕️ <strong>Shelter:</strong> Covered pavilion.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Appaloosa Park, Anchor Point Park, Red-tailed Hawk Park)`},
-{id:"co-aurora-carson-park",n:"Carson Park",a:"14000 E. Oxford Pl.",ac:7.9,
+{id:"co-aurora-carson-park",park_type:"neighborhood",n:"Carson Park",a:"14000 E. Oxford Pl.",ac:7.9,
 lat:39.6413548,lng:-104.82353,f:{playground:1},photos:[],d:`A spring favorite among Aurora locals. The pond loop is an easy, calm walk — and in spring you’ll likely see baby ducks, frogs, birds, and the occasional snake coming out. It’s one of those parks that feels quiet without being empty.
 
 Playground and tot swings are on site. Doesn’t get as much attention as it should. Best March through May.
@@ -144,7 +145,7 @@ Playground and tot swings are on site. Doesn’t get as much attention as it sho
 🏕️ <strong>Shelter:</strong> No reservable shelter.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Jewell Wetlands (~1.5 mi), Utah Park (~2 mi)`},
-{id:"co-aurora-centre-hills-park",
+{id:"co-aurora-centre-hills-park",park_type:"neighborhood",
 n:"Centre Hills Park",
 a:"16300 E. Centretech Pkwy.",
 ac:43.9,
@@ -160,7 +161,7 @@ d:`Large park anchored by an 18-hole disc golf course and broad open space. Good
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Cheyenne/Arapaho area (~0.5 mi), Havana Park (~1 mi)`
 },
-{id:"co-aurora-city-center-park",
+{id:"co-aurora-city-center-park",park_type:"neighborhood",
 n:"City Center Park",
 a:"14701 E. Alameda Ave.",
 ac:8.5,
@@ -177,7 +178,7 @@ d:`Located on the Aurora Municipal Center campus. Access to the High Line Canal 
 🗺️ <strong>Nearby (1–3 mi):</strong> Bicentennial Park (~0.5 mi), DeLaney Farm (~1 mi)`
 },
 
-{id:"co-aurora-centrepointe-park",
+{id:"co-aurora-centrepointe-park",park_type:"neighborhood",
 n:"CentrePointe Park",
 a:"16298 E. Exposition Dr.",
 ac:24.5,
@@ -193,7 +194,7 @@ d:`A solid 24-acre neighborhood park with a picnic shelter, playground, and open
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Centre Hills Park (~0.2 mi), Mountain View Park (~1 mi)`
 },
-{id:"co-aurora-cherry-creek-spillway",
+{id:"co-aurora-cherry-creek-spillway",park_type:"open_space",
 n:"Cherry Creek Spillway",
 a:"2799 S. Chambers Rd.",
 ac:364.5,
@@ -209,7 +210,7 @@ d:`Large open space linking to Cherry Creek State Park and Toll Gate Creek Trail
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Olympic Park Volleyball (~0.5 mi), Olympic Neighborhood Park (~0.5 mi), DeLaney Farm (~1 mi)`
 },
-{id:"co-aurora-city-park",
+{id:"co-aurora-city-park",park_type:"neighborhood",
 n:"City Park",
 a:"9701 E. 16th Ave.",
 ac:5.3,
@@ -225,7 +226,7 @@ d:`North Aurora neighborhood park with two basketball courts, a playground, skat
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Del Mar Park (~0.5 mi), Hoffman Park (~0.5 mi)`
 },
-{id:"co-aurora-coal-creek-arena",
+{id:"co-aurora-coal-creek-arena",park_type:"neighborhood",
 n:"Coal Creek Arena",
 a:"20255 E. 6th Ave.",
 ac:10,
@@ -241,7 +242,7 @@ d:`Venue for small rodeos and events. Has parking and connects directly to the S
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Sand Creek Park (~0.5 mi), Star K Ranch (~1.5 mi)`
 },
-{id:"co-aurora-cottonwood-grove",
+{id:"co-aurora-cottonwood-grove",park_type:"neighborhood",
 n:"Cottonwood Grove",
 a:"1500 S. Peoria St.",
 ac:0.3,
@@ -257,7 +258,7 @@ d:`A small greenway stop — picnic tables along the Westerly Creek Trail. Not a
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Utah Park (~0.5 mi), Springhill Park (~1 mi)`
 },
-{id:"co-aurora-cottonwood-park",
+{id:"co-aurora-cottonwood-park",park_type:"neighborhood",
 n:"Cottonwood Park",
 a:"14000 E. 26th Ave.",
 ac:7.7,
@@ -273,7 +274,7 @@ d:`Mid-size neighborhood park with basketball court, picnic shelter, playground,
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Parklane Park (~0.5 mi), Spencer Garrett Park (~1 mi)`
 },
-{id:"co-aurora-country-lane-park",
+{id:"co-aurora-country-lane-park",park_type:"neighborhood",
 n:"Country Lane Park",
 a:"10055 E. Colorado Ave.",
 ac:4.3,
@@ -289,18 +290,11 @@ d:`Neighborhood park with a basketball half court, playground, reservable shelte
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Cheyenne/Arapaho area (~0.5 mi), Havana Park (~1 mi)`
 },
-{id:"co-aurora-crestridge-park",n:"Crestridge Park",a:"14751 E. Yale Ave.",ac:2,
+{id:"co-aurora-crestridge-park",park_type:"neighborhood",n:"Crestridge Park",a:"14751 E. Yale Ave.",ac:2,
 lat:39.6680231,lng:-104.8159672,f:{pickleball:1,playground:1,shelter:1},photos:[],d:""},
-  {id:"co-aurora-del-mar-park",n:"Del Mar Park",a:"12000 E. 6th Ave.",ac:39.9,
-lat:39.7244361,lng:-104.8467842,f:{tennis:1,playground:1,basketball:1,baseball:1,pool:1,volleyball:1,restroom:1,shelter:1},photos:[],d:`Aurora’s central hub and it earns it. Mature trees provide real shade (rare in Aurora). The family aquatics center pulls in younger kids, while teens head for tennis, basketball, and sand volleyball. Paved paths make it easy for strollers, and lighted courts keep things going into the evening. Consistently well-reviewed for cleanliness and upkeep.
-
-Features
-📍 39.9 acres 🏊 Aquatics Center 🎾 Tennis (4, lighted) 🏀 Basketball 🌳 Real Shade 🛝 Playground 🐕 Leashed Dogs 🅿️ Ample Parking 🏐 Sand Volleyball
-
-🏕️ Shelter: Reservable shelter with grill.
-
-🗺️ Nearby (1–3 mi): City Park (~0.5 mi), Expo Park (~1.5 mi), Hoffman Park (~1 mi)`},
-{id:"co-aurora-delaney-farm",n:"DeLaney Farm",a:"170 S. Chambers Rd.",ac:113.8,
+  {id:"co-aurora-del-mar-park",park_type:"flagship",n:"Del Mar Park",a:"12000 E. 6th Ave.",ac:39.9,
+lat:39.7244361,lng:-104.8467842,f:{tennis:1,playground:1,basketball:1,baseball:1,pool:1,volleyball:1,restroom:1,shelter:1},photos:[],d:`Aurora's main hub and it earns the title. Mature trees mean real shade — a rare find in Aurora. The family aquatics center draws toddlers on hot days. Teens go for the tennis courts, basketball, and sand volleyball. Paved paths are stroller-friendly. Lighted tennis courts mean evening use is easy. Reviewed consistently well by Aurora families for cleanliness and maintenance.`},
+{id:"co-aurora-delaney-farm",park_type:"neighborhood",n:"DeLaney Farm",a:"170 S. Chambers Rd.",ac:113.8,
 lat:39.7132478,lng:-104.8058161,f:{trails:1,garden:1},photos:[],d:`A functioning historic farmstead — 113 acres with a community garden, farm history, and trail connections to both High Line Canal and Toll Gate Creek Trail. Older kids who are into history will get it. Not a typical playground park, but a great enrichment stop for curious families.
 
 Trail shade is limited, so go early on hot days.
@@ -311,7 +305,7 @@ Trail shade is limited, so go early on hot days.
 🏕️ <strong>Shelter:</strong> No reservable shelter.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Cherry Creek Spillway (~0.5 mi), Bicentennial Park (~1 mi), Village Green Park (~1.5 mi)`},
-{id:"co-aurora-eagle-park",
+{id:"co-aurora-eagle-park",park_type:"neighborhood",
 n:"Eagle Park",
 a:"14691 E. Floyd Ave.",
 ac:6.5,
@@ -327,7 +321,7 @@ d:`Six and a half acres with two basketball half courts, a playground, and two t
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Crestridge Park (~0.5 mi), Peoria Hills Park (~1 mi)`
 },
-{id:"co-aurora-eldorado-park",
+{id:"co-aurora-eldorado-park",park_type:"neighborhood",
 n:"Eldorado Park",
 a:"17206 E. Brown Cir.",
 ac:8.4,
@@ -343,23 +337,27 @@ d:`Neighborhood park with a picnic shelter, playground, and two tot swings. Quie
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Pagosa Park (~0.3 mi), Bellewood Park (~0.5 mi)`
 },
-{id:"co-aurora-expo-park",
+{id:"co-aurora-expo-park",park_type:"flagship",
 n:"Expo Park",
 a:"10955 E. Exposition Ave.",
 ac:57.3,
 lat:39.7055671,lng:-104.8603374,
 f:{tennis:1,playground:1,basketball:1,disc_golf:1,trails:1,shelter:1},
 photos:[],
-d:`Sports and nature in the same spot. An 18-hole disc golf course brings the older kids and adults. The lake area and playground have decent shade. Connects to both the High Line Canal Trail and Westerly Creek Trail, making it a great launch point for longer walks. Community rec center on site. Geese are regulars near the lake — watch your step.
+d:`Expo Park works because it gives families more range than a standard playground stop. You can show up for disc golf, a trail walk, lake views, playground time, tennis, basketball, or a casual mixed-age outing without feeling like the park only serves one type of visit. The 18-hole disc golf course is the standout feature, but the High Line Canal and Westerly Creek connections make this one of the better "decide when we get there" parks in central Aurora.
+
+It is also a useful crossover park when adults and kids want different things. The playground and lake-side shade help younger kids, while the course, courts, and trail access give older kids and adults more to do than hover around a play structure. This is a strong sponsor-fit page for coffee, lunch, and after-park treats near the Expo / Meadowood cluster.
 
 <strong>Features</strong>
 📍 57.3 acres 🥏 Disc Golf (18-hole) 🏃 Trail Access (High Line + Westerly Creek) 🌊 Lake 🛝 Playground 🎾 Tennis (4, lighted) 🏀 Basketball 🏈 Football Field 🐕 Leashed Dogs
 
 🏕️ <strong>Shelter:</strong> Reservable shelter available.
 
+🔗 <strong>Plan next:</strong> <a href="./city.html?dataset=aurora">Aurora city guide</a> · <a href="./parks.html?dataset=aurora&filter=trails">Aurora trail parks</a> · <a href="./park.html?dataset=aurora&id=co-aurora-meadowood-park">Meadowood Park</a>
+
 🗺️ <strong>Nearby (1–3 mi):</strong> Del Mar Park (~1.5 mi), Utah Park (~1 mi), Jewell Wetlands (~1 mi)`
 },
-{id:"co-aurora-fairplay-park",
+{id:"co-aurora-fairplay-park",park_type:"neighborhood",
 n:"Fairplay Park",
 a:"2200 N. Altura Blvd.",
 ac:1,
@@ -375,7 +373,7 @@ d:`Small neighborhood park with a playground, two tot swings, and a basketball h
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Moorhead Park (~0.5 mi), Apache Mesa Park (~1 mi)`
 },
-{id:"co-aurora-flanders-park",
+{id:"co-aurora-flanders-park",park_type:"neighborhood",
 n:"Flanders Park",
 a:"3051 S. Flanders St.",
 ac:3.1,
@@ -390,7 +388,7 @@ d:`Quiet neighborhood park with a playground, picnic shelter, and two tot swings
 🏕️ <strong>Shelter:</strong> Picnic shelter (non-reservable, first-come).
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Seven Hills Park (~0.5 mi), Meadowood Park (~1 mi)`
-},{id:"co-aurora-fletcher-park",
+},{id:"co-aurora-fletcher-park",park_type:"neighborhood",
 n:"Fletcher Park",
 a:"1100 N. Akron St.",
 ac:0.3,
@@ -407,7 +405,7 @@ d:`Tiny pocket park with a playground and one tot swing. Neighborhood green spac
 🗺️ <strong>Nearby (1–3 mi):</strong> Fairplay Park (~1 mi), Montview Park (~0.5 mi)`
 },
 
-{id:"co-aurora-fletcher-plaza",
+{id:"co-aurora-fletcher-plaza",park_type:"neighborhood",
 n:"Fletcher Plaza",
 a:"9800 E. Colfax Ave.",
 ac:0.3,
@@ -423,7 +421,7 @@ d:`Outdoor public plaza with a community garden. Urban, walkable, great for the 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> City Park (~0.5 mi), Fulton Park (~1 mi)`
 },
-{id:"co-aurora-freedom-park",
+{id:"co-aurora-freedom-park",park_type:"neighborhood",
 n:"Freedom Park",
 a:"13697 E. 13th Ave.",
 ac:0.2,
@@ -439,7 +437,7 @@ d:`Micro park — playground and two tot swings. Purely local neighborhood use.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Jewell Park (~0.5 mi), Canterbury Park (~1 mi)`
 },
-{id:"co-aurora-fulton-park",
+{id:"co-aurora-fulton-park",park_type:"flagship",
 n:"Fulton Park",
 a:"9920 E. 8th Ave.",
 ac:8.5,
@@ -455,7 +453,7 @@ d:`North Aurora neighborhood park with two baseball diamonds, basketball courts,
 
 🗺️ <strong>Nearby (1–3 mi):</strong> City Park (~1 mi), Fletcher Plaza (~1 mi)`
 },
-{id:"co-aurora-generals-park",
+{id:"co-aurora-generals-park",park_type:"neighborhood",
 n:"Generals Park",
 a:"1561 N. Quentin St.",
 ac:8.3,
@@ -471,7 +469,7 @@ d:`Solid neighborhood park with a playground, restroom, and two tot swings. The 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Moorhead Park (~0.5 mi), Fairplay Park (~1 mi)`
 },
-{id:"co-aurora-golden-eagle-park",
+{id:"co-aurora-golden-eagle-park",park_type:"neighborhood",
 n:"Golden Eagle Park",
 a:"23611 E. Plymouth Dr.",
 ac:5.2,
@@ -487,7 +485,7 @@ d:`Quiet suburban park with a playground, picnic shelter, restroom, and two tot 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Homestead Park (~1.5 mi), Red-Tailed Hawk Park (~2 mi)`
 },
-{id:"co-aurora-grandview-dog-park",
+{id:"co-aurora-grandview-dog-park",park_type:"dog_specialty",
 n:"Grandview Dog Park",
 a:"17500 E. Quincy Ave.",
 ac:5.7,
@@ -503,8 +501,8 @@ d:`This one’s for the dogs. Five-plus acres of off-leash space and one of the 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Quincy Reservoir (~1.5 mi), Red-Tailed Hawk Park (~2 mi)`
 },
-{id:"co-aurora-great-plains-park",n:"Great Plains Park",a:"20100 E. Jewell Ave.",ac:54.5,
-lat:39.6798577,lng:-104.7557324,f:{playground:1,basketball:1,baseball:1,soccer:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`The east Aurora summer go-to. The splash pad is the main draw — it cycles off for ~15 minutes at times, which oddly helps kids reset and actually play together. Six tot swings (the most in Aurora) make this a clutch spot for younger kids. Shade structures cover the play area, so you’re not baking while they run wild. Trails connect to Conservatory West and Powerline if you want to stretch it into a longer walk. If you slow down for a second, you might catch pronghorn, sheep, or even the guard donkeys along the Plains Conservation fence. Restrooms could use some love — plan accordingly.
+{id:"co-aurora-great-plains-park",park_type:"flagship",n:"Great Plains Park",a:"20100 E. Jewell Ave.",ac:54.5,
+lat:39.6798577,lng:-104.7557324,f:{playground:1,basketball:1,baseball:1,soccer:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`The summer go-to for families in east Aurora. The splash pad is the draw — parents report it randomly cycles off for ~15 minutes, which somehow makes kids socialize better. Six tot swings — the most in any Aurora park. Shade structures over the play area. Connects to the Conservatory West Trail and Powerline Trail. Locals report seeing pronghorn, sheep, and guard donkeys from the unpaved trail near the Plains Conservation fence. Restrooms could use improvement per recent reviews.
 
 <strong>Features</strong>
 📍 54.5 acres 💦 Splash Pad 🐣 6 Tot Swings 🌿 Trail Access (Conservatory West + Powerline) 🏀 Basketball ⚾ Baseball Diamond 🛝 Playground 🐕 Leashed Dogs 🅿️ Ample Parking 🦌 Wildlife Sightings
@@ -512,7 +510,7 @@ lat:39.6798577,lng:-104.7557324,f:{playground:1,basketball:1,baseball:1,soccer:1
 🏕️ <strong>Shelter:</strong> Reservable shelter with grill.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Soccer Skills Area (~0.2 mi), Switchgrass Park (~0.5 mi), Sagebrush Park (~1 mi), Plains Conservation Center (~1.5 mi)`},
-{id:"co-aurora-hampden-run-park",
+{id:"co-aurora-hampden-run-park",park_type:"neighborhood",
 n:"Hampden Run Park",
 a:"3501 S. Uravan St.",
 ac:1.4,
@@ -528,7 +526,7 @@ d:`Small park with a basic playground and one tot swing, but the real value is t
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Highland Hollows Park (~0.5 mi), Summer Valley Park (~1 mi)`
 },
-{id:"co-aurora-havana-heights-park",
+{id:"co-aurora-havana-heights-park",park_type:"neighborhood",
 n:"Havana Heights Park",
 a:"10901 E. Warren Ave.",
 ac:2.1,
@@ -544,7 +542,7 @@ d:`Small but active. You’ve got a playground, a basketball half court, and two
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Havana Heights Pond Park (~0.1 mi), Havana Park (~0.5 mi)`
 },
-{id:"co-aurora-havana-heights-pond-park",
+{id:"co-aurora-havana-heights-pond-park",park_type:"neighborhood",
 n:"Havana Heights Pond Park",
 a:"11050 E. Jewell Ave.",
 ac:2,
@@ -560,7 +558,7 @@ d:`This one’s quiet. No playground, no built features — just a pond and open
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Havana Heights Park (~0.1 mi), Jewell Wetlands (~2 mi)`
 },
-{id:"co-aurora-havana-park",
+{id:"co-aurora-havana-park",park_type:"neighborhood",
 n:"Havana Park",
 a:"10600 E. 11th Ave.",
 ac:4.1,
@@ -576,7 +574,7 @@ d:`Simple and reliable. Playground and two tot swings in a quiet neighborhood se
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Havana Heights Park (~0.5 mi), Country Lane Park (~1 mi)`
 },
-{id:"co-aurora-highland-hollows-park",
+{id:"co-aurora-highland-hollows-park",park_type:"flagship",
 n:"Highland Hollows Park",
 a:"1400 S. Uravan St.",
 ac:12.7,
@@ -592,7 +590,7 @@ d:`A well-rounded 12-acre park with basketball court, playground, reservable she
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Hampden Run Park (~0.5 mi), Summer Valley Park (~1 mi)`
 },
-{id:"co-aurora-highline-park-ballfields",
+{id:"co-aurora-highline-park-ballfields",park_type:"sports_park",
 n:"Highline Park & Ballfields",
 a:"70 N. Peoria St.",
 ac:30.9,
@@ -607,7 +605,7 @@ d:`Five baseball/softball diamonds, picnic shelter, playground, restroom, and tw
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Springhill Park (~0.5 mi), Sand Creek Park (~1 mi)`
 },
-{id:"co-aurora-hilltop-park",
+{id:"co-aurora-hilltop-park",park_type:"neighborhood",
 n:"Hilltop Park",
 a:"3242 S. Richfield St.",
 ac:8,
@@ -623,7 +621,7 @@ d:`Full and half-court basketball, two tennis courts, playground, reservable she
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Crestridge Park (~1 mi), Seven Hills Park (~1 mi)`
 },
-{id:"co-aurora-hoffman-park",
+{id:"co-aurora-hoffman-park",park_type:"flagship",
 n:"Hoffman Park",
 a:"12651 E. 7th Ave.",
 ac:11,
@@ -639,7 +637,7 @@ d:`Two baseball diamonds, basketball, futsal court, two reservable shelters, fou
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Del Mar Park (~1 mi), City Park (~0.5 mi)`
 },
-{id:"co-aurora-homestead-park",
+{id:"co-aurora-homestead-park",park_type:"neighborhood",
 n:"Homestead Park",
 a:"23945 E. Florida Ave.",
 ac:7.1,
@@ -655,7 +653,7 @@ d:`Horseshoe pits, picnic shelter, playground, restroom, soccer field, and two t
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Golden Eagle Park (~1.5 mi), Red-Tailed Hawk Park (~2 mi)`
 },
-{id:"co-aurora-hoops-park",
+{id:"co-aurora-hoops-park",park_type:"neighborhood",
 n:"Hoops Park",
 a:"16300 E. 6th Ave.",
 ac:1.4,
@@ -671,7 +669,7 @@ d:`Three basketball courts and a restroom. That's it — and that's enough. If y
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Centre Hills Park (~0.2 mi), CentrePointe Park (~0.2 mi)`
 },
-{id:"co-aurora-horizon-park",
+{id:"co-aurora-horizon-park",park_type:"neighborhood",
 n:"Horizon Park",
 a:"3901 S. Reservoir Rd.",
 ac:3.9,
@@ -687,7 +685,7 @@ d:`Two tennis courts and exercise stations. Adult-oriented park near the reservo
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Quincy Reservoir (~0.5 mi), Grandview Dog Park (~1.5 mi)`
 },
-{id:"co-aurora-horseshoe-park",
+{id:"co-aurora-horseshoe-park",park_type:"flagship",
 n:"Horseshoe Park",
 a:"2125 S. Kittredge Way",
 ac:10.6,
@@ -703,7 +701,7 @@ d:`A community favorite from the Aurora Reddit thread. Brand new playground, mul
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Cherry Creek Spillway (~0.5 mi), Olympic Neighborhood Park (~1 mi), Crestridge Park (~1 mi)`
 },
-{id:"co-aurora-jewell-park",
+{id:"co-aurora-jewell-park",park_type:"neighborhood",
 n:"Jewell Park",
 a:"12200 E. 13th Pl.",
 ac:1.2,
@@ -719,7 +717,7 @@ d:`Small, straightforward neighborhood park. Playground, basketball, and two tot
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Homestead Park (~1 mi), Tollgate Crossing Park (~1 mi)`
 },
-{id:"co-aurora-jewell-wetlands",n:"Jewell Wetlands",a:"13005 E. Jewell Ave.",ac:46.3,
+{id:"co-aurora-jewell-wetlands",park_type:"open_space",n:"Jewell Wetlands",a:"13005 E. Jewell Ave.",ac:46.3,
 lat:39.6830772,lng:-104.8368011,f:{trails:1,restroom:1},photos:[],d:`This is a different kind of park. No playground, no chaos — just 46 acres of boardwalks and quiet. If you need a reset, this is one of the best walks in Aurora. The boardwalk is stroller-friendly, birdwatching is legit, and it actually feels peaceful out there. Restrooms are on site. Go on a weekday morning if you can — that’s when it hits. Not built for kids who need to burn energy. Perfect if you’re slowing things down.
 
 <strong>Features</strong>
@@ -728,7 +726,7 @@ lat:39.6830772,lng:-104.8368011,f:{trails:1,restroom:1},photos:[],d:`This is a d
 🏕️ <strong>Shelter:</strong> No reservable shelter.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Utah Park (~0.5 mi), Expo Park (~1 mi), Carson Park (~1.5 mi)`},
-{id:"co-aurora-kalispell-park-ballfields",
+{id:"co-aurora-kalispell-park-ballfields",park_type:"sports_park",
 n:"Kalispell Park Ballfields",
 a:"15901 E. Pheasant Run Pkwy.",
 ac:6.3,
@@ -744,7 +742,7 @@ d:`This is strictly a ballfield. No playground, no extras — just a diamond and
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Pheasant Run Park (~0.3 mi), Wagon Trail Park (~0.5 mi)`
 },
-{id:"co-aurora-kestrel-point-natural-area",
+{id:"co-aurora-kestrel-point-natural-area",park_type:"open_space",
 n:"Kestrel Point Natural Area",
 a:"24407 E. Frost Dr.",
 ac:5,
@@ -760,7 +758,7 @@ d:`Five acres of natural open space with a walking path. No facilities. Quiet, u
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Homestead Park (~1 mi), Tollgate Crossing Park (~1 mi)`
 },
-{id:"co-aurora-kingsborough-park",
+{id:"co-aurora-kingsborough-park",park_type:"neighborhood",
 n:"Kingsborough Park",
 a:"1466 S. Idalia St.",
 ac:0.6,
@@ -776,7 +774,7 @@ d:`Tiny park with playground and Toll Gate Creek Trail access. The trail access 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Crestridge Park (~1 mi), Hilltop Park (~1 mi)`
 },
-{id:"co-aurora-la-parquita-park",
+{id:"co-aurora-la-parquita-park",park_type:"neighborhood",
 n:"La Parquita Park",
 a:"4040 S. Mission Pkwy.",
 ac:3.3,
@@ -792,7 +790,7 @@ d:`Two tennis courts and West Toll Gate Creek Trail access. Small but useful for
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Mission Viejo Park (~0.5 mi), Meadowood Park (~0.5 mi)`
 },
-{id:"co-aurora-larkspur-park",
+{id:"co-aurora-larkspur-park",park_type:"neighborhood",
 n:"Larkspur Park",
 a:"22551 E. Davies Dr.",
 ac:7,
@@ -808,7 +806,7 @@ d:`Reviewers consistently praise Larkspur for its extensive, well-maintained tra
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Red-Tailed Hawk Park (~1 mi), Aqua Vista Park (~1 mi)`
 },
-{id:"co-aurora-los-ninos-park",
+{id:"co-aurora-los-ninos-park",park_type:"neighborhood",
 n:"Los Ninos Park",
 a:"15800 E. Mansfield Dr.",
 ac:2.3,
@@ -824,7 +822,7 @@ d:`Small neighborhood park with playground and two tot swings. Good for toddlers
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Mountain View Park (~0.5 mi), Arapahoe Little League (~0.5 mi)`
 },
-{id:"co-aurora-lowry-park",
+{id:"co-aurora-lowry-park",park_type:"neighborhood",
 n:"Lowry Park",
 a:"1001 N. Dayton St.",
 ac:33.1,
@@ -840,7 +838,7 @@ d:`A neighborhood area with 33 acres, playground, sand volleyball, and an indoor
 
 🗺️ <strong>Nearby (1–3 mi):</strong> McMullen Park (~0.5 mi), Springhill Park (~2 mi)`
 },
-{id:"co-aurora-marina-park",
+{id:"co-aurora-marina-park",park_type:"sports_park",
 n:"Marina Park",
 a:"18025 E. Grand Ave.",
 ac:14.3,
@@ -857,7 +855,7 @@ d:`Fields. That’s the whole story. Two diamonds and a football field — this 
 🗺️ <strong>Nearby (1–3 mi):</strong> Wagon Trail Park (~0.5 mi), Pheasant Run Park (~0.5 mi)`
 },
 
-{id:"co-aurora-mcmullen-park",
+{id:"co-aurora-mcmullen-park",park_type:"neighborhood",
 n:"McMullen Park",
 a:"200 N. Dayton St.",
 ac:3.6,
@@ -874,24 +872,28 @@ d:`Small playground park right next to Lowry. On its own, it’s a quick stop. P
 🗺️ <strong>Nearby (1–3 mi):</strong> Lowry Park (~0.5 mi)`
 },
 
-{id:"co-aurora-meadowood-park",
+{id:"co-aurora-meadowood-park",park_type:"flagship",
 n:"Meadowood Park",
 a:"3054 S. Laredo St.",
 ac:10.7,
 lat:39.6605073,lng:-104.7981707,
 f:{tennis:1,playground:1,basketball:1,baseball:1,trails:1,restroom:1},
 photos:[],
-d:`This one’s built for movement. Tennis, basketball, baseball, playground, plus trail access — everyone can find something to do. Good for when the kids have energy and you don’t want to think too hard about it.
+d:`Meadowood is a strong "everyone can move" park. Tennis, basketball, baseball, playground space, restrooms, and West Toll Gate Creek Trail access sit close enough together that it works well for mixed-age groups who do not want to commit to one single activity. If you need a practical Aurora park that can absorb a lot of kid energy without requiring a giant destination outing, this is a reliable answer.
+
+It is less about one wow feature and more about utility. The restrooms help, the trail access keeps the outing from feeling boxed in, and the layout makes it easy to bounce between sports and play. Good for active weekdays, sibling groups, and families comparing the Expo / Meadowood area for repeat visits.
 
 <strong>Features</strong>
 📍 10.7 acres 🎾 Tennis (4, lighted) ⚾ Baseball 🏀 Basketball 🛝 Playground 🐣 2 Tot Swings 🏃 West Toll Gate Creek Trail 🚻 Restroom 🐕 Leashed Dogs
 
 🏕️ <strong>Shelter:</strong> No shelter.
 
+🔗 <strong>Plan next:</strong> <a href="./best-playgrounds-aurora.html">Best Aurora playgrounds</a> · <a href="./parks.html?dataset=aurora&filter=playground">Aurora playground map</a> · <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a>
+
 🗺️ <strong>Nearby (1–3 mi):</strong> La Parquita Park (~0.5 mi), Mission Viejo Park (~0.5 mi)`
 },
 
-{id:"co-aurora-mission-viejo-park",
+{id:"co-aurora-mission-viejo-park",park_type:"flagship",
 n:"Mission Viejo Park",
 a:"3999 S. Mission Pkwy.",
 ac:21.4,
@@ -908,7 +910,7 @@ d:`Big, clean, and always in use. Four baseball diamonds mean this place gets bu
 🗺️ <strong>Nearby (1–3 mi):</strong> Meadowood Park (~0.5 mi), La Parquita Park (~0.5 mi), Seven Hills Park (~1 mi)`
 },
 
-{id:"co-aurora-montview-park",
+{id:"co-aurora-montview-park",park_type:"neighborhood",
 n:"Montview Park",
 a:"1901 N. Chester St.",
 ac:8.9,
@@ -925,7 +927,7 @@ d:`This one’s got life to it. Multiple basketball courts, playground, and a co
 🗺️ <strong>Nearby (1–3 mi):</strong> Fletcher Park (~0.5 mi), Apache Mesa Park (~1 mi)`
 },
 
-{id:"co-aurora-moorhead-park",
+{id:"co-aurora-moorhead-park",park_type:"neighborhood",
 n:"Moorhead Park",
 a:"2390 N. Havana St.",
 ac:4.5,
@@ -941,7 +943,7 @@ d:`Playground, basketball, and a rec center on-site — that’s the difference 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Generals Park (~0.5 mi), Fairplay Park (~0.5 mi)`
 },
-{id:"co-aurora-mountain-view-park",
+{id:"co-aurora-mountain-view-park",park_type:"neighborhood",
 n:"Mountain View Park",
 a:"17200 E. Kentucky Ave.",
 ac:4.3,
@@ -958,7 +960,7 @@ d:`Quiet, scenic, and easy to like. Mountain views, varied terrain, and enough s
 🗺️ <strong>Nearby (1–3 mi):</strong> Arapahoe Little League (~0.5 mi), Los Ninos Park (~0.5 mi), CentrePointe Park (~1 mi)`
 },
 
-{id:"co-aurora-nome-park",
+{id:"co-aurora-nome-park",park_type:"neighborhood",
 n:"Nome Park",
 a:"1200 N. Nome St.",
 ac:0.8,
@@ -975,7 +977,7 @@ d:`Fun, but with a catch. The hillside slide and nature-themed play are legit hi
 🗺️ <strong>Nearby (1–3 mi):</strong> Canterbury Park (~1 mi), Fletcher Park (~0.5 mi)`
 },
 
-{id:"co-aurora-norfolk-glen-park",
+{id:"co-aurora-norfolk-glen-park",park_type:"neighborhood",
 n:"Norfolk Glen Park",
 a:"15800 E. 17th Pl.",
 ac:1.6,
@@ -992,7 +994,7 @@ d:`Small park, but the High Line Canal Trail is the reason you’re here. Playgr
 🗺️ <strong>Nearby (1–3 mi):</strong> Altura Park (~0.5 mi), Mountain View Park (~1 mi)`
 },
 
-{id:"co-aurora-olympic-neighborhood-park",
+{id:"co-aurora-olympic-neighborhood-park",park_type:"neighborhood",
 n:"Olympic Neighborhood Park",
 a:"15775 E. Yale Ave.",
 ac:5.3,
@@ -1009,7 +1011,7 @@ d:`Solid, no-drama park. Playground, shelter, restrooms, and trail access — ev
 🗺️ <strong>Nearby (1–3 mi):</strong> Horseshoe Park (~1 mi), Crestridge Park (~0.5 mi), Olympic Park Ballfields (~0.3 mi)`
 },
 
-{id:"co-aurora-olympic-park-ballfields",
+{id:"co-aurora-olympic-park-ballfields",park_type:"sports_park",
 n:"Olympic Park Ballfields",
 a:"15501 E. Yale Ave.",
 ac:26.1,
@@ -1026,7 +1028,7 @@ d:`Four diamonds. That tells you everything. This place is about games, not play
 🗺️ <strong>Nearby (1–3 mi):</strong> Olympic Neighborhood Park (~0.3 mi), Horseshoe Park (~1 mi)`
 },
 
-{id:"co-aurora-olympic-park-volleyball",
+{id:"co-aurora-olympic-park-volleyball",park_type:"neighborhood",
 n:"Olympic Park Volleyball",
 a:"2465 S. Wheel Park Cir.",
 ac:4.7,
@@ -1042,7 +1044,7 @@ d:`Niche setup. If you’re playing volleyball, this is perfect — reservable c
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Wheel Park (~0.3 mi), Horseshoe Park (~0.5 mi)`
 },
-{id:"co-aurora-pagosa-park",
+{id:"co-aurora-pagosa-park",park_type:"neighborhood",
 n:"Pagosa Park",
 a:"17201 E. Brown Cir.",
 ac:2.3,
@@ -1059,7 +1061,7 @@ d:`Simple and quiet. Playground and that’s about it. This is a “we just need
 🗺️ <strong>Nearby (1–3 mi):</strong> Eldorado Park (~0.3 mi), Bellewood Park (~0.5 mi)`
 },
 
-{id:"co-aurora-panorama-park",
+{id:"co-aurora-panorama-park",park_type:"neighborhood",
 n:"Panorama Park",
 a:"17400 E. Arizona Ave.",
 ac:4.3,
@@ -1076,7 +1078,7 @@ d:`Sneaky solid for mixed use. Playground for the kids, pickleball and tennis fo
 🗺️ <strong>Nearby (1–3 mi):</strong> Mountain View Park (~1 mi), Eldorado Park (~1 mi)`
 },
 
-{id:"co-aurora-parklane-park",
+{id:"co-aurora-parklane-park",park_type:"flagship",
 n:"Parklane Park",
 a:"13003 E. 30th Ave.",
 ac:4.2,
@@ -1093,7 +1095,7 @@ d:`Pool + trail combo is the move here. Summer days, you can bounce between wate
 🗺️ <strong>Nearby (1–3 mi):</strong> Cottonwood Park (~0.5 mi), Springhill Park (~1.5 mi)`
 },
 
-{id:"co-aurora-peoria-hills-park",
+{id:"co-aurora-peoria-hills-park",park_type:"neighborhood",
 n:"Peoria Hills Park",
 a:"12401 E. Florida Ave.",
 ac:9.5,
@@ -1109,7 +1111,7 @@ d:`Bigger than it looks, but still pretty quiet. Playground and open space witho
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Eagle Park (~1 mi), Crestridge Park (~1 mi)`
 },
-{id:"co-aurora-plains-conservation-center",
+{id:"co-aurora-plains-conservation-center",park_type:"open_space",
 n:"Plains Conservation Center",
 a:"21901 E. Hampden Ave.",
 ac:1182.5,
@@ -1127,7 +1129,7 @@ This is a planned outing park. Not a quick stop — you come here when you want 
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Pheasant Run Park (~2 mi), Great Plains Park (~3 mi)`
 },
-{id:"co-aurora-pheasant-run-park",
+{id:"co-aurora-pheasant-run-park",park_type:"flagship",
 n:"Pheasant Run Park",
 a:"14971 E. Pheasant Run Pkwy.",
 ac:4.6,
@@ -1144,7 +1146,7 @@ d:`Another strong summer setup. Pool, playground, and tennis — this is an easy
 🗺️ <strong>Nearby (1–3 mi):</strong> Kalispell Park (~0.3 mi), Wagon Trail Park (~0.5 mi)`
 },
 
-{id:"co-aurora-ponderosa-preserve",
+{id:"co-aurora-ponderosa-preserve",park_type:"open_space",
 n:"Ponderosa Preserve",
 a:"8150 S. Coolidge Way",
 ac:68.6,
@@ -1160,7 +1162,7 @@ d:`This isn’t a casual stop. No facilities, limited access — this is for whe
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Aurora Reservoir (~3 mi)`
 },
-{id:"co-aurora-pronghorn-natural-area",n:"Pronghorn Natural Area",a:"27800 E. Quincy Ave.",ac:848.4,
+{id:"co-aurora-pronghorn-natural-area",park_type:"open_space",n:"Pronghorn Natural Area",a:"27800 E. Quincy Ave.",ac:848.4,
 lat:39.6322096,lng:-104.6674266,f:{},photos:[],d:`Nearly 850 acres of undeveloped open space. No facilities. Limited access. This is for serious nature-seekers.
 
 The name isn’t just branding — pronghorn antelope have been spotted here. It’s not a typical family park, but it’s worth knowing about if you want true Colorado prairie without crowds.
@@ -1171,7 +1173,7 @@ The name isn’t just branding — pronghorn antelope have been spotted here. It
 🏕️ <strong>Shelter:</strong> No facilities. Access by special arrangement.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Quincy Reservoir (~2 mi), Aurora Reservoir (~3 mi)`},
-  {id:"co-aurora-quincy-reservoir",n:"Quincy Reservoir",a:"18350 E. Quincy Ave.",ac:288.7,
+  {id:"co-aurora-quincy-reservoir",park_type:"neighborhood",n:"Quincy Reservoir",a:"18350 E. Quincy Ave.",ac:288.7,
 lat:39.6322282,lng:-104.7638127,f:{fishing:1,trails:1,boating:1},photos:[],d:`This one’s for when you want space. Not a playground park — this is wide open, quiet, and a little slower. Big reservoir, gravel trails, and just enough going on to keep it interesting if you’re into fishing or birdwatching.
 
 If you’re bringing a stroller, it’ll work. Just know it’s packed gravel, not smooth pavement. Shade is limited, so don’t mess around with midday unless you like sweating through your shirt. Early morning or evening is where this place really hits.
@@ -1184,11 +1186,20 @@ No playground, so don’t bring kids expecting slides. This is more “let’s w
 🏕️ <strong>Shelter:</strong> No reservable shelter.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Aurora Reservoir (~2 mi), Grandview Dog Park (~1.5 mi)`},
-  {id:"co-aurora-red-tailed-hawk-park",n:"Red-tailed Hawk Park",a:"23701 E. Hinsdale Way",ac:35,
-lat:39.582314,lng:-104.7134901,f:{playground:1,baseball:1,volleyball:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:"This is the best all-abilities park in Aurora. Full stop. Everything here feels like it was built the right way. The rubberized surfaces, inclusive play structures, and wide layout make it work for kids of all abilities without feeling forced. It just works. The zipline is a standout, and the splash pad makes this an easy summer repeat park. What really separates it is range bocce courts, horseshoe pits, sand volleyball, and direct access to Piney Creek Trail give adults something to do too. This isn’t just a playground stop. Parking is easy, restrooms are plentiful, and the location near Southlands makes this an easy park + food + errands stop. When the kids aren’t ready to call it, you’ve got ice cream, shopping, and a movie just minutes away making this one of the easiest parks in Aurora to turn into a full-day outing."},
-  {id:"co-aurora-sagebrush-park",n:"Sagebrush Park",a:"4744 S. Evanston Way",ac:17.7,
+  {id:"co-aurora-red-tailed-hawk-park",park_type:"flagship",n:"Red-tailed Hawk Park",a:"23701 E. Hinsdale Way",ac:35,
+lat:39.582314,lng:-104.7134901,f:{playground:1,baseball:1,volleyball:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`This is the best all-abilities park in Aurora. Full stop. The rubberized surfaces, inclusive play structures, and wide layout make it work for kids of different abilities and ages without feeling like an afterthought. The zipline is a standout, the splash pad makes it an easy summer repeat stop, and the larger park layout gives families room to spread out instead of bunching around one playground.
+
+What really separates it is that adults and older kids have things to do too. Piney Creek Trail access, sand volleyball, bocce, horseshoes, and the broader open layout make this feel more like a true family outing park than a one-feature playground stop. Parking is easy, restrooms are solid, and the Southlands location makes this one of the easiest Aurora parks to turn into a park + treat stop + errands half-day.
+
+<strong>Features</strong>
+📍 35 acres ♿ Inclusive Playground 🛝 Large Play Structures 💦 Splash Pad ⚡ Zipline 🏐 Sand Volleyball 🥏 Bocce + Horseshoes 🏃 Piney Creek Trail Access 🚻 Restrooms 🏕️ Shelter
+
+🏕️ <strong>Shelter:</strong> Covered shelter for longer family stays.
+
+🗺️ <strong>Nearby (1–3 mi):</strong> Central Park (~1.5 mi), Appaloosa Park (~1.5 mi), Southlands shopping + treat stops (~1 mi)`},
+  {id:"co-aurora-sagebrush-park",park_type:"neighborhood",n:"Sagebrush Park",a:"4744 S. Evanston Way",ac:17.7,
 lat:39.6301748,lng:-104.8180993,f:{playground:1,shelter:1},photos:[],d:""},
-{id:"co-aurora-sand-creek-park",n:"Sand Creek Park",a:"2700 N. Peoria St.",ac:85.6,
+{id:"co-aurora-sand-creek-park",park_type:"neighborhood",n:"Sand Creek Park",a:"2700 N. Peoria St.",ac:85.6,
 lat:39.7558009,lng:-104.8407528,f:{trails:1},photos:[],d:`One of the most talked-about parks in Aurora’s Reddit community — locals call it a hidden gem over and over. The play mounds and hillside slide make the nature play feel intentional, not thrown together. It connects to the Sand Creek Greenway Trail if you want to stretch it into a longer walk.
 
 There’s a hopscotch pond tucked behind the hospitals at Peoria and Colfax. Shade is moderate. Spring and fall are the best times to hit this one.
@@ -1199,14 +1210,14 @@ There’s a hopscotch pond tucked behind the hospitals at Peoria and Colfax. Sha
 🏕️ <strong>Shelter:</strong> No reservable shelter. Coal Creek Arena (~0.5 mi) has parking and trail access nearby.
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Star K Ranch (~1 mi), Springhill Park (~1.5 mi), Coal Creek Arena (~0.5 mi)`},
-  {id:"co-aurora-sand-creek-riparian-preserve",n:"Sand Creek Riparian Preserve",a:"20809 E. 6th Ave.",ac:531.6,
+  {id:"co-aurora-sand-creek-riparian-preserve",park_type:"open_space",n:"Sand Creek Riparian Preserve",a:"20809 E. 6th Ave.",ac:531.6,
 lat:39.7558009,lng:-104.8407528,f:{trails:1},photos:[],d:""},
-  {id:"co-aurora-settlers-park",n:"Settlers Park",a:"14800 E. Walsh Dr.",ac:8,
+  {id:"co-aurora-settlers-park",park_type:"neighborhood",n:"Settlers Park",a:"14800 E. Walsh Dr.",ac:8,
 lat:39.7021341,lng:-104.8158233,f:{playground:1,basketball:1,restroom:1,shelter:1},photos:[],d:""},
-  {id:"co-aurora-seven-hills-park",n:"Seven Hills Park",a:"3000 S. Ceylon Way",ac:7,
+  {id:"co-aurora-seven-hills-park",park_type:"flagship",n:"Seven Hills Park",a:"3000 S. Ceylon Way",ac:7,
 lat:39.6617563,lng:-104.7640249,f:{pickleball:1,playground:1,baseball:1,soccer:1,trails:1},photos:[],d:""},
-  {id:"co-aurora-sidecreek-park",n:"Sidecreek Park",a:"19001 E. Colorado Dr.",ac:12.8,f:{tennis:1,playground:1,basketball:1,shelter:1},photos:[],d:""},
-{id:"co-aurora-singletree-park",
+  {id:"co-aurora-sidecreek-park",park_type:"flagship",n:"Sidecreek Park",a:"19001 E. Colorado Dr.",ac:12.8,f:{tennis:1,playground:1,basketball:1,shelter:1},photos:[],d:""},
+{id:"co-aurora-singletree-park",park_type:"neighborhood",
 n:"Singletree Park",
 a:"19590 E. 58th Ave.",
 ac:6.5,
@@ -1223,7 +1234,7 @@ d:`Solid all-around neighborhood park with a little extra. Playground, basketbal
 🗺️ <strong>Nearby (1–3 mi):</strong> Sidecreek Park (~1.5 mi)`
 },
 
-{id:"co-aurora-soccer-skills-area",
+{id:"co-aurora-soccer-skills-area",park_type:"neighborhood",
 n:"Soccer Skills Area",
 a:"20101 E. Hampden Ave.",
 ac:10.2,
@@ -1240,7 +1251,7 @@ d:`Built for soccer. Four fields and trail access — no extras, no distractions
 🗺️ <strong>Nearby (1–3 mi):</strong> Great Plains Park (~0.2 mi), Plains Conservation Center (~1 mi)`
 },
 
-{id:"co-aurora-spencer-garrett-park",
+{id:"co-aurora-spencer-garrett-park",park_type:"flagship",
 n:"Spencer Garrett Park",
 a:"11008 E. 17th Ave.",
 ac:6.4,
@@ -1256,9 +1267,20 @@ d:`Complete neighborhood park with a little personality. Playground, basketball,
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Cottonwood Park (~1 mi), Parklane Park (~0.5 mi)`
 },
-  {id:"co-aurora-sports-park",n:"Sports Park",a:"19300 E. Colfax Ave.",ac:249.8,
-lat:39.7349988,lng:-104.7613965,f:{playground:1,baseball:1,soccer:1,trails:1,restroom:1},photos:["images/park-photos/APS/IMG_9591.jpeg","images/park-photos/APS/IMG_0034.JPEG"],d:"Large sports complex with soccer fields, open space, and trails. Best for games, practices, and letting kids move between events."},
-{id:"co-aurora-springhill-park",
+  {id:"co-aurora-sports-park",park_type:"flagship",n:"Sports Park",a:"19300 E. Colfax Ave.",ac:249.8,
+lat:39.7349988,lng:-104.7613965,f:{playground:1,baseball:1,soccer:1,trails:1,restroom:1},photos:["images/park-photos/APS/IMG_9591.jpeg","images/park-photos/APS/IMG_0034.JPEG"],d:`Aurora Sports Park is built for bigger outing energy. Nearly 250 acres of soccer fields, baseball space, trails, restrooms, and open room make it one of the clearest Aurora pages for tournaments, practices, and "we have multiple kids doing different things" family logistics. This is not a tiny neighborhood stop. It is the kind of place where families can spend hours because the park was built to handle crowds and movement.
+
+The best use case is active family days, not a quiet playground-only stop. There is a playground and trail access, but the main value is how much space the park gives you to spread out between games, walks, and downtime. It is also one of the strongest sponsor-fit pages for family lunch, coffee, sports training, and quick post-game stops.
+
+<strong>Features</strong>
+📍 249.8 acres ⚽ Soccer Complex ⚾ Baseball Fields 🛝 Playground 🏃 Trails 🚻 Restrooms 🌿 Large Open Space 🅿️ Tournament-Scale Parking
+
+🏕️ <strong>Shelter:</strong> No reservable shelter noted in the current guide.
+
+🔗 <strong>Plan next:</strong> <a href="./city.html?dataset=aurora">Aurora city guide</a> · <a href="./parks.html?dataset=aurora&filter=soccer">Aurora soccer parks</a> · <a href="./best-parks-aurora.html">Best parks in Aurora</a>
+
+🗺️ <strong>Nearby (1–3 mi):</strong> Singletree Park (~2 mi), Wheel Park (~2 mi), Springhill Park (~3 mi)`},
+{id:"co-aurora-springhill-park",park_type:"flagship",
 n:"Springhill Park",
 a:"810 N. Telluride St.",
 ac:29.3,
@@ -1276,7 +1298,7 @@ Good for mixing things up — walk, play, swim, or just hang. This is one of tho
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Highline Park (~0.5 mi), Sand Creek Park (~1.5 mi), Cottonwood Grove (~1 mi)`
 },
-  {id:"co-aurora-star-k-ranch",n:"Star K Ranch",a:"16002 E. Smith Rd.",ac:242.5,
+  {id:"co-aurora-star-k-ranch",park_type:"neighborhood",n:"Star K Ranch",a:"16002 E. Smith Rd.",ac:242.5,
 lat:39.7486729,lng:-104.7985319,f:{trails:1,restroom:1,shelter:1},photos:[],d:`Home of Morrison Nature Center. Cottonwood trees bring real shade along the trails, and it connects to the Sand Creek Greenway. Aurora residents call it a hidden gem. What catches people off guard is how much wild nature it packs in, especially with the industrial area nearby.
 
 Great for a longer walk with the dog. Nature education programs run through the center, and there’s a picnic shelter on site.
@@ -1287,7 +1309,7 @@ Great for a longer walk with the dog. Nature education programs run through the 
 🏕️ <strong>Shelter:</strong> Picnic shelter (non-reservable, first-come).
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Sand Creek Park (~1 mi), Coal Creek Arena (~1.5 mi), Springhill Park (~1.5 mi)`},
-{id:"co-aurora-summer-valley-park",
+{id:"co-aurora-summer-valley-park",park_type:"neighborhood",
 n:"Summer Valley Park",
 a:"17400 E. Lehigh Pl.",
 ac:8.1,
@@ -1304,7 +1326,7 @@ d:`Solid neighborhood park with a little extra. Playground and trail access do m
 🗺️ <strong>Nearby (1–3 mi):</strong> Highland Hollows Park (~1 mi), Hampden Run Park (~1 mi)`
 },
 
-{id:"co-aurora-sunburst-park",
+{id:"co-aurora-sunburst-park",park_type:"neighborhood",
 n:"Sunburst Park",
 a:"4401 S. Memphis St.",
 ac:2.9,
@@ -1321,7 +1343,7 @@ d:`Small but punches way above its size. Splash pad, inclusive playground, shade
 🗺️ <strong>Nearby (1–3 mi):</strong> Blue Grama Grass Park (~1 mi), Sagebrush Park (~1 mi)`
 },
 
-{id:"co-aurora-sunrise-park",
+{id:"co-aurora-sunrise-park",park_type:"flagship",
 n:"Sunrise Park",
 a:"3960 S. Genoa Way",
 ac:23,
@@ -1338,7 +1360,7 @@ d:`Big, open, and not overcrowded. Playground, tennis, and plenty of space to sp
 🗺️ <strong>Nearby (1–3 mi):</strong> Seven Hills Park (~1 mi), Sagebrush Park (~1.5 mi)`
 },
 
-{id:"co-aurora-switchgrass-park",
+{id:"co-aurora-switchgrass-park",park_type:"neighborhood",
 n:"Switchgrass Park",
 a:"2675 S. Conservatory Pkwy.",
 ac:4.3,
@@ -1355,7 +1377,7 @@ d:`Small park, but the trail connection makes it useful. Playground and shelter 
 🗺️ <strong>Nearby (1–3 mi):</strong> Great Plains Park (~0.5 mi), Soccer Skills Area (~0.5 mi)`
 },
 
-{id:"co-aurora-terrace-park",
+{id:"co-aurora-terrace-park",park_type:"neighborhood",
 n:"Terrace Park",
 a:"18801 E. Montview Blvd.",
 ac:6,
@@ -1372,7 +1394,7 @@ d:`Reliable neighborhood setup. Playground, basketball, and a shelter — nothin
 🗺️ <strong>Nearby (1–3 mi):</strong> Sidecreek Park (~1 mi), Singletree Park (~1.5 mi)`
 },
 
-{id:"co-aurora-tierra-park",
+{id:"co-aurora-tierra-park",park_type:"neighborhood",
 n:"Tierra Park",
 a:"14777 E. Asbury Ave.",
 ac:14.3,
@@ -1389,7 +1411,7 @@ d:`Good size, simple setup. Playground and tennis give it just enough range, but
 🗺️ <strong>Nearby (1–3 mi):</strong> Rocky Ridge Park (~1 mi), Crestridge Park (~1.5 mi)`
 },
 
-{id:"co-aurora-toll-gate-park",
+{id:"co-aurora-toll-gate-park",park_type:"neighborhood",
 n:"Toll Gate Park",
 a:"751 S. Kalispell Way",
 ac:7.7,
@@ -1406,7 +1428,7 @@ d:`Another trail-connected stop. Playground and swings are fine, but the real mo
 🗺️ <strong>Nearby (1–3 mi):</strong> Kingsborough Park (~0.5 mi), Hilltop Park (~1 mi)`
 },
 
-{id:"co-aurora-tollgate-crossing-neighborhood-park",
+{id:"co-aurora-tollgate-crossing-neighborhood-park",park_type:"flagship",
 n:"Tollgate Crossing Neighborhood Park",
 a:"24600 E. Belleview Ave.",
 ac:5.5,
@@ -1423,7 +1445,7 @@ d:`Newer park with a little bit of everything — playground, fitness stations, 
 🗺️ <strong>Nearby (1–3 mi):</strong> Kestrel Point Natural Area (~1 mi), Homestead Park (~1.5 mi)`
 },
 
-{id:"co-aurora-traditions-neighborhood-park",
+{id:"co-aurora-traditions-neighborhood-park",park_type:"neighborhood",
 n:"Traditions Neighborhood Park",
 a:"100 S. Jackson Gap Way",
 ac:8.73,
@@ -1440,7 +1462,7 @@ d:`Good mix for older kids. Skate park, basketball, playground, and actual shade
 🗺️ <strong>Nearby (1–3 mi):</strong> Tollgate Crossing Neighborhood Park (~1.5 mi)`
 },
 
-{id:"co-aurora-triangle-park",
+{id:"co-aurora-triangle-park",park_type:"neighborhood",
 n:"Triangle Park",
 a:"1600 N. Espana St.",
 ac:4.5,
@@ -1457,7 +1479,7 @@ d:`Simple neighborhood park — playground and shelter, nothing more. This is a 
 🗺️ <strong>Nearby (1–3 mi):</strong> Montview Park (~0.5 mi), Apache Mesa Park (~0.5 mi)`
 },
 {
-  id:"co-aurora-utah-park",
+  id:"co-aurora-utah-park",park_type:"flagship",
 n:"Utah Park",
 a:"1800 S. Peoria St.",
 ac:46.5,
@@ -1470,34 +1492,42 @@ photos:[
   "images/utah-park/utah-park-16.jpg",
   "images/utah-park/utah-park-06.jpg"
 ],
-d:`Originally built for flood control, this is now one of Aurora’s most complete parks. A $5.8 million redesign added naturalized streambeds, ponds, and rolling terrain that make it feel more like a nature space than a utility project. Ten lighted tennis courts make it the city’s go-to tennis hub. You’ve also got an indoor pool, three baseball fields, new basketball courts, and direct access to Westerly Creek Trail. Heads up: geese are everywhere near the ponds.
+d:`One of Aurora's most versatile parks, and after April 2026 the pool makes it even more worth the trip. Utah Park at 46.5 acres packs in 3 baseball diamonds, 10 lighted tennis courts, a playground, a reservable shelter, and direct access to the Westerly Creek Trail — the kind of mix that works for a quick visit or a full afternoon. The tennis setup alone is unusual for a community park; most parks have two courts, not ten with lights and shade seating.
+
+The big news is the indoor pool. Utah Pool reopened April 6, 2026 after a full renovation: new liner, new filtration system, new water slide with a soft landing pad, leisure pool refresh, and repairs to cast-iron piping that dated back to the original 1974 construction. The rebuilt filtration system is expected to save around 200,000 gallons of water per year. The pool now includes a 25-meter main pool (8 lanes, diving boards), a leisure pool, and a zero-depth water playground for younger kids.
+
+Best for active families who want more than a playground — swim plus play, tennis plus trail walk, or just open space to move. Less of a "wow playground" destination and more of a deep community park that holds up across ages and seasons.
 
 <strong>Features</strong>
-📍 46.5 acres 🎾 Tennis (10, lighted) 🏀 Basketball (2) 🏊 Indoor Pool 🛝 Playground ⚾ Baseball (3) 🏃 Westerly Creek Trail 🌊 Ponds 🐕 Leashed Dogs 🅿️ Ample Parking 🐣 2 Tot Swings
+📍 46.5 acres 🛝 Playground 🏊 Indoor Pool (renovated 2026) 🎾 Tennis (10 lighted) ⚾ Baseball (3 diamonds) 🏃 Westerly Creek Trail access 🏕️ Reservable Shelter 🚻 Restrooms 🏀 Basketball
 
-🏕️ <strong>Shelter:</strong> Reservable shelter. Amplified sound permitted with Temporary Use Permit.
+🏕️ <strong>Shelter:</strong> Reservable shelter for longer family meetups.
 
-🗺️ <strong>Nearby (1–3 mi):</strong> Jewell Wetlands (~0.5 mi), Expo Park (~1 mi), Meadowood Park (~1 mi)`
+🗺️ <strong>Nearby (1–3 mi):</strong> Carson Park (~2 mi), Village Green Park (~1.5 mi), Del Mar Park (~2 mi)`
 },
 
-{id:"co-aurora-village-green-park",
+{id:"co-aurora-village-green-park",park_type:"flagship",
 n:"Village Green Park",
 a:"1300 S. Chambers Cir.",
 ac:8.2,
 lat:39.6927628,lng:-104.8141445,
 f:{playground:1,restroom:1,pool:1,tennis:1},
 photos:[],
-d:`This one checks a lot of boxes. Pool, playground, tennis, and a small center — it works for different ages and different plans. In the summer, the pool carries it. Easy place to spend a couple hours without overthinking it.
+d:`Village Green is one of the simpler Aurora parks to say yes to when you want a quick family stop with a little variety. The outdoor pool is the main summer draw, but the playground, tennis courts, restrooms, and small center make it work for more than one type of outing. It is not a giant destination park, but it does enough different things well that families can use it repeatedly without much planning.
+
+Best for lower-lift park days when you want pool access or a straightforward neighborhood-style stop that still has more going on than one play structure. This page also fits swim lessons, summer camps, and nearby family services because visitors are already thinking about warm-weather kid activity.
 
 <strong>Features</strong>
 📍 8.2 acres 🏊 Outdoor Pool 🎾 Tennis (2) 🛝 Playground 🚻 Restroom 🏛️ Small Center 🐕 Leashed Dogs
 
 🏕️ <strong>Shelter:</strong> No shelter.
 
+🔗 <strong>Plan next:</strong> <a href="./best-playgrounds-aurora.html">Best Aurora playgrounds</a> · <a href="./parks.html?dataset=aurora&filter=pool">Aurora parks with pools</a> · <a href="./park.html?dataset=aurora&id=co-aurora-utah-park">Utah Park</a>
+
 🗺️ <strong>Nearby (1–3 mi):</strong> DeLaney Farm (~1.5 mi), Cherry Creek Spillway (~0.5 mi)`
 },
 
-{id:"co-aurora-virginia-court-park",
+{id:"co-aurora-virginia-court-park",park_type:"neighborhood",
 n:"Virginia Court Park",
 a:"433 S. Troy St.",
 ac:5,
@@ -1514,7 +1544,7 @@ d:`Two baseball diamonds and that’s it. This is a you’re here for the game o
 🗺️ <strong>Nearby (1–3 mi):</strong> Fulton Park (~0.5 mi), City Park (~1 mi)`
 },
 
-{id:"co-aurora-wagon-trail-park",
+{id:"co-aurora-wagon-trail-park",park_type:"neighborhood",
 n:"Wagon Trail Park",
 a:"16550 E. Pheasant Run Pkwy.",
 ac:5.1,
@@ -1531,7 +1561,7 @@ d:`Simple neighborhood setup — playground and one tot swing. Nothing wrong wit
 🗺️ <strong>Nearby (1–3 mi):</strong> Pheasant Run Park (~0.3 mi), Kalispell Park (~0.5 mi)`
 },
 
-{id:"co-aurora-wheel-park",
+{id:"co-aurora-wheel-park",park_type:"flagship",
 n:"Wheel Park",
 a:"2500 S. Wheel Park Cir.",
 ac:25.3,
@@ -1548,7 +1578,7 @@ d:`This is Aurora’s action park. BMX, skate bowl, inline hockey — if your ki
 🗺️ <strong>Nearby (1–3 mi):</strong> Olympic Park Volleyball (~0.3 mi), Horseshoe Park (~0.5 mi)`
 },
 
-{id:"co-aurora-wheeling-park",
+{id:"co-aurora-wheeling-park",park_type:"sports_park",
 n:"Wheeling Park",
 a:"475 S. Potomac Way",
 ac:7.3,
@@ -1565,7 +1595,7 @@ d:`Old-school setup. Backstops, soccer field, and horseshoe pits — simple but 
 🗺️ <strong>Nearby (1–3 mi):</strong> Virginia Court Park (~0.5 mi), Jewell Park (~1 mi)`
 },
 
-{id:"co-aurora-willow-bend-park",
+{id:"co-aurora-willow-bend-park",park_type:"neighborhood",
 n:"Willow Bend Park",
 a:"20646 E. Eastman Ave.",
 ac:0.3,
@@ -1583,16 +1613,13 @@ d:`Tiny, but useful. Playground, shelter, and trail access — this is a greenwa
 },
 { n:"Apache Mesa Park", a:"710 N. Laredo St.", ac:3, f:{playground:1,restroom:1}, d:"A smaller neighborhood park with a playground and bathrooms for a quick local stop.", photos:[] },
 { n:"Arapahoe Little League Complex", a:"16900 E. Kentucky Ave.", ac:14, f:{baseball:1}, d:"A sports-focused complex built around baseball and practice time.", photos:[] },
-{ n:"Aurora Hills Golf Course", a:"50 S. Peoria St.", ac:148, f:{golf:1}, d:"A full-size golf course in central Aurora for an easy local round.", photos:[] },
+{ id:"co-aurora-aurora-hills-golf-course", park_type:"golf", n:"Aurora Hills Golf Course", a:"50 S. Peoria St.", ac:148, f:{golf:1}, d:"A full-size golf course in central Aurora for an easy local round.", photos:[] },
 { n:"Blue Grama Grass Park", a:"3323 S. Jericho Way", ac:1, f:{playground:1,shelter:1}, d:"A compact neighborhood park with a playground and shelter.", photos:[] },
-{ n:"Cottonwood Grove", a:"1500 S. Peoria St.", ac:0.3, f:{trails:1}, d:"A small open-space stop with trail access.", photos:[] },
-{ n:"Highline Park & Ballfields", a:"70 N. Peoria St.", ac:30.9, f:{playground:1,baseball:1,restroom:1,shelter:1}, d:"A larger park with ballfields, a playground, bathrooms, and a shelter for longer field-day visits.", photos:[] },
-{ n:"Meadow Hills Golf Course", a:"3609 S. Dawson St.", ac:134.1, f:{tennis:1,pool:1,golf:1,restroom:1}, d:"A golf course with extra recreation amenities like tennis, a pool, and bathrooms.", photos:[] },
-{ n:"Murphy Creek Golf Course", a:"1700 S. Old Tom Morris Rd.", ac:272.9, f:{golf:1}, d:"A larger golf course on Aurora's east side.", photos:[] },
+{ id:"co-aurora-meadow-hills-golf-course", park_type:"golf", n:"Meadow Hills Golf Course", a:"3609 S. Dawson St.", ac:134.1, f:{tennis:1,pool:1,golf:1,restroom:1}, d:"A golf course with extra recreation amenities like tennis, a pool, and bathrooms.", photos:[] },
+{ id:"co-aurora-murphy-creek-golf-course", park_type:"golf", n:"Murphy Creek Golf Course", a:"1700 S. Old Tom Morris Rd.", ac:272.9, f:{golf:1}, d:"A larger golf course on Aurora's east side.", photos:[] },
 { n:"Rocky Ridge Park", a:"16200 E. Mississippi Ave.", ac:13.3, f:{playground:1,basketball:1,restroom:1,shelter:1}, d:"A practical neighborhood park with a playground, basketball, bathrooms, and a shelter.", photos:[] },
-{ n:"Saddle Rock Golf Course", a:"21705 E. Arapahoe Rd.", ac:233.6, f:{golf:1}, d:"A south Aurora golf course with plenty of room to spread out.", photos:[] },
-{ n:"Sand Creek Riparian Preserve", a:"20809 E. 6th Ave.", ac:531.6, f:{trails:1}, d:"A quiet natural area with trail access and more of a preserve feel than a typical neighborhood park.", photos:[] },
-{ n:"Springhill Golf Course", a:"800 N. Telluride St.", ac:112.3, f:{golf:1}, d:"A local Aurora golf course for a straightforward round close to home.", photos:[] },
+{ id:"co-aurora-saddle-rock-golf-course", park_type:"golf", n:"Saddle Rock Golf Course", a:"21705 E. Arapahoe Rd.", ac:233.6, f:{golf:1}, d:"A south Aurora golf course with plenty of room to spread out.", photos:[] },
+{ id:"co-aurora-springhill-golf-course", park_type:"golf", n:"Springhill Golf Course", a:"800 N. Telluride St.", ac:112.3, f:{golf:1}, d:"A local Aurora golf course for a straightforward round close to home.", photos:[] },
 { n:"Upland Park", a:"2800 N. Walden St.", ac:1.4, f:{}, d:"A simple neighborhood green space for a quick stop nearby.", photos:[] },
 { n:"Village East Park", a:"1400 S. Moline St.", ac:5.9, f:{playground:1,baseball:1,trails:1}, d:"A neighborhood park with a playground, ballfield, and trail access.", photos:[] },
 ], {

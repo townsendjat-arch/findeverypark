@@ -15,7 +15,13 @@
   </url>
 
   <url>
-    <loc>https://findeverypark.com/events.html</loc>
+    <loc>https://findeverypark.com/events.html?city=aurora</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/this-weekend-aurora.html</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -45,12 +51,6 @@
   <url>
     <loc>https://findeverypark.com/city.html?dataset=lone-tree</loc>
     <priority>0.7</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-
-  <url>
-    <loc>https://findeverypark.com/top-parks.html</loc>
-    <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
 

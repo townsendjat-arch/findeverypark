@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>City Guide | Find Every Park Colorado</title>
-  <meta name="description" content="Explore city guides on Find Every Park Colorado with featured parks, trail picks, and browse links for Aurora and more Front Range cities.">
+  <link rel="manifest" href="/manifest.json">
+  <title>Aurora Parks Guide, Playgrounds & Trails | Find Every Park Colorado</title>
+  <meta name="description" content="Explore Aurora parks, playgrounds, trails, dog parks, and family favorites with a city guide built for fast local decisions and stronger park shortlists.">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/city.html?dataset=aurora">
   <meta property="og:type" content="website">
-  <meta property="og:title" id="og-title" content="Aurora Parks Map | Find Every Park Colorado">
-  <meta property="og:description" id="og-description" content="Find Aurora parks, playgrounds, trails, dog parks, and top local picks on Find Every Park Colorado.">
+  <meta property="og:title" id="og-title" content="Aurora Parks Guide, Playgrounds & Trails | Find Every Park Colorado">
+  <meta property="og:description" id="og-description" content="Explore Aurora parks, playgrounds, trails, dog parks, and family favorites with a city guide built for fast local decisions and stronger park shortlists.">
   <meta property="og:url" id="og-url" content="https://findeverypark.com/city.html?dataset=aurora">
   <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twitter-title" content="Aurora Parks Map | Find Every Park Colorado">
-  <meta name="twitter:description" id="twitter-description" content="Find Aurora parks, playgrounds, trails, dog parks, and top local picks on Find Every Park Colorado.">
+  <meta name="twitter:title" id="twitter-title" content="Aurora Parks Guide, Playgrounds & Trails | Find Every Park Colorado">
+  <meta name="twitter:description" id="twitter-description" content="Explore Aurora parks, playgrounds, trails, dog parks, and family favorites with a city guide built for fast local decisions and stronger park shortlists.">
   <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="growth-widgets.css">
   <style>
     :root {
       --grass: #0f6e56;
@@ -43,10 +45,10 @@
       flex-wrap: wrap;
     }
     .nav-brand {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       color: white;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 600;
       text-decoration: none;
       letter-spacing: -0.3px;
     }
@@ -143,7 +145,7 @@
       margin-bottom: 14px;
     }
     .city-hero h1 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(34px, 5vw, 58px);
       line-height: 0.96;
       letter-spacing: -0.05em;
@@ -217,9 +219,9 @@
       margin-bottom: 8px;
     }
     .hero-stat-value {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: 26px;
-      font-weight: 800;
+      font-weight: 600;
     }
     .hero-stat-copy {
       margin-top: 6px;
@@ -239,7 +241,7 @@
       margin-bottom: 14px;
     }
     .section-title {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: 24px;
       letter-spacing: -0.03em;
     }
@@ -376,7 +378,7 @@
       flex: 1;
     }
     .featured-title {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: 21px;
       line-height: 1.08;
       letter-spacing: -0.03em;
@@ -432,7 +434,7 @@
       box-shadow: 0 8px 20px rgba(20, 31, 23, 0.04);
     }
     .category-card h3 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Fraunces', serif;
       font-size: 18px;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
@@ -492,7 +494,7 @@
     .section-title,
     .featured-title,
     .category-card h3 {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
     .city-hero h1 {
       font-weight: 700;
@@ -505,39 +507,6 @@
     .featured-title,
     .category-card h3 {
       font-weight: 500;
-    }
-    .nav-brand,
-    .city-hero h1,
-    .section-title,
-    .featured-title,
-    .category-card h3,
-    .hero-stat-value {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .hero-btn.primary,
-    .city-pill.active {
-      background: var(--grass);
-      border-color: var(--grass);
-      color: var(--white);
-    }
-    .hero-btn.primary:hover { background: var(--grass-deep); }
-    .intent-link,
-    .featured-card,
-    .category-card,
-    .hero-stat {
-      background: var(--white);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-    .section-link,
-    .section-head-actions > a,
-    .community-callout a,
-    .text-btn,
-    .category-list a,
-    .city-switch-link {
-      color: var(--grass);
     }
   </style>
 </head>
@@ -560,7 +529,7 @@
       <a class="city-pill" data-dataset="parker" href="./city.html?dataset=parker">Parker</a>
       <a class="city-pill" data-dataset="lone-tree" href="./city.html?dataset=lone-tree">Lone Tree</a>
       <a class="city-pill" data-dataset="denver" href="./city.html?dataset=denver">Denver</a>
-      <a class="city-switch-link" id="top-picks-link" href="./best-parks.html?dataset=aurora">See city top picks</a>
+      <a class="city-switch-link" id="top-picks-link" href="./best-parks-aurora.html">See city top picks</a>
     </div>
 
     <section class="city-hero">
@@ -568,7 +537,7 @@
         <div>
           <span class="eyebrow" id="guide-eyebrow">Front Range City Guide</span>
           <h1 id="city-title">Aurora, Colorado</h1>
-          <p id="city-summary">Find playgrounds, trails, dog parks, splash pads, and open spaces across Aurora. Browse the map, filter by features, and start with the top picks below.</p>
+          <p id="city-summary">Find the best parks in Aurora for playground time, trail walks, splash-pad afternoons, dog stops, and everyday family outings. Start with the strongest picks below, then open the full map when you want more options.</p>
           <div class="hero-utility" id="hero-utility">
             <span class="hero-utility-pill" id="utility-count">0 parks shown</span>
             <span class="hero-utility-pill" id="utility-proof">Curated picks + full city map</span>
@@ -576,8 +545,9 @@
           </div>
           <div class="hero-actions">
             <a class="hero-btn primary" id="browse-link" href="./parks.html?dataset=aurora">Browse All Parks</a>
+            <a class="hero-btn secondary" id="weekend-link" href="./this-weekend-aurora.html">This Weekend</a>
             <a class="hero-btn secondary" id="trail-link" href="./parks.html?dataset=aurora&filter=trails">Trail Access</a>
-            <a class="hero-btn secondary" id="best-link" href="./best-parks.html?dataset=aurora">Best Parks</a>
+            <a class="hero-btn secondary" id="best-link" href="./best-parks-aurora.html">Best Parks</a>
             <a class="hero-btn secondary" id="playgrounds-link" href="./best-playgrounds-aurora.html">Best Playgrounds</a>
             <a class="hero-btn ghost" id="golf-link" href="./parks.html?dataset=aurora&filter=golf">Golf Courses</a>
           </div>
@@ -603,6 +573,13 @@
             <div class="hero-stat-copy" id="city-supporting"></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="city-growth-section">
+      <div class="growth-duo">
+        <div id="city-weekend-teaser"></div>
+        <div id="city-email-capture"></div>
       </div>
     </section>
 
@@ -641,6 +618,24 @@
       <div class="category-grid" id="category-grid"></div>
     </section>
 
+    <section class="section" id="aurora-link-paths" style="display:none;">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Keep Exploring Aurora</h2>
+          <p class="section-copy">Fast internal paths for families comparing the strongest Aurora park pages and sponsor-ready guide surfaces.</p>
+        </div>
+      </div>
+      <div class="category-list">
+        <a href="./parks.html?dataset=aurora">Aurora parks browse map</a>
+        <a href="./best-parks-aurora.html">Best parks in Aurora</a>
+        <a href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
+        <a href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a>
+        <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a>
+        <a href="./park.html?dataset=aurora&id=co-aurora-sports-park">Sports Park</a>
+        <a href="./this-weekend-aurora.html">This weekend in Aurora</a>
+      </div>
+    </section>
+
     <section class="community-callout">
       <p>Know a great park in Aurora we should add? Email <a id="community-email-link" href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
     </section>
@@ -658,6 +653,7 @@
   <script src="park-data-registry.js"></script>
   <script src="dataset-loader.js"></script>
   <script src="city-guides.js"></script>
+  <script src="growth-widgets.js"></script>
   <script>
     const DATASET_KEY = window.ACTIVE_DATASET_KEY || "aurora";
     const meta = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
@@ -756,8 +752,8 @@
         return "./park.html?" + search.toString();
       }
 
-      const pageTitle = meta.city + " Parks Map | " + meta.brandName;
-      const pageDescription = "Find " + meta.city + " parks, playgrounds, trails, dog parks, and top local picks on " + meta.brandName + ".";
+      const pageTitle = meta.city + " Parks Guide, Playgrounds & Trails | " + meta.brandName;
+      const pageDescription = "Find the best parks in " + meta.city + ", " + meta.stateName + " including playgrounds, trails, dog parks, splash pads, and top local family picks.";
       const canonicalUrl = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.title = pageTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", pageDescription);
@@ -768,7 +764,7 @@
       document.getElementById("twitter-title").setAttribute("content", pageTitle);
       document.getElementById("twitter-description").setAttribute("content", pageDescription);
       document.getElementById("guide-eyebrow").textContent = guide.eyebrow;
-      document.getElementById("city-title").textContent = meta.city + " Parks Map";
+      document.getElementById("city-title").textContent = meta.city + " Parks Guide";
       document.getElementById("feature-section-title").textContent = "Find Parks by Feature in " + meta.city;
       document.getElementById("city-summary").textContent = guide.summary;
       document.getElementById("city-total").textContent = parks.length.toLocaleString();
@@ -780,6 +776,7 @@
       document.getElementById("city-supporting").textContent = guide.supporting;
       document.getElementById("utility-count").textContent = parks.length.toLocaleString() + " parks shown";
       document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("weekend-link").href = DATASET_KEY === "aurora" ? "./this-weekend-aurora.html" : "./events.html?city=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
       document.getElementById("best-link").href = bestParksUrl;
       const playgroundGuideUrl = playgroundGuidePages[DATASET_KEY];
@@ -818,6 +815,10 @@
       document.querySelectorAll(".city-pill").forEach((pill) => {
         pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
       });
+      const auroraLinkPaths = document.getElementById("aurora-link-paths");
+      if (auroraLinkPaths) {
+        auroraLinkPaths.style.display = DATASET_KEY === "aurora" ? "" : "none";
+      }
 
       const featuredStrip = document.getElementById("featured-strip");
       featuredStrip.innerHTML = "";
@@ -880,6 +881,23 @@
           '<div class="category-list">' + links + '</div>';
         categoryGrid.appendChild(card);
       });
+
+      if (window.FEPGrowth && DATASET_KEY === "aurora") {
+        window.FEPGrowth.mountWeekendTeaser("#city-weekend-teaser", {
+          copy: "Open the Aurora weekend page for three easy park ideas plus the current Aurora events page."
+        });
+        window.FEPGrowth.mountEmailCapture("#city-email-capture", {
+          source: "aurora-city-guide",
+          copy: "Get three family park ideas for the weekend in Aurora without waiting for a bigger email system."
+        });
+      } else {
+        const cityGrowthSection = document.getElementById("city-growth-section");
+        const cityWeekendTeaser = document.getElementById("city-weekend-teaser");
+        const cityEmailCapture = document.getElementById("city-email-capture");
+        if (cityGrowthSection) cityGrowthSection.style.display = "none";
+        if (cityWeekendTeaser) cityWeekendTeaser.innerHTML = "";
+        if (cityEmailCapture) cityEmailCapture.innerHTML = "";
+      }
     }
 
     const datasetReadyPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();
@@ -890,5 +908,6 @@
         initializeCityGuide();
       });
   </script>
+  <script src="ios-install-banner.js"></script>
 </body>
 </html>
