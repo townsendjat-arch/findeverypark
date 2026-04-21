@@ -1,40 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- Background -->
-  <rect width="512" height="512" rx="112" fill="#0f6e56"/>
-
-  <!-- Pin white body -->
-  <ellipse cx="256" cy="218" rx="148" ry="148" fill="#ffffff"/>
-  <!-- Pin point -->
-  <polygon points="256,420 180,300 332,300" fill="#ffffff"/>
-  <!-- Scene background circle -->
-  <ellipse cx="256" cy="208" rx="124" ry="124" fill="#e8f4f0"/>
-
-  <!-- Ground -->
-  <ellipse cx="256" cy="300" rx="106" ry="22" fill="#1d9e75"/>
-
-  <!-- Tree left -->
-  <rect x="152" y="256" width="12" height="40" fill="#085041"/>
-  <ellipse cx="158" cy="248" rx="28" ry="32" fill="#085041"/>
-
-  <!-- Slide pole -->
-  <rect x="242" y="192" width="14" height="80" fill="#085041"/>
-  <!-- Slide ramp -->
-  <line x1="256" y1="210" x2="310" y2="290" stroke="#e8703a" stroke-width="14" stroke-linecap="round"/>
-
-  <!-- Swing frame top bar -->
-  <line x1="308" y1="190" x2="380" y2="190" stroke="#085041" stroke-width="7"/>
-  <line x1="308" y1="190" x2="308" y2="200" stroke="#085041" stroke-width="5"/>
-  <line x1="380" y1="190" x2="380" y2="200" stroke="#085041" stroke-width="5"/>
-  <!-- Swing ropes -->
-  <line x1="316" y1="200" x2="316" y2="262" stroke="#085041" stroke-width="3"/>
-  <line x1="332" y1="200" x2="332" y2="262" stroke="#085041" stroke-width="3"/>
-  <!-- Swing seat -->
-  <rect x="312" y="262" width="42" height="10" rx="5" fill="#085041"/>
-
-  <!-- Sun -->
-  <circle cx="348" cy="160" r="20" fill="#f5c842"/>
-
-  <!-- Small clouds -->
-  <ellipse cx="190" cy="170" rx="22" ry="12" fill="rgba(255,255,255,0.6)"/>
-  <ellipse cx="208" cy="164" rx="16" ry="10" fill="rgba(255,255,255,0.6)"/>
-</svg>
+{
+  "name": "Find Every Park",
+  "short_name": "Find Parks",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f0ede6",
+  "theme_color": "#0f6e56",
+  "icons": [
+    {
+      "src": "images/fep-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/fep-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
