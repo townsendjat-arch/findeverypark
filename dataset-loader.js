@@ -34,15 +34,35 @@
   window.PARK_SITE.defaultDataset = activeDataset;
 
   const scriptName = datasetScripts[activeDataset] || datasetScripts.aurora;
+
+  function setActiveParksGlobal(datasetKey, parks) {
+    const activeParks =
+      Array.isArray(parks) && parks.length
+        ? parks
+        : window.getParkDataset
+          ? window.getParkDataset(datasetKey)
+          : window.PARK_DATASETS && window.PARK_DATASETS[datasetKey];
+
+    if (Array.isArray(activeParks)) {
+      window.PARKS = activeParks;
+    }
+
+    return activeParks;
+  }
+
   const existingDataset = window.getParkDataset && window.getParkDataset(activeDataset);
   if (existingDataset && existingDataset.length) {
+    setActiveParksGlobal(activeDataset, existingDataset);
     window.DATASET_LOAD_PROMISE = Promise.resolve(existingDataset);
     return;
   }
 
   const existingScript = document.querySelector('script[data-dataset-key="' + activeDataset + '"]');
   if (existingScript) {
-    window.DATASET_LOAD_PROMISE = window.DATASET_LOAD_PROMISE || Promise.resolve();
+    window.DATASET_LOAD_PROMISE = window.DATASET_LOAD_PROMISE || new Promise((resolve, reject) => {
+      existingScript.addEventListener("load", () => resolve(setActiveParksGlobal(activeDataset)), { once: true });
+      existingScript.addEventListener("error", () => reject(new Error("Failed to load dataset script: " + scriptName)), { once: true });
+    });
     return;
   }
 
@@ -51,7 +71,7 @@
     script.src = scriptName;
     script.async = false;
     script.dataset.datasetKey = activeDataset;
-    script.onload = () => resolve(window.getParkDataset ? window.getParkDataset(activeDataset) : true);
+    script.onload = () => resolve(setActiveParksGlobal(activeDataset));
     script.onerror = () => reject(new Error("Failed to load dataset script: " + scriptName));
     document.body.appendChild(script);
   });

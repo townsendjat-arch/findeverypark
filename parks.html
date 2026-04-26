@@ -100,7 +100,7 @@
     .search-wrap { position: relative; flex: 1; min-width: 180px; }
     .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); opacity: 0.38; pointer-events: none; }
     #search { width: 100%; padding: 11px 14px 11px 36px; border: 1.5px solid #ddd; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 14px; background: rgba(240,237,232,0.72); outline: none; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s; }
-    #search:focus { border-color: var(--grass); background: var(--white); box-shadow: 0 0 0 4px rgba(61,107,74,0.08); }
+    #search:focus { border-color: var(--grass); background: var(--white); box-shadow: 0 0 0 4px rgba(15,110,86,0.08); }
     #sort { padding: 11px 34px 11px 13px; border: 1.5px solid #ddd; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 13px; background: rgba(240,237,232,0.72) url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' ke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 11px center; appearance: none; outline: none; cursor: pointer; }
     .filter-bar { max-width: 1100px; margin: 0 auto; padding: 0 20px 12px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
    .filter-bar { max-width: 1100px; margin: 0 auto; padding: 0 20px 12px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
@@ -149,8 +149,8 @@
 .filter-label { font-size: 11px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 0.07em; flex-shrink: 0; }
     .filter-label { font-size: 11px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 0.07em; flex-shrink: 0; }
     .pill { padding: 6px 12px; border-radius: 999px; border: 1px solid #ddd; background: rgba(255,255,255,0.86); font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.14s; white-space: nowrap; line-height: 1; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-    .pill:hover { border-color: rgba(61,107,74,0.35); color: var(--grass); transform: translateY(-1px); }
-    .pill.on { background: linear-gradient(135deg, var(--grass), #2e5238); border-color: var(--grass); color: var(--white); box-shadow: 0 10px 22px rgba(61,107,74,0.18); }
+    .pill:hover { border-color: rgba(15,110,86,0.35); color: var(--grass); transform: translateY(-1px); }
+    .pill.on { background: linear-gradient(135deg, var(--grass), #085041); border-color: var(--grass); color: var(--white); box-shadow: 0 10px 22px rgba(15,110,86,0.18); }
     .pill.reset {
       border: 1px solid rgba(176,120,72,0.28);
       background: rgba(255,247,241,0.96);
@@ -183,7 +183,7 @@
     .hero-actions { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
     .hero-clear-link[hidden] { display: none; }
     .hero-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .hero-stat { background: rgba(255,255,255,0.86); border: 1px solid rgba(255,255,255,0.8); border-radius: 18px; padding: 15px; box-shadow: 0 14px 28px rgba(61,107,74,0.08); }
+    .hero-stat { background: rgba(255,255,255,0.86); border: 1px solid rgba(255,255,255,0.8); border-radius: 18px; padding: 15px; box-shadow: 0 14px 28px rgba(15,110,86,0.08); }
     .hero-stat-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #7e8a82; margin-bottom: 8px; }
     .hero-stat-value { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; color: var(--ink); }
     .hero-stat-copy { font-size: 12px; color: #6d776f; margin-top: 6px; line-height: 1.45; }
@@ -222,7 +222,7 @@
     .top-pick-row.clickable:hover { transform: translateY(-1px); box-shadow: 0 12px 22px rgba(20,31,23,0.06); }
     .top-pick-top { display: flex; justify-content: space-between; align-items: start; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
     .top-pick-name { font-size: 17px; font-weight: 700; color: var(--ink); }
-    .top-pick-badge { padding: 5px 10px; border-radius: 999px; background: rgba(61,107,74,0.1); color: var(--grass); font-size: 11px; font-weight: 700; }
+    .top-pick-badge { padding: 5px 10px; border-radius: 999px; background: rgba(15,110,86,0.1); color: var(--grass); font-size: 11px; font-weight: 700; }
     .top-pick-copy-text { margin: 0; color: #5f6762; font-size: 13px; line-height: 1.55; }
     .top-pick-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
     .top-pick-link { color: var(--grass); text-decoration: none; font-size: 12px; font-weight: 700; }
@@ -255,15 +255,15 @@
     .addr svg { flex-shrink: 0; margin-top: 1px; opacity: 0.6; }
     .tags { display: flex; flex-wrap: wrap; gap: 5px; }
     .tag { font-size: 11px; padding: 4px 9px; border-radius: 999px; background: rgba(0,0,0,0.04); color: #596158; font-weight: 600; border: 1px solid rgba(228,221,212,0.92); }
-    .tag.hi { background: rgba(61,107,74,0.13); color: var(--grass); border-color: rgba(61,107,74,0.14); }
+    .tag.hi { background: rgba(15,110,86,0.13); color: var(--grass); border-color: rgba(15,110,86,0.14); }
     .tag.none { color: #ccc; font-style: italic; }
     .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 6px; }
-    .dir-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 10px; border-radius: 12px; background: linear-gradient(135deg, var(--grass), #2e5238); color: var(--white); border: none; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; transition: transform 0.14s, box-shadow 0.14s; box-shadow: 0 12px 22px rgba(61,107,74,0.18); }
-    .dir-btn:hover { transform: translateY(-1px); box-shadow: 0 16px 28px rgba(61,107,74,0.22); }
+    .dir-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 10px; border-radius: 12px; background: linear-gradient(135deg, var(--grass), #085041); color: var(--white); border: none; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; transition: transform 0.14s, box-shadow 0.14s; box-shadow: 0 12px 22px rgba(15,110,86,0.18); }
+    .dir-btn:hover { transform: translateY(-1px); box-shadow: 0 16px 28px rgba(15,110,86,0.22); }
     .city-btn { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.9); color: #596158; border: 1px solid #e0ddd8; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.14s; white-space: nowrap; min-width: 112px; }
     .city-btn:hover { border-color: var(--grass); color: var(--grass); }
     .match-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; white-space: nowrap; }
-    .match-badge.perfect { background: rgba(61,107,74,0.13); color: var(--grass); }
+    .match-badge.perfect { background: rgba(15,110,86,0.13); color: var(--grass); }
     .match-badge.partial { background: rgba(176,120,72,0.12); color: var(--earth); }
     .match-badge.none-match { background: rgba(0,0,0,0.05); color: #ccc; }
     .match-note { font-size: 12px; line-height: 1.45; color: #5f6762; font-weight: 600; }
@@ -287,7 +287,7 @@
     .leaflet-popup-content { font-family: 'Outfit', sans-serif; font-size: 13px; line-height: 1.5; min-width: 160px; }
     .leaflet-popup-content b { font-family: 'Fraunces', serif; font-size: 14px; display: block; margin-bottom: 3px; }
     .popup-acres { font-size: 11px; color: #aaa; }
-    .popup-visited { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 600; background: rgba(61,107,74,0.13); color: var(--grass); padding: 2px 8px; border-radius: 100px; }
+    .popup-visited { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 600; background: rgba(15,110,86,0.13); color: var(--grass); padding: 2px 8px; border-radius: 100px; }
     @media (max-width: 980px) {
       .page-hero { grid-template-columns: 1fr; }
       .hero-stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -555,124 +555,6 @@ const PLAYGROUND_GUIDE_PAGES = {
   denver: './best-playgrounds-denver.html'
 };
 
-const AURORA_COORDS_FALLBACK = Object.assign({
-  "Alta Vista Park": [39.690588,-104.791457],
-  "Altura Park": [39.742784,-104.813072],
-  "Anchor Point Park": [39.592131,-104.676356],
-  "Apache Mesa Park": [39.72773,-104.799267],
-  "Appaloosa Park": [39.614964,-104.707423],
-  "Aqua Vista Park": [39.628431,-104.7698],
-  "Arapahoe Little League Complex": [39.699921,-104.790377],
-  "Aurora Hills Golf Course": [39.717047,-104.836477],
-  "Aurora Reservoir": [39.594941,-104.661717],
-  "Bellewood Park": [39.62528,-104.785948],
-  "Bicentennial Park": [39.714069,-104.832475],
-  "Blue Grama Grass Park": [39.656322,-104.751684],
-  "Canterbury Park": [39.692003,-104.860246],
-  "Central Park": [39.5990278,-104.7795185],
-  "Carson Park": [39.641355,-104.82353],
-  "Centre Hills Park": [39.714523,-104.80067],
-  "CentrePointe Park": [39.702523,-104.793197],
-  "Cherry Creek Spillway": [39.662947,-104.818635],
-  "City Center Park": [39.71249,-104.816752],
-  "City Park": [39.742856,-104.874314],
-  "Coal Creek Arena": [39.72405,-104.751584],
-  "Cottonwood Park": [39.754091,-104.825453],
-  "Country Lane Park": [39.684745,-104.870806],
-  "Crestridge Park": [39.668023,-104.815967],
-  "Del Mar Park": [39.724436,-104.846784],
-  "DeLaney Farm": [39.713248,-104.805816],
-  "Eagle Park": [39.658242,-104.815445],
-  "Eldorado Park": [39.662606,-104.785521],
-  "Expo Park": [39.705567,-104.860337],
-  "Fairplay Park": [39.749457,-104.814135],
-  "Flanders Park": [39.661618,-104.758744],
-  "Fletcher Park": [39.733065,-104.883196],
-  "Fletcher Plaza": [39.739849,-104.873959],
-  "Freedom Park": [39.736317,-104.828513],
-  "Fulton Park": [39.728114,-104.872223],
-  "Generals Park": [39.74142,-104.845855],
-  "Golden Eagle Park": [39.589938,-104.713297],
-  "Grandview Dog Park": [39.636759,-104.784578],
-  "Great Plains Park": [39.679858,-104.755732],
-  "Hampden Run Park": [39.652712,-104.777687],
-  "Havana Heights Park": [39.67679,-104.861032],
-  "Havana Heights Pond Park": [39.681466,-104.859682],
-  "Havana Park": [39.732315,-104.863757],
-  "Highland Hollows Park": [39.691816,-104.776803],
-  "Hilltop Park": [39.655852,-104.78663],
-  "Hoffman Park": [39.728089,-104.841423],
-  "Homestead Park": [39.68995,-104.708268],
-  "Hoops Park": [39.724956,-104.798072],
-  "Horizon Park": [39.64534,-104.772435],
-  "Horseshoe Park": [39.679568,-104.800075],
-  "Jewell Park": [39.736668,-104.845475],
-  "Jewell Wetlands": [39.683077,-104.836801],
-  "Kalispell Park Ballfields": [39.631889,-104.803136],
-  "Kestrel Point Natural Area": [39.583631,-104.703013],
-  "Kingsborough Park": [39.689563,-104.806187],
-  "La Parquita Park": [39.643019,-104.796793],
-  "Larkspur Park": [39.589767,-104.725698],
-  "Los Ninos Park": [39.645483,-104.804967],
-  "Lowry Park": [39.731604,-104.877552],
-  "Marina Park": [39.627199,-104.779407],
-  "McMullen Park": [39.720009,-104.872917],
-  "Meadow Hills Golf Course": [39.64768,-104.82099],
-  "Meadowood Park": [39.660507,-104.798171],
-  "Mission Viejo Park": [39.646806,-104.797755],
-  "Montview Park": [39.745523,-104.880075],
-  "Moorhead Park": [39.751997,-104.865959],
-  "Mountain View Park": [39.699053,-104.787079],
-  "Murphy Creek Golf Course": [39.680419,-104.711844],
-  "Nome Park": [39.734064,-104.851523],
-  "Norfolk Glen Park": [39.746622,-104.804208],
-  "Olympic Neighborhood Park": [39.669435,-104.804601],
-  "Olympic Park Ballfields": [39.666749,-104.808591],
-  "Olympic Park Volleyball": [39.670335,-104.805318],
-  "Pagosa Park": [39.664834,-104.788167],
-  "Panorama Park": [39.693709,-104.786461],
-  "Parklane Park": [39.759814,-104.837669],
-  "Peoria Hills Park": [39.690863,-104.843266],
-  "Pheasant Run Park": [39.636701,-104.813993],
-  "Plains Conservation Center": [39.672398,-104.732622],
-  "Ponderosa Preserve": [39.568795,-104.700518],
-  "Pronghorn Natural Area": [39.63221,-104.667427],
-  "Quincy Reservoir": [39.632228,-104.763813],
-  "Red-tailed Hawk Park": [39.582314,-104.71349],
-  "Rocky Ridge Park": [39.695873,-104.799086],
-  "Saddle Rock Golf Course": [39.588199,-104.738403],
-  "Sagebrush Park": [39.630175,-104.818099],
-  "Sand Creek Park": [39.755801,-104.840753],
-  "Settlers Park": [39.702134,-104.815823],
-  "Seven Hills Park": [39.661756,-104.764025],
-  "Sidecreek Park": [39.684314,-104.764114],
-  "Singletree Park": [39.801454,-104.758465],
-  "Soccer Skills Area": [39.654008,-104.753898],
-  "Spencer Garrett Park": [39.743049,-104.860022],
-  "Sports Park": [39.734999,-104.761396],
-  "Springhill Golf Course": [39.732869,-104.779094],
-  "Springhill Park": [39.730395,-104.780852],
-  "Star K Ranch": [39.748673,-104.798532],
-  "Summer Valley Park": [39.6478,-104.784517],
-  "Sunburst Park": [39.635953,-104.799016],
-  "Sunrise Park": [39.642691,-104.757186],
-  "Switchgrass Park": [39.668404,-104.752372],
-  "Terrace Park": [39.748146,-104.768015],
-  "Tierra Park": [39.681325,-104.8148],
-  "Tollgate Crossing Neighborhood Park": [39.628145,-104.708543],
-  "Toll Gate Park": [39.702392,-104.804222],
-  "Traditions Neighborhood Park": [39.71534,-104.691805],
-  "Triangle Park": [39.742039,-104.759874],
-  "Upland Park": [39.756492,-104.775638],
-  "Utah Park": [39.683831,-104.842879],
-  "Village East Park": [39.691923,-104.85303],
-  "Village Green Park": [39.692763,-104.814144],
-  "Virginia Court Park": [39.705696,-104.840426],
-  "Wagon Trail Park": [39.631724,-104.795486],
-  "Wheel Park": [39.671393,-104.806083],
-  "Wheeling Park": [39.703522,-104.83104],
-  "Willow Bend Park": [39.657365,-104.74796],
-}, (window.PARK_COORDS && window.PARK_COORDS.aurora) || {});
 
 const VISITED_KEY = 'md_visited:' + DATASET_KEY;
 const FILTERS_KEY = 'parkFilters:' + DATASET_KEY;
@@ -883,7 +765,8 @@ parkMarkers[name] = marker;
 }
 
 function focusMapOnPark(name) {
-  const c = COORDS[name];
+  const park = allParks.find((item) => parkName(item) === name);
+  const c = park ? parkCoords(park) : COORDS[name];
   if (!c || !map) return;
   map.setView([c[0], c[1]], 15, { animate: true });
   document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -951,127 +834,6 @@ function updatePassport() {
   document.getElementById('passport-msg').textContent = msg;
 }
 
-const INLINE_AURORA_FALLBACK = [
-  {id:"co-aurora-alta-vista-park",n:"Alta Vista Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"16800 E. Idaho Cir.",ac:1.5,f:{},photos:[]},
-  {n:"Altura Park",a:"15100 E. 17th Ave.",ac:3.9,f:{playground:1,baseball:1},photos:[]},
-  {n:"Anchor Point Park",a:"6855 S. Robertsdale Way",ac:5,f:{playground:1,shelter:1},photos:[]},
-  {n:"Apache Mesa Park",a:"710 N. Laredo St.",ac:3,f:{playground:1,restroom:1},photos:[]},
-  {n:"Appaloosa Park",a:"5575 S. De Gaulle St.",ac:6.7,f:{playground:1,restroom:1,shelter:1},photos:[]},
-  {n:"Aqua Vista Park",a:"18700 E. Wagon Trail Cir.",ac:12.1,f:{tennis:1,playground:1,basketball:1,pool:1,shelter:1},photos:[]},
-  {n:"Arapahoe Little League Complex",a:"16900 E. Kentucky Ave.",ac:14,f:{baseball:1},photos:[]},
-  {n:"Aurora Hills Golf Course",a:"50 S. Peoria St.",ac:148,f:{golf:1},photos:[]},
-  {n:"Aurora Reservoir",a:"5800 S. Powhaton Rd.",ac:1861.5,f:{playground:1,fishing:1,trails:1,restroom:1,shelter:1,boating:1},photos:[]},
-  {n:"Bellewood Park",a:"17427 E. Bellewood Cir.",ac:2.2,f:{playground:1},photos:[]},
-  {n:"Bicentennial Park",a:"13655 E. Alameda Ave.",ac:35.3,f:{dog_park:1,shelter:1},photos:[]},
-  {n:"Blue Grama Grass Park",a:"3323 S. Jericho Way",ac:1,f:{playground:1,shelter:1},photos:[]},
-  {n:"Canterbury Park",a:"1400 S. Joliet St.",ac:7.4,f:{playground:1},photos:[]},
-  {n:"Carson Park",a:"14000 E. Oxford Pl.",ac:7.9,f:{playground:1},photos:[]},
-  {n:"Centre Hills Park",a:"16300 E. Centretech Pkwy.",ac:43.9,f:{disc_golf:1},photos:[]},
-  {n:"CentrePointe Park",a:"16298 E. Exposition Dr.",ac:24.5,f:{playground:1,shelter:1},photos:[]},
-  {n:"Cherry Creek Spillway",a:"2799 S. Chambers Rd.",ac:364.5,f:{trails:1},photos:[]},
-  {n:"City Center Park",a:"14701 E. Alameda Ave.",ac:8.5,f:{trails:1},photos:[]},
-  {n:"City Park",a:"9701 E. 16th Ave.",ac:5.3,f:{playground:1,basketball:1,skate:1},photos:[]},
-  {n:"Coal Creek Arena",a:"20255 E. 6th Ave.",ac:10,f:{trails:1},photos:[]},
-  {n:"Cottonwood Grove",a:"1500 S. Peoria St.",ac:0.3,f:{trails:1},photos:[]},
-  {n:"Cottonwood Park",a:"14000 E. 26th Ave.",ac:7.7,f:{playground:1,basketball:1,shelter:1},photos:[]},
-  {n:"Country Lane Park",a:"10055 E. Colorado Ave.",ac:4.3,f:{playground:1,basketball:1,restroom:1,shelter:1},photos:[]},
-  {n:"Crestridge Park",a:"14751 E. Yale Ave.",ac:2,f:{pickleball:1,playground:1,shelter:1},photos:[]},
-  {n:"Del Mar Park",a:"12000 E. 6th Ave.",ac:39.9,f:{tennis:1,playground:1,basketball:1,baseball:1,pool:1,volleyball:1,restroom:1,shelter:1},photos:[]},
-  {n:"DeLaney Farm",a:"170 S. Chambers Rd.",ac:113.8,f:{trails:1,garden:1},photos:[]},
-  {n:"Eagle Park",a:"14691 E. Floyd Ave.",ac:6.5,f:{playground:1,basketball:1},photos:[]},
-  {n:"Eldorado Park",a:"17206 E. Brown Cir.",ac:8.4,f:{playground:1,shelter:1},photos:[]},
-  {n:"Expo Park",a:"10955 E. Exposition Ave.",ac:57.3,f:{tennis:1,playground:1,basketball:1,baseball:1,disc_golf:1,trails:1},photos:[]},
-  {n:"Fairplay Park",a:"2200 N. Altura Blvd.",ac:1,f:{playground:1,basketball:1},photos:[]},
-  {n:"Flanders Park",a:"3051 S. Flanders St.",ac:3.1,f:{playground:1,trails:1,shelter:1},photos:[]},
-  {n:"Fletcher Park",a:"1100 N. Akron St.",ac:0.3,f:{playground:1},photos:[]},
-  {n:"Fletcher Plaza",a:"9800 E. Colfax Ave.",ac:0.3,f:{garden:1},photos:[]},
-  {n:"Freedom Park",a:"13697 E. 13th Ave.",ac:0.2,f:{playground:1},photos:[]},
-  {n:"Fulton Park",a:"9920 E. 8th Ave.",ac:8.5,f:{tennis:1,playground:1,basketball:1,baseball:1,garden:1},photos:[]},
-  {n:"Generals Park",a:"1561 N. Quentin St.",ac:8.3,f:{playground:1,restroom:1,shelter:1},photos:[]},
-  {n:"Golden Eagle Park",a:"23611 E. Plymouth Dr.",ac:5.2,f:{playground:1,restroom:1,shelter:1},photos:[]},
-  {n:"Grandview Dog Park",a:"17500 E. Quincy Ave.",ac:5.7,f:{dog_park:1},photos:[]},
-  {n:"Great Plains Park",a:"20100 E. Jewell Ave.",ac:54.5,f:{playground:1,basketball:1,baseball:1,soccer:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[]},
-  {n:"Hampden Run Park",a:"3501 S. Uravan St.",ac:1.4,f:{playground:1,trails:1},photos:[]},
-  {n:"Havana Heights Park",a:"10901 E. Warren Ave.",ac:2.1,f:{tennis:1,playground:1,basketball:1},photos:[]},
-  {n:"Havana Heights Pond Park",a:"11050 E. Jewell Ave.",ac:2,f:{},photos:[]},
-  {n:"Havana Park",a:"10600 E. 11th Ave.",ac:4.1,f:{playground:1},photos:[]},
-  {n:"Highland Hollows Park",a:"1400 S. Uravan St.",ac:12.7,f:{pickleball:1,playground:1,basketball:1,volleyball:1,shelter:1},photos:[]},
-  {n:"Highline Park & Ballfields",a:"70 N. Peoria St.",ac:30.9,f:{playground:1,baseball:1,restroom:1,shelter:1},photos:[]},
-  {n:"Hilltop Park",a:"3242 S. Richfield St.",ac:8,f:{tennis:1,playground:1,basketball:1,shelter:1},photos:[]},
-  {n:"Hoffman Park",a:"12651 E. 7th Ave.",ac:11,f:{playground:1,basketball:1,baseball:1,shelter:1},photos:[]},
-  {n:"Homestead Park",a:"23945 E. Florida Ave.",ac:7.1,f:{playground:1,soccer:1,restroom:1,shelter:1},photos:[]},
-  {n:"Hoops Park",a:"16300 E. 6th Ave.",ac:1.4,f:{basketball:1,restroom:1},photos:[]},
-  {n:"Horizon Park",a:"3901 S. Reservoir Rd.",ac:3.9,f:{tennis:1},photos:[]},
-  {n:"Horseshoe Park",a:"2125 S. Kittredge Way",ac:10.6,f:{playground:1,baseball:1,trails:1,restroom:1},photos:[]},
-  {n:"Jewell Park",a:"12200 E. 13th Pl.",ac:1.2,f:{playground:1,basketball:1},photos:[]},
-  {n:"Jewell Wetlands",a:"13005 E. Jewell Ave.",ac:46.3,f:{trails:1,restroom:1},photos:[]},
-  {n:"Kalispell Park Ballfields",a:"15901 E. Pheasant Run Pkwy.",ac:6.3,f:{baseball:1},photos:[]},
-  {n:"Kestrel Point Natural Area",a:"24407 E. Frost Dr.",ac:5,f:{trails:1},photos:[]},
-  {n:"Kingsborough Park",a:"1466 S. Idalia St.",ac:0.6,f:{playground:1,trails:1},photos:[]},
-  {n:"La Parquita Park",a:"4040 S. Mission Pkwy.",ac:3.3,f:{tennis:1,trails:1},photos:[]},
-  {n:"Larkspur Park",a:"22551 E. Davies Dr.",ac:7,f:{playground:1,trails:1,restroom:1,shelter:1},photos:[]},
-  {n:"Los Ninos Park",a:"15800 E. Mansfield Dr.",ac:2.3,f:{playground:1},photos:[]},
-  {n:"Lowry Park",a:"1001 N. Dayton St.",ac:33.1,f:{playground:1,volleyball:1,shelter:1},photos:[]},
-  {n:"Marina Park",a:"18025 E. Grand Ave.",ac:14.3,f:{baseball:1},photos:[]},
-  {n:"McMullen Park",a:"200 N. Dayton St.",ac:3.6,f:{playground:1},photos:[]},
-  {n:"Meadow Hills Golf Course",a:"3609 S. Dawson St.",ac:134.1,f:{tennis:1,pool:1,golf:1,restroom:1},photos:[]},
-  {n:"Meadowood Park",a:"3054 S. Laredo St.",ac:10.7,f:{tennis:1,playground:1,basketball:1,baseball:1,trails:1,restroom:1},photos:[]},
-  {id:"co-aurora-mission-viejo-park",n:"Mission Viejo Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"3999 S. Mission Pkwy.",ac:21.4,f:{playground:1,baseball:1,trails:1,restroom:1,shelter:1},photos:[]},
-{id:"co-aurora-montview-park",n:"Montview Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"1901 N. Chester St.",ac:8.9,f:{playground:1,basketball:1,shelter:1,garden:1},photos:[]},
- {id:"co-aurora-moorhead-park",n:"Moorhead Park",city:"Aurora",state:"CO",stateName:"Colorado",a:"2390 N. Havana St.",ac:4.5,f:{playground:1,basketball:1,shelter:1},photos:[]},
-  {n:"Mountain View Park",a:"17200 E. Kentucky Ave.",ac:4.3,f:{playground:1,restroom:1,shelter:1},photos:[]},
-  {n:"Murphy Creek Golf Course",a:"1700 S. Old Tom Morris Rd.",ac:272.9,f:{golf:1},photos:[]},
-  {n:"Nome Park",a:"1200 N. Nome St.",ac:0.8,f:{playground:1,garden:1},photos:[]},
-  {n:"Norfolk Glen Park",a:"15800 E. 17th Pl.",ac:1.6,f:{playground:1,trails:1,shelter:1},photos:[]},
-  {n:"Olympic Neighborhood Park",a:"15775 E. Yale Ave.",ac:5.3,f:{playground:1,trails:1,restroom:1,shelter:1},photos:[]},
-  {n:"Olympic Park Ballfields",a:"15501 E. Yale Ave.",ac:26.1,f:{baseball:1,trails:1,restroom:1},photos:[]},
-  {n:"Olympic Park Volleyball",a:"2465 S. Wheel Park Cir.",ac:4.7,f:{volleyball:1,trails:1,restroom:1,shelter:1},photos:[]},
-  {n:"Pagosa Park",a:"17201 E. Brown Cir.",ac:2.3,f:{playground:1},photos:[]},
-  {n:"Panorama Park",a:"16300 E. Mississippi Ave.",ac:4.3,f:{pickleball:1,tennis:1,playground:1},photos:[]},
-  {n:"Parklane Park",a:"13003 E. 30th Ave.",ac:4.2,f:{pool:1,trails:1,shelter:1},photos:[]},
-  {n:"Peoria Hills Park",a:"12401 E. Florida Ave.",ac:9.5,f:{playground:1},photos:[]},
-  {n:"Pheasant Run Park",a:"14971 E. Pheasant Run Pkwy.",ac:4.6,f:{tennis:1,playground:1,pool:1},photos:[]},
-  {n:"Plains Conservation Center",a:"21901 E. Hampden Ave.",ac:1182.5,f:{trails:1,restroom:1},photos:[]},
-  {n:"Ponderosa Preserve",a:"8150 S. Coolidge Way",ac:68.6,f:{},photos:[]},
-  {n:"Pronghorn Natural Area",a:"27800 E. Quincy Ave.",ac:848.4,f:{},photos:[]},
-  {n:"Quincy Reservoir",a:"18350 E. Quincy Ave.",ac:288.7,f:{fishing:1,trails:1,boating:1},photos:[]},
-  {n:"Red-tailed Hawk Park",a:"23701 E. Hinsdale Way",ac:35,f:{playground:1,baseball:1,volleyball:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[]},
-  {n:"Rocky Ridge Park",a:"16200 E. Mississippi Ave.",ac:13.3,f:{playground:1,basketball:1,restroom:1,shelter:1},photos:[]},
-  {n:"Saddle Rock Golf Course",a:"21705 E. Arapahoe Rd.",ac:233.6,f:{golf:1},photos:[]},
-  {n:"Sagebrush Park",a:"4744 S. Evanston Way",ac:17.7,f:{playground:1,shelter:1},photos:[]},
-  {n:"Sand Creek Park",a:"2700 N. Peoria St.",ac:85.6,f:{trails:1},photos:[]},
-  {n:"Sand Creek Riparian Preserve",a:"20809 E. 6th Ave.",ac:531.6,f:{trails:1},photos:[]},
-  {n:"Settlers Park",a:"14800 E. Walsh Dr.",ac:8,f:{playground:1,basketball:1,restroom:1,shelter:1},photos:[]},
-  {n:"Seven Hills Park",a:"3000 S. Ceylon Way",ac:7,f:{pickleball:1,playground:1,baseball:1,soccer:1,trails:1},photos:[]},
-  {n:"Sidecreek Park",a:"19001 E. Colorado Dr.",ac:12.8,f:{tennis:1,playground:1,basketball:1,shelter:1},photos:[]},
-  {n:"Singletree Park",a:"19590 E. 58th Ave.",ac:6.5,f:{playground:1,basketball:1,dog_park:1,shelter:1},photos:[]},
-  {n:"Soccer Skills Area",a:"20101 E. Hampden Ave.",ac:10.2,f:{soccer:1,trails:1},photos:[]},
-  {n:"Spencer Garrett Park",a:"11008 E. 17th Ave.",ac:6.4,f:{playground:1,basketball:1,restroom:1,shelter:1,garden:1},photos:[]},
-  {n:"Sports Park",a:"19300 E. Colfax Ave.",ac:249.8,f:{playground:1,baseball:1,soccer:1,trails:1,restroom:1},photos:[]},
-  {n:"Springhill Golf Course",a:"800 N. Telluride St.",ac:112.3,f:{golf:1},photos:[]},
-  {n:"Springhill Park",a:"810 N. Telluride St.",ac:29.3,f:{playground:1,pool:1,trails:1,shelter:1},photos:[]},
-  {n:"Star K Ranch",a:"16002 E. Smith Rd.",ac:242.5,f:{trails:1,restroom:1,shelter:1},photos:[]},
-  {n:"Summer Valley Park",a:"17400 E. Lehigh Pl.",ac:8.1,f:{playground:1,trails:1},photos:[]},
-  {n:"Sunburst Park",a:"4401 S. Memphis St.",ac:2.9,f:{playground:1,restroom:1,shelter:1},photos:[]},
-  {n:"Sunrise Park",a:"3960 S. Genoa Way",ac:23,f:{tennis:1,playground:1,restroom:1,shelter:1},photos:[]},
-  {n:"Switchgrass Park",a:"2675 S. Conservatory Pkwy.",ac:4.3,f:{playground:1,trails:1,shelter:1},photos:[]},
-  {n:"Terrace Park",a:"18801 E. Montview Blvd.",ac:6,f:{playground:1,basketball:1,shelter:1},photos:[]},
-  {n:"Tierra Park",a:"14777 E. Asbury Ave.",ac:14.3,f:{tennis:1,playground:1},photos:[]},
-  {n:"Tollgate Crossing Neighborhood Park",a:"24600 E. Belleview Ave.",ac:5.5,f:{pickleball:1,tennis:1,playground:1,trails:1,shelter:1},photos:[]},
-  {n:"Toll Gate Park",a:"751 S. Kalispell Way",ac:7.7,f:{playground:1,trails:1},photos:[]},
-  {n:"Traditions Neighborhood Park",a:"100 S. Jackson Gap Way",ac:8.73,f:{playground:1,basketball:1,skate:1,shelter:1},photos:[]},
-  {n:"Triangle Park",a:"1600 N. Espana St.",ac:4.5,f:{playground:1,shelter:1},photos:[]},
-  {n:"Upland Park",a:"2800 N. Walden St.",ac:1.4,f:{},photos:[]},
-  {n:"Utah Park",a:"1800 S. Peoria St.",ac:46.5,f:{tennis:1,playground:1,baseball:1,pool:1,trails:1,restroom:1,shelter:1},photos:[]},
-  {n:"Village East Park",a:"1400 S. Moline St.",ac:5.9,f:{playground:1,baseball:1,trails:1},photos:[]},
-  {n:"Village Green Park",a:"1300 S. Chambers Cir.",ac:8.2,f:{tennis:1,playground:1,pool:1,restroom:1},photos:[]},
-  {n:"Virginia Court Park",a:"433 S. Troy St.",ac:5,f:{baseball:1},photos:[]},
-  {n:"Wagon Trail Park",a:"16550 E. Pheasant Run Pkwy.",ac:5.1,f:{playground:1},photos:[]},
-  {n:"Wheel Park",a:"2500 S. Wheel Park Cir.",ac:25.3,f:{trails:1,restroom:1,shelter:1,skate:1},photos:[]},
-  {n:"Wheeling Park",a:"475 S. Potomac Way",ac:7.3,f:{baseball:1,soccer:1},photos:[]},
-  {n:"Willow Bend Park",a:"20646 E. Eastman Ave.",ac:0.3,f:{playground:1,trails:1,shelter:1},photos:[]},
-].map(park => window.normalizePark ? window.normalizePark(park, 'aurora') : park);
-
 let allParks = [];
 let visibleParks = [];
 const pageIntroTitleEl = document.getElementById('page-intro-title');
@@ -1089,9 +851,7 @@ function applyDatasetContext() {
   CITY = DATASET_META.city;
   STATE = DATASET_META.state;
   const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {};
-  COORDS = DATASET_KEY === 'aurora'
-    ? Object.assign({}, AURORA_COORDS_FALLBACK, datasetCoords)
-    : datasetCoords;
+  COORDS = datasetCoords;
 
   document.title = "Parks Finder — " + DATASET_META.brandName;
   document.querySelectorAll('.dataset-link').forEach((link) => {
@@ -1539,8 +1299,6 @@ let list = allParks.map((p, origIdx) => {
   return { ...p, score, matchSearch, origIdx, dist };
 }).filter(p => p.matchSearch && (!af.length || p.score === af.length));
 
-  console.log('visibleParks datasets:', [...new Set(list.map(p => p.datasetKey || DATASET_KEY))]);
-
   if (af.length) {
     if (intentFilterKey) {
       list.sort((a, b) => {
@@ -1686,7 +1444,7 @@ function getDatasetParksForView() {
     return cityParks;
   }
 
-  return DATASET_KEY === 'aurora' ? INLINE_AURORA_FALLBACK : [];
+  return [];
 }
 
 function initializeParksView() {
