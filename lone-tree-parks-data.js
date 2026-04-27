@@ -21,6 +21,15 @@
 
   const loneTree_supplementalParks = [
     {
+      id: "co-lone-tree-sweetwater-park", park_type: "neighborhood",
+      n: "Sweetwater Park",
+      lat: 39.5534,
+      lng: -104.8956,
+      coords_status: "approx",
+      f: {},
+      d: `A hidden gem that earns its reputation. Well-maintained playground for kids 2–10, shaded pavilion with picnic tables, baseball field, and grassy open space. No restrooms on site, so plan accordingly — but there is a water fountain with a dog spout and pet waste bags. The paved trail connects to tennis courts and Cook Creek Pool, making it a solid quick stop or a longer outing if you tack on the trail. Coyotes are active in this area, heads up.`
+    },
+    {
       id: "co-lone-tree-prairie-sky-park", park_type: "flagship",
       n: "Prairie Sky Park",
       lat: 39.53,
@@ -41,6 +50,33 @@
       restroom_details: "Porta-potty",
       amenity_summary: "Hidden park, trail access",
       d: "A quieter park with trail access and a porta-potty."
+    },
+    {
+      id: "co-lone-tree-promenade-park", park_type: "neighborhood",
+      n: "Promenade Park",
+      lat: 39.5309,
+      lng: -104.8802,
+      coords_status: "approx",
+      f: {},
+      d: "A central Lone Tree park that is easy to pair with nearby stops."
+    },
+    {
+      id: "co-lone-tree-lincoln-commons-park", park_type: "neighborhood",
+      n: "Lincoln Commons Park",
+      lat: 39.5405,
+      lng: -104.8703,
+      coords_status: "approx",
+      f: {},
+      d: "A neighborhood park for a quick break outside in Lone Tree."
+    },
+    {
+      id: "co-lone-tree-the-park-at-lone-tree-elementary", park_type: "neighborhood",
+      n: "The Park at Lone Tree Elementary",
+      lat: 39.5358,
+      lng: -104.8848,
+      coords_status: "approx",
+      f: {},
+      d: "A school-adjacent park space that can work for a short local visit."
     },
     {
       id: "co-lone-tree-cook-creek-park", park_type: "flagship",
@@ -85,6 +121,15 @@
       d: `A creative neighborhood park with a couple of details that make it worth the stop. Musical play instruments and a butterfly garden give it more character than your average playground. Tucked behind Kohl's on Peacock Drive — easy to miss but worth finding. Sports fields, walking trails, and a playground round it out. Quiet and clean, good for bikes and dog walks. The kind of park that doesn't show up on lists but locals know it.`
     },
     {
+      id: "co-lone-tree-carriage-club-estates-park", park_type: "neighborhood",
+      n: "Carriage Club Estates Park",
+      lat: 39.5505,
+      lng: -104.9129,
+      coords_status: "approx",
+      f: {},
+      d: "A neighborhood green space for a quick outdoor stop."
+    },
+    {
       id: "co-lone-tree-fairways-park", park_type: "neighborhood",
       n: "Fairways Park",
       lat: 39.54,
@@ -117,6 +162,15 @@
       amenity_summary: "Fully ADA accessible, sand digger",
       accessibility_note: "Fully ADA accessible",
       d: `A smaller neighborhood park that's better for a quick outing than an all-day destination. You've got a basic playground, nearby tennis courts, and walking paths — the kind of place you hit when the kids need outside time and you don't want the hassle of crowds. Quiet, simple, useful.`
+    },
+    {
+      id: "co-lone-tree-timberline-park", park_type: "neighborhood",
+      n: "Timberline Park",
+      lat: 39.5574,
+      lng: -104.8987,
+      coords_status: "approx",
+      f: {},
+      d: "A Lone Tree neighborhood park for a short visit outside."
     },
     {
       id: "co-lone-tree-kimmer-plaza", park_type: "historic",

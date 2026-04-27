@@ -20,7 +20,7 @@ body { font-family: 'Outfit', sans-serif; background: var(--mist); color: var(--
 main { max-width: 1180px; margin: 0 auto; padding: 28px 20px 70px; }
 
 .page-hero {
-  background: linear-gradient(135deg, rgba(61,107,74,0.96), rgba(40,77,54,0.94));
+  background: linear-gradient(135deg, #0f755a, #085041);
   color: white;
   border-radius: 28px;
   padding: 30px;

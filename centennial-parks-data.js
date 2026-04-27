@@ -1856,29 +1856,20 @@
     "photos": [],
     "d": "Neighborhood park in Centennial. Has a playground, picnic shelter, ballfields, basketball, multi-use field space.",
     "sourceLink": "https://centennial.maps.arcgis.com/apps/MapJournal/index.html?appid=b1991740047f4f01b541bb6d2fc27655/&section=54"
-  },
-  {
-    "id": "co-centennial-sunset-park",
-    "n": "Sunset Park",
-    "city": "Centennial",
-    "state": "CO",
-    "stateName": "Colorado",
-    "a": "Centennial, CO",
-    "ac": 0,
-    "f": {
-      "playground": 1,
-      "shelter": 1,
-      "baseball": 1,
-      "basketball": 1,
-      "soccer": 1,
-      "dog_park": 1,
-      "picnic": 1
-    },
-    "photos": [],
-    "d": "Neighborhood park in Centennial. Has a playground, picnic shelter, ballfields, basketball, multi-use field space.",
-    "sourceLink": "https://centennial.maps.arcgis.com/apps/MapJournal/index.html?appid=b1991740047f4f01b541bb6d2fc27655/&section=39"
   }
-],
+].map((park) => {
+  const centennial_coords = window.PARK_COORDS.centennial[park.n];
+  if (!centennial_coords) {
+    return park;
+  }
+
+  return {
+    ...park,
+    lat: centennial_coords[0],
+    lng: centennial_coords[1],
+    coords_status: "verified"
+  };
+}),
     { city: "Centennial", state: "CO", stateName: "Colorado", brandName: (window.SITE_CONFIG && window.SITE_CONFIG.brandName) || "Find Every Park Colorado" }
   );
 })();

@@ -355,6 +355,7 @@
     <a class="dataset-link" data-dataset="aurora" href="./parks.html?dataset=aurora">Aurora</a>
     <a class="dataset-link" data-dataset="centennial" href="./parks.html?dataset=centennial">Centennial</a>
     <a class="dataset-link" data-dataset="parker" href="./parks.html?dataset=parker">Parker</a>
+    <a class="dataset-link" data-dataset="englewood" href="./parks.html?dataset=englewood">Englewood</a>
     <a class="dataset-link" data-dataset="lone-tree" href="./parks.html?dataset=lone-tree">Lone Tree</a>
     <a class="dataset-link" data-dataset="denver" href="./parks.html?dataset=denver">Denver</a>
     <span class="dataset-note" id="dataset-note">Colorado park guide</span>
@@ -410,7 +411,7 @@
         <div class="hero-stat-value" id="hero-total">0</div>
         <div class="hero-stat-copy">Searchable park cards and map markers.</div>
       </div>
-      <div class="hero-stat">
+      <div class="hero-stat" id="hero-best-for-stat">
         <span class="hero-stat-label">Best For</span>
         <div class="hero-stat-value" id="hero-best-for">Families</div>
         <div class="hero-stat-copy" id="hero-best-for-copy">Playgrounds, everyday stops, and easy park comparison.</div>
@@ -873,6 +874,9 @@ function applyDatasetContext() {
   document.getElementById('hero-city').textContent = CITY;
   document.getElementById('hero-city-stat').textContent = CITY;
   document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
+  if (DATASET_KEY === 'lone-tree') {
+    document.getElementById('hero-best-for-stat')?.remove();
+  }
 
   if (requestedFilters.includes('trails')) {
     heroBestForEl.textContent = 'Trail Access';

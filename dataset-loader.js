@@ -9,6 +9,7 @@
     aurora: "aurora-parks-data.js",
     centennial: "centennial-parks-data.js",
     parker: "parker-parks-data.js",
+    englewood: "englewood-parks-data.js",
     "lone-tree": "lone-tree-parks-data.js",
     denver: "denver-parks-data.js"
   };

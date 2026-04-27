@@ -18,7 +18,7 @@
 <meta name="twitter:image" id="twitter-image" content="https://findeverypark.com/images/aurora-parks-hero.png">
 <link rel="stylesheet" href="growth-widgets.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <title>Park Guide | Find Every Park Colorado</title>
@@ -58,7 +58,7 @@
 *{box-sizing:border-box}
 
 body{
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;
   margin:0;
   padding:0;
   line-height:1.6;
@@ -362,6 +362,52 @@ body{
   line-height:1.75;
 }
 
+/* ── Sponsor block ── */
+.sponsor-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #5a6460;
+  margin: 0 0 12px;
+}
+.sponsor-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: #f4f0e8;
+  border: 1px solid #e8e2d6;
+  border-radius: 12px;
+}
+.sponsor-card-body {
+  flex: 1;
+}
+.sponsor-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1f1c;
+  margin: 0 0 4px;
+}
+.sponsor-card-desc {
+  font-size: 13px;
+  color: #5a6460;
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+.sponsor-card-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f6e56;
+  text-decoration: none;
+}
+.sponsor-card-link:hover { text-decoration: underline; }
+.sponsor-note {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 10px;
+}
+
 /* ── Empty states ── */
 .empty-copy{
   color:#888;
@@ -428,6 +474,11 @@ body{
           <div id="park-photos" class="park-photos"></div>
         </section>
 
+        <section class="section" id="answers-section">
+          <h2>Highlights</h2>
+          <div id="park-answers" class="answer-grid"></div>
+        </section>
+
         <section class="section">
           <h2>Features</h2>
           <div id="park-features"></div>
@@ -437,6 +488,12 @@ body{
         <section class="section" id="about-section">
           <h2>About this park</h2>
           <div id="park-description"></div>
+        </section>
+
+        <!-- Local Business Spotlight — sponsor placement -->
+        <section class="section" id="sponsor-block" style="display:none;">
+          <p class="sponsor-eyebrow">Local Business Spotlight</p>
+          <div id="sponsor-content"></div>
         </section>
 
       </div><!-- /main-col -->
@@ -1198,6 +1255,47 @@ body{
       canonicalParams.set("id", canonicalId);
       const canonicalPath = window.location.pathname + "?" + canonicalParams.toString();
       window.history.replaceState({}, "", canonicalPath);
+    }
+
+    // Sponsor block — only show on designated parks
+    const SPONSOR_PLACEMENTS = {
+      "co-parker-usmc-cpl-david-m-sonka-dog-park-and-westcreek-disc-golf-course": {
+        name: "Your Business Name",
+        description: "One line about what you offer — keep it local and useful.",
+        href: "https://yourbusinesswebsite.com",
+        linkLabel: "Visit website"
+      },
+      "co-aurora-bicentennial-park": {
+        name: "Your Business Name",
+        description: "One line about what you offer — keep it local and useful.",
+        href: "https://yourbusinesswebsite.com",
+        linkLabel: "Visit website"
+      },
+      "co-aurora-grandview-dog-park": {
+        name: "Your Business Name",
+        description: "One line about what you offer — keep it local and useful.",
+        href: "https://yourbusinesswebsite.com",
+        linkLabel: "Visit website"
+      }
+    };
+
+    const sponsorBlockEl = document.getElementById("sponsor-block");
+    const sponsorContentEl = document.getElementById("sponsor-content");
+    const sponsorData = SPONSOR_PLACEMENTS[park.id];
+
+    if (sponsorBlockEl && sponsorContentEl && sponsorData) {
+      sponsorContentEl.innerHTML =
+        '<div class="sponsor-card">' +
+          '<div class="sponsor-card-body">' +
+            '<p class="sponsor-card-name">' + escapeHtml(sponsorData.name) + '</p>' +
+            '<p class="sponsor-card-desc">' + escapeHtml(sponsorData.description) + '</p>' +
+            '<a class="sponsor-card-link" href="' + escapeHtml(sponsorData.href) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(sponsorData.linkLabel) + '</a>' +
+            '<p class="sponsor-note">Sponsored · <a href="mailto:jason@findeverypark.com" style="color:#aaa;">Own this spot?</a></p>' +
+          '</div>' +
+        '</div>';
+      sponsorBlockEl.style.display = "";
+    } else if (sponsorBlockEl) {
+      sponsorBlockEl.style.display = "none";
     }
   }
 

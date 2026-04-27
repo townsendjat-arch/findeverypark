@@ -527,6 +527,7 @@
       <a class="city-pill" data-dataset="aurora" href="./city.html?dataset=aurora">Aurora</a>
       <a class="city-pill" data-dataset="centennial" href="./city.html?dataset=centennial">Centennial</a>
       <a class="city-pill" data-dataset="parker" href="./city.html?dataset=parker">Parker</a>
+      <a class="city-pill" data-dataset="englewood" href="./city.html?dataset=englewood">Englewood</a>
       <a class="city-pill" data-dataset="lone-tree" href="./city.html?dataset=lone-tree">Lone Tree</a>
       <a class="city-pill" data-dataset="denver" href="./city.html?dataset=denver">Denver</a>
       <a class="city-switch-link" id="top-picks-link" href="./best-parks-aurora.html">See city top picks</a>
@@ -550,6 +551,7 @@
             <a class="hero-btn secondary" id="best-link" href="./best-parks-aurora.html">Best Parks</a>
             <a class="hero-btn secondary" id="playgrounds-link" href="./best-playgrounds-aurora.html">Best Playgrounds</a>
             <a class="hero-btn ghost" id="golf-link" href="./parks.html?dataset=aurora&filter=golf">Golf Courses</a>
+            <a class="hero-btn ghost" id="dog-parks-link" href="./dog-friendly-parks-aurora.html">Dog Parks</a>
           </div>
         </div>
         <div class="hero-stats">
@@ -576,23 +578,6 @@
       </div>
     </section>
 
-    <section class="section" id="city-growth-section">
-      <div class="growth-duo">
-        <div id="city-weekend-teaser"></div>
-        <div id="city-email-capture"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title" id="feature-section-title">Find Parks by Feature in Aurora</h2>
-          <p class="section-copy">Jump straight into the most common park searches for this city using the existing map and filter flow.</p>
-        </div>
-      </div>
-      <div class="intent-grid" id="intent-grid"></div>
-    </section>
-
     <section class="section">
       <div class="section-head">
         <div>
@@ -616,23 +601,32 @@
         </div>
       </div>
       <div class="category-grid" id="category-grid"></div>
-    </section>
-
-    <section class="section" id="aurora-link-paths" style="display:none;">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">Keep Exploring Aurora</h2>
-          <p class="section-copy">Fast internal paths for families comparing the strongest Aurora park pages and sponsor-ready guide surfaces.</p>
-        </div>
-      </div>
-      <div class="category-list">
+      <div class="category-list" id="aurora-link-paths" style="display:none;">
         <a href="./parks.html?dataset=aurora">Aurora parks browse map</a>
         <a href="./best-parks-aurora.html">Best parks in Aurora</a>
         <a href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
+        <a href="./dog-friendly-parks-aurora.html">Dog friendly parks in Aurora</a>
         <a href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a>
         <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a>
         <a href="./park.html?dataset=aurora&id=co-aurora-sports-park">Sports Park</a>
         <a href="./this-weekend-aurora.html">This weekend in Aurora</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="feature-section-title">Find Parks by Feature in Aurora</h2>
+          <p class="section-copy">Jump straight into the most common park searches for this city using the existing map and filter flow.</p>
+        </div>
+      </div>
+      <div class="intent-grid" id="intent-grid"></div>
+    </section>
+
+    <section class="section" id="city-growth-section">
+      <div class="growth-duo">
+        <div id="city-weekend-teaser"></div>
+        <div id="city-email-capture"></div>
       </div>
     </section>
 
@@ -683,6 +677,7 @@
       aurora: "best-parks-aurora.html",
       centennial: "best-parks-centennial.html",
       parker: "best-parks-parker.html",
+      englewood: "best-parks-englewood.html",
       denver: "best-parks-denver.html",
       "lone-tree": "best-parks-lone-tree.html"
     };
@@ -804,6 +799,18 @@
       }
       document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
       document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
+      const dogParkPages = {
+        aurora: "./dog-friendly-parks-aurora.html",
+        parker: "./dog-friendly-parks-parker.html"
+      };
+      const dogParksLink = document.getElementById("dog-parks-link");
+      if (dogParksLink && dogParkPages[DATASET_KEY]) {
+        dogParksLink.href = dogParkPages[DATASET_KEY];
+        dogParksLink.textContent = "Dog Parks";
+        dogParksLink.style.display = "";
+      } else if (dogParksLink) {
+        dogParksLink.style.display = "none";
+      }
       document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("nav-home-brand").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("nav-home-link").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);

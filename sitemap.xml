@@ -90,6 +90,12 @@
   </url>
 
   <url>
+    <loc>https://findeverypark.com/best-parks-englewood.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://findeverypark.com/best-playgrounds-aurora.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -115,6 +121,54 @@
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-englewood.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/dog-friendly-parks-aurora.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/dog-friendly-parks-parker.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/dog-friendly-parks-denver.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/dog-friendly-parks-centennial.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/dog-friendly-parks-lone-tree.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/dog-friendly-parks-englewood.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=englewood</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- Park Pages -->
