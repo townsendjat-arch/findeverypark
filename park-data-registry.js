@@ -27,6 +27,18 @@
         stateName: "Colorado",
         brandName: siteConfig.brandName || "Find Every Park Colorado"
       },
+      "highlands-ranch": {
+        city: "Highlands Ranch",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      littleton: {
+        city: "Littleton",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
       "lone-tree": {
         city: "Lone Tree",
         state: "CO",
