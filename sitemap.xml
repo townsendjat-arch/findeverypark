@@ -108,6 +108,12 @@
   </url>
 
   <url>
+    <loc>https://findeverypark.com/best-parks-castle-rock.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://findeverypark.com/best-playgrounds-aurora.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -149,6 +155,12 @@
 
   <url>
     <loc>https://findeverypark.com/best-playgrounds-littleton.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-castle-rock.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -203,6 +215,12 @@
 
   <url>
     <loc>https://findeverypark.com/parks.html?dataset=littleton</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=castle-rock</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
