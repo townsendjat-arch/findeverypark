@@ -20,6 +20,7 @@
     thornton: "thornton-parks-data.js",
     "commerce-city": "commerce-city-parks-data.js",
     brighton: "brighton-parks-data.js",
+    golden: "golden-parks-data.js",
     "lone-tree": "lone-tree-parks-data.js",
     denver: "denver-parks-data.js"
   };
