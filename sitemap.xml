@@ -120,6 +120,42 @@
   </url>
 
   <url>
+    <loc>https://findeverypark.com/best-parks-arvada.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-parks-lakewood.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-parks-broomfield.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-parks-thornton.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-parks-commerce-city.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-parks-brighton.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://findeverypark.com/best-playgrounds-aurora.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -173,6 +209,42 @@
 
   <url>
     <loc>https://findeverypark.com/best-playgrounds-westminster.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-arvada.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-lakewood.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-broomfield.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-thornton.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-commerce-city.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/best-playgrounds-brighton.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -239,6 +311,42 @@
 
   <url>
     <loc>https://findeverypark.com/parks.html?dataset=westminster</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=arvada</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=lakewood</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=broomfield</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=thornton</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=commerce-city</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://findeverypark.com/parks.html?dataset=brighton</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

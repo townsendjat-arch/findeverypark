@@ -14,6 +14,12 @@
     littleton: "littleton-parks-data.js",
     "castle-rock": "castle-rock-parks-data.js",
     westminster: "westminster-parks-data.js",
+    arvada: "arvada-parks-data.js",
+    lakewood: "lakewood-parks-data.js",
+    broomfield: "broomfield-parks-data.js",
+    thornton: "thornton-parks-data.js",
+    "commerce-city": "commerce-city-parks-data.js",
+    brighton: "brighton-parks-data.js",
     "lone-tree": "lone-tree-parks-data.js",
     denver: "denver-parks-data.js"
   };

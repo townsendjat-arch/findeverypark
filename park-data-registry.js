@@ -51,6 +51,42 @@
         stateName: "Colorado",
         brandName: siteConfig.brandName || "Find Every Park Colorado"
       },
+      arvada: {
+        city: "Arvada",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      lakewood: {
+        city: "Lakewood",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      broomfield: {
+        city: "Broomfield",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      thornton: {
+        city: "Thornton",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      "commerce-city": {
+        city: "Commerce City",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
+      brighton: {
+        city: "Brighton",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
       "lone-tree": {
         city: "Lone Tree",
         state: "CO",
