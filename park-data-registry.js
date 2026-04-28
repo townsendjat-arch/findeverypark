@@ -45,6 +45,12 @@
         stateName: "Colorado",
         brandName: siteConfig.brandName || "Find Every Park Colorado"
       },
+      westminster: {
+        city: "Westminster",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
       "lone-tree": {
         city: "Lone Tree",
         state: "CO",

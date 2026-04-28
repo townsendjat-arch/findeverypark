@@ -13,6 +13,7 @@
     "highlands-ranch": "highlands-ranch-parks-data.js",
     littleton: "littleton-parks-data.js",
     "castle-rock": "castle-rock-parks-data.js",
+    westminster: "westminster-parks-data.js",
     "lone-tree": "lone-tree-parks-data.js",
     denver: "denver-parks-data.js"
   };
