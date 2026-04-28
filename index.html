@@ -63,6 +63,9 @@
       --radius-sm:  8px;
       --radius-md:  14px;
       --radius-lg:  20px;
+      --grass:      var(--green);
+      --mist:       var(--sand);
+      --line:       var(--sand-dark);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -266,6 +269,41 @@
       margin-bottom: 16px;
     }
 
+    .home-stat-bar {
+      width: 100%;
+      margin-top: 28px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .home-stat {
+      min-width: 0;
+      text-align: center;
+      padding: 4px 10px;
+    }
+
+    .home-stat-value {
+      display: block;
+      color: var(--grass);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .home-stat-label {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
     .city-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -321,6 +359,53 @@
 
     .city-card:hover .city-card-arrow svg {
       transform: translateX(3px);
+    }
+
+    .sponsor-callout {
+      margin-top: 32px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 28px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .sponsor-copy h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .sponsor-copy p {
+      color: var(--ink-muted);
+      font-size: 14px;
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .sponsor-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grass);
+      color: var(--white);
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .sponsor-btn:hover {
+      background: var(--green-dark);
     }
 
     /* ── INTENT LINKS ── */
@@ -490,18 +575,23 @@
       .photo-strip img:first-child { grid-column: 1 / -1; }
       .trust-strip { flex-direction: column; gap: 20px; }
       .trust-badge { width: 100%; }
+      .home-stat-bar { grid-template-columns: repeat(3, 1fr); }
+      .sponsor-callout { align-items: flex-start; flex-direction: column; }
       .nav { padding: 16px 20px; }
     }
 
     @media (max-width: 560px) {
       .city-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
       .intent-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-.hero-content { padding-bottom: 40px; }
+      .home-stat-bar { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
+      .home-stat { text-align: left; padding: 2px 4px; }
+      .hero-content { padding-bottom: 40px; }
       .search-box { flex-direction: column; border-radius: var(--radius-md); }
       .search-city { border-right: none; border-bottom: 1px solid var(--sand-dark); padding: 14px 16px; border-radius: 0; min-width: 0; }
       .search-btn { padding: 14px 20px; }
       .nav-links { display: none; }
       .trust-strip { padding: 24px 20px; }
+      .sponsor-callout { padding: 24px 20px; }
     }
   </style>
 </head>
@@ -543,6 +633,28 @@
   </section>
 
   <main class="main">
+    <section class="home-stat-bar" aria-label="Find Every Park coverage">
+      <div class="home-stat">
+        <span class="home-stat-value">16 Cities</span>
+        <span class="home-stat-label">Across Colorado</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-value">500+ Parks</span>
+        <span class="home-stat-label">Researched locally</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-value">Playgrounds &amp; Trails</span>
+        <span class="home-stat-label">Find kid-friendly routes</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-value">Dog Parks</span>
+        <span class="home-stat-label">Off-leash options</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-value">Splash Pads</span>
+        <span class="home-stat-label">Summer-ready picks</span>
+      </div>
+    </section>
 
     <!-- BROWSE BY CITY -->
     <section class="section" aria-labelledby="cities-heading">
@@ -654,6 +766,14 @@
           </span>
         </a>
       </div>
+    </section>
+
+    <section class="sponsor-callout" aria-label="Sponsorship opportunities">
+      <div class="sponsor-copy">
+        <h2>Own a local business? Reach Front Range families.</h2>
+        <p>FindEveryPark reaches parents across 16 Colorado cities searching for parks, playgrounds, and activities. Sponsor a city page or category to put your business in front of them.</p>
+      </div>
+      <a class="sponsor-btn" href="mailto:jason@findeverypark.com?subject=Sponsorship%20Inquiry">Learn about sponsorship</a>
     </section>
 
     <!-- BROWSE BY WHAT YOU NEED -->
