@@ -1447,9 +1447,14 @@ card.onmouseleave = () => {
     grid.appendChild(card);
 
     if (i === 3) {
+      const isDogFilter = active.has('dog_park');
+      const adImages = isDogFilter
+        ? ['images/cta_dog.png']
+        : ['images/cta_ad.png', 'images/cta_dad.png'];
+      const adSrc = adImages[Math.floor(Math.random() * adImages.length)];
       const adCard = document.createElement('div');
       adCard.className = 'card sponsor-card';
-      adCard.innerHTML = '<a href="mailto:hello@findeverypark.com?subject=Sponsorship" class="sponsor-img-link"><img src="images/cta_ad.png" alt="Become a sponsor — Find Every Park" class="sponsor-img"></a>';
+      adCard.innerHTML = '<a href="mailto:hello@findeverypark.com?subject=Sponsorship" class="sponsor-img-link"><img src="' + adSrc + '" alt="Become a sponsor — Find Every Park" class="sponsor-img"></a>';
       grid.appendChild(adCard);
     }
   });

@@ -775,6 +775,13 @@
       </div>
     </section>
 
+    <!-- SPONSOR AD -->
+    <section style="margin-top:32px;max-width:640px;margin-left:auto;margin-right:auto;">
+      <a href="mailto:jason@findeverypark.com?subject=Sponsorship" id="index-sponsor-link">
+        <img id="index-sponsor-img" src="images/cta_ad.png" alt="Become a sponsor — Find Every Park" style="width:100%;height:auto;display:block;border-radius:20px;">
+      </a>
+    </section>
+
     <section class="sponsor-callout" aria-label="Sponsorship opportunities">
       <div class="sponsor-copy">
         <h2>Own a local business? Reach Front Range families.</h2>
@@ -899,6 +906,13 @@
         source: 'homepage',
         copy: 'Get the Aurora weekend shortlist in a simple prefilled email flow that works on this static site right now.'
       });
+    }
+
+    // Rotate sponsor ad
+    const indexAds = ['images/cta_ad.png', 'images/cta_dad.png'];
+    const indexAdEl = document.getElementById('index-sponsor-img');
+    if (indexAdEl) {
+      indexAdEl.src = indexAds[Math.floor(Math.random() * indexAds.length)];
     }
   </script>
   <script src="ios-install-banner.js"></script>
