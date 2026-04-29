@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json">
-  <title>Aurora Parks Guide, Playgrounds & Trails | Find Every Park Colorado</title>
-  <meta name="description" content="Explore Aurora parks, playgrounds, trails, dog parks, and family favorites with a city guide built for fast local decisions and stronger park shortlists.">
+  <title>Aurora Parks Guide — Best Parks, Playgrounds &amp; Trails in Aurora CO</title>
+  <meta name="description" content="The Aurora parks guide for families. Start with the best local picks, then browse by playground, trails, dog park, or splash pad across all of Aurora.">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/city.html?dataset=aurora">
   <meta property="og:type" content="website">
   <meta property="og:title" id="og-title" content="Aurora Parks Guide, Playgrounds & Trails | Find Every Park Colorado">
@@ -73,10 +73,14 @@
     .city-switch {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       margin-bottom: 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .city-switch::-webkit-scrollbar { display: none; }
     .city-switch-label {
       font-size: 11px;
       font-weight: 700;
@@ -612,16 +616,6 @@
         </div>
       </div>
       <div class="category-grid" id="category-grid"></div>
-      <div class="category-list" id="aurora-link-paths" style="display:none;">
-        <a href="./parks.html?dataset=aurora">Aurora parks browse map</a>
-        <a href="./best-parks-aurora.html">Best parks in Aurora</a>
-        <a href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
-        <a href="./dog-friendly-parks-aurora.html">Dog friendly parks in Aurora</a>
-        <a href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a>
-        <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a>
-        <a href="./park.html?dataset=aurora&id=co-aurora-sports-park">Sports Park</a>
-        <a href="./this-weekend-aurora.html">This weekend in Aurora</a>
-      </div>
     </section>
 
     <section class="section">
@@ -769,8 +763,12 @@
         return "./park.html?" + search.toString();
       }
 
-      const pageTitle = meta.city + " Parks Guide, Playgrounds & Trails | " + meta.brandName;
-      const pageDescription = "Find the best parks in " + meta.city + ", " + meta.stateName + " including playgrounds, trails, dog parks, splash pads, and top local family picks.";
+      const pageTitle = DATASET_KEY === "aurora"
+        ? "Aurora Parks Guide — Best Parks, Playgrounds & Trails in Aurora CO"
+        : meta.city + " Parks Guide, Playgrounds & Trails | " + meta.brandName;
+      const pageDescription = DATASET_KEY === "aurora"
+        ? "The Aurora parks guide for families. Start with the best local picks, then browse by playground, trails, dog park, or splash pad across all of Aurora."
+        : "Find the best parks in " + meta.city + ", " + meta.stateName + " including playgrounds, trails, dog parks, splash pads, and top local family picks.";
       const canonicalUrl = "https://findeverypark.com/city.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.title = pageTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", pageDescription);
@@ -844,11 +842,6 @@
       document.querySelectorAll(".city-pill").forEach((pill) => {
         pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
       });
-      const auroraLinkPaths = document.getElementById("aurora-link-paths");
-      if (auroraLinkPaths) {
-        auroraLinkPaths.style.display = DATASET_KEY === "aurora" ? "" : "none";
-      }
-
       const featuredStrip = document.getElementById("featured-strip");
       featuredStrip.innerHTML = "";
       featuredEntries.forEach((entry, index) => {

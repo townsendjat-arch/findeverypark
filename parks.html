@@ -12,8 +12,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json">
-  <title>Parks Near Me in Aurora, CO — Find Every Park Colorado</title>
-  <meta name="description" content="Find parks near you in Aurora, Colorado. Browse the Aurora park map, compare playgrounds, splash pads, dog parks, trails, and jump into the best local park guides.">
+  <title>Parks in Aurora, CO — Playgrounds, Trails &amp; Dog Parks Near Me</title>
+  <meta name="description" content="Browse every park in Aurora, CO with filters for playgrounds, trails, dog parks, and splash pads. Compare parks fast and get directions in one tap.">
   <meta name="robots" id="robots-meta" content="index, follow">
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/parks.html">
   <meta property="og:type" content="website">
@@ -165,7 +165,8 @@
       color: #a24f34;
       transform: translateY(-1px);
     }
-    .dataset-switch { max-width: 1100px; margin: 12px auto 0; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .dataset-switch { max-width: 100%; margin: 0; padding: 8px 20px; display: flex; gap: 8px; flex-wrap: nowrap; align-items: center; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .dataset-switch::-webkit-scrollbar { display: none; }
     .dataset-link { text-decoration: none; padding: 7px 13px; border-radius: 999px; border: 1px solid #ddd; color: #555; font-size: 12px; font-weight: 700; background: rgba(255,255,255,0.9); }
     .dataset-link.active { background: var(--grass); border-color: var(--grass); color: white; }
     .dataset-note { font-size: 12px; color: #888; }
@@ -282,6 +283,14 @@
     .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 12px; font-weight: 500; }
     .footer-links a:hover { color: white; }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); width: 100%; }
+
+    /* SPONSOR SLOTS */
+    .sponsor-card { background: linear-gradient(135deg, #f4f0e8, #edf5f1); border: 1.5px dashed rgba(15,110,86,0.3); border-radius: 20px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding: 0; }
+    .sponsor-img-link { display: block; }
+    .sponsor-img { width: 100%; height: auto; display: block; border-radius: 18px; transition: opacity 0.15s; }
+    .sponsor-img:hover { opacity: 0.92; }
+    .sponsor-sidebar-slot { margin-top: 16px; border-radius: 18px; overflow: hidden; border: 1.5px dashed rgba(15,110,86,0.3); }
+    .sponsor-sidebar-slot a { display: block; }
 
     /* POPUP */
     .leaflet-popup-content { font-family: 'Outfit', sans-serif; font-size: 13px; line-height: 1.5; min-width: 160px; }
@@ -865,7 +874,9 @@ function applyDatasetContext() {
   const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[DATASET_KEY]) || {};
   COORDS = datasetCoords;
 
-  document.title = "Parks Finder — " + DATASET_META.brandName;
+  document.title = DATASET_KEY === "aurora"
+    ? "Parks in Aurora, CO — Playgrounds, Trails & Dog Parks Near Me"
+    : "Parks Finder — " + DATASET_META.brandName;
   document.querySelectorAll('.dataset-link').forEach((link) => {
     link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
   });
@@ -1434,6 +1445,13 @@ card.onmouseleave = () => {
 '</div>';
     card.appendChild(body);
     grid.appendChild(card);
+
+    if (i === 3) {
+      const adCard = document.createElement('div');
+      adCard.className = 'card sponsor-card';
+      adCard.innerHTML = '<a href="mailto:hello@findeverypark.com?subject=Sponsorship" class="sponsor-img-link"><img src="images/cta_ad.png" alt="Become a sponsor — Find Every Park" class="sponsor-img"></a>';
+      grid.appendChild(adCard);
+    }
   });
 
   const loadWrap = document.getElementById('load-more-wrap');

@@ -64,7 +64,7 @@ d:`Twelve acres with an outdoor pool, basketball half court, two tennis courts, 
   n:"Aurora Reservoir",
   a:"5800 S. Powhaton Rd.",
   ac:1861.5,
-lat:39.5949406,lng:-104.6617167,
+lat:39.6107,lng:-104.6631,
   f:{playground:1,fishing:1,trails:1,restroom:1,shelter:1,boating:1},
   photos:[],
   d: `Aurora Reservoir is the Aurora park page to send families when they want one outing that can fill a half day without needing a second stop. The 8-mile paved loop is wide and useful for strollers, bikes, scooters, and longer walks, while the swim beach, fishing, boating, archery range, and playground give the park enough variety for mixed-age groups. It is one of the clearest "worth the drive" picks in the city.
@@ -502,7 +502,7 @@ d:`This one’s for the dogs. Five-plus acres of off-leash space and one of the 
 🗺️ <strong>Nearby (1–3 mi):</strong> Quincy Reservoir (~1.5 mi), Red-Tailed Hawk Park (~2 mi)`
 },
 {id:"co-aurora-great-plains-park",park_type:"flagship",n:"Great Plains Park",a:"20100 E. Jewell Ave.",ac:54.5,
-lat:39.6798577,lng:-104.7557324,f:{playground:1,basketball:1,baseball:1,soccer:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`The summer go-to for families in east Aurora. The splash pad is the draw — parents report it randomly cycles off for ~15 minutes, which somehow makes kids socialize better. Six tot swings — the most in any Aurora park. Shade structures over the play area. Connects to the Conservatory West Trail and Powerline Trail. Locals report seeing pronghorn, sheep, and guard donkeys from the unpaved trail near the Plains Conservation fence. Restrooms could use improvement per recent reviews.
+lat:39.6798,lng:-104.7552,f:{playground:1,basketball:1,baseball:1,soccer:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`The summer go-to for families in east Aurora. The splash pad is the draw — parents report it randomly cycles off for ~15 minutes, which somehow makes kids socialize better. Six tot swings — the most in any Aurora park. Shade structures over the play area. Connects to the Conservatory West Trail and Powerline Trail. Locals report seeing pronghorn, sheep, and guard donkeys from the unpaved trail near the Plains Conservation fence. Restrooms could use improvement per recent reviews.
 
 <strong>Features</strong>
 📍 54.5 acres 💦 Splash Pad 🐣 6 Tot Swings 🌿 Trail Access (Conservatory West + Powerline) 🏀 Basketball ⚾ Baseball Diamond 🛝 Playground 🐕 Leashed Dogs 🅿️ Ample Parking 🦌 Wildlife Sightings
@@ -1188,7 +1188,7 @@ No playground, so don’t bring kids expecting slides. This is more “let’s w
 
 🗺️ <strong>Nearby (1–3 mi):</strong> Aurora Reservoir (~2 mi), Grandview Dog Park (~1.5 mi)`},
   {id:"co-aurora-red-tailed-hawk-park",park_type:"flagship",n:"Red-tailed Hawk Park",a:"23701 E. Hinsdale Way",ac:35,
-lat:39.582314,lng:-104.7134901,f:{playground:1,baseball:1,volleyball:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`This is the best all-abilities park in Aurora. Full stop. The rubberized surfaces, inclusive play structures, and wide layout make it work for kids of different abilities and ages without feeling like an afterthought. The zipline is a standout, the splash pad makes it an easy summer repeat stop, and the larger park layout gives families room to spread out instead of bunching around one playground.
+lat:39.5834,lng:-104.7134,f:{playground:1,baseball:1,volleyball:1,trails:1,restroom:1,shelter:1,sprayground:1},photos:[],d:`This is the best all-abilities park in Aurora. Full stop. The rubberized surfaces, inclusive play structures, and wide layout make it work for kids of different abilities and ages without feeling like an afterthought. The zipline is a standout, the splash pad makes it an easy summer repeat stop, and the larger park layout gives families room to spread out instead of bunching around one playground.
 
 What really separates it is that adults and older kids have things to do too. Piney Creek Trail access, sand volleyball, bocce, horseshoes, and the broader open layout make this feel more like a true family outing park than a one-feature playground stop. Parking is easy, restrooms are solid, and the Southlands location makes this one of the easiest Aurora parks to turn into a park + treat stop + errands half-day.
 
@@ -1270,7 +1270,7 @@ d:`Complete neighborhood park with a little personality. Playground, basketball,
 🗺️ <strong>Nearby (1–3 mi):</strong> Cottonwood Park (~1 mi), Parklane Park (~0.5 mi)`
 },
   {id:"co-aurora-sports-park",park_type:"flagship",n:"Sports Park",a:"19300 E. Colfax Ave.",ac:249.8,
-lat:39.7349988,lng:-104.7613965,f:{playground:1,baseball:1,soccer:1,trails:1,restroom:1},photos:["images/park-photos/APS/IMG_9591.jpeg","images/park-photos/APS/IMG_0034.JPEG"],d:`Aurora Sports Park is built for bigger outing energy. Nearly 250 acres of soccer fields, baseball space, trails, restrooms, and open room make it one of the clearest Aurora pages for tournaments, practices, and "we have multiple kids doing different things" family logistics. This is not a tiny neighborhood stop. It is the kind of place where families can spend hours because the park was built to handle crowds and movement.
+lat:39.73749,lng:-104.76292,f:{playground:1,baseball:1,soccer:1,trails:1,restroom:1},photos:["images/park-photos/APS/IMG_9591.jpeg","images/park-photos/APS/IMG_0034.JPEG"],d:`Aurora Sports Park is built for bigger outing energy. Nearly 250 acres of soccer fields, baseball space, trails, restrooms, and open room make it one of the clearest Aurora pages for tournaments, practices, and "we have multiple kids doing different things" family logistics. This is not a tiny neighborhood stop. It is the kind of place where families can spend hours because the park was built to handle crowds and movement.
 
 The best use case is active family days, not a quiet playground-only stop. There is a playground and trail access, but the main value is how much space the park gives you to spread out between games, walks, and downtime. It is also one of the strongest sponsor-fit pages for family lunch, coffee, sports training, and quick post-game stops.
 
@@ -1485,7 +1485,8 @@ d:`Simple neighborhood park — playground and shelter, nothing more. This is a 
 n:"Utah Park",
 a:"1800 S. Peoria St.",
 ac:46.5,
-lat:39.6838313,lng:-104.8428786,
+lat:39.684523,
+lng:-104.842786,
 f:{tennis:1,playground:1,baseball:1,pool:1,trails:1,restroom:1,shelter:1,basketball:1},
 photos:[
   
