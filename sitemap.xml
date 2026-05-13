@@ -19,6 +19,31 @@
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://findeverypark.com/events.html?city=parker</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://findeverypark.com/events.html?city=highlands-ranch</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://findeverypark.com/events.html?city=denver</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://findeverypark.com/events.html?city=centennial</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://findeverypark.com/events.html?city=all</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
   <url>
     <loc>https://findeverypark.com/this-weekend-aurora.html</loc>
