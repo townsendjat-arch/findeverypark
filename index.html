@@ -119,6 +119,8 @@
       color: #fff;
     }
 
+    .nav-events-mobile { display: none; }
+
     /* ── HERO ── */
     .hero {
       position: relative;
@@ -586,12 +588,56 @@
       .home-stat-bar { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
       .home-stat { text-align: left; padding: 2px 4px; }
       .hero-content { padding-bottom: 40px; }
-      .search-box { flex-direction: column; border-radius: var(--radius-md); }
-      .search-city { border-right: none; border-bottom: 1px solid var(--sand-dark); padding: 14px 16px; border-radius: 0; min-width: 0; }
-      .search-btn { padding: 14px 20px; }
       .nav-links { display: none; }
+      .nav-events-mobile {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255,255,255,0.18);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 7px 14px;
+        border-radius: 999px;
+        text-decoration: none;
+      }
       .trust-strip { padding: 24px 20px; }
       .sponsor-callout { padding: 24px 20px; }
+    }
+
+    .hero-cta-group { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .hero-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #0d6650;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 18px 42px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.08);
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      min-width: 260px;
+    }
+
+    .hero-btn-primary:hover {
+      background: #085041;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.12);
+    }
+    .hero-btn-primary:active { transform: translateY(0); }
+    .hero-btn-secondary { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.78); text-decoration: underline; text-underline-offset: 3px; transition: color 0.15s; }
+    .hero-btn-secondary:hover { color: #fff; }
+    .hero-geo-status { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; min-height: 20px; }
+    .hero-cta-hint {
+      font-size: 12px;
+      color: rgba(255,255,255,0.52);
+      margin-top: 10px;
+      letter-spacing: 0.01em;
     }
   </style>
 </head>
@@ -600,6 +646,7 @@
   <!-- NAV -->
   <nav class="nav" aria-label="Main navigation">
     <a href="./index.html" class="nav-brand">Find Every Park</a>
+    <a href="./events.html" class="nav-events-mobile" aria-label="Events">Events 🗓</a>
     <ul class="nav-links">
       <li><a href="/best-parks-aurora.html">Aurora</a></li>
       <li><a href="/parks.html?dataset=centennial">Centennial</a></li>
@@ -618,17 +665,12 @@
       <span class="hero-eyebrow">Colorado Front Range</span>
       <h1 class="hero-title">Find the right park<br><em>for right now</em></h1>
       <p class="hero-sub">Playgrounds, trails, dog parks, and family spots across Aurora, Denver, Parker, and beyond</p>
-      <div class="search-box" role="search">
-        <select id="citySelect" class="search-city" aria-label="Choose a city">
-          <option value="aurora">Aurora</option>
-          <option value="centennial">Centennial</option>
-          <option value="parker">Parker</option>
-          <option value="lone-tree">Lone Tree</option>
-          <option value="denver">Denver</option>
-        </select>
-        <input type="text" id="parkSearch" class="search-input" placeholder="Playground, dog park, trails…" aria-label="Search parks">
-        <button class="search-btn" id="searchSubmit" type="button">Search</button>
+      <div class="hero-cta-group">
+        <button class="hero-btn-primary" id="geoBtn" type="button">📍 Find parks near me</button>
+        <a class="hero-btn-secondary" href="#cities-heading">Browse by city</a>
       </div>
+      <p class="hero-geo-status" id="geoStatus" aria-live="polite"></p>
+      <p class="hero-cta-hint">Use your location to instantly find nearby parks</p>
     </div>
   </section>
 
@@ -870,33 +912,24 @@
 
   <script src="growth-widgets.js"></script>
   <script>
-    const homeSearch  = document.getElementById('parkSearch');
-    const searchBtn   = document.getElementById('searchSubmit');
-    const citySelect  = document.getElementById('citySelect');
-
-    // Restore saved city preference
-    if (citySelect) {
-      const params = new URLSearchParams(window.location.search);
-      const preferred = params.get('dataset') || params.get('city') ||
-        (window.localStorage ? localStorage.getItem('activeDataset') : '');
-      if (preferred && Array.from(citySelect.options).some(o => o.value === preferred)) {
-        citySelect.value = preferred;
-      }
+    const geoBtn    = document.getElementById('geoBtn');
+    const geoStatus = document.getElementById('geoStatus');
+    if (geoBtn) {
+      geoBtn.addEventListener('click', function () {
+        if (!navigator.geolocation) { window.location.href = './parks.html?dataset=aurora'; return; }
+        geoStatus.textContent = 'Finding your location…';
+        geoBtn.disabled = true;
+        navigator.geolocation.getCurrentPosition(
+          function (pos) {
+            var lat = pos.coords.latitude.toFixed(6);
+            var lng = pos.coords.longitude.toFixed(6);
+            window.location.href = './parks.html?lat=' + lat + '&lng=' + lng;
+          },
+          function () { window.location.href = './parks.html?dataset=aurora'; },
+          { timeout: 8000 }
+        );
+      });
     }
-
-    function goSearch() {
-      const q    = homeSearch ? homeSearch.value.trim() : '';
-      const city = citySelect ? citySelect.value : 'aurora';
-      if (window.localStorage) localStorage.setItem('activeDataset', city);
-      window.location.href = './parks.html?dataset=' + encodeURIComponent(city) +
-        (q ? '&search=' + encodeURIComponent(q) : '');
-    }
-
-    if (homeSearch) homeSearch.addEventListener('keydown', e => { if (e.key === 'Enter') goSearch(); });
-    if (searchBtn)  searchBtn.addEventListener('click', goSearch);
-    if (citySelect) citySelect.addEventListener('change', () => {
-      if (window.localStorage) localStorage.setItem('activeDataset', citySelect.value);
-    });
 
     if (window.FEPGrowth) {
       window.FEPGrowth.mountWeekendTeaser('#home-weekend-teaser', {

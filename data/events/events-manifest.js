@@ -61,6 +61,18 @@ window.EVENTS_DATA = {
       subtitle: "Family events and indoor backups in Golden.",
       submitHeading: "Know a Golden event?",
       footerNote: "Golden events sourced from Visit Golden and the Golden History Museum."
+    },
+    westminster: {
+      label: "Westminster",
+      subtitle: "Family events in Westminster — movies, concerts, and more.",
+      submitHeading: "Know a Westminster event?",
+      footerNote: "Westminster events sourced from the City of Westminster."
+    },
+    thornton: {
+      label: "Thornton",
+      subtitle: "Family events in Thornton — Rhythms & Reels and more.",
+      submitHeading: "Know a Thornton event?",
+      footerNote: "Thornton events sourced from the City of Thornton."
     }
   },
 
@@ -793,6 +805,221 @@ window.EVENTS_DATA = {
       category: "Indoor Backup",
       recurring: true,
       dadNote: "Easy indoor backup near downtown Golden when the weather or moods go sideways. Combine with the farmers market or Clear Creek for a full Golden morning."
+    },
+
+    // ── WESTMINSTER ─────────────────────────────────────────────────────
+
+    {
+      id: "westminster-movies-zootopia2",
+      city: "westminster",
+      title: "Movies in the Park — Zootopia 2",
+      bucket: "Kids & Family",
+      dateLabel: "May 22, 2026",
+      dateStart: "2026-05-22T19:00:00",
+      dateEnd: "2026-05-22T22:00:00",
+      timeLabel: "Pre-show 7 p.m. | Movie at dusk",
+      locationLabel: "City Park Soccer Complex, Westminster",
+      audienceLabel: "Younger kids",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.westminsterco.gov/Calendar.aspx?EID=1556",
+      category: "Outdoor Movie",
+      recurring: false,
+      dadNote: "Zootopia 2 is a solid younger-kid pick. Pre-show starts at 7 — get there early for a good spot. Bring bug spray and heavy blankets; it cools off fast after dark."
+    },
+
+    // ── THORNTON ────────────────────────────────────────────────────────
+
+    {
+      id: "thornton-rhythms-reels-may28",
+      city: "thornton",
+      title: "Rhythms & Reels — Thornton Community Band + Wicked: For Good",
+      bucket: "Kids & Family",
+      dateLabel: "May 28, 2026",
+      dateStart: "2026-05-28T18:00:00",
+      dateEnd: "2026-05-28T21:30:00",
+      timeLabel: "Music 6 p.m. | Movie 7:30 p.m.",
+      locationLabel: "Thornton (confirm venue at source)",
+      audienceLabel: "All ages",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.thorntonco.gov/community-culture/festivals-events/rhythms-reels",
+      category: "Outdoor Movie",
+      recurring: false,
+      dadNote: "Music plus movie plus frozen treat. Bring chairs and layers — it cools off fast after the sun goes down."
+    },
+
+    {
+      id: "thornton-rhythms-reels-jun11",
+      city: "thornton",
+      title: "Rhythms & Reels — Michael Friedman Band + Elio",
+      bucket: "Kids & Family",
+      dateLabel: "June 11, 2026",
+      dateStart: "2026-06-11T18:00:00",
+      dateEnd: "2026-06-11T21:30:00",
+      timeLabel: "Music 6 p.m. | Movie 7:30 p.m.",
+      locationLabel: "Thornton (confirm venue at source)",
+      audienceLabel: "All ages",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.thorntonco.gov/community-culture/festivals-events/rhythms-reels",
+      category: "Outdoor Movie",
+      recurring: false,
+      dadNote: "Elio is the Pixar pick — good for most ages. Same drill: chairs, blankets, snacks, arrive before 6 for a good spot."
+    },
+
+    {
+      id: "thornton-rhythms-reels-jul9",
+      city: "thornton",
+      title: "Rhythms & Reels — Kingpin Posse + A Minecraft Movie",
+      bucket: "Kids & Family",
+      dateLabel: "July 9, 2026",
+      dateStart: "2026-07-09T18:00:00",
+      dateEnd: "2026-07-09T21:30:00",
+      timeLabel: "Music 6 p.m. | Movie 7:30 p.m.",
+      locationLabel: "Thornton (confirm venue at source)",
+      audienceLabel: "All ages",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.thorntonco.gov/community-culture/festivals-events/rhythms-reels",
+      category: "Outdoor Movie",
+      recurring: false,
+      dadNote: "Minecraft Movie — your kids already want to go. Easy yes. Bring chairs and let them explain the plot to you."
+    },
+
+    {
+      id: "thornton-rhythms-reels-jul23",
+      city: "thornton",
+      title: "Rhythms & Reels — Lucky Catch + Wonka",
+      bucket: "Kids & Family",
+      dateLabel: "July 23, 2026",
+      dateStart: "2026-07-23T18:00:00",
+      dateEnd: "2026-07-23T21:30:00",
+      timeLabel: "Music 6 p.m. | Movie 7:30 p.m.",
+      locationLabel: "Thornton (confirm venue at source)",
+      audienceLabel: "All ages",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.thorntonco.gov/community-culture/festivals-events/rhythms-reels",
+      category: "Outdoor Movie",
+      recurring: false,
+      dadNote: "Wonka is a good family pick. Lucky Catch is a solid local band to kick things off. Bring layers."
+    },
+
+    {
+      id: "thornton-rhythms-reels-aug6",
+      city: "thornton",
+      title: "Rhythms & Reels — Quemando Salsa + SpongeBob Movie",
+      bucket: "Kids & Family",
+      dateLabel: "August 6, 2026",
+      dateStart: "2026-08-06T18:00:00",
+      dateEnd: "2026-08-06T21:30:00",
+      timeLabel: "Music 6 p.m. | Movie 7:30 p.m.",
+      locationLabel: "Thornton (confirm venue at source)",
+      audienceLabel: "All ages",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.thorntonco.gov/community-culture/festivals-events/rhythms-reels",
+      category: "Outdoor Movie",
+      recurring: false,
+      dadNote: "SpongeBob movie to close out the summer series. Salsa band first, cartoon chaos after. Good last hurrah before school prep kicks in."
+    },
+
+    {
+      id: "thornton-youth-on-record-jul17",
+      city: "thornton",
+      title: "Youth on Record — Live Performance",
+      bucket: "Kids & Family",
+      dateLabel: "July 17, 2026",
+      dateStart: "2026-07-17T18:00:00",
+      dateEnd: "2026-07-17T19:30:00",
+      timeLabel: "6–7:30 p.m.",
+      locationLabel: "Thornton Community Center, Thornton",
+      audienceLabel: "Older kids & teens",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://www.thorntonco.gov/community-culture/festivals-events/2026-music-series-youth-record",
+      category: "Concert",
+      recurring: false,
+      dadNote: "Good teen-friendly arts option. Youth on Record develops young musicians — the performances are real, not a school recital vibe. Worth checking out without making a whole day of it."
+    },
+
+    // ── CASTLE ROCK (additional) ─────────────────────────────────────────
+
+    {
+      id: "castle-rock-national-trails-day",
+      city: "castle-rock",
+      title: "National Trails Day — Guided Hikes at Gateway Mesa",
+      bucket: "Kids & Family",
+      dateLabel: "June 6, 2026",
+      dateStart: "2026-06-06T08:30:00",
+      dateEnd: "2026-06-06T11:30:00",
+      timeLabel: "8:30–11:30 a.m.",
+      locationLabel: "Gateway Mesa Open Space, Castle Rock",
+      audienceLabel: "Trail families",
+      costType: "free",
+      costLabel: "Free",
+      href: "https://dougcosocial.com/events/castle-rock/national-trails-day-guided-hikes-gateway-mesa-open-space-jun-6",
+      category: "Outdoor",
+      recurring: false,
+      dadNote: "Free guided hike — good option when you want something outdoorsy but organized. Early start means it's done before the heat hits. Good for kids who can handle a moderate trail."
+    },
+
+    {
+      id: "castle-rock-tunes-trails-jun18",
+      city: "castle-rock",
+      title: "Tunes for Trails — The Rick Lewis Project",
+      bucket: "Concerts & Music",
+      dateLabel: "June 18, 2026",
+      dateStart: "2026-06-18T18:00:00",
+      dateEnd: "2026-06-18T20:00:00",
+      timeLabel: "Evening (confirm exact time at source)",
+      locationLabel: "Castle Rock (confirm venue at source)",
+      audienceLabel: "Park-loving families",
+      costType: "free",
+      costLabel: "Free (donations encouraged)",
+      href: "https://www.getoutdoorscastlerock.org/tunes-for-trails",
+      category: "Concert",
+      recurring: false,
+      dadNote: "Family-friendly concert that also supports parks and trails. Donations go directly to trail maintenance. Easy Thursday evening."
+    },
+
+    {
+      id: "castle-rock-tunes-trails-jul16",
+      city: "castle-rock",
+      title: "Tunes for Trails — That Eighties Band",
+      bucket: "Concerts & Music",
+      dateLabel: "July 16, 2026",
+      dateStart: "2026-07-16T18:00:00",
+      dateEnd: "2026-07-16T20:00:00",
+      timeLabel: "Evening (confirm exact time at source)",
+      locationLabel: "Castle Rock (confirm venue at source)",
+      audienceLabel: "Park-loving families",
+      costType: "free",
+      costLabel: "Free (donations encouraged)",
+      href: "https://www.getoutdoorscastlerock.org/tunes-for-trails",
+      category: "Concert",
+      recurring: false,
+      dadNote: "80s cover band — parents will know every song. Kids will survive. Donations go to trail maintenance."
+    },
+
+    {
+      id: "castle-rock-tunes-trails-aug20",
+      city: "castle-rock",
+      title: "Tunes for Trails — Santa Rios",
+      bucket: "Concerts & Music",
+      dateLabel: "August 20, 2026",
+      dateStart: "2026-08-20T18:00:00",
+      dateEnd: "2026-08-20T20:00:00",
+      timeLabel: "Evening (confirm exact time at source)",
+      locationLabel: "Castle Rock (confirm venue at source)",
+      audienceLabel: "Park-loving families",
+      costType: "free",
+      costLabel: "Free (donations encouraged)",
+      href: "https://www.getoutdoorscastlerock.org/tunes-for-trails",
+      category: "Concert",
+      recurring: false,
+      dadNote: "Late August — summer's last gasp. Good send-off concert. Bring a blanket; evenings are starting to cool down by now."
     }
 
   ]

@@ -186,6 +186,12 @@
       height: 1px;
       background: var(--rule);
     }
+    .section-copy {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin: -8px 0 20px;
+      line-height: 1.7;
+    }
 
     /* DATE GROUP */
     .date-group {
@@ -276,6 +282,19 @@
     .event-link:hover {
       color: var(--grass);
       border-bottom-color: var(--grass);
+    }
+    .dad-note {
+      font-size: 12px;
+      color: #31443b;
+      background: var(--grass-light);
+      border-left: 3px solid var(--grass);
+      padding: 8px 10px;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    .dad-note strong {
+      color: var(--grass);
+      font-weight: 600;
     }
 
     /* SUBMIT BOX */
@@ -378,6 +397,27 @@
     .empty-city h3 {
       font-weight: 500;
     }
+    .event-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .cal-link {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--grass);
+      text-decoration: none;
+      white-space: nowrap;
+      opacity: 0.8;
+    }
+    .cal-link:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    @media (max-width: 520px) {
+      .event-actions { align-items: flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -446,12 +486,15 @@
   const requestedCity = params.get('city') || 'aurora';
   const eventsData = window.EVENTS_DATA || { cities: {}, events: [] };
   const cities = eventsData.cities || {};
-  const cityKey = cities[requestedCity] ? requestedCity : 'aurora';
-  const cityMeta = cities[cityKey] || { label: 'Aurora', subtitle: '', submitHeading: 'Know an Aurora event?', footerNote: '' };
+  const cityKey = requestedCity === 'all' ? 'all' : (cities[requestedCity] ? requestedCity : 'aurora');
+  const cityMeta = cityKey === 'all'
+    ? { label: 'All Cities', subtitle: 'Every event across the Front Range, in one list.', submitHeading: 'Know an event?', footerNote: 'Showing events from all covered cities.' }
+    : (cities[cityKey] || { label: 'Aurora', subtitle: '', submitHeading: 'Know an Aurora event?', footerNote: '' });
   const citySwitch = document.getElementById('city-switch');
   const eventsRoot = document.getElementById('events-root');
   const emptyCity = document.getElementById('empty-city');
   const emptyCityCopy = document.getElementById('empty-city-copy');
+  const bucketCopy = eventsData.bucketCopy || {};
 
   document.getElementById('updated-label').textContent = eventsData.updatedLabel || 'Updated';
   document.getElementById('page-title').textContent = cityMeta.label + ' Events';
@@ -478,6 +521,12 @@
     auroraEventsLinkPaths.style.display = cityKey === 'aurora' ? '' : 'none';
   }
 
+  const allPill = document.createElement('a');
+  allPill.className = 'city-pill' + (cityKey === 'all' ? ' active' : '');
+  allPill.href = './events.html?city=all';
+  allPill.textContent = 'All Cities';
+  citySwitch.appendChild(allPill);
+
   Object.entries(cities).forEach(([key, meta]) => {
     const link = document.createElement('a');
     link.className = 'city-pill' + (key === cityKey ? ' active' : '');
@@ -486,7 +535,18 @@
     citySwitch.appendChild(link);
   });
 
-  const cityEvents = (eventsData.events || []).filter((event) => event.city === cityKey);
+  const cityEvents = cityKey === 'all'
+    ? (eventsData.events || [])
+    : (eventsData.events || []).filter((event) => event.city === cityKey);
+  cityEvents.sort(function(a, b) {
+    const aRecurring = /recurring/i.test(a.bucket);
+    const bRecurring = /recurring/i.test(b.bucket);
+    if (aRecurring !== bRecurring) return aRecurring ? 1 : -1;
+    const aDate = new Date(a.dateStart || a.dateLabel);
+    const bDate = new Date(b.dateStart || b.dateLabel);
+    if (!isNaN(aDate) && !isNaN(bDate)) return aDate - bDate;
+    return 0;
+  });
   if (!cityEvents.length) {
     emptyCity.style.display = '';
     emptyCityCopy.textContent = cityMeta.subtitle || 'This city will get its own event stream as coverage expands.';
@@ -505,6 +565,12 @@
       label.className = 'section-label';
       label.textContent = bucket;
       section.appendChild(label);
+      if (bucketCopy[bucket]) {
+        const copy = document.createElement('p');
+        copy.className = 'section-copy';
+        copy.textContent = bucketCopy[bucket];
+        section.appendChild(copy);
+      }
 
       Object.entries(dates).forEach(([dateLabel, items]) => {
         const group = document.createElement('div');
@@ -519,6 +585,15 @@
           row.className = 'event-row';
           const badgeClass = event.costType === 'free' ? 'free-badge' : 'cost-badge';
           const metaParts = [event.timeLabel, event.locationLabel, event.audienceLabel].filter(Boolean);
+          var calUrl = '';
+          if (event.dateStart && event.dateEnd) {
+            var fmt = function(d) { return d.replace(/[-:]/g, '').replace('T', 'T').slice(0, 15); };
+            calUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+              '&text=' + encodeURIComponent(event.title) +
+              '&dates=' + fmt(event.dateStart) + '/' + fmt(event.dateEnd) +
+              '&location=' + encodeURIComponent(event.locationLabel || '') +
+              '&details=' + encodeURIComponent((event.dadNote || '') + (event.href ? '\n\nMore info: ' + event.href : ''));
+          }
           row.innerHTML =
             '<div>' +
               '<div class="event-main">' +
@@ -528,8 +603,12 @@
               '<div class="event-meta">' +
                 metaParts.map((part, index) => '<span>' + part + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '')).join('') +
               '</div>' +
+              (event.dadNote ? '<p class="dad-note"><strong>Dad Note:</strong> ' + event.dadNote + '</p>' : '') +
             '</div>' +
-            '<a class="event-link" href="' + event.href + '" target="_blank">Details →</a>';
+            '<div class="event-actions">' +
+              '<a class="event-link" href="' + event.href + '" target="_blank">View Event</a>' +
+              (calUrl ? '<a class="cal-link" href="' + calUrl + '" target="_blank">+ Add to Calendar</a>' : '') +
+            '</div>';
           group.appendChild(row);
         });
 

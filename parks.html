@@ -343,6 +343,7 @@
   <ul class="nav-links">
     <li><a href="./index.html" id="nav-home-link">Home</a></li>
     <li><a href="./parks.html" class="active" id="nav-parks-link">Parks</a></li>
+    <li><a href="./best-parks-aurora.html" id="nav-best-link">Best Parks</a></li>
     <li><a href="./trails.html">Trails</a></li>
     <li><a href="./events.html" id="nav-events-link">Events</a></li>
   </ul>
@@ -563,10 +564,22 @@ function getDatasetMeta(datasetKey) {
 
 const BEST_PARK_GUIDE_PAGES = {
   aurora: './best-parks-aurora.html',
+  arvada: './best-parks-arvada.html',
+  brighton: './best-parks-brighton.html',
+  broomfield: './best-parks-broomfield.html',
+  'castle-rock': './best-parks-castle-rock.html',
   centennial: './best-parks-centennial.html',
-  parker: './best-parks-parker.html',
+  'commerce-city': './best-parks-commerce-city.html',
+  denver: './best-parks-denver.html',
+  englewood: './best-parks-englewood.html',
+  golden: './best-parks-golden.html',
+  'highlands-ranch': './best-parks-highlands-ranch.html',
+  lakewood: './best-parks-lakewood.html',
+  littleton: './best-parks-littleton.html',
   'lone-tree': './best-parks-lone-tree.html',
-  denver: './best-parks-denver.html'
+  parker: './best-parks-parker.html',
+  thornton: './best-parks-thornton.html',
+  westminster: './best-parks-westminster.html'
 };
 
 const PLAYGROUND_GUIDE_PAGES = {
@@ -883,6 +896,7 @@ function applyDatasetContext() {
   document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
   document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
   document.getElementById('nav-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
+  document.getElementById('nav-best-link').href = BEST_PARK_GUIDE_PAGES[DATASET_KEY] || ('./best-parks.html?dataset=' + encodeURIComponent(DATASET_KEY));
   document.getElementById('nav-events-link').href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
   document.getElementById('footer-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
   document.getElementById('footer-parks-link').href = './parks.html?dataset=' + encodeURIComponent(DATASET_KEY);
