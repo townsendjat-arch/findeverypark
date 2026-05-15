@@ -44,6 +44,11 @@
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://findeverypark.com/community/tuesday-reservoir-dinner-meetup.html</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
   <url>
     <loc>https://findeverypark.com/this-weekend-aurora.html</loc>
