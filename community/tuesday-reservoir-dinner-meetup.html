@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuesday Reservoir Dinner Meetup | FindEveryPark</title>
+  <meta name="description" content="Join a casual Tuesday evening family dinner meetup rotating between Cherry Creek Reservoir and Aurora Reservoir from May 26 through August 4, 2026.">
+  <link rel="canonical" href="https://findeverypark.com/community/tuesday-reservoir-dinner-meetup.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tuesday Reservoir Dinner Meetup | FindEveryPark">
+  <meta property="og:description" content="Join a casual Tuesday evening family dinner meetup rotating between Cherry Creek Reservoir and Aurora Reservoir from May 26 through August 4, 2026.">
+  <meta property="og:url" content="https://findeverypark.com/community/tuesday-reservoir-dinner-meetup.html">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tuesday Reservoir Dinner Meetup | FindEveryPark">
+  <meta name="twitter:description" content="Join a casual Tuesday evening family dinner meetup rotating between Cherry Creek Reservoir and Aurora Reservoir from May 26 through August 4, 2026.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --ink-light: #5a5a52;
+      --ink-faint: #9a9a90;
+      --rule: #e2e0d8;
+      --bg: #f9f8f4;
+      --bg-warm: #f2f0e8;
+      --grass: #0f6e56;
+      --grass-light: #e8f0ea;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    nav {
+      background: var(--grass);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Fraunces', serif;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 100px;
+      transition: all 0.15s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: white; background: rgba(255,255,255,0.16); }
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+    .page-header {
+      margin-bottom: 32px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .eyebrow {
+      display: inline-flex;
+      background: var(--grass-light);
+      color: var(--grass);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(32px, 7vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    p {
+      color: var(--ink-light);
+      margin-bottom: 14px;
+    }
+    .intro {
+      font-size: 16px;
+      color: #314039;
+      max-width: 66ch;
+    }
+    .card {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .detail-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .detail-list li {
+      color: var(--ink-light);
+    }
+    .detail-list strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .simple-list {
+      padding-left: 20px;
+      color: var(--ink-light);
+    }
+    .simple-list li {
+      margin-bottom: 8px;
+    }
+    .location-links {
+      display: grid;
+      gap: 12px;
+    }
+    .location-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      padding: 14px 16px;
+      border-radius: 3px;
+    }
+    a {
+      color: var(--grass);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+    .schedule {
+      list-style: none;
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+    }
+    .schedule li {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink-light);
+    }
+    .schedule strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .footer-note {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--ink-faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-note a { color: var(--grass); }
+    @media (max-width: 520px) {
+      nav { padding: 12px 16px; }
+      .nav-links { gap: 2px; }
+      .page { padding: 36px 16px 60px; }
+      .card { padding: 22px 20px; }
+      .schedule li { flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="../index.html">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../parks.html">Parks</a></li>
+      <li><a href="../trails.html">Trails</a></li>
+      <li><a href="../events.html" class="active">Events</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <header class="page-header">
+      <span class="eyebrow">Community Meetup</span>
+      <h1>Tuesday Reservoir Dinner Meetup</h1>
+      <p class="intro">A casual outdoor dinner meetup for families, friends, neighbors, and anyone who wants to join us.</p>
+    </header>
+
+    <section class="card">
+      <p>We've been doing this for about two years with friends, and this summer we're opening it up to the public. Bring dinner for your family, bring chairs or a blanket, and come hang out.</p>
+      <p>Sometimes it stays simple. Sometimes it turns into a big potluck. Either way, the goal is easy: good people, kids playing, and dinner outside.</p>
+    </section>
+
+    <section class="card">
+      <h2>Details</h2>
+      <ul class="detail-list">
+        <li><strong>Dates:</strong> Tuesdays from May 26 through August 4, 2026</li>
+        <li><strong>Time:</strong> 5:30 PM until people head out</li>
+        <li><strong>Format:</strong> Rotating every other Tuesday between Cherry Creek Reservoir and Aurora Reservoir</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Locations</h2>
+      <div class="location-links">
+        <div class="location-card">
+          <strong>Cherry Creek Reservoir &mdash; Swim Beach area</strong><br>
+          <a href="https://www.google.com/maps/place/Swim+Beach/@39.6463026,-104.8471407,16z/data=!3m1!4b1!4m6!3m5!1s0x876c87d824d01d0f:0xf2a18fc6fe1b914b!8m2!3d39.6464419!4d-104.8472861!16s%2Fg%2F11bw3h4tfs?entry=ttu&amp;g_ep=EgoyMDI2MDUxMi4wIKXMDSoA" target="_blank" rel="noopener">Open Swim Beach in Google Maps</a>
+        </div>
+        <div class="location-card">
+          <strong>Aurora Reservoir</strong><br>
+          <a href="https://findeverypark.com/park.html?dataset=aurora&amp;id=co-aurora-aurora-reservoir">Open Aurora Reservoir on FindEveryPark</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>What to Bring</h2>
+      <ul class="simple-list">
+        <li>Food for your family</li>
+        <li>Chairs or a picnic blanket</li>
+        <li>Drinks</li>
+        <li>Sunscreen / bug spray</li>
+        <li>Kids, friends, and neighbors</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Good to Know</h2>
+      <p>This is casual and family-friendly. There is no formal program, no registration, and no pressure. Just show up, eat dinner, and enjoy being outside with other people.</p>
+      <p>Weather, park rules, parking, and entrance fees may apply depending on the reservoir.</p>
+    </section>
+
+    <section class="card">
+      <h2>Schedule</h2>
+      <ul class="schedule">
+        <li><strong>May 26</strong><span>Cherry Creek Reservoir</span></li>
+        <li><strong>June 2</strong><span>Aurora Reservoir</span></li>
+        <li><strong>June 9</strong><span>Cherry Creek Reservoir</span></li>
+        <li><strong>June 16</strong><span>Aurora Reservoir</span></li>
+        <li><strong>June 23</strong><span>Cherry Creek Reservoir</span></li>
+        <li><strong>June 30</strong><span>Aurora Reservoir</span></li>
+        <li><strong>July 7</strong><span>Cherry Creek Reservoir</span></li>
+        <li><strong>July 14</strong><span>Aurora Reservoir</span></li>
+        <li><strong>July 21</strong><span>Cherry Creek Reservoir</span></li>
+        <li><strong>July 28</strong><span>Aurora Reservoir</span></li>
+        <li><strong>August 4</strong><span>Cherry Creek Reservoir</span></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Questions</h2>
+      <p>Contact Jason at <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a>.</p>
+    </section>
+
+    <div class="footer-note">
+      <span>Find Every Park Colorado community events</span>
+      <span><a href="../events.html">Back to events</a></span>
+    </div>
+  </main>
+</body>
+</html>

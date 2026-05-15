@@ -296,6 +296,41 @@
       color: var(--grass);
       font-weight: 600;
     }
+    .featured-meetup {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+    .featured-meetup h2 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .featured-meetup p {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .featured-meetup .event-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grass);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border-bottom: none;
+    }
+    .featured-meetup .event-link:hover {
+      color: white;
+      background: #085041;
+      border-bottom: none;
+    }
 
     /* SUBMIT BOX */
     .submit-box {
@@ -442,6 +477,12 @@
     <h1 id="page-title">Aurora Events</h1>
     <p class="subtitle" id="page-subtitle">A curated, human-maintained list of community events in Aurora. Updated weekly.</p>
   </header>
+
+  <section class="featured-meetup">
+    <h2>Tuesday Reservoir Dinner Meetup</h2>
+    <p>A casual Tuesday evening outdoor dinner meetup for families, friends, neighbors, and anyone who wants to join us. Runs May 26 through August 4, 2026, rotating between Cherry Creek Reservoir and Aurora Reservoir.</p>
+    <a class="event-link" href="community/tuesday-reservoir-dinner-meetup.html">View Meetup Details</a>
+  </section>
 
   <div id="events-root"></div>
   <div class="submit-box" id="aurora-events-link-paths" style="display:none;">
