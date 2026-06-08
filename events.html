@@ -36,6 +36,12 @@
       --grass: #0f6e56;
       --grass-light: #e8f0ea;
       --accent: #c4501a;
+      --sunset: #e8692e;
+      --sunset-light: #fef3e8;
+      --sunset-dark: #c4551a;
+      --golden: #f2b830;
+      --golden-light: #fef8e8;
+      --warm-bg: #fffaf5;
       --white: #ffffff;
     }
 
@@ -95,8 +101,11 @@
     /* HEADER */
     .page-header {
       margin-bottom: 48px;
-      padding-bottom: 32px;
-      border-bottom: 2px solid var(--ink);
+      padding: 32px 28px;
+      background: linear-gradient(135deg, #fffaf2 0%, #fef0dd 60%, #fde8cc 100%);
+      border: 1px solid #f0e4d0;
+      border-bottom: 3px solid var(--sunset);
+      border-radius: 12px;
     }
     .page-header h1 {
       font-family: 'Lora', serif;
@@ -116,21 +125,21 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: var(--grass-light);
-      color: var(--grass);
+      background: var(--sunset-light);
+      color: var(--sunset-dark);
       font-size: 11px;
-      font-weight: 500;
-      padding: 3px 9px;
-      border-radius: 2px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
       margin-bottom: 12px;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
     .update-badge::before {
       content: '';
       width: 6px;
       height: 6px;
-      background: var(--grass);
+      background: var(--sunset);
       border-radius: 50%;
     }
 
@@ -139,12 +148,12 @@
       margin-bottom: 52px;
     }
     .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: var(--sunset-dark);
       margin-bottom: 20px;
       display: flex;
       align-items: center;
@@ -153,14 +162,15 @@
     .section-label::after {
       content: '';
       flex: 1;
-      height: 1px;
-      background: var(--rule);
+      height: 2px;
+      background: linear-gradient(90deg, var(--sunset-light), transparent);
     }
     .section-copy {
       font-size: 13px;
       color: var(--ink-light);
       margin: -8px 0 20px;
       line-height: 1.7;
+      font-style: italic;
     }
     .section details {
       margin-top: 4px;
@@ -208,9 +218,9 @@
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.03em;
-      color: var(--grass);
-      background: var(--grass-light);
-      padding: 3px 8px;
+      color: var(--sunset-dark);
+      background: var(--sunset-light);
+      padding: 3px 10px;
       border-radius: 999px;
     }
     .event-details {
@@ -260,7 +270,7 @@
     }
     .event-dates summary {
       cursor: pointer;
-      color: var(--grass);
+      color: var(--sunset);
       font-size: 12px;
       font-weight: 600;
     }
@@ -408,10 +418,11 @@
     .submit-box {
       background: var(--white);
       border: 1.5px solid var(--rule);
-      border-left: 3px solid var(--grass);
+      border-left: 3px solid var(--sunset);
       padding: 24px 28px;
-      border-radius: 2px;
+      border-radius: 10px;
       margin-top: 48px;
+      background: var(--warm-bg);
     }
     .submit-box h3 {
       font-family: 'Lora', serif;
@@ -524,6 +535,55 @@
     }
     @media (max-width: 520px) {
       .event-actions { align-items: flex-start; }
+    }
+    .subgroup-label {
+      font-family: 'Fraunces', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin: 28px 0 12px;
+      padding: 6px 0 6px 12px;
+      border-left: 3px solid var(--golden);
+      border-bottom: none;
+      background: var(--golden-light);
+      border-radius: 0 6px 6px 0;
+    }
+    .subgroup-label:first-child {
+      margin-top: 4px;
+    }
+    .community-empty {
+      font-size: 14px;
+      color: var(--ink-light);
+      font-style: italic;
+      padding: 16px 20px;
+      background: var(--warm-bg);
+      border: 1px dashed #e8d8c8;
+      border-radius: 8px;
+    }
+    .event-card {
+      background: var(--white);
+      border: 1px solid #f0e8d8;
+      border-left: 3px solid var(--sunset);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      transition: box-shadow 0.15s;
+    }
+    .event-card:hover {
+      box-shadow: 0 2px 12px rgba(232, 105, 46, 0.08);
+    }
+    .event-card:last-child {
+      margin-bottom: 0;
+    }
+    .event-card-header {
+      margin-bottom: 6px;
+    }
+    .event-description {
+      font-size: 13px;
+      color: var(--ink-light);
+      line-height: 1.7;
+      margin: 4px 0 10px;
     }
   </style>
 </head>
@@ -660,17 +720,6 @@
     );
   }
 
-  function eventCategory(event) {
-    const raw = String(event.category || event.bucket || '').toLowerCase().trim();
-    if (!raw) return 'other';
-    if (/movie/.test(raw)) return 'movie';
-    if (/concert|live music|music/.test(raw)) return 'concert';
-    if (/farmer|market/.test(raw)) return 'farmers_market';
-    if (/fair|festival|fest/.test(raw)) return 'fair_festival';
-    if (/community|meetup/.test(raw)) return 'community';
-    return 'other';
-  }
-
   function isHolidayEvent(event) {
     return Boolean(
       event.fourth_of_july ||
@@ -745,7 +794,7 @@
     const items = recurringScheduleItems(event);
     if (!items.length) return '';
     return '<details class="event-dates">' +
-      '<summary>See Dates</summary>' +
+      '<summary>' + escapeHtml(event.dropdownLabel || 'See Dates') + '</summary>' +
       '<ul class="event-detail-list">' +
         items.map(function(item) { return '<li>' + escapeHtml(item) + '</li>'; }).join('') +
       '</ul>' +
@@ -853,68 +902,46 @@
   }
 
   function renderEventDetails(group) {
-    const events = group.events || [];
-    const event = group.event || events[0];
+    var events = group.events || [];
+    var event = group.event || events[0];
     if (!event) return null;
 
-    const details = document.createElement('details');
-    details.className = 'event-details';
-    const summary = document.createElement('summary');
-    const badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
-    const title = group.title || event.title;
-    const isRecurring = isRecurringEvent(event);
-    const recurrence = group.recurrence || (isRecurring ? recurringTimingLabel(event) : eventTimingLabel(event));
-    const metaParts = [
+    var card = document.createElement('div');
+    card.className = 'event-card';
+    var badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
+    var title = group.title || event.title;
+    var isRecurring = isRecurringEvent(event);
+    var recurrence = group.recurrence || (isRecurring ? recurringTimingLabel(event) : eventTimingLabel(event));
+    var metaParts = [
       cityLabel(event),
       event.locationLabel || event.venue_name || event.park_name || '',
       event.audienceLabel || ''
     ].filter(Boolean);
-    const href = event.link || event.href || './events.html';
-    const cta = event.ctaLabel || (isRecurring ? 'View Schedule' : 'View Event');
-    summary.innerHTML =
-      '<div class="event-row">' +
-        '<div>' +
-          '<div class="event-main">' +
-            '<span class="event-title">' + escapeHtml(title) + '</span>' +
-            '<span class="recurrence-pill">' + escapeHtml(recurrence) + '</span>' +
-            (event.costLabel ? '<span class="' + badgeClass + '">' + escapeHtml(event.costLabel) + '</span>' : '') +
-          '</div>' +
-          '<div class="event-meta">' +
-            metaParts.map(function(part, index) {
-              return '<span>' + escapeHtml(part) + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '');
-            }).join('') +
-          '</div>' +
-        '</div>' +
-        '<div class="event-actions">' +
-          '<span class="event-link">' + escapeHtml(cta) + '</span>' +
-        '</div>' +
-      '</div>';
-    details.appendChild(summary);
+    var description = event.notes || event.description || event.dadNote || '';
+    var calUrl = buildCalendarUrl(event);
+    var href = event.link || event.href || '';
 
-    const body = document.createElement('div');
-    body.className = 'event-detail-body';
-    const location = event.locationLabel || event.venue_name || event.park_name || '';
-    const description = event.notes || event.description || event.dadNote || '';
-    const calUrl = buildCalendarUrl(event);
-    body.innerHTML =
-      (description ? '<p>' + escapeHtml(description) + '</p>' : '') +
-      '<div class="event-meta">' +
-        (location ? '<span>' + escapeHtml(location) + '</span>' : '') +
-        (!isRecurring && group.dateInfo ? '<span>' + escapeHtml(group.dateInfo) + '</span>' : '') +
-        (event.costLabel ? '<span>' + escapeHtml(event.costLabel) + '</span>' : '') +
-        (event.audienceLabel ? '<span>' + escapeHtml(event.audienceLabel) + '</span>' : '') +
+    card.innerHTML =
+      '<div class="event-card-header">' +
+        '<div class="event-main">' +
+          '<span class="event-title">' + escapeHtml(title) + '</span>' +
+          '<span class="recurrence-pill">' + escapeHtml(recurrence) + '</span>' +
+          (event.costLabel ? '<span class="' + badgeClass + '">' + escapeHtml(event.costLabel) + '</span>' : '') +
+        '</div>' +
+        '<div class="event-meta">' +
+          metaParts.map(function(part, index) {
+            return '<span>' + escapeHtml(part) + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '');
+          }).join('') +
+        '</div>' +
       '</div>' +
+      (description ? '<p class="event-description">' + escapeHtml(description) + '</p>' : '') +
       (isRecurring ? renderRecurringDates(event) : '') +
-      (!isRecurring && events.length > 1 ? '<ul class="event-detail-list">' + events.map(function(item) {
-        return '<li>' + escapeHtml(eventTimingLabel(item)) + (item.title && item.title !== title ? ' — ' + escapeHtml(item.title.replace(baseSeriesTitle(item) + ' — ', '')) : '') + '</li>';
-      }).join('') + '</ul>' : '') +
-      (event.dadNote ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote) + '</p>' : '') +
+      (event.dadNote && event.dadNote !== description ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote) + '</p>' : '') +
       '<div class="event-actions">' +
-        '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' + escapeHtml(cta) + '</a>' +
+        (href ? '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">More Info</a>' : '') +
         (calUrl ? '<a class="cal-link" href="' + escapeHtml(calUrl) + '" target="_blank" rel="noopener">+ Add to Calendar</a>' : '') +
       '</div>';
-    details.appendChild(body);
-    return details;
+    return card;
   }
 
   function renderDropdownSection(labelText, copyText, groups) {
@@ -927,16 +954,70 @@
     eventsRoot.appendChild(section);
   }
 
-  function renderCategorySection(labelText, copyText, events) {
+  function renderCommunitySection(events) {
+    var section = renderSectionShell(
+      '\u{1F91D} Community Meetups',
+      'Casual outdoor meetups from Find Every Park, Mighty Dads, and local park communities.'
+    );
+    if (!events || !events.length) {
+      var empty = document.createElement('p');
+      empty.className = 'community-empty';
+      empty.textContent = 'More FindEveryPark / Mighty Dads meetups coming soon.';
+      section.appendChild(empty);
+    } else {
+      var recurring = events.filter(isRecurringEvent).sort(sortEvents);
+      var oneTime = events.filter(function(e) { return !isRecurringEvent(e); }).sort(sortEvents);
+      groupSingleEvents(recurring).forEach(function(group) {
+        var d = renderEventDetails(group);
+        if (d) section.appendChild(d);
+      });
+      appendRows(section, oneTime);
+    }
+    eventsRoot.appendChild(section);
+  }
+
+  function renderOngoingSection(events) {
     if (!events || !events.length) return;
-    const section = renderSectionShell(labelText, copyText);
-    const recurring = events.filter(isRecurringEvent).sort(sortEvents);
-    const oneTime = events.filter(function(event) { return !isRecurringEvent(event); }).sort(sortEvents);
-    groupSingleEvents(recurring).forEach(function(group) {
-      const details = renderEventDetails(group);
-      if (details) section.appendChild(details);
+    var section = renderSectionShell(
+      '\u2600\uFE0F Ongoing Summer Events',
+      'Easy events you can enjoy more than once this season.'
+    );
+    var subgroups = {};
+    var subgroupOrders = {};
+    events.forEach(function(event) {
+      var sg = event.subgroup || 'Other';
+      if (!subgroups[sg]) subgroups[sg] = [];
+      subgroups[sg].push(event);
+      if (event.subgroupOrder && !subgroupOrders[sg]) subgroupOrders[sg] = event.subgroupOrder;
     });
-    appendRows(section, oneTime);
+    var sorted = Object.keys(subgroups).sort(function(a, b) {
+      return (subgroupOrders[a] || 99) - (subgroupOrders[b] || 99);
+    });
+    sorted.forEach(function(sg) {
+      var heading = document.createElement('div');
+      heading.className = 'subgroup-label';
+      var sgEmoji = {'Movies in the Park':'\u{1F3AC}','Farmers Markets':'\u{1F966}','Concert Series':'\u{1F3B5}','Character Meet & Greets':'\u2728'};
+      heading.textContent = (sgEmoji[sg] ? sgEmoji[sg] + ' ' : '') + sg;
+      section.appendChild(heading);
+      var items = subgroups[sg].sort(sortEvents);
+      var recurring = items.filter(isRecurringEvent);
+      var oneTime = items.filter(function(e) { return !isRecurringEvent(e); });
+      groupSingleEvents(recurring).forEach(function(group) {
+        var d = renderEventDetails(group);
+        if (d) section.appendChild(d);
+      });
+      appendRows(section, oneTime);
+    });
+    eventsRoot.appendChild(section);
+  }
+
+  function renderEventSection(labelText, copyText, events) {
+    if (!events || !events.length) return;
+    var section = renderSectionShell(labelText, copyText);
+    groupSingleEvents(events.sort(sortEvents)).forEach(function(group) {
+      var d = renderEventDetails(group);
+      if (d) section.appendChild(d);
+    });
     eventsRoot.appendChild(section);
   }
 
@@ -1058,67 +1139,27 @@
   } else {
     const currentEvents = cityEvents.filter(function(event) { return isCurrentEvent(event, today); }).sort(sortEvents);
     const pastEvents = cityEvents.filter(function(event) { return !isCurrentEvent(event, today); }).sort(sortEvents);
-    const rendered = new Set();
-
     if (!currentEvents.length && pastEvents.length) {
       emptyCity.style.display = '';
       emptyCityCopy.textContent = 'No current events are live right now. Past events are saved in the archive below.';
     }
 
-    const categoryBuckets = {
-      movie: [],
-      concert: [],
-      farmers_market: [],
-      fair_festival: [],
-      community: [],
-      other: []
-    };
+    var community = currentEvents.filter(function(e) { return e.section === 'community' || e.community_event; });
+    var ongoing = currentEvents.filter(function(e) { return e.section === 'ongoing'; });
+    var holiday = currentEvents.filter(function(e) { return e.section === 'holiday'; });
+    var onetime = currentEvents.filter(function(e) { return e.section === 'onetime'; });
 
-    currentEvents.forEach(function(event) {
-      const key = eventKey(event);
-      if (rendered.has(key)) return;
-      rendered.add(key);
-      if (isCommunityMeetup(event) || eventCategory(event) === 'community') {
-        categoryBuckets.community.push(event);
-        return;
-      }
-      const cat = eventCategory(event);
-      if (categoryBuckets[cat]) {
-        categoryBuckets[cat].push(event);
-      } else {
-        categoryBuckets.other.push(event);
-      }
-    });
-
-    renderCategorySection(
-      'Movies in the Park',
-      'Free outdoor movie nights around the metro.',
-      categoryBuckets.movie
+    renderCommunitySection(community);
+    renderOngoingSection(ongoing);
+    renderEventSection(
+      '\u{1F386} Holiday & Seasonal Events',
+      'Celebrate the big days with family-friendly festivities.',
+      holiday
     );
-    renderCategorySection(
-      'Concerts & Live Music',
-      'Outdoor concerts and live music the whole family can enjoy.',
-      categoryBuckets.concert
-    );
-    renderCategorySection(
-      'Farmers Markets',
-      'Weekly markets with food, produce, and family fun.',
-      categoryBuckets.farmers_market
-    );
-    renderCategorySection(
-      'Fairs & Festivals',
-      'Street fairs, festivals, and big community celebrations.',
-      categoryBuckets.fair_festival
-    );
-    renderCategorySection(
-      'Community Meetups',
-      'Casual outdoor meetups from Find Every Park, Mighty Dads, and local park communities.',
-      categoryBuckets.community
-    );
-    renderCategorySection(
-      'Other Local Events',
-      'More family-friendly happenings around the Front Range.',
-      categoryBuckets.other
+    renderEventSection(
+      '\u{1F3AA} One-Time Events',
+      'Special events with a single date this summer.',
+      onetime
     );
     renderArchive(pastEvents);
   }
