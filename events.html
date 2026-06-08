@@ -352,18 +352,23 @@
     }
 
     .event-link {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--ink-faint);
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--grass);
       text-decoration: none;
-      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      border-radius: 100px;
       white-space: nowrap;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s, border-color 0.15s;
+      border-bottom: none;
+      transition: background 0.15s;
+      display: inline-block;
     }
     .event-link:hover {
-      color: var(--grass);
-      border-bottom-color: var(--grass);
+      background: #085041;
+      color: var(--white);
+      border-bottom: none;
     }
     .dad-note {
       font-size: 12px;
@@ -517,21 +522,27 @@
     }
     .event-actions {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
     }
     .cal-link {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--grass);
       text-decoration: none;
       white-space: nowrap;
-      opacity: 0.8;
+      padding: 5px 12px;
+      border: 1.5px solid var(--grass);
+      border-radius: 100px;
+      transition: background 0.15s, color 0.15s;
+      display: inline-block;
     }
     .cal-link:hover {
-      opacity: 1;
-      text-decoration: underline;
+      background: var(--grass);
+      color: var(--white);
+      text-decoration: none;
     }
     @media (max-width: 520px) {
       .event-actions { align-items: flex-start; }
@@ -584,6 +595,34 @@
       color: var(--ink-light);
       line-height: 1.7;
       margin: 4px 0 10px;
+    }
+
+    /* HOLIDAY PATRIOTIC STYLING */
+    .holiday-section .section-label {
+      color: #1b3a6b;
+    }
+    .holiday-section .section-label::after {
+      background: linear-gradient(90deg, #bf0a30, #ffffff, #002868, transparent);
+      height: 3px;
+    }
+    .holiday-section .section-copy {
+      color: #1b3a6b;
+      font-style: italic;
+    }
+    .holiday-section .event-card {
+      border-left: 4px solid #bf0a30;
+      border-top: 2px solid #002868;
+      background: linear-gradient(135deg, #fef8f8 0%, #ffffff 40%, #f5f8fe 100%);
+    }
+    .holiday-section .event-card:hover {
+      box-shadow: 0 2px 12px rgba(0, 40, 104, 0.08);
+    }
+    .holiday-section .recurrence-pill {
+      background: #e8edf8;
+      color: #1b3a6b;
+    }
+    .holiday-section .event-description {
+      color: #2a2a3a;
     }
   </style>
 </head>
@@ -956,7 +995,7 @@
 
   function renderCommunitySection(events) {
     var section = renderSectionShell(
-      '\u{1F91D} Community Meetups',
+      'Community Meetups',
       'Casual outdoor meetups from Find Every Park, Mighty Dads, and local park communities.'
     );
     if (!events || !events.length) {
@@ -979,7 +1018,7 @@
   function renderOngoingSection(events) {
     if (!events || !events.length) return;
     var section = renderSectionShell(
-      '\u2600\uFE0F Ongoing Summer Events',
+      'Ongoing Summer Events',
       'Easy events you can enjoy more than once this season.'
     );
     var subgroups = {};
@@ -996,8 +1035,7 @@
     sorted.forEach(function(sg) {
       var heading = document.createElement('div');
       heading.className = 'subgroup-label';
-      var sgEmoji = {'Movies in the Park':'\u{1F3AC}','Farmers Markets':'\u{1F966}','Concert Series':'\u{1F3B5}','Character Meet & Greets':'\u2728'};
-      heading.textContent = (sgEmoji[sg] ? sgEmoji[sg] + ' ' : '') + sg;
+      heading.textContent = sg;
       section.appendChild(heading);
       var items = subgroups[sg].sort(sortEvents);
       var recurring = items.filter(isRecurringEvent);
@@ -1144,20 +1182,34 @@
       emptyCityCopy.textContent = 'No current events are live right now. Past events are saved in the archive below.';
     }
 
+    var featured = currentEvents.filter(function(e) { return e.section === 'featured'; });
     var community = currentEvents.filter(function(e) { return e.section === 'community' || e.community_event; });
     var ongoing = currentEvents.filter(function(e) { return e.section === 'ongoing'; });
     var holiday = currentEvents.filter(function(e) { return e.section === 'holiday'; });
     var onetime = currentEvents.filter(function(e) { return e.section === 'onetime'; });
 
+    renderEventSection(
+      '\u{1F389} Featured Events',
+      'The biggest events this season \u2014 don\u2019t miss these.',
+      featured
+    );
     renderCommunitySection(community);
     renderOngoingSection(ongoing);
+    (function() {
+      if (!holiday || !holiday.length) return;
+      var section = renderSectionShell(
+        '\u{1F386} Holiday & Seasonal Events',
+        '\u{1F1FA}\u{1F1F8} America\u2019s 250th \u2022 Colorado\u2019s 150th \u2022 Celebrate the big days with family-friendly festivities.'
+      );
+      section.classList.add('holiday-section');
+      groupSingleEvents(holiday.sort(sortEvents)).forEach(function(group) {
+        var d = renderEventDetails(group);
+        if (d) section.appendChild(d);
+      });
+      eventsRoot.appendChild(section);
+    })();
     renderEventSection(
-      '\u{1F386} Holiday & Seasonal Events',
-      'Celebrate the big days with family-friendly festivities.',
-      holiday
-    );
-    renderEventSection(
-      '\u{1F3AA} One-Time Events',
+      'One-Time Events',
       'Special events with a single date this summer.',
       onetime
     );
