@@ -1,0 +1,6 @@
+*.zip
+*.heic
+*.mov
+*.mp4
+node_modules/
+.DS_Store

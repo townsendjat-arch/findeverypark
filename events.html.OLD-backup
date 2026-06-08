@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front Range Events — Find Every Park Colorado</title>
+  <meta name="description" content="Browse curated family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.">
+  <link rel="canonical" id="canonical-link" href="https://findeverypark.com/events.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="og-title" content="Front Range Events | Find Every Park Colorado">
+  <meta property="og:description" id="og-description" content="Browse curated family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.">
+  <meta property="og:url" id="og-url" content="https://findeverypark.com/events.html">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twitter-title" content="Front Range Events | Find Every Park Colorado">
+  <meta name="twitter:description" id="twitter-description" content="Browse curated family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9GWTHQXZNY');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a18;
+      --ink-light: #5a5a52;
+      --ink-faint: #9a9a90;
+      --rule: #e2e0d8;
+      --bg: #f9f8f4;
+      --bg-warm: #f2f0e8;
+      --grass: #0f6e56;
+      --grass-light: #e8f0ea;
+      --accent: #c4501a;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--grass);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Fraunces', serif;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 100px;
+      transition: all 0.15s;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.12); }
+    .nav-links a.active { color: white; background: rgba(255,255,255,0.2); }
+
+    /* MAIN LAYOUT */
+    .page {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* HEADER */
+    .page-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .page-header .subtitle {
+      font-size: 14px;
+      color: var(--ink-light);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+    .update-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--grass-light);
+      color: var(--grass);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .update-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--grass);
+      border-radius: 50%;
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 52px;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .section-copy {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin: -8px 0 20px;
+      line-height: 1.7;
+    }
+    .section details {
+      margin-top: 4px;
+    }
+    .section-summary {
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .section-summary::-webkit-details-marker {
+      display: none;
+    }
+    .section-summary::before {
+      content: '▸';
+      color: var(--grass);
+      font-size: 12px;
+      margin-right: 2px;
+      transition: transform 0.15s;
+    }
+    details[open] > .section-summary::before {
+      content: '▾';
+    }
+    .featured-section {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--accent);
+      padding: 22px 24px;
+      border-radius: 2px;
+      margin-bottom: 52px;
+    }
+    .featured-section .section-label {
+      margin-bottom: 16px;
+    }
+    .past-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: white;
+      background: var(--ink-faint);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    .recurrence-pill {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--grass);
+      background: var(--grass-light);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    .event-details {
+      border-bottom: 1px solid var(--rule);
+    }
+    .event-details:last-child {
+      border-bottom: none;
+    }
+    .event-details > summary {
+      list-style: none;
+      cursor: pointer;
+    }
+    .event-details > summary::-webkit-details-marker {
+      display: none;
+    }
+    .event-details > summary .event-title::before {
+      content: '▸ ';
+      color: var(--grass);
+      font-size: 12px;
+    }
+    .event-details[open] > summary .event-title::before {
+      content: '▾ ';
+    }
+    .event-detail-body {
+      padding: 0 0 16px 0;
+      font-size: 13px;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+    .event-detail-body p {
+      margin: 8px 0;
+    }
+    .event-detail-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--ink-light);
+    }
+    .event-detail-list li {
+      margin: 2px 0;
+    }
+    .event-dates {
+      margin-top: 10px;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      padding: 8px 10px;
+      background: var(--bg);
+    }
+    .event-dates summary {
+      cursor: pointer;
+      color: var(--grass);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* DATE GROUP */
+    .date-group {
+      margin-bottom: 28px;
+    }
+    .date-heading {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* EVENT ROW */
+    .event-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.1s;
+    }
+    .event-row:last-child { border-bottom: none; }
+    .event-row:hover { background: var(--bg-warm); margin: 0 -12px; padding: 10px 12px; border-radius: 3px; }
+
+    .event-main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 12px;
+    }
+    .event-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .event-meta {
+      font-size: 13px;
+      color: var(--ink-light);
+      font-weight: 300;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+    }
+    .event-meta span {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .event-meta .separator {
+      color: var(--rule);
+    }
+    .free-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--grass);
+      background: var(--grass-light);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    .cost-badge {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-light);
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .event-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-faint);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .event-link:hover {
+      color: var(--grass);
+      border-bottom-color: var(--grass);
+    }
+    .dad-note {
+      font-size: 12px;
+      color: #31443b;
+      background: var(--grass-light);
+      border-left: 3px solid var(--grass);
+      padding: 8px 10px;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    .dad-note strong {
+      color: var(--grass);
+      font-weight: 600;
+    }
+    .featured-meetup {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+    .featured-meetup h2 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .featured-meetup p {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .featured-meetup .event-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--grass);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border-bottom: none;
+    }
+    .featured-meetup .event-link:hover {
+      color: white;
+      background: #085041;
+      border-bottom: none;
+    }
+
+    /* SUBMIT BOX */
+    .submit-box {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-top: 48px;
+    }
+    .submit-box h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .submit-box p {
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .submit-box .email-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--grass);
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .submit-box ul {
+      list-style: none;
+      font-size: 12px;
+      color: var(--ink-faint);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+    .submit-box ul li::before {
+      content: '— ';
+    }
+
+    /* FOOTER NOTE */
+    .footer-note {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--ink-faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-note a {
+      color: var(--grass);
+      text-decoration: none;
+    }
+    .empty-city {
+      background: var(--white);
+      border: 1.5px solid var(--rule);
+      border-left: 3px solid var(--grass);
+      padding: 24px 28px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .empty-city h3 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .empty-city p {
+      font-size: 13px;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 520px) {
+      nav { padding: 12px 16px; }
+      .nav-links { gap: 2px; }
+      .page { padding: 36px 16px 60px; }
+      .event-row { grid-template-columns: 1fr; }
+      .event-link { justify-self: start; }
+    }
+    .page-header h1,
+    .submit-box h3,
+    .empty-city h3 {
+      font-family: 'Outfit', sans-serif;
+    }
+    .page-header h1 {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .submit-box h3,
+    .empty-city h3 {
+      font-weight: 500;
+    }
+    .event-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .cal-link {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--grass);
+      text-decoration: none;
+      white-space: nowrap;
+      opacity: 0.8;
+    }
+    .cal-link:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    @media (max-width: 520px) {
+      .event-actions { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="./index.html" id="nav-home-brand">Find Every Park</a>
+  <ul class="nav-links">
+    <li><a href="./index.html" id="nav-home-link">Home</a></li>
+    <li><a href="./parks.html" id="nav-parks-link">Parks</a></li>
+    <li><a href="./trails.html">Trails</a></li>
+    <li><a href="./events.html" class="active" id="nav-events-link">Events</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <header class="page-header">
+    <div class="update-badge" id="updated-label">Updated March 3, 2026</div>
+    <h1 id="page-title">Front Range Events</h1>
+    <p class="subtitle" id="page-subtitle">Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.</p>
+  </header>
+
+  <div id="events-root"></div>
+  <div class="submit-box" id="aurora-events-link-paths" style="display:none;">
+    <h3>Plan the park part too</h3>
+    <p>When an Aurora event needs a nearby park stop before or after, jump back into the strongest Aurora planning pages.</p>
+    <ul>
+      <li><a href="./city.html?dataset=aurora">Aurora city guide</a></li>
+      <li><a href="./parks.html?dataset=aurora">Aurora parks browse map</a></li>
+      <li><a href="./best-parks-aurora.html">Best parks in Aurora</a></li>
+      <li><a href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a></li>
+      <li><a href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a> and <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a></li>
+    </ul>
+  </div>
+  <div class="empty-city" id="empty-city" style="display:none;">
+    <h3>No city events live yet</h3>
+    <p id="empty-city-copy">This city will get its own event stream as coverage expands.</p>
+  </div>
+
+  <!-- SUBMIT BOX -->
+  <div class="submit-box">
+    <h3 id="submit-heading">Know an event?</h3>
+    <p>This list is maintained by hand. If you know of a community event we should include, send it our way.</p>
+    <span class="email-line">events@findeverypark.com</span>
+    <ul>
+      <li>Event name</li>
+      <li>Date &amp; time</li>
+      <li>Location</li>
+      <li>Short description</li>
+      <li>Link</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    <span id="footer-note-copy">Showing curated family-friendly events across the Front Range.</span>
+    <span>Brought to you by <a href="https://mightydads.org">Mighty Dads</a></span>
+  </div>
+
+</div>
+<script src="data/events/events-manifest.js"></script>
+<script>
+  const eventsData = window.EVENTS_DATA || { cities: {}, events: [] };
+  const cities = eventsData.cities || {};
+  const eventsRoot = document.getElementById('events-root');
+  const emptyCity = document.getElementById('empty-city');
+  const emptyCityCopy = document.getElementById('empty-city-copy');
+
+  document.getElementById('updated-label').textContent = eventsData.updatedLabel || 'Updated';
+  document.getElementById('page-title').textContent = 'Front Range Events';
+  document.getElementById('page-subtitle').textContent = 'Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.';
+  document.getElementById('submit-heading').textContent = 'Know an event?';
+  document.getElementById('footer-note-copy').textContent = 'Showing curated family-friendly events across the Front Range.';
+  const pageTitle = 'Front Range Events | Find Every Park Colorado';
+  const pageDescription = 'Browse curated family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.';
+  const canonicalUrl = 'https://findeverypark.com/events.html';
+  document.title = pageTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', pageDescription);
+  document.getElementById('canonical-link').href = canonicalUrl;
+  document.getElementById('og-title').setAttribute('content', pageTitle);
+  document.getElementById('og-description').setAttribute('content', pageDescription);
+  document.getElementById('og-url').setAttribute('content', canonicalUrl);
+  document.getElementById('twitter-title').setAttribute('content', pageTitle);
+  document.getElementById('twitter-description').setAttribute('content', pageDescription);
+  document.getElementById('nav-home-brand').href = './index.html';
+  document.getElementById('nav-home-link').href = './index.html';
+  document.getElementById('nav-parks-link').href = './parks.html';
+  document.getElementById('nav-events-link').href = './events.html';
+  const auroraEventsLinkPaths = document.getElementById('aurora-events-link-paths');
+  if (auroraEventsLinkPaths) {
+    auroraEventsLinkPaths.style.display = 'none';
+  }
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+    });
+  }
+
+  function eventStartDate(event) {
+    return new Date(event.series_start ? event.series_start + 'T00:00:00' : event.dateStart || event.startDate || 0);
+  }
+
+  function eventEndDate(event) {
+    if (event.series_end) return new Date(event.series_end + 'T23:59:59');
+    if (event.dateEnd) return new Date(event.dateEnd);
+    if (event.endDate) return new Date(event.endDate);
+    if (event.dateStart) return new Date(event.dateStart);
+    if (event.startDate) return new Date(event.startDate);
+    return null;
+  }
+
+  function isCurrentEvent(event, today) {
+    const end = eventEndDate(event);
+    return !end || end >= today;
+  }
+
+  function isRecurringEvent(event) {
+    return event.recurring === true || event.display_mode === 'recurring_series';
+  }
+
+  function isCommunityMeetup(event) {
+    const text = [
+      event.title,
+      event.category,
+      event.bucket,
+      event.hosted_by,
+      event.notes,
+      event.dadNote
+    ].join(' ');
+    return Boolean(
+      event.community_event ||
+      /meetup|mighty dads|coffee & parks|reservoir dinner|park meetup/i.test(text)
+    );
+  }
+
+  function isHolidayEvent(event) {
+    return Boolean(
+      event.fourth_of_july ||
+      event.holiday ||
+      event.holiday_group ||
+      event.seasonal_group ||
+      /holiday/i.test(event.category || '') ||
+      /holiday/i.test(event.bucket || '')
+    );
+  }
+
+  function eventTimingLabel(event) {
+    return event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
+  }
+
+  function recurringTimingLabel(event) {
+    if (event.recurrence_label) return event.recurrence_label;
+    if (event.recurrence_day && event.timeLabel) return 'Every ' + event.recurrence_day + ' • ' + event.timeLabel;
+    if (event.recurrence_day) return 'Every ' + event.recurrence_day;
+    if (event.timeLabel) return 'Recurring series • ' + event.timeLabel;
+    return 'Recurring series';
+  }
+
+  function formatDisplayDate(value) {
+    if (!value) return '';
+    const date = new Date(String(value).length === 10 ? value + 'T00:00:00' : value);
+    if (isNaN(date)) return value;
+    return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function recurringScheduleItems(event) {
+    const items = [];
+    const schedule = event.schedule || event.lineup || event.dates || event.occurrences || event.movies || [];
+
+    if (Array.isArray(schedule)) {
+      schedule.forEach(function(item) {
+        if (typeof item === 'string') {
+          items.push(item);
+          return;
+        }
+        if (!item || typeof item !== 'object') return;
+        const date = item.date || item.dateLabel || item.startDate || item.dateStart || '';
+        const title = item.title || item.performer || item.band || item.movie || item.name || '';
+        const location = item.location || item.locationLabel || item.venue || item.park || '';
+        const time = item.time || item.timeLabel || '';
+        const note = item.note || item.notes || item.description || '';
+        const parts = [
+          formatDisplayDate(date),
+          title,
+          location,
+          time,
+          note
+        ].filter(Boolean);
+        if (parts.length) items.push(parts.join(' — '));
+      });
+    }
+
+    if (!items.length && event.series_start && event.series_end) {
+      items.push('Runs ' + formatDisplayDate(event.series_start) + ' through ' + formatDisplayDate(event.series_end));
+    }
+    if (!items.length && event.dateLabel && event.dateLabel !== event.recurrence_label) {
+      items.push(event.dateLabel);
+    }
+    if (!items.length && event.dateStart) {
+      items.push(formatDisplayDate(event.dateStart));
+    }
+
+    return items;
+  }
+
+  function renderRecurringDates(event) {
+    const items = recurringScheduleItems(event);
+    if (!items.length) return '';
+    return '<details class="event-dates">' +
+      '<summary>See Dates</summary>' +
+      '<ul class="event-detail-list">' +
+        items.map(function(item) { return '<li>' + escapeHtml(item) + '</li>'; }).join('') +
+      '</ul>' +
+    '</details>';
+  }
+
+  function cityLabel(event) {
+    const meta = cities[event.city] || {};
+    return meta.label || (event.city ? event.city.replace(/-/g, ' ').replace(/\b\w/g, function(ch) { return ch.toUpperCase(); }) : 'Denver Metro');
+  }
+
+  function baseSeriesTitle(event) {
+    return (event.series_title || event.title || 'Recurring Event').split(' — ')[0].trim();
+  }
+
+  function seriesKey(event) {
+    return event.series_id || event.series_key || event.group_id || (event.city + '|' + baseSeriesTitle(event));
+  }
+
+  function sortEvents(a, b) {
+    if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
+    const aDate = eventStartDate(a);
+    const bDate = eventStartDate(b);
+    if (!isNaN(aDate) && !isNaN(bDate)) return aDate - bDate;
+    return 0;
+  }
+
+  function buildCalendarUrl(event) {
+    if (!event.dateStart || !event.dateEnd) return '';
+    const fmt = function(d) { return d.replace(/[-:]/g, '').replace('T', 'T').slice(0, 15); };
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent(event.title || 'Event') +
+      '&dates=' + fmt(event.dateStart) + '/' + fmt(event.dateEnd) +
+      '&location=' + encodeURIComponent(event.locationLabel || event.venue_name || event.park_name || '') +
+      '&details=' + encodeURIComponent((event.dadNote || event.notes || '') + (event.href ? '\n\nMore info: ' + event.href : ''));
+  }
+
+  function eventKey(event) {
+    return event.id || event.title || JSON.stringify(event);
+  }
+
+  function renderEventRow(event, options) {
+    options = options || {};
+    const row = document.createElement('div');
+    row.className = 'event-row' + (options.past ? ' past-event' : '');
+    const badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
+    const metaParts = [
+      cityLabel(event),
+      eventTimingLabel(event),
+      event.timeLabel && event.timeLabel !== eventTimingLabel(event) ? event.timeLabel : '',
+      event.locationLabel || event.venue_name || event.park_name || '',
+      event.audienceLabel || ''
+    ].filter(Boolean);
+    const href = event.href || event.link || './events.html';
+    const cta = event.ctaLabel || (isRecurringEvent(event) ? 'View Schedule' : 'View Event');
+    const calUrl = buildCalendarUrl(event);
+    row.innerHTML =
+      '<div>' +
+        '<div class="event-main">' +
+          '<span class="event-title">' + escapeHtml(event.title) + '</span>' +
+          (event.costLabel ? '<span class="' + badgeClass + '">' + escapeHtml(event.costLabel) + '</span>' : '') +
+          (options.past ? '<span class="past-badge">Past Event</span>' : '') +
+        '</div>' +
+        '<div class="event-meta">' +
+          metaParts.map(function(part, index) {
+            return '<span>' + escapeHtml(part) + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '');
+          }).join('') +
+        '</div>' +
+        (event.dadNote || event.notes ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote || event.notes) + '</p>' : '') +
+      '</div>' +
+      '<div class="event-actions">' +
+        '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' + escapeHtml(cta) + '</a>' +
+        (calUrl ? '<a class="cal-link" href="' + escapeHtml(calUrl) + '" target="_blank" rel="noopener">+ Add to Calendar</a>' : '') +
+      '</div>';
+    return row;
+  }
+
+  function appendRows(container, events, options) {
+    events.forEach(function(event) {
+      container.appendChild(renderEventRow(event, options));
+    });
+  }
+
+  function renderSectionShell(labelText, copyText) {
+    const section = document.createElement('section');
+    section.className = 'section';
+    const label = document.createElement('div');
+    label.className = 'section-label';
+    label.textContent = labelText;
+    section.appendChild(label);
+    if (copyText) {
+      const copy = document.createElement('p');
+      copy.className = 'section-copy';
+      copy.textContent = copyText;
+      section.appendChild(copy);
+    }
+    return section;
+  }
+
+  function renderRowsSection(labelText, copyText, events, options) {
+    if (!events.length) return;
+    const section = renderSectionShell(labelText, copyText);
+    appendRows(section, events, options || {});
+    eventsRoot.appendChild(section);
+  }
+
+  function renderEventDetails(group) {
+    const events = group.events || [];
+    const event = group.event || events[0];
+    if (!event) return null;
+
+    const details = document.createElement('details');
+    details.className = 'event-details';
+    const summary = document.createElement('summary');
+    const badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
+    const title = group.title || event.title;
+    const isRecurring = isRecurringEvent(event);
+    const recurrence = group.recurrence || (isRecurring ? recurringTimingLabel(event) : eventTimingLabel(event));
+    const metaParts = [
+      cityLabel(event),
+      event.locationLabel || event.venue_name || event.park_name || '',
+      event.audienceLabel || ''
+    ].filter(Boolean);
+    const href = event.link || event.href || './events.html';
+    const cta = event.ctaLabel || (isRecurring ? 'View Schedule' : 'View Event');
+    summary.innerHTML =
+      '<div class="event-row">' +
+        '<div>' +
+          '<div class="event-main">' +
+            '<span class="event-title">' + escapeHtml(title) + '</span>' +
+            '<span class="recurrence-pill">' + escapeHtml(recurrence) + '</span>' +
+            (event.costLabel ? '<span class="' + badgeClass + '">' + escapeHtml(event.costLabel) + '</span>' : '') +
+          '</div>' +
+          '<div class="event-meta">' +
+            metaParts.map(function(part, index) {
+              return '<span>' + escapeHtml(part) + '</span>' + (index < metaParts.length - 1 ? '<span class="separator">·</span>' : '');
+            }).join('') +
+          '</div>' +
+        '</div>' +
+        '<div class="event-actions">' +
+          '<span class="event-link">' + escapeHtml(cta) + '</span>' +
+        '</div>' +
+      '</div>';
+    details.appendChild(summary);
+
+    const body = document.createElement('div');
+    body.className = 'event-detail-body';
+    const location = event.locationLabel || event.venue_name || event.park_name || '';
+    const description = event.notes || event.description || event.dadNote || '';
+    const calUrl = buildCalendarUrl(event);
+    body.innerHTML =
+      (description ? '<p>' + escapeHtml(description) + '</p>' : '') +
+      '<div class="event-meta">' +
+        (location ? '<span>' + escapeHtml(location) + '</span>' : '') +
+        (!isRecurring && group.dateInfo ? '<span>' + escapeHtml(group.dateInfo) + '</span>' : '') +
+        (event.costLabel ? '<span>' + escapeHtml(event.costLabel) + '</span>' : '') +
+        (event.audienceLabel ? '<span>' + escapeHtml(event.audienceLabel) + '</span>' : '') +
+      '</div>' +
+      (isRecurring ? renderRecurringDates(event) : '') +
+      (!isRecurring && events.length > 1 ? '<ul class="event-detail-list">' + events.map(function(item) {
+        return '<li>' + escapeHtml(eventTimingLabel(item)) + (item.title && item.title !== title ? ' — ' + escapeHtml(item.title.replace(baseSeriesTitle(item) + ' — ', '')) : '') + '</li>';
+      }).join('') + '</ul>' : '') +
+      (event.dadNote ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote) + '</p>' : '') +
+      '<div class="event-actions">' +
+        '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' + escapeHtml(cta) + '</a>' +
+        (calUrl ? '<a class="cal-link" href="' + escapeHtml(calUrl) + '" target="_blank" rel="noopener">+ Add to Calendar</a>' : '') +
+      '</div>';
+    details.appendChild(body);
+    return details;
+  }
+
+  function renderDropdownSection(labelText, copyText, groups) {
+    if (!groups.length) return;
+    const section = renderSectionShell(labelText, copyText);
+    groups.forEach(function(group) {
+      const details = renderEventDetails(group);
+      if (details) section.appendChild(details);
+    });
+    eventsRoot.appendChild(section);
+  }
+
+  function renderArchive(events) {
+    if (!events.length) return;
+    const section = document.createElement('section');
+    section.className = 'section';
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.className = 'section-label section-summary';
+    summary.textContent = 'See What You Missed';
+    details.appendChild(summary);
+    const copy = document.createElement('p');
+    copy.className = 'section-copy';
+    copy.textContent = 'Past events are saved here so we can track what may return next year.';
+    details.appendChild(copy);
+    appendRows(details, events, { past: true });
+    section.appendChild(details);
+    eventsRoot.appendChild(section);
+  }
+
+  function renderDateGroupedSection(labelText, copyText, events) {
+    if (!events.length) return;
+    const section = renderSectionShell(labelText, copyText);
+    const grouped = {};
+    events.forEach(function(event) {
+      const label = event.dateLabel || eventTimingLabel(event);
+      if (!grouped[label]) grouped[label] = [];
+      grouped[label].push(event);
+    });
+    Object.entries(grouped).forEach(function(entry) {
+      const group = document.createElement('div');
+      group.className = 'date-group';
+      const heading = document.createElement('div');
+      heading.className = 'date-heading';
+      heading.textContent = entry[0];
+      group.appendChild(heading);
+      appendRows(group, entry[1]);
+      section.appendChild(group);
+    });
+    eventsRoot.appendChild(section);
+  }
+
+  function groupRecurringEvents(events) {
+    const groups = new Map();
+    events.forEach(function(event) {
+      const key = seriesKey(event);
+      if (!groups.has(key)) {
+        groups.set(key, {
+          key: key,
+          title: baseSeriesTitle(event),
+          recurrence: event.recurrence_label || (event.timeLabel ? 'Recurring series • ' + event.timeLabel : 'Recurring series'),
+          event: event,
+          events: []
+        });
+      }
+      groups.get(key).events.push(event);
+    });
+    return Array.from(groups.values()).map(function(group) {
+      group.events.sort(sortEvents);
+      const first = group.events[0];
+      const last = group.events[group.events.length - 1];
+      group.event = first;
+      group.recurrence = first.recurrence_label || (first.timeLabel ? 'Recurring series • ' + first.timeLabel : 'Recurring series');
+      group.dateInfo = group.events.length > 1
+        ? eventTimingLabel(first) + ' through ' + eventTimingLabel(last)
+        : eventTimingLabel(first);
+      return group;
+    }).sort(function(a, b) {
+      return sortEvents(a.event, b.event);
+    });
+  }
+
+  function groupSingleEvents(events) {
+    return events.map(function(event) {
+      const timing = isRecurringEvent(event) ? recurringTimingLabel(event) : eventTimingLabel(event);
+      return {
+        key: eventKey(event),
+        title: event.title,
+        recurrence: timing,
+        dateInfo: timing,
+        event: event,
+        events: [event]
+      };
+    });
+  }
+
+  function claimEvents(events, rendered, filter) {
+    const claimed = [];
+    events.forEach(function(event) {
+      const key = eventKey(event);
+      if (!rendered.has(key) && filter(event)) {
+        rendered.add(key);
+        claimed.push(event);
+      }
+    });
+    return claimed;
+  }
+
+  function claimRecurringGroups(events, rendered) {
+    return groupSingleEvents(claimEvents(events, rendered, isRecurringEvent));
+  }
+
+  function claimSingleGroups(events, rendered, filter) {
+    return groupSingleEvents(claimEvents(events, rendered, filter));
+  }
+
+  function standaloneFilter(event) {
+    return !isRecurringEvent(event);
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const cityEvents = (eventsData.events || []).slice();
+
+  if (!cityEvents.length) {
+    emptyCity.style.display = '';
+    emptyCityCopy.textContent = 'Events will appear here as coverage expands.';
+  } else {
+    const currentEvents = cityEvents.filter(function(event) { return isCurrentEvent(event, today); }).sort(sortEvents);
+    const pastEvents = cityEvents.filter(function(event) { return !isCurrentEvent(event, today); }).sort(sortEvents);
+    const rendered = new Set();
+
+    if (!currentEvents.length && pastEvents.length) {
+      emptyCity.style.display = '';
+      emptyCityCopy.textContent = 'No current events are live right now. Past events are saved in the archive below.';
+    }
+
+    const communityMeetups = claimEvents(currentEvents, rendered, isCommunityMeetup);
+    const recurringGroups = claimRecurringGroups(currentEvents, rendered);
+    const standaloneEvents = claimEvents(currentEvents, rendered, standaloneFilter);
+
+    renderDropdownSection(
+      'Community Meetups',
+      'Casual outdoor meetups from Find Every Park, Mighty Dads, and local park communities.',
+      groupSingleEvents(communityMeetups)
+    );
+    renderDropdownSection(
+      'Ongoing Summer Events',
+      'Easy events you can join more than once this season.',
+      recurringGroups
+    );
+    renderDateGroupedSection(
+      'One-Time Events',
+      'Festivals, movies, concerts, and community events with a specific date.',
+      standaloneEvents
+    );
+    renderArchive(pastEvents);
+  }
+</script>
+</body>
+</html>

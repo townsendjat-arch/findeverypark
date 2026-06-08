@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Playgrounds in Denver CO for Toddlers & Kids | Find Every Park</title>
+  <meta name="description" content="Find the best playgrounds in Denver, Colorado for toddlers and families. A curated shortlist of standout Denver playground parks to help you decide fast.">
+  <link rel="canonical" href="https://findeverypark.com/best-playgrounds-denver.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Best Playgrounds in Denver, Colorado | Find Every Park">
+  <meta property="og:description" content="Best playgrounds in Denver for parents who want a fast local shortlist. Compare standout Denver playground parks, nature play, and family-ready stops.">
+  <meta property="og:url" content="https://findeverypark.com/best-playgrounds-denver.html">
+  <meta property="og:image" content="https://findeverypark.com/images/fep-icon-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Best Playgrounds in Denver, Colorado | Find Every Park">
+  <meta name="twitter:description" content="Best playgrounds in Denver for parents who want a fast local shortlist. Compare standout Denver playground parks, nature play, and family-ready stops.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/fep-icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="best-playgrounds-page.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="./index.html?dataset=denver" class="nav-brand">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="./index.html?dataset=denver">Home</a></li>
+      <li><a href="./city.html?dataset=denver">City Guide</a></li>
+      <li><a href="./best-playgrounds-denver.html" class="active">Best Denver Playgrounds</a></li>
+      <li><a href="./parks.html?dataset=denver">Parks</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <span class="eyebrow">Denver Playgrounds</span>
+      <h1>Best Playgrounds in Denver, Colorado</h1>
+      <p>Denver has a long playground list, so this page pulls the more practical family starts to the top. Use it when you want a quicker playground answer instead of sorting through the whole city first.</p>
+      <div class="hero-actions">
+        <a class="hero-btn primary" href="./city.html?dataset=denver">Open Denver city page</a>
+        <a class="hero-btn secondary" href="./parks.html?dataset=denver&filter=playground">Browse Denver playground map</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Denver Playground Short List</h2>
+          <p class="section-copy">This page only includes Denver parks with playgrounds and prioritizes the ones most likely to help parents decide fast.</p>
+        </div>
+      </div>
+      <div class="best-grid" id="best-grid"></div>
+      <div class="empty-state" id="empty-state" style="display:none;">No playground parks are available for this city yet.</div>
+    </section>
+
+    <section class="map-cta">
+      <div class="map-cta-copy">
+        <h2 class="section-title">Need the full Denver playground map?</h2>
+        <p>Use the full city map when you want more playground choices, park search, or neighborhood options beyond this shortlist.</p>
+      </div>
+      <a class="hero-btn primary" href="./parks.html?dataset=denver&filter=playground">Browse Denver map</a>
+    </section>
+
+    <section class="community-callout">
+      <p>Have a park we should include? Send it to <a href="mailto:jason@findeverypark.com">jason@findeverypark.com</a></p>
+    </section>
+  </main>
+
+  <script src="site-config.js"></script>
+  <script src="data/photos/park-photo-manifest.js"></script>
+  <script src="park-data-registry.js"></script>
+  <script src="denver-parks-data.js"></script>
+  <script src="top-picks.js"></script>
+  <script>
+    window.PLAYGROUND_PAGE_CONFIG = {
+      datasetKey: "denver",
+      city: "Denver",
+      limit: 12
+    };
+  </script>
+  <script src="docs/best-playgrounds-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This Weekend in Aurora, CO | Park Ideas + Events</title>
+  <meta name="description" content="Plan this weekend in Aurora with three easy park ideas, a direct link to Aurora events, and a faster family shortlist from Find Every Park Colorado.">
+  <link rel="canonical" href="https://findeverypark.com/this-weekend-aurora.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="This Weekend in Aurora, CO | Park Ideas + Events">
+  <meta property="og:description" content="Plan this weekend in Aurora with three easy park ideas, a direct link to Aurora events, and a faster family shortlist from Find Every Park Colorado.">
+  <meta property="og:url" content="https://findeverypark.com/this-weekend-aurora.html">
+  <meta property="og:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="This Weekend in Aurora, CO | Park Ideas + Events">
+  <meta name="twitter:description" content="Plan this weekend in Aurora with three easy park ideas, a direct link to Aurora events, and a faster family shortlist from Find Every Park Colorado.">
+  <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="growth-widgets.css">
+  <style>
+    :root {
+      --ink: #1a1f1c;
+      --ink-muted: #5e6662;
+      --sand: #f4f0e8;
+      --sand-dark: #e7e1d5;
+      --white: #ffffff;
+      --grass: #0f6e56;
+      --grass-dark: #084d3e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: var(--sand);
+      color: var(--ink);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      background: var(--grass);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      font-family: 'Fraunces', serif;
+      color: #fff;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 34px 24px 72px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(15,110,86,0.92), rgba(8,77,62,0.96));
+      border-radius: 26px;
+      padding: 28px;
+      color: #fff;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 44px rgba(16,30,22,0.15);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.7);
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(32px, 5vw, 50px);
+      line-height: 1.02;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 62ch;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.86);
+      margin-bottom: 10px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .hero-btn.primary {
+      background: #fff;
+      color: var(--grass);
+    }
+
+    .hero-btn.secondary {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.24);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .section {
+      background: rgba(255,255,255,0.97);
+      border: 1px solid rgba(228,221,212,0.95);
+      border-radius: 20px;
+      padding: 22px 24px;
+      box-shadow: 0 18px 34px rgba(20,31,23,0.08);
+      margin-bottom: 18px;
+    }
+
+    .section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+    .section-copy {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-muted);
+    }
+
+    .park-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .park-card {
+      border: 1px solid var(--sand-dark);
+      border-radius: 18px;
+      padding: 18px;
+      background: #faf8f4;
+    }
+
+    .park-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .park-card p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .park-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .park-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: #eef6f3;
+      border: 1px solid #d7e6de;
+      color: var(--grass);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .sidebar-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .helper-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .helper-list a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--sand-dark);
+      background: #faf8f4;
+      color: var(--grass);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="./index.html?dataset=aurora">Find Every Park</a>
+    <ul class="nav-links">
+      <li><a href="./index.html?dataset=aurora">Home</a></li>
+      <li><a href="./city.html?dataset=aurora">Aurora Guide</a></li>
+      <li><a href="./parks.html?dataset=aurora">Aurora Parks</a></li>
+      <li><a href="./events.html?city=aurora">Aurora Events</a></li>
+      <li><a class="active" href="./this-weekend-aurora.html">This Weekend</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Weekend of April 17-19, 2026</span>
+      <h1>This Weekend in Aurora</h1>
+      <p>When you just want three good family options without overthinking it, start here. These park picks are built to work even if the events calendar is light.</p>
+      <p>Use this page as the fast Aurora weekend layer, then jump into the full Aurora events page, city guide, or park map when you want backups.</p>
+      <div class="hero-actions">
+        <a class="hero-btn primary" href="./events.html?city=aurora">Open Aurora events</a>
+        <a class="hero-btn secondary" href="./parks.html?dataset=aurora">Browse Aurora map</a>
+        <a class="hero-btn secondary" href="./best-parks-aurora.html">Best parks in Aurora</a>
+        <a class="hero-btn secondary" href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
+      </div>
+    </section>
+
+    <div class="layout">
+      <div>
+        <section class="section">
+          <h2>Three easy Aurora park ideas</h2>
+          <p class="section-copy">These are the simplest strong picks for this weekend if you want a reliable family outing, not a research project.</p>
+          <div class="park-grid">
+            <article class="park-card">
+              <h3>Utah Park</h3>
+              <p>Best when you want an all-around active family park: playground, big open space, tennis, baseball, and the newly renovated indoor pool all in one stop.</p>
+              <div class="park-links">
+                <a class="park-link" href="./park.html?dataset=aurora&id=co-aurora-utah-park">Open park page</a>
+                <a class="park-link" href="./parks.html?dataset=aurora&search=Utah%20Park">Show on map</a>
+              </div>
+            </article>
+            <article class="park-card">
+              <h3>Great Plains Park</h3>
+              <p>Best when younger kids need room, swings, splash-pad energy, and a park that still works if the outing stretches into a longer walk.</p>
+              <div class="park-links">
+                <a class="park-link" href="./park.html?dataset=aurora&id=co-aurora-great-plains-park">Open park page</a>
+                <a class="park-link" href="./parks.html?dataset=aurora&search=Great%20Plains%20Park">Show on map</a>
+              </div>
+            </article>
+            <article class="park-card">
+              <h3>Red-tailed Hawk Park</h3>
+              <p>Best when you want the most complete all-abilities play option in Aurora, plus splash pad value and an easy Southlands add-on afterward.</p>
+              <div class="park-links">
+                <a class="park-link" href="./park.html?dataset=aurora&id=co-aurora-red-tailed-hawk-park">Open park page</a>
+                <a class="park-link" href="./parks.html?dataset=aurora&search=Red-tailed%20Hawk%20Park">Show on map</a>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div class="sidebar-stack">
+        <section class="section">
+          <h2>How to use this page</h2>
+          <p class="section-copy">Start with the three picks above. If none fit, use the Aurora map for backups or open the Aurora events page if you want a community event layered into the outing.</p>
+          <div class="helper-list">
+            <a href="./events.html?city=aurora">Aurora events page</a>
+            <a href="./city.html?dataset=aurora">Aurora city guide</a>
+            <a href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
+            <a href="./park.html?dataset=aurora&id=co-aurora-aurora-reservoir">Aurora Reservoir</a>
+            <a href="./park.html?dataset=aurora&id=co-aurora-expo-park">Expo Park</a>
+            <a href="./park.html?dataset=aurora&id=co-aurora-village-green-park">Village Green Park</a>
+            <a href="./parks.html?dataset=aurora&filter=playground">Aurora playground map</a>
+          </div>
+        </section>
+        <div id="weekend-email-capture"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="growth-widgets.js"></script>
+  <script>
+    if (window.FEPGrowth) {
+      window.FEPGrowth.mountEmailCapture('#weekend-email-capture', {
+        source: 'this-weekend-aurora',
+        copy: 'Want this Aurora weekend layer in your inbox? Use the lightweight email capture below and we will keep the shortlist simple.'
+      });
+    }
+  </script>
+</body>
+</html>
