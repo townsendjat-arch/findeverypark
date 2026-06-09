@@ -89,26 +89,26 @@ window.EVENTS_DATA = {
     {
       id: "aurora-park-lights-movie-nights",
       city: "aurora",
-      title: "Park Lights & Movie Nights",
+      title: "Music at the Movies",
       section: "ongoing",
       subgroup: "Movies in the Park",
       subgroupOrder: 1,
       recurring: true,
-      recurrence_label: "Movie Nights This Summer",
+      recurrence_label: "Select Wednesdays This Summer",
       dropdownLabel: "View Movie Lineup",
-      description: "Free community movie nights under the stars at Aurora parks. Pre-film entertainment starts at 5:15 PM, movies begin at 6:00 PM.",
-      href: "https://www.auroragov.org/things_to_do/events/park_lights_movie_nights",
+      description: "Free community concerts followed by movies under the stars, presented by Aurora Parks, Recreation and Open Space and Aurora Public Library. Live music begins at 5:00 PM and the movie starts at 6:00 PM. Please review movie content before attending.",
+      href: "https://www.auroragov.org/things_to_do/events/music_at_the_movies",
       locationLabel: "Various Aurora Parks",
-      timeLabel: "5:15 PM – 8:00 PM",
+      timeLabel: "Concert 5:00 PM \u2022 Movie 6:00 PM",
       costLabel: "Free",
       costType: "free",
       audienceLabel: "All ages",
-      series_start: "2026-06-04",
-      series_end: "2026-06-13",
+      series_start: "2026-06-24",
+      series_end: "2026-07-29",
       schedule: [
-        { date: "2026-06-04", title: "Homeward Bound: The Incredible Journey (G)", location: "Rocky Ridge Park" },
-        { date: "2026-06-05", title: "Puss in Boots: The Last Wish (PG)", location: "Hilltop Park" },
-        { date: "2026-06-13", title: "Barbie (PG-13)", location: "Larkspur Park" }
+        { date: "2026-06-24", title: "How to Train Your Dragon, 2025 (PG)", location: "Terrace Park" },
+        { date: "2026-07-15", title: "Hamilton Sing-Along (PG-13)", location: "Settler's Park" },
+        { date: "2026-07-29", title: "The SpongeBob Movie: Search for SquarePants (PG)", location: "Meadowood Park" }
       ]
     },
 

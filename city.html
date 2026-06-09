@@ -654,7 +654,13 @@
       <span>Find Every Park Colorado is building city-by-city across the Front Range.</span>
       <a id="footer-browse-link" href="./parks.html?dataset=aurora">Open full city browse</a>
     </div>
-  </footer>
+  <p style="text-align:center; color:#5a6460; font-size:0.85rem; padding:1.5rem 0;">
+  © <span id="copyright-year"></span> Mighty Compass LLC · FindEveryPark.com
+</p>
+<script>
+  document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+</footer>
 
   <script src="site-config.js"></script>
   <script src="data/photos/park-photo-manifest.js"></script>

@@ -1014,7 +1014,13 @@
       </nav>
       <span class="footer-copy">&copy; 2026 Find Every Park Colorado</span>
     </div>
-  </footer>
+  <p style="text-align:center; color:#5a6460; font-size:0.85rem; padding:1.5rem 0;">
+  © <span id="copyright-year"></span> Mighty Compass LLC · FindEveryPark.com
+</p>
+<script>
+  document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
+</footer>
 
   <script src="growth-widgets.js"></script>
   <script src="data/events/events-manifest.js"></script>
