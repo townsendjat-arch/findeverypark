@@ -782,29 +782,6 @@
   </section>
 
   <main class="main">
-    <section class="home-stat-bar" aria-label="Find Every Park coverage">
-      <div class="home-stat">
-        <span class="home-stat-value">16 Cities</span>
-        <span class="home-stat-label">Across Colorado</span>
-      </div>
-      <div class="home-stat">
-        <span class="home-stat-value">500+ Parks</span>
-        <span class="home-stat-label">Researched locally</span>
-      </div>
-      <div class="home-stat">
-        <span class="home-stat-value">Playgrounds &amp; Trails</span>
-        <span class="home-stat-label">Find kid-friendly routes</span>
-      </div>
-      <div class="home-stat">
-        <span class="home-stat-value">Dog Parks</span>
-        <span class="home-stat-label">Off-leash options</span>
-      </div>
-      <div class="home-stat">
-        <span class="home-stat-value">Splash Pads</span>
-        <span class="home-stat-label">Summer-ready picks</span>
-      </div>
-    </section>
-
     <section class="home-events" aria-labelledby="home-events-heading">
       <div class="home-events-header">
         <div>
@@ -947,14 +924,6 @@
       <div class="sponsor-slot-sub">Your business here · <a href="mailto:jason@findeverypark.com?subject=Sponsorship">Learn more</a></div>
     </section>
 
-    <section class="sponsor-callout" aria-label="Sponsorship opportunities">
-      <div class="sponsor-copy">
-        <h2>Own a local business? Reach Front Range families.</h2>
-        <p>FindEveryPark reaches parents across 16 Colorado cities searching for parks, playgrounds, and activities. Sponsor a city page or category to put your business in front of them.</p>
-      </div>
-      <a class="sponsor-btn" href="mailto:jason@findeverypark.com?subject=Sponsorship%20Inquiry">Learn about sponsorship</a>
-    </section>
-
     <!-- BROWSE BY WHAT YOU NEED -->
     <section class="section" aria-labelledby="intent-heading">
       <p class="section-label" id="intent-heading">I'm looking for…</p>
@@ -991,11 +960,8 @@
     </section>
 
     <section class="section" aria-labelledby="weekend-growth-heading">
-      <p class="section-label" id="weekend-growth-heading">Aurora this weekend</p>
-      <div class="growth-duo">
-        <div id="home-weekend-teaser"></div>
-        <div id="home-email-capture"></div>
-      </div>
+      <p class="section-label" id="weekend-growth-heading">Get the weekend shortlist</p>
+      <div id="home-email-capture"></div>
     </section>
 
   </main>
@@ -1199,12 +1165,9 @@
     mountHomeFeaturedEvents();
 
     if (window.FEPGrowth) {
-      window.FEPGrowth.mountWeekendTeaser('#home-weekend-teaser', {
-        copy: 'Three easy Aurora park ideas for the weekend, plus a direct link into the Aurora events page when you want more to do.'
-      });
       window.FEPGrowth.mountEmailCapture('#home-email-capture', {
         source: 'homepage',
-        copy: 'Get the Aurora weekend shortlist in a simple prefilled email flow that works on this static site right now.'
+        copy: 'Get the Aurora weekend shortlist in a simple prefilled email flow.'
       });
     }
 
@@ -1214,6 +1177,40 @@
     if (indexAdEl) {
       indexAdEl.src = indexAds[Math.floor(Math.random() * indexAds.length)];
     }
+
+    // Collapse the city grid: show the first 8, reveal the rest on click.
+    (function () {
+      var grid = document.querySelector('.city-grid');
+      if (!grid) return;
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.city-card'));
+      var LIMIT = 8;
+      if (cards.length <= LIMIT) return;
+
+      var style = document.createElement('style');
+      style.textContent =
+        '.city-show-all{display:block;margin:18px auto 0;padding:11px 22px;border-radius:100px;' +
+        "border:1px solid #0f6e56;background:#fff;color:#0f6e56;font-family:inherit;font-size:14px;" +
+        'font-weight:600;cursor:pointer;transition:all .15s;}' +
+        '.city-show-all:hover{background:#0f6e56;color:#fff;}';
+      document.head.appendChild(style);
+
+      function setHidden(hidden) {
+        cards.slice(LIMIT).forEach(function (c) { c.style.display = hidden ? 'none' : ''; });
+      }
+      setHidden(true);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'city-show-all';
+      btn.textContent = 'Show all ' + cards.length + ' cities';
+      btn.addEventListener('click', function () {
+        var expand = btn.getAttribute('data-expanded') !== '1';
+        setHidden(!expand);
+        btn.setAttribute('data-expanded', expand ? '1' : '0');
+        btn.textContent = expand ? 'Show fewer cities' : ('Show all ' + cards.length + ' cities');
+      });
+      grid.parentNode.insertBefore(btn, grid.nextSibling);
+    })();
   </script>
   <script src="ios-install-banner.js"></script>
 
