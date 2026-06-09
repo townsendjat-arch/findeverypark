@@ -1,0 +1,9 @@
+/* Shared components for best-parks city pages: Quick Picks row + sponsor slot */
+.quick-picks-list { list-style: none; padding-left: 0; }
+.quick-picks-list li { margin-bottom: 10px; color: #314039; font-size: 14px; line-height: 1.6; }
+.quick-picks-list a { color: #0f6e56; font-weight: 700; text-decoration: none; }
+.sponsor-slot { margin-top: 48px; margin-bottom: 44px; padding-top: 24px; border-top: 1px solid rgba(15,110,86,0.12); }
+.sponsor-slot .section-head { margin-bottom: 22px; }
+@media (max-width: 720px) {
+  .sponsor-slot { margin-top: 40px; margin-bottom: 40px; padding-top: 22px; }
+}

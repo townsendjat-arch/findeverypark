@@ -349,6 +349,8 @@
       vertical-align: middle;
       white-space: nowrap;
     }
+    /* Map page = the tool. Promo blocks hidden to keep focus on park cards + map. */
+    .page-hero, #parks-growth-section, .seo-support { display: none !important; }
   </style>
 </head>
 <body>
@@ -420,7 +422,7 @@
   <section class="page-intro" aria-labelledby="page-intro-title">
     <h1 id="page-intro-title">Parks in Aurora</h1>
     <p class="page-intro-subtitle" id="page-intro-subtitle">Browse Aurora playgrounds, trails, dog parks, splash pads, and everyday neighborhood stops in one place.</p>
-    <p class="page-intro-copy" id="page-intro-copy">Use the full Aurora parks map to compare park cards fast, then jump into the city guide, best parks list, or best playgrounds page when you want a tighter shortlist.</p>
+    <p class="page-intro-copy" id="page-intro-copy">Use the full Aurora parks map to compare park cards fast, then jump into the best parks list or best playgrounds page when you want a tighter shortlist.</p>
   </section>
 
   <section class="page-hero">
@@ -943,7 +945,7 @@ function applyDatasetContext() {
   document.getElementById('dataset-note').textContent = CITY + ', ' + DATASET_META.stateName + (DATASET_KEY === 'parker' ? ' · filters available: trails, dog park, disc golf, skate, tennis, soccer' : '');
   pageIntroTitleEl.textContent = 'Parks in ' + CITY;
   pageIntroSubtitleEl.textContent = 'Browse playgrounds, trails, dog parks, splash pads, and family-friendly outdoor spaces in ' + CITY + '.';
-  pageIntroCopyEl.textContent = 'Use the full ' + CITY + ' parks map to compare park cards fast, then jump into the city guide, best parks list, or best playgrounds page when you want a tighter shortlist.';
+  pageIntroCopyEl.textContent = 'Use the full ' + CITY + ' parks map to compare park cards fast, then jump into the best parks list or best playgrounds page when you want a tighter shortlist.';
   document.getElementById('hero-city').textContent = CITY;
   document.getElementById('hero-city-stat').textContent = CITY;
   document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
