@@ -879,6 +879,7 @@
     options = options || {};
     const row = document.createElement('div');
     row.className = 'event-row' + (options.past ? ' past-event' : '');
+    row.dataset.city = event.city || '';
     const badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
     const metaParts = [
       cityLabel(event),
@@ -947,6 +948,7 @@
 
     var card = document.createElement('div');
     card.className = 'event-card';
+    card.dataset.city = event.city || '';
     var badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
     var title = group.title || event.title;
     var isRecurring = isRecurringEvent(event);
@@ -1215,6 +1217,80 @@
     );
     renderArchive(pastEvents);
   }
+
+  // ---- City filter pills ----
+  (function () {
+    var root = document.getElementById('events-root');
+    if (!root) return;
+
+    function prettyCity(key) {
+      var meta = (typeof cities !== 'undefined' && cities[key]) ? cities[key] : null;
+      if (meta && meta.label) return meta.label;
+      return key.replace(/[-_]/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    }
+    function isVisible(el) { return el.style.display !== 'none'; }
+
+    function sweepEmpties() {
+      // Hide subgroup headers (e.g. "Movies in the Park") with no visible cards under them.
+      Array.prototype.forEach.call(root.querySelectorAll('.subgroup-label'), function (label) {
+        var anyVisible = false, sib = label.nextElementSibling;
+        while (sib && !sib.classList.contains('subgroup-label')) {
+          if ((sib.classList.contains('event-card') || sib.classList.contains('event-row')) && isVisible(sib)) { anyVisible = true; break; }
+          sib = sib.nextElementSibling;
+        }
+        label.style.display = anyVisible ? '' : 'none';
+      });
+      // Hide whole sections that have no visible events.
+      Array.prototype.forEach.call(root.children, function (section) {
+        if (!section.querySelector('.event-card, .event-row')) return;
+        var anyVisible = Array.prototype.some.call(section.querySelectorAll('.event-card, .event-row'), isVisible);
+        section.style.display = anyVisible ? '' : 'none';
+      });
+    }
+
+    function applyFilter(key, btn) {
+      Array.prototype.forEach.call(bar.children, function (p) { p.classList.toggle('active', p === btn); });
+      Array.prototype.forEach.call(root.querySelectorAll('.event-card, .event-row'), function (el) {
+        el.style.display = (!key || el.dataset.city === key) ? '' : 'none';
+      });
+      sweepEmpties();
+    }
+
+    function makePill(key, label) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'event-filter-pill' + (key === '' ? ' active' : '');
+      b.textContent = label;
+      b.dataset.city = key;
+      b.addEventListener('click', function () { applyFilter(key, b); });
+      return b;
+    }
+
+    var items = root.querySelectorAll('.event-card, .event-row');
+    if (!items.length) return;
+    var seen = {};
+    Array.prototype.forEach.call(items, function (el) {
+      var k = el.dataset.city;
+      if (k && !seen[k]) seen[k] = prettyCity(k);
+    });
+    var keys = Object.keys(seen).sort(function (a, b) { return seen[a].localeCompare(seen[b]); });
+    if (keys.length < 2) return; // nothing worth filtering
+
+    var bar = document.createElement('div');
+    bar.className = 'event-filter-pills';
+    bar.appendChild(makePill('', 'All Cities'));
+    keys.forEach(function (k) { bar.appendChild(makePill(k, seen[k])); });
+    root.parentNode.insertBefore(bar, root);
+
+    var css = ''
+      + '.event-filter-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px;}'
+      + ".event-filter-pill{font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;padding:7px 15px;border-radius:100px;border:1px solid var(--rule);background:var(--white);color:var(--ink-light);cursor:pointer;transition:all .15s;}"
+      + '.event-filter-pill:hover{border-color:var(--grass);color:var(--grass);}'
+      + '.event-filter-pill.active{background:var(--grass);border-color:var(--grass);color:#fff;}';
+    var style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+  })();
 </script>
 <p style="text-align:center; color:#5a6460; font-size:0.85rem; padding:1.5rem 0;">
   © <span id="copyright-year"></span> Mighty Compass LLC · FindEveryPark.com
