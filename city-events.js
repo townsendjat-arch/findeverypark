@@ -9,6 +9,10 @@
     });
   }
 
+  function normCity(value) {
+    return String(value == null ? '' : value).trim().toLowerCase().replace(/_/g, '-');
+  }
+
   function endDate(event) {
     if (event.series_end) return new Date(event.series_end + 'T23:59:59');
     if (event.dateEnd) return new Date(event.dateEnd);
@@ -44,7 +48,7 @@
   // City's own current events: featured first, then soonest, capped at 3.
   function selectCityEvents(allEvents, cityKey, today) {
     return allEvents
-      .filter(function (e) { return e && e.city === cityKey && isCurrent(e, today); })
+      .filter(function (e) { return e && normCity(e.city) === normCity(cityKey) && isCurrent(e, today); })
       .sort(function (a, b) {
         if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
         return startDate(a) - startDate(b);
