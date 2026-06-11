@@ -431,7 +431,7 @@
       <h1><span id="hero-city">Aurora</span> Parks</h1>
       <p id="hero-copy">Use the Aurora park map to compare playgrounds, trails, splash pads, dog parks, and everyday stops fast. Start here when you want the full browse layer, then jump into the tighter Aurora guides below.</p>
       <div class="hero-actions">
-        <a id="hero-weekend-link" class="top-pick-link" href="./this-weekend-aurora.html">This weekend in Aurora</a>
+        <a id="hero-weekend-link" class="top-pick-link" href="./events.html?city=aurora">City events</a>
         <a id="hero-city-guide-link" class="top-pick-link" href="./city.html?dataset=aurora">Aurora city guide</a>
         <a id="hero-best-guide-link" class="top-pick-link" href="./best-parks-aurora.html">Best parks in Aurora</a>
         <a id="hero-playground-guide-link" class="top-pick-link" href="./best-playgrounds-aurora.html">Best playgrounds in Aurora</a>
@@ -997,8 +997,8 @@ function applyDatasetContext() {
   auroraRelatedSeoLinks.forEach((link) => {
     link.style.display = DATASET_KEY === 'aurora' ? '' : 'none';
   });
-  heroWeekendLinkEl.href = DATASET_KEY === 'aurora' ? './this-weekend-aurora.html' : './events.html?city=' + encodeURIComponent(DATASET_KEY);
-  heroWeekendLinkEl.textContent = DATASET_KEY === 'aurora' ? 'This weekend in Aurora' : 'City events';
+  heroWeekendLinkEl.href = './events.html?city=' + encodeURIComponent(DATASET_KEY);
+  heroWeekendLinkEl.textContent = 'City events';
   heroCityGuideLinkEl.href = './city.html?dataset=' + encodeURIComponent(DATASET_KEY);
   heroCityGuideLinkEl.textContent = CITY + ' city guide';
   heroBestGuideLinkEl.href = bestGuideHref;

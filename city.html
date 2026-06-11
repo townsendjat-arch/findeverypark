@@ -135,7 +135,7 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1fr;
       gap: 22px;
       align-items: end;
     }
@@ -161,32 +161,19 @@
       font-size: 15px;
       line-height: 1.7;
     }
-    .hero-utility {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      margin-top: 16px;
-    }
-    .hero-utility-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.14);
-      font-size: 11px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.88);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
     .hero-actions {
       display: flex;
-      gap: 12px;
+      align-items: center;
+      gap: 10px;
       flex-wrap: wrap;
       margin-top: 22px;
+    }
+    .hero-actions-label {
+      color: rgba(255,255,255,0.72);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
     .hero-btn {
       display: inline-flex;
@@ -201,38 +188,6 @@
     .hero-btn.primary { background: white; color: var(--grass); }
     .hero-btn.secondary { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.24); }
     .hero-btn.ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.18); }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-    .hero-stat {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 18px;
-      padding: 16px;
-      backdrop-filter: blur(6px);
-    }
-    .hero-stat-label {
-      display: block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.62);
-      margin-bottom: 8px;
-    }
-    .hero-stat-value {
-      font-family: 'Fraunces', serif;
-      font-size: 26px;
-      font-weight: 600;
-    }
-    .hero-stat-copy {
-      margin-top: 6px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.76);
-    }
 
     .section {
       margin-top: 24px;
@@ -281,39 +236,6 @@
     }
     .events-callout{background:white;border:1px solid var(--line);border-radius:24px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.events-callout-text h2{font-size:18px;font-weight:600;margin-bottom:6px}.events-callout-text p{color:#637168;font-size:14px;line-height:1.6}@media(max-width:720px){.events-callout{flex-direction:column;align-items:flex-start}}
 
-    .intent-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .intent-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 14px 16px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      text-decoration: none;
-      color: var(--ink);
-      box-shadow: 0 8px 20px rgba(20, 31, 23, 0.04);
-    }
-    .intent-link:hover {
-      border-color: #d1c7bb;
-    }
-    .intent-label {
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .intent-meta {
-      font-size: 11px;
-      font-weight: 700;
-      color: #728076;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
     .featured-strip {
       display: grid;
       grid-auto-flow: column;
@@ -322,6 +244,9 @@
       overflow-x: auto;
       padding-bottom: 8px;
       scroll-snap-type: x proximity;
+    }
+    .featured-top {
+      margin-bottom: 16px;
     }
     .featured-card {
       background: white;
@@ -333,6 +258,10 @@
       display: flex;
       flex-direction: column;
       min-height: 360px;
+    }
+    .featured-card--top {
+      border: 2px solid #0f6e56;
+      min-height: auto;
     }
     .featured-media {
       min-height: 190px;
@@ -368,6 +297,11 @@
       padding: 6px 10px;
       font-size: 11px;
       font-weight: 700;
+    }
+    .featured-badge--inline {
+      align-self: flex-start;
+      background: var(--grass-soft);
+      color: var(--grass-deep);
     }
     .featured-placeholder {
       position: relative;
@@ -424,6 +358,23 @@
       font-size: 12px;
       font-weight: 700;
       color: var(--grass);
+    }
+    .guide-how-picked {
+      margin-top: 14px;
+    }
+    .guide-how-picked strong {
+      color: var(--ink);
+    }
+    .guide-tips-list {
+      color: #506056;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .guide-tips-list {
+      padding-left: 20px;
+    }
+    .guide-tips-list li {
+      margin-bottom: 8px;
     }
 
     .category-grid {
@@ -483,17 +434,14 @@
     @media (max-width: 980px) {
       .city-hero-grid { grid-template-columns: 1fr; }
       .category-grid { grid-template-columns: 1fr; }
-      .intent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 700px) {
       .city-hero { padding: 22px; border-radius: 22px; }
-      .hero-stats { grid-template-columns: 1fr; }
       .featured-strip { grid-auto-columns: minmax(84vw, 1fr); }
       .main-nav { padding: 14px 16px; }
       main { padding: 22px 16px 60px; }
       .city-switch-link { width: 100%; margin-left: 0; }
       .section-head { align-items: start; flex-direction: column; }
-      .intent-grid { grid-template-columns: 1fr; }
     }
     .city-hero h1,
     .section-title,
@@ -555,40 +503,13 @@
           <span class="eyebrow" id="guide-eyebrow">Front Range City Guide</span>
           <h1 id="city-title">Aurora, Colorado</h1>
           <p id="city-summary">Find the best parks in Aurora for playground time, trail walks, splash-pad afternoons, dog stops, and everyday family outings. Start with the strongest picks below, then open the full map when you want more options.</p>
-          <div class="hero-utility" id="hero-utility">
-            <span class="hero-utility-pill" id="utility-count">0 parks shown</span>
-            <span class="hero-utility-pill" id="utility-proof">Curated picks + full city map</span>
-            <span class="hero-utility-pill" id="utility-browse">Browse by playgrounds, trails, dog parks, and more</span>
-          </div>
           <div class="hero-actions">
+            <span class="hero-actions-label">Jump to:</span>
             <a class="hero-btn primary" id="browse-link" href="./parks.html?dataset=aurora">Browse All Parks</a>
-            <a class="hero-btn secondary" id="weekend-link" href="./this-weekend-aurora.html">This Weekend</a>
+            <a class="hero-btn secondary" id="weekend-link" href="./events.html?city=aurora">City events</a>
             <a class="hero-btn secondary" id="trail-link" href="./parks.html?dataset=aurora&filter=trails">Trail Access</a>
-            <a class="hero-btn secondary" id="best-link" href="./best-parks-aurora.html">Best Parks</a>
             <a class="hero-btn secondary" id="playgrounds-link" href="./best-playgrounds-aurora.html">Best Playgrounds</a>
-            <a class="hero-btn ghost" id="golf-link" href="./parks.html?dataset=aurora&filter=golf">Golf Courses</a>
             <a class="hero-btn ghost" id="dog-parks-link" href="./dog-friendly-parks-aurora.html">Dog Parks</a>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-label">Parks In Guide</span>
-            <div class="hero-stat-value" id="city-total">0</div>
-            <div class="hero-stat-copy">All parks currently included in this city guide.</div>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-label">Featured Now</span>
-            <div class="hero-stat-value" id="featured-total">0</div>
-            <div class="hero-stat-copy">The parks that deserve homepage and photo priority.</div>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-label">Coverage Status</span>
-            <div class="hero-stat-value" id="coverage-status">Preview</div>
-            <div class="hero-stat-copy" id="coverage-copy"></div>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-label">Why Start Here</span>
-            <div class="hero-stat-copy" id="city-supporting"></div>
           </div>
         </div>
       </div>
@@ -606,35 +527,22 @@
           <a class="section-link" id="open-full-map-link" href="./parks.html?dataset=aurora">Open full city map</a>
         </div>
       </div>
+      <div class="featured-top" id="featured-top"></div>
       <div class="featured-strip" id="featured-strip"></div>
+      <div id="top-picks-editorial"></div>
     </section>
 
     <section class="section">
       <div class="section-head">
         <div>
           <h2 class="section-title">Quick Start Categories</h2>
-          <p class="section-copy">These category blocks give each city a more curated feel and set up future landing pages like Destination Parks, Nature Parks, and Neighborhood Favorites.</p>
+          <p class="section-copy">TODO: one plain sentence telling a parent what these groups are for.</p>
         </div>
       </div>
       <div class="category-grid" id="category-grid"></div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title" id="feature-section-title">Find Parks by Feature in Aurora</h2>
-          <p class="section-copy">Jump straight into the most common park searches for this city using the existing map and filter flow.</p>
-        </div>
-      </div>
-      <div class="intent-grid" id="intent-grid"></div>
-    </section>
-
-    <section class="section" id="city-growth-section">
-      <div class="growth-duo">
-        <div id="city-weekend-teaser"></div>
-        <div id="city-email-capture"></div>
-      </div>
-    </section>
+    <div id="guide-tips-anchor"></div>
 
     <section class="events-callout" id="city-events-callout">
       <div class="events-callout-text">
@@ -667,7 +575,6 @@
   <script src="park-data-registry.js"></script>
   <script src="dataset-loader.js"></script>
   <script src="city-guides.js"></script>
-  <script src="growth-widgets.js"></script>
   <script>
     const DATASET_KEY = window.ACTIVE_DATASET_KEY || "aurora";
     const meta = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {
@@ -683,16 +590,6 @@
       featured: [],
       categories: []
     };
-    const INTENT_LINKS = [
-      { label: "Playground", filter: "playground", fallback: true },
-      { label: "Dog Park", filter: "dog_park", fallback: true },
-      { label: "Trails", filter: "trails", fallback: true },
-      { label: "Splash Pad", filter: "sprayground" },
-      { label: "Picnic Shelters", filter: "shelter" },
-      { label: "Restrooms", filter: "restroom" },
-      { label: "Golf", filter: "golf", parkerFilter: "disc_golf" },
-      { label: "Basketball", filter: "basketball" }
-    ];
     const cityGuidePages = {
       aurora: "best-parks-aurora.html",
       centennial: "best-parks-centennial.html",
@@ -795,20 +692,11 @@
       document.getElementById("twitter-description").setAttribute("content", pageDescription);
       document.getElementById("guide-eyebrow").textContent = guide.eyebrow;
       document.getElementById("city-title").textContent = meta.city + " Parks Guide";
-      document.getElementById("feature-section-title").textContent = "Find Parks by Feature in " + meta.city;
       document.getElementById("city-summary").textContent = guide.summary;
-      document.getElementById("city-total").textContent = parks.length.toLocaleString();
-      document.getElementById("featured-total").textContent = featuredParks.length.toLocaleString();
-      document.getElementById("coverage-status").textContent = DATASET_KEY === "aurora" ? "Live" : "Preview";
-      document.getElementById("coverage-copy").textContent = DATASET_KEY === "aurora"
-        ? "Aurora is the strongest city guide in the product right now."
-        : meta.city + " is now locally browseable and ready for richer polish.";
-      document.getElementById("city-supporting").textContent = guide.supporting;
-      document.getElementById("utility-count").textContent = parks.length.toLocaleString() + " parks shown";
       document.getElementById("browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
-      document.getElementById("weekend-link").href = DATASET_KEY === "aurora" ? "./this-weekend-aurora.html" : "./events.html?city=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("weekend-link").href = "./events.html?city=" + encodeURIComponent(DATASET_KEY);
+      document.getElementById("weekend-link").textContent = "City events";
       document.getElementById("trail-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=trails";
-      document.getElementById("best-link").href = bestParksUrl;
       const playgroundGuideUrl = playgroundGuidePages[DATASET_KEY];
       const playgroundLinkEl = document.getElementById("playgrounds-link");
       if (playgroundGuideUrl) {
@@ -832,8 +720,6 @@
           fullGuideLink.style.display = "none";
         }
       }
-      document.getElementById("golf-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(DATASET_KEY === "parker" ? "disc_golf" : "golf");
-      document.getElementById("golf-link").textContent = DATASET_KEY === "parker" ? "Disc Golf" : "Golf Courses";
       const dogParkPages = {
         aurora: "./dog-friendly-parks-aurora.html",
         parker: "./dog-friendly-parks-parker.html"
@@ -860,22 +746,33 @@
         pill.classList.toggle("active", pill.dataset.dataset === DATASET_KEY);
       });
       const featuredStrip = document.getElementById("featured-strip");
+      const featuredTop = document.getElementById("featured-top");
+      const topPicksEditorial = document.getElementById("top-picks-editorial");
       featuredStrip.innerHTML = "";
-      featuredEntries.forEach((entry, index) => {
+      if (featuredTop) featuredTop.innerHTML = "";
+      if (topPicksEditorial) topPicksEditorial.innerHTML = "";
+
+      function renderFeaturedCard(entry, index, options) {
+        const settings = options || {};
         const park = entry.park;
         const photo = fallbackPhoto(park);
         const mediaStyle = photo ? ' style="background-image:url(' + "'" + photo + "'" + ')"' : "";
         const mediaClass = photo ? "featured-media has-photo" : "featured-media";
         const tags = featureLabels(park).map((label) => '<span class="feature-tag">' + label + '</span>').join("");
         const card = document.createElement("article");
-        card.className = "featured-card";
-        card.innerHTML =
+        card.className = settings.top ? "featured-card featured-card--top" : "featured-card";
+        const metaText = settings.top ? "Top pick" : meta.city + " top pick";
+        const mediaHtml = photo ?
           '<div class="' + mediaClass + '"' + mediaStyle + '>' +
             '<span class="featured-badge">' + entry.badge + '</span>' +
             '<span class="featured-placeholder">' + ["🌲", "🏞️", "🛝", "🌿", "🏕️"][index % 5] + '</span>' +
-          '</div>' +
+          '</div>' : "";
+        const inlineBadgeHtml = !photo && !settings.top ? '<span class="featured-badge featured-badge--inline">' + entry.badge + '</span>' : "";
+        card.innerHTML =
+          mediaHtml +
           '<div class="featured-body">' +
-            '<div class="featured-meta">' + meta.city + ' top pick</div>' +
+            inlineBadgeHtml +
+            '<div class="featured-meta">' + metaText + '</div>' +
             '<h3 class="featured-title">' + parkName(park) + '</h3>' +
             '<p class="featured-summary">' + entry.reason + '</p>' +
             '<div class="feature-tags">' + tags + '</div>' +
@@ -884,25 +781,39 @@
               '<a class="text-btn" href="./parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(parkName(park)) + '">Show on map</a>' +
             '</div>' +
           '</div>';
-        featuredStrip.appendChild(card);
-      });
+        return card;
+      }
 
-      const intentGrid = document.getElementById("intent-grid");
-      intentGrid.innerHTML = "";
-      INTENT_LINKS.forEach((intent) => {
-        const filterKey = DATASET_KEY === "parker" && intent.parkerFilter ? intent.parkerFilter : intent.filter;
-        const hasMatch = parks.some((park) => parkFeatures(park)[filterKey]);
-        if (!hasMatch && !intent.fallback) {
-          return;
-        }
-        const link = document.createElement("a");
-        link.className = "intent-link";
-        link.href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY) + "&filter=" + encodeURIComponent(filterKey);
-        link.innerHTML =
-          '<span class="intent-label">' + intent.label + '</span>' +
-          '<span class="intent-meta">Open filter</span>';
-        intentGrid.appendChild(link);
+      const stripEntries = DATASET_KEY === "aurora" ? featuredEntries.slice(1) : featuredEntries;
+      if (DATASET_KEY === "aurora" && featuredTop && featuredEntries[0]) {
+        featuredTop.appendChild(renderFeaturedCard(featuredEntries[0], 0, { top: true }));
+      }
+      stripEntries.forEach((entry, index) => {
+        featuredStrip.appendChild(renderFeaturedCard(entry, DATASET_KEY === "aurora" ? index + 1 : index));
       });
+      if (guide.howWePicked && topPicksEditorial) {
+        topPicksEditorial.innerHTML =
+          '<p class="section-copy guide-how-picked"><strong>How we picked these:</strong> ' + guide.howWePicked + '</p>';
+      }
+
+      const guideTipsAnchor = document.getElementById("guide-tips-anchor");
+      if (guideTipsAnchor) {
+        guideTipsAnchor.innerHTML = "";
+        if (guide.tips && guide.tips.length) {
+          const tipsSection = document.createElement("section");
+          tipsSection.className = "section";
+          tipsSection.innerHTML =
+            '<div class="section-head">' +
+              '<div>' +
+                '<h2 class="section-title">Tips for visiting ' + meta.city + ' parks</h2>' +
+              '</div>' +
+            '</div>' +
+            '<ul class="guide-tips-list">' +
+              guide.tips.map((tip) => '<li>' + tip + '</li>').join("") +
+            '</ul>';
+          guideTipsAnchor.appendChild(tipsSection);
+        }
+      }
 
       const categoryGrid = document.getElementById("category-grid");
       categoryGrid.innerHTML = "";
@@ -921,22 +832,6 @@
         categoryGrid.appendChild(card);
       });
 
-      if (window.FEPGrowth && DATASET_KEY === "aurora") {
-        window.FEPGrowth.mountWeekendTeaser("#city-weekend-teaser", {
-          copy: "Open the Aurora weekend page for three easy park ideas plus the current Aurora events page."
-        });
-        window.FEPGrowth.mountEmailCapture("#city-email-capture", {
-          source: "aurora-city-guide",
-          copy: "Get three family park ideas for the weekend in Aurora without waiting for a bigger email system."
-        });
-      } else {
-        const cityGrowthSection = document.getElementById("city-growth-section");
-        const cityWeekendTeaser = document.getElementById("city-weekend-teaser");
-        const cityEmailCapture = document.getElementById("city-email-capture");
-        if (cityGrowthSection) cityGrowthSection.style.display = "none";
-        if (cityWeekendTeaser) cityWeekendTeaser.innerHTML = "";
-        if (cityEmailCapture) cityEmailCapture.innerHTML = "";
-      }
     }
 
     const datasetReadyPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();

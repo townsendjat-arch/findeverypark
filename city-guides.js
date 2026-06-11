@@ -6,6 +6,17 @@
         "Find the best parks in Aurora for playground time, trail walks, splash-pad afternoons, dog stops, and everyday family outings. Start with the strongest picks below, then open the full map when you want more options.",
       supporting:
         "Use the curated picks to start fast, then jump into the Aurora map and guide pages when you want nearby backups, neighborhood stops, or a tighter shortlist.",
+      howWePicked:
+        "These picks are based on real-world family use, not just a long amenity list — " +
+        "playground quality, walkability, shade and restroom value when available, and " +
+        "whether a park feels like somewhere families would actually want to return to.",
+      tips: [
+        "Arrive earlier in the day for easier parking at the bigger destination parks.",
+        "Bring extra shade and water for parks with wide-open trails or less tree cover.",
+        "Weekday mornings are usually calmest for playground visits.",
+        "Splash pads and water features draw bigger crowds on hot afternoons.",
+        "Check restroom and pool details before you go if those amenities matter."
+      ],
       featured: [
         { name: "Aurora Reservoir", badge: "Destination Pick", reason: "Best when you want a bigger outing with water, trails, and room to spread out." },
         { name: "Utah Park", badge: "Family Pick", reason: "A reliable family stop with a strong everyday mix of play space and amenities." },

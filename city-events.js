@@ -56,6 +56,12 @@
       .slice(0, 3);
   }
 
+  function hasCityEvents(allEvents, cityKey) {
+    return allEvents.some(function (e) {
+      return e && normCity(e.city) === normCity(cityKey);
+    });
+  }
+
   function cardHtml(event) {
     var location = event.locationLabel || event.venue_name || event.park_name || '';
     var date = event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
@@ -111,6 +117,10 @@
 
       var cityKey = cityFromCallout(callout);
       if (!cityKey) return;
+      if (!hasCityEvents(data.events, cityKey)) {
+        callout.style.display = 'none';
+        return;
+      }
 
       var events = selectCityEvents(data.events, cityKey, today);
       if (!events.length) return; // hide-if-empty: keep the "View all events" link as-is

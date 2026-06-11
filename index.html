@@ -755,7 +755,7 @@
     <a href="./index.html" class="nav-brand">Find Every Park</a>
     <a href="./events.html" class="nav-events-mobile" aria-label="Events">Events 🗓</a>
     <ul class="nav-links">
-      <li><a href="/best-parks-aurora.html">Aurora</a></li>
+      <li><a href="/city.html?dataset=aurora">Aurora</a></li>
       <li><a href="/parks.html?dataset=centennial">Centennial</a></li>
       <li><a href="/parks.html?dataset=parker">Parker</a></li>
       <li><a href="/parks.html?dataset=denver">Denver</a></li>
@@ -782,25 +782,11 @@
   </section>
 
   <main class="main">
-    <section class="home-events" aria-labelledby="home-events-heading">
-      <div class="home-events-header">
-        <div>
-          <span class="home-events-kicker">Events and meetups</span>
-          <h2 class="home-events-title" id="home-events-heading">What’s Happening Nearby</h2>
-          <p class="home-events-sub">Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.</p>
-        </div>
-      </div>
-      <div class="home-events-grid" id="home-featured-events" aria-live="polite"></div>
-      <div class="home-events-actions">
-        <a class="home-events-all" href="./events.html">See All Events</a>
-      </div>
-    </section>
-
     <!-- BROWSE BY CITY -->
     <section class="section" aria-labelledby="cities-heading">
       <p class="section-label" id="cities-heading">Browse by city</p>
       <div class="city-grid">
-        <a href="/best-parks-aurora.html" class="city-card">
+        <a href="/city.html?dataset=aurora" class="city-card">
           <span class="city-card-name">Aurora</span>
           <span class="city-card-count">119 parks</span>
           <span class="city-card-arrow">Browse parks
@@ -915,6 +901,20 @@
       </div>
     </section>
 
+    <section class="home-events" aria-labelledby="home-events-heading">
+      <div class="home-events-header">
+        <div>
+          <span class="home-events-kicker">Events and meetups</span>
+          <h2 class="home-events-title" id="home-events-heading">What’s Happening Nearby</h2>
+          <p class="home-events-sub">Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.</p>
+        </div>
+      </div>
+      <div class="home-events-grid" id="home-featured-events" aria-live="polite"></div>
+      <div class="home-events-actions">
+        <a class="home-events-all" href="./events.html">See All Events</a>
+      </div>
+    </section>
+
     <!-- SPONSOR AD -->
     <section class="sponsor-slot" aria-label="Sponsored">
       <div class="sponsor-slot-label">Presented by a local family business</div>
@@ -957,11 +957,6 @@
           </div>
         </a>
       </div>
-    </section>
-
-    <section class="section" aria-labelledby="weekend-growth-heading">
-      <p class="section-label" id="weekend-growth-heading">Get the weekend shortlist</p>
-      <div id="home-email-capture"></div>
     </section>
 
   </main>
@@ -1163,13 +1158,6 @@
     }
 
     mountHomeFeaturedEvents();
-
-    if (window.FEPGrowth) {
-      window.FEPGrowth.mountEmailCapture('#home-email-capture', {
-        source: 'homepage',
-        copy: 'Get the Aurora weekend shortlist in a simple prefilled email flow.'
-      });
-    }
 
     // Rotate sponsor ad
     const indexAds = ['images/cta_ad.png', 'images/cta_dad.png'];
