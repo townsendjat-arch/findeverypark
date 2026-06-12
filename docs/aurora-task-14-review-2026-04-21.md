@@ -12,7 +12,7 @@
 - `parks.html?dataset=aurora` has stronger guide links and related Aurora park links.
 - `city.html?dataset=aurora` has a Keep Exploring Aurora link path.
 - `best-parks-aurora.html` and `best-playgrounds-aurora.html` have tighter related park links.
-- `this-weekend-aurora.html` now routes users into best playgrounds and more priority park pages.
+- `events.html?city=aurora` now routes users into current Aurora events and meetup planning.
 - `events.html?city=aurora` now routes event users back into Aurora park planning.
 - `sponsor-aurora-guides.html` now links directly to live Aurora sponsor surfaces.
 
@@ -47,6 +47,6 @@
 ## Recommended next priorities
 
 1. Send the first 20 sponsor messages from the tracker.
-2. Refresh `this-weekend-aurora.html` weekly so repeat users have a reason to return.
+2. Refresh `events.html?city=aurora` weekly so repeat users have a reason to return.
 3. Replace sponsor-ready placeholders with the first real sponsor once sold.
 4. Add photos only to the priority Aurora pages where they improve conversion and do not bloat page weight.

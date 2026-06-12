@@ -509,7 +509,7 @@ lat:39.6798,lng:-104.7552,f:{playground:1,basketball:1,baseball:1,soccer:1,trail
 
 🏕️ <strong>Shelter:</strong> Reservable shelter with grill.
 
-🗺️ <strong>Nearby (1–3 mi):</strong> Soccer Skills Area (~0.2 mi), Switchgrass Park (~0.5 mi), Sagebrush Park (~1 mi), Plains Conservation Center (~1.5 mi)`},
+🗺️ <strong>Nearby (1–3 mi):</strong> Soccer Skills Area (~0.2 mi), Switchgrass Park (~0.5 mi), Sagebrush Park (~1 mi), Plains Conservation Center (~1.5 mi)`,fn:{sprayground:`A summer must-go for east Aurora families. The playground works for all ages, and on warm Colorado days the splash pad is the draw. There's plenty of room to push a stroller since the sidewalk loops right around the splash pad and play area, plus good shade from trees and covered picnic shelters. Just down the street you can park and watch aircraft take off from Buckley Space Force Base, and the Plains Conservation Center and its teepees are about a 7-minute drive if you want more of that open-plains feel.`}},
 {id:"co-aurora-hampden-run-park",park_type:"neighborhood",
 n:"Hampden Run Park",
 a:"3501 S. Uravan St.",
@@ -1197,7 +1197,7 @@ What really separates it is that adults and older kids have things to do too. Pi
 
 🏕️ <strong>Shelter:</strong> Covered shelter for longer family stays.
 
-🗺️ <strong>Nearby (1–3 mi):</strong> Central Park (~1.5 mi), Appaloosa Park (~1.5 mi), Southlands shopping + treat stops (~1 mi)`},
+🗺️ <strong>Nearby (1–3 mi):</strong> Central Park (~1.5 mi), Appaloosa Park (~1.5 mi), Southlands shopping + treat stops (~1 mi)`,fn:{sprayground:`Not just about the playgrounds — this one's recreation for the whole family. Pack the bocce, volleyball, horseshoes, even baseball gear for a full day out. Two playgrounds: one fully inclusive, the other a short sidewalk walk away past a few prairie dog homes. There's a splash pad, easy parking, and restrooms at each playground, so it's simple on whoever's on stroller duty. A big open lawn finishes it off for flying a kite or tossing a frisbee.`}},
   {id:"co-aurora-sagebrush-park",park_type:"neighborhood",n:"Sagebrush Park",a:"4744 S. Evanston Way",ac:17.7,
 lat:39.6301748,lng:-104.8180993,f:{playground:1,shelter:1},photos:[],d:""},
 {id:"co-aurora-sand-creek-park",park_type:"neighborhood",n:"Sand Creek Park",a:"2700 N. Peoria St.",ac:85.6,

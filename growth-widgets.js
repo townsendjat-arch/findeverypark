@@ -12,7 +12,7 @@
     "co-aurora-village-green-park"
   ]);
 
-  const WEEKEND_PAGE_URL = "./this-weekend-aurora.html";
+  const WEEKEND_PAGE_URL = "./events.html?city=aurora";
   const SPONSOR_PAGE_URL = "./sponsor-aurora-guides.html";
   const WEEKEND_EMAIL_KEY = "fep_aurora_weekend_email";
 

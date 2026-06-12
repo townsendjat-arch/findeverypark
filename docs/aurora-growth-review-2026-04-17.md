@@ -9,7 +9,7 @@
 - Aurora image weight reduction: 77.1%
 - Aurora hub pages improved: 4
 - Aurora park descriptions upgraded: 10 key parks
-- Aurora repeat-visit page launched: `this-weekend-aurora.html`
+- Aurora repeat-visit flow now points to `events.html?city=aurora`
 - Aurora email capture installed on homepage, Aurora city guide, Aurora parks map, Aurora weekend page, and top Aurora park pages
 - Sponsor-ready "Near This Park" placements installed on top 10 Aurora park pages
 - Sponsor offer page shipped

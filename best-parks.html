@@ -9,6 +9,7 @@
   <link rel="canonical" id="canonical-link" href="https://findeverypark.com/best-parks.html?dataset=aurora">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="best-parks-components.css">
   <style>
     :root {
       --grass: #0f6e56;
@@ -325,6 +326,12 @@
       <a class="city-pill" data-dataset="centennial" href="./best-parks.html?dataset=centennial">Centennial</a>
       <a class="city-pill" data-dataset="parker" href="./best-parks.html?dataset=parker">Parker</a>
       <a class="city-pill" data-dataset="lone-tree" href="./best-parks.html?dataset=lone-tree">Lone Tree</a>
+      <a class="city-pill" data-dataset="arvada" href="./best-parks.html?dataset=arvada">Arvada</a>
+      <a class="city-pill" data-dataset="brighton" href="./best-parks.html?dataset=brighton">Brighton</a>
+      <a class="city-pill" data-dataset="golden" href="./best-parks.html?dataset=golden">Golden</a>
+      <a class="city-pill" data-dataset="thornton" href="./best-parks.html?dataset=thornton">Thornton</a>
+      <a class="city-pill" data-dataset="westminster" href="./best-parks.html?dataset=westminster">Westminster</a>
+      <a class="city-pill" data-dataset="commerce-city" href="./best-parks.html?dataset=commerce-city">Commerce City</a>
     </div>
 
     <section class="page-hero">
@@ -337,6 +344,16 @@
       </div>
     </section>
 
+    <section id="quick-picks-section" style="display:none;">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Quick Picks</h2>
+        </div>
+      </div>
+      <ul class="quick-picks-list" id="quick-picks-list"></ul>
+      <p class="section-copy" id="quick-picks-copy"></p>
+    </section>
+
     <section>
       <div class="section-head">
         <div>
@@ -346,6 +363,23 @@
       </div>
       <div class="best-grid" id="best-grid"></div>
       <div class="empty-state" id="empty-state" style="display:none;">This city does not have curated best-park picks yet.</div>
+    </section>
+
+    <section class="sponsor-slot">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Sponsored</h2>
+        </div>
+      </div>
+      <p class="section-copy" id="sponsor-copy"></p>
+    </section>
+
+    <section class="events-callout">
+      <div class="events-callout-text">
+        <h2 id="events-callout-title">Upcoming Events</h2>
+        <p>Family events, farmers markets, movies in the park, and more.</p>
+      </div>
+      <a class="hero-btn primary" id="events-callout-link" href="./events.html">View events &rarr;</a>
     </section>
 
     <section class="community-callout">
@@ -373,6 +407,32 @@
       summary: "Curated park picks built from the core dataset plus local research notes.",
       featuredParkIds: []
     };
+    (function () {
+      var meta = (window.PARK_SITE && window.PARK_SITE.datasetsMeta && window.PARK_SITE.datasetsMeta[DATASET_KEY]) || {};
+      var CITY = meta.city || "this city";
+
+      // Quick Picks (only if the dataset has them)
+      var qp = (pageGuide && pageGuide.quickPicks) || [];
+      if (qp.length) {
+        document.getElementById("quick-picks-list").innerHTML = qp.map(function (p) {
+          return '<li>' + p.label + ' -> <a href="./park.html?dataset=' + DATASET_KEY + '&id=' + p.parkId + '">' + p.name + '</a></li>';
+        }).join("");
+        document.getElementById("quick-picks-copy").textContent =
+          "Use this as the fast " + CITY + " shortlist, then open the full " + CITY + " map when you want nearby backups and more neighborhood options.";
+        document.getElementById("quick-picks-section").style.display = "";
+      }
+
+      // Sponsor slot
+      document.getElementById("sponsor-copy").innerHTML =
+        "This spot is open for a local " + CITY + " family business \u2014 coffee, treats, swim lessons, or indoor play. " +
+        '<a href="mailto:jason@findeverypark.com?subject=' + encodeURIComponent(CITY + " sponsorship") + '">Reach ' + CITY + " families here &rarr;</a>";
+
+      // Events callout (city-events.js reads this link to inject up to 3 event cards)
+      document.getElementById("events-callout-title").textContent = "Upcoming Events in " + CITY;
+      var el = document.getElementById("events-callout-link");
+      el.setAttribute("href", "./events.html?city=" + DATASET_KEY);
+      el.innerHTML = "View " + CITY + " events &rarr;";
+    })();
     const dedicatedBestParkPages = {
       aurora: "https://findeverypark.com/best-parks-aurora.html",
       centennial: "https://findeverypark.com/best-parks-centennial.html",
@@ -522,6 +582,8 @@
         initializeBestParks();
       });
   </script>
+  <script src="data/events/events-manifest.js"></script>
+  <script src="city-events.js"></script>
 <p style="text-align:center; color:#5a6460; font-size:0.85rem; padding:1.5rem 0;">
   © <span id="copyright-year"></span> Mighty Compass LLC · FindEveryPark.com
 </p>

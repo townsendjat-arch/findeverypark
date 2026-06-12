@@ -71,7 +71,7 @@ These were completed in prior sessions and are confirmed shipped:
 - Park descriptions upgraded: Central Park, Del Mar Park, Great Plains Park, Red-tailed Hawk Park, Utah Park, Aurora Reservoir, Expo Park, Sports Park, Meadowood Park, Village Green Park
 - Internal link block added to park.html template
 - Email capture system added sitewide (localStorage + mailto flow)
-- this-weekend-aurora.html launched and linked
+- Aurora events page linked for repeat weekend planning
 - Sitemap cleaned
 - "Near This Park" sponsor-ready blocks added to top 10 Aurora park pages
 - sponsor-aurora-guides.html created (noindex)
@@ -84,7 +84,7 @@ These were completed in prior sessions and are confirmed shipped:
 ### Not yet done
 
 - Sponsor outreach messages not yet sent (tracker is ready, templates are ready — needs manual sending)
-- this-weekend-aurora.html needs weekly refresh
+- Aurora events page needs weekly refresh
 - Sponsor placeholder slots still empty — waiting for first paid sponsor
 - Appaloosa Park duplication in aurora-parks-data.js not yet resolved
 - Some feature flags may still use 1/0 instead of true/false
