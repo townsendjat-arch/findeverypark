@@ -437,6 +437,7 @@
     }
     @media (max-width: 700px) {
       .city-hero { padding: 22px; border-radius: 22px; }
+      .city-hero::after { display: none; }
       .featured-strip { grid-auto-columns: minmax(84vw, 1fr); }
       .main-nav { padding: 14px 16px; }
       main { padding: 22px 16px 60px; }
@@ -509,6 +510,7 @@
             <a class="hero-btn secondary" id="weekend-link" href="./events.html?city=aurora">City events</a>
             <a class="hero-btn secondary" id="trail-link" href="./parks.html?dataset=aurora&filter=trails">Trail Access</a>
             <a class="hero-btn secondary" id="playgrounds-link" href="./best-playgrounds-aurora.html">Best Playgrounds</a>
+            <a class="hero-btn secondary" id="splash-pads-link" href="./best-splash-pads-aurora.html">Splash Pads</a>
             <a class="hero-btn ghost" id="dog-parks-link" href="./dog-friendly-parks-aurora.html">Dog Parks</a>
           </div>
         </div>
@@ -731,6 +733,17 @@
         dogParksLink.style.display = "";
       } else if (dogParksLink) {
         dogParksLink.style.display = "none";
+      }
+      const splashPadPages = {
+        aurora: "./best-splash-pads-aurora.html"
+      };
+      const splashPadsLink = document.getElementById("splash-pads-link");
+      if (splashPadsLink && splashPadPages[DATASET_KEY]) {
+        splashPadsLink.href = splashPadPages[DATASET_KEY];
+        splashPadsLink.textContent = "Splash Pads";
+        splashPadsLink.style.display = "";
+      } else if (splashPadsLink) {
+        splashPadsLink.style.display = "none";
       }
       document.getElementById("footer-browse-link").href = "./parks.html?dataset=" + encodeURIComponent(DATASET_KEY);
       document.getElementById("nav-home-brand").href = "./index.html?dataset=" + encodeURIComponent(DATASET_KEY);
