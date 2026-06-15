@@ -160,6 +160,59 @@
           status: "approved",
           sortOrder: 4
         }
+      ],
+      "co-aurora-tollgate-crossing-neighborhood-park": [
+        {
+          id: "tollgate-crossing-neighborhood-park-hero-01",
+          role: "hero",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781369787/IMG_1403_ojusik.heic",
+          alt: "Tollgate Crossings Park, Aurora",
+          sortOrder: 1
+        },
+        {
+          id: "tollgate-crossing-neighborhood-park-gallery-02",
+          role: "gallery",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781369794/IMG_1414_ldxogr.heic",
+          alt: "Tollgate Crossings Park, Aurora",
+          sortOrder: 2
+        },
+        {
+          id: "tollgate-crossing-neighborhood-park-gallery-03",
+          role: "gallery",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781369788/IMG_1404_uheqzi.heic",
+          alt: "Tollgate Crossings Park, Aurora",
+          sortOrder: 3
+        },
+        {
+          id: "tollgate-crossing-neighborhood-park-gallery-04",
+          role: "gallery",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781369803/IMG_1421_i7wkua.heic",
+          alt: "Tollgate Crossings Park, Aurora",
+          sortOrder: 4
+        },
+        {
+          id: "tollgate-crossing-neighborhood-park-gallery-05",
+          role: "gallery",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781369802/IMG_1420_e37nsj.heic",
+          alt: "Tollgate Crossings Park, Aurora",
+          sortOrder: 5
+        },
+        {
+          id: "tollgate-crossing-neighborhood-park-gallery-06",
+          role: "gallery",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781369799/IMG_1419_o8ogc8.heic",
+          alt: "Tollgate Crossings Park, Aurora",
+          sortOrder: 6
+        }
+      ],
+      "co-aurora-highridge-park": [
+        {
+          id: "highridge-park-hero-01",
+          role: "hero",
+          src: "https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1781551410/Highridge-Park-001_chrypg.jpg",
+          alt: "Highridge Park, Aurora",
+          sortOrder: 1
+        }
       ]
     }
   };

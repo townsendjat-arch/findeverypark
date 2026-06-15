@@ -1636,6 +1636,7 @@ lat:39.732869,lng:-104.779094,f:{golf:1}, d:"A local Aurora golf course for a st
 lat:39.756492,lng:-104.775638,f:{}, d:"A simple neighborhood green space for a quick stop nearby.", photos:[] },
 { id:"co-aurora-village-east-park", n:"Village East Park", a:"1400 S. Moline St.", ac:5.9,
 lat:39.691923,lng:-104.85303,f:{playground:1,baseball:1,trails:1}, d:"A neighborhood park with a playground, ballfield, and trail access.", photos:[] },
+{ id:"co-aurora-highridge-park", n:"Highridge Park", a:"16801 E. Caley Cir.", lat:39.6012,lng:-104.7889,f:{playground:1,trails:1,shelter:1,parking:1}, d:"A neighborhood park in south Aurora and a favorite for families with little ones — great for kids roughly 1 to 6, and plenty of fun for older ones too. Has a playground, a covered pavilion with picnic tables, a water fountain, walking trails, and a big open grass area. Street parking only.", photos:[] },
 ].map((park) => ({ coords_status: "approx", ...park })), {
   city: "Aurora",
   state: "CO",
