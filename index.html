@@ -708,6 +708,45 @@
     .hero-btn-primary:active { transform: translateY(0); }
     .hero-btn-secondary { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.78); text-decoration: underline; text-underline-offset: 3px; transition: color 0.15s; }
     .hero-btn-secondary:hover { color: #fff; }
+    .hero-intent-row {
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      flex-wrap: nowrap;
+      width: 100%;
+      max-width: calc(100vw - 32px);
+      margin: 0 auto;
+    }
+    .hero-intent-chip {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 10px 6px;
+      border-radius: 999px;
+      background: #e8f4f0;
+      color: #085041;
+      border: 1px solid rgba(255,255,255,0.68);
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .hero-intent-chip:hover {
+      background: #fff;
+      color: #085041;
+    }
+    @media (max-width: 360px) {
+      .hero-intent-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 240px;
+        margin: 0 auto;
+      }
+    }
     .hero-geo-status { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; min-height: 20px; }
     .hero-cta-hint {
       font-size: 12px;
@@ -753,7 +792,6 @@
   <!-- NAV -->
   <nav class="nav" aria-label="Main navigation">
     <a href="./index.html" class="nav-brand">Find Every Park</a>
-    <a href="./events.html" class="nav-events-mobile" aria-label="Events">Events 🗓</a>
     <ul class="nav-links">
       <li><a href="/city.html?dataset=aurora">Aurora</a></li>
       <li><a href="/parks.html?dataset=centennial">Centennial</a></li>
@@ -772,10 +810,15 @@
     <div class="hero-content">
       <span class="hero-eyebrow">Colorado Front Range</span>
       <h1 class="hero-title">Find the right park<br><em>for right now</em></h1>
-      <p class="hero-sub">Playgrounds, trails, dog parks, and family spots across Aurora, Denver, Parker, and beyond</p>
+      <p class="hero-sub">The fastest way to pick a family spot across the Front Range</p>
       <div class="hero-cta-group">
         <button class="hero-btn-primary" id="geoBtn" type="button">📍 Find parks near me</button>
-        <a class="hero-btn-secondary" href="#cities-heading">Browse by city</a>
+        <div class="hero-intent-row" aria-label="Popular park intents">
+          <a class="hero-intent-chip" href="/playgrounds.html">🛝 Playgrounds</a>
+          <a class="hero-intent-chip" href="./trails.html">🥾 Trails</a>
+          <a class="hero-intent-chip" href="#cities-heading">🏙 By City</a>
+          <a class="hero-intent-chip" href="./events.html">📅 Events</a>
+        </div>
       </div>
       <p class="hero-geo-status" id="geoStatus" aria-live="polite"></p>
       <p class="hero-cta-hint">Use your location to instantly find nearby parks</p>
