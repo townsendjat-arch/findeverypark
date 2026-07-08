@@ -1019,10 +1019,8 @@ function applyDatasetContext() {
     window.FEPGrowth.mountWeekendTeaser('#parks-weekend-teaser', {
       copy: 'Use the Aurora weekend page when you want three fast park ideas plus the current Aurora events page.'
     });
-    window.FEPGrowth.mountEmailCapture('#parks-email-capture', {
-      source: 'aurora-parks-map',
-      copy: 'Get three family park ideas for the weekend in Aurora while you browse the full city map.'
-    });
+    const parksEmailCaptureCleared = document.getElementById('parks-email-capture');
+    if (parksEmailCaptureCleared) parksEmailCaptureCleared.innerHTML = '';
   } else {
     const parksGrowthSection = document.getElementById('parks-growth-section');
     const parksWeekendTeaser = document.getElementById('parks-weekend-teaser');

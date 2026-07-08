@@ -949,10 +949,7 @@ body{
       return;
     }
 
-    window.FEPGrowth.mountEmailCapture(parkEmailCaptureEl, {
-      source: "aurora-park-page:" + park.id,
-      copy: "Get three family park ideas for the weekend in Aurora while you are already comparing one of the strongest park pages."
-    });
+    parkEmailCaptureEl.innerHTML = "";
 
     const config = window.FEPGrowth.getNearParkLinks(park);
     if (!config) {
