@@ -8,6 +8,12 @@
         { id:"utah-park-gallery-03", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783537994/Photo_Mar_23_2026_1_51_51_PM_hntuug.jpg", alt:"Utah Park, Aurora", sortOrder:3 },
         { id:"utah-park-gallery-04", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783538003/Photo_Mar_23_2026_1_56_09_PM_xlndql.jpg", alt:"Utah Park, Aurora", sortOrder:4 },
       ],
+      "co-aurora-red-tailed-hawk-park": [
+        { id:"red-tailed-hawk-park-hero-01", role:"hero", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783540548/Photo_Jun_19_2026_2_30_48_PM_gm3kmr.jpg", alt:"Red-tailed Hawk Park, Aurora", sortOrder:1 },
+        { id:"red-tailed-hawk-park-gallery-02", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783540550/Photo_Jun_19_2026_3_23_40_PM_c6pb4i.jpg", alt:"Red-tailed Hawk Park, Aurora", sortOrder:2 },
+        { id:"red-tailed-hawk-park-gallery-03", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783540549/Photo_Jun_19_2026_3_24_44_PM_badevs.jpg", alt:"Red-tailed Hawk Park, Aurora", sortOrder:3 },
+        { id:"red-tailed-hawk-park-gallery-04", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783540549/Photo_Jun_19_2026_3_24_09_PM_aijz44.jpg", alt:"Red-tailed Hawk Park, Aurora", sortOrder:4 },
+      ],
       "co-aurora-delaney-farm": [],
       "co-aurora-sports-park": [
         {
