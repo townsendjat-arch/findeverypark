@@ -22,6 +22,12 @@
         { id:"sports-park-gallery-04", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783547565/Photo_Jun_16_2026_8_33_50_PM_sffj7t.heic", alt:"Sports Park, Aurora", sortOrder:4 },
         { id:"sports-park-gallery-05", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783547571/Photo_Jun_16_2026_8_40_03_PM_h4vlsu.heic", alt:"Sports Park, Aurora", sortOrder:5 },
       ],
+      "co-denver-paco-sanchez-park": [
+        { id:"paco-sanchez-park-hero-01", role:"hero", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783553980/Photo_Apr_10_2023_1_18_19_PM_ib1ada.heic", alt:"Paco Sánchez Park, Denver", sortOrder:1 },
+        { id:"paco-sanchez-park-gallery-02", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783553992/Photo_Mar_12_2025_2_29_27_PM_zddtjw.heic", alt:"Paco Sánchez Park, Denver", sortOrder:2 },
+        { id:"paco-sanchez-park-gallery-03", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783553979/Photo_Apr_10_2023_1_11_12_PM_hvlogo.heic", alt:"Paco Sánchez Park, Denver", sortOrder:3 },
+        { id:"paco-sanchez-park-gallery-04", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783554003/Photo_Apr_10_2023_1_10_31_PM_w5hdsu.heic", alt:"Paco Sánchez Park, Denver", sortOrder:4 },
+      ],
       "co-aurora-tollgate-crossing-neighborhood-park": [
         {
           id: "tollgate-crossing-neighborhood-park-hero-01",
