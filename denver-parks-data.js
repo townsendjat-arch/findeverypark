@@ -35,7 +35,7 @@
       lat: park.lat,
       lng: park.lng,
       coords_status: "source_centroid",
-      f: { playground: 1 },
+      f: { playground: true },
       photos: [],
       d: "A Denver playground location kept in the background dataset for future city coverage.",
       city: "Denver",
@@ -62,7 +62,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "climbing", "slides", "views"],
       d: "A standout Denver park with a big playground, climbing play, slides, and city views.",
-      f: { playground: 1 }
+      f: { playground: true }
     },
     {
       id: "co-denver-central-park-playground",
@@ -73,7 +73,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "splash_pad", "zipline", "open_space"],
       d: "A popular family stop with a playground, splash pad, zipline, and lots of open space.",
-      f: { playground: 1, sprayground: 1 }
+      f: { playground: true, sprayground: true }
     },
     {
       id: "co-denver-city-park-nature-play",
@@ -84,7 +84,7 @@
       coords_status: "verified",
       denver_feature_tags: ["nature_play", "climbing", "unique"],
       d: "A more creative City Park stop with nature play, climbing features, and a one-of-a-kind feel.",
-      f: { playground: 1 }
+      f: { playground: true }
     },
     {
       id: "co-denver-city-park-playground",
@@ -95,7 +95,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "busy", "large"],
       d: "A large City Park playground that stays busy and gives families plenty of room to play.",
-      f: { playground: 1 }
+      f: { playground: true }
     },
     {
       id: "co-denver-central-park",
@@ -106,7 +106,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "splash_pad", "parking", "open_space"],
       d: "A big Denver park with a playground, splash pad, parking, and room to spread out.",
-      f: { playground: 1, sprayground: 1 }
+      f: { playground: true, sprayground: true }
     },
     {
       id: "co-denver-belleview-park",
@@ -116,7 +116,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "shade", "train", "open_space"],
       d: "A family-friendly park with a playground, shade, train rides nearby, and open space.",
-      f: { playground: 1 }
+      f: { playground: true }
     },
     {
       id: "co-denver-crestmoor-park",
@@ -127,7 +127,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "shade", "picnic", "open_space"],
       d: "A neighborhood favorite with a playground, shade, picnic spots, and open space.",
-      f: { playground: 1 }
+      f: { playground: true }
     },
     {
       id: "co-denver-johnson-habitat-park",
@@ -138,7 +138,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "nature", "climbing"],
       d: "A Denver top pick with a playground, natural feel, and extra climbing play.",
-      f: { playground: 1 }
+      f: { playground: true }
     },
     {
       id: "co-denver-james-a-bible-park",
@@ -149,7 +149,7 @@
       coords_status: "verified",
       denver_feature_tags: ["playground", "trails", "open_space", "shade"],
       d: "A bigger southeast Denver park with a playground, trails, shade, and open space.",
-      f: { playground: 1, trails: 1 }
+      f: { playground: true, trails: true }
     }
   ].map((park) => {
     const denver_sourcePark = park.source_name ? denver_sourceByName[park.source_name] : null;

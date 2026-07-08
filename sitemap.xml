@@ -15,6 +15,12 @@
   </url>
 
   <url>
+    <loc>https://findeverypark.com/playgrounds.html</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
     <loc>https://findeverypark.com/events.html?city=aurora</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
