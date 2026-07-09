@@ -81,6 +81,12 @@
         stateName: "Colorado",
         brandName: siteConfig.brandName || "Find Every Park Colorado"
       },
+      "greenwood-village": {
+        city: "Greenwood Village",
+        state: "CO",
+        stateName: "Colorado",
+        brandName: siteConfig.brandName || "Find Every Park Colorado"
+      },
       brighton: {
         city: "Brighton",
         state: "CO",
