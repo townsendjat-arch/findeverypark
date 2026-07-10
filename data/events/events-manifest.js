@@ -122,17 +122,17 @@ window.EVENTS_DATA = {
       subgroup: "Farmers Markets",
       subgroupOrder: 2,
       recurring: true,
-      recurrence_label: "1st & 3rd Saturdays This Summer",
+      recurrence_label: "1st & 3rd Saturdays, June 6 – Oct 17",
       dropdownLabel: "View Market Dates",
       description: "A community-driven urban agriculture market dedicated to local food sovereignty, featuring small neighborhood farm produce and artisan goods right in the park.",
-      href: "https://www.rebelmarketplace.org",
+      href: "https://www.rebelmarketplace.com/",
       locationLabel: "Del Mar Park (6th Ave & Peoria St)",
       timeLabel: "9:00 AM – 1:00 PM",
       costLabel: "Free",
       costType: "free",
       audienceLabel: "All ages",
       series_start: "2026-06-06",
-      series_end: "2026-08-29",
+      series_end: "2026-10-17",
       schedule: [
         { date: "2026-06-06", location: "Del Mar Park" },
         { date: "2026-06-20", location: "Del Mar Park" },
@@ -140,7 +140,10 @@ window.EVENTS_DATA = {
         { date: "2026-07-18", location: "Del Mar Park" },
         { date: "2026-08-01", location: "Del Mar Park" },
         { date: "2026-08-15", location: "Del Mar Park" },
-        { date: "2026-08-29", location: "Del Mar Park" }
+        { date: "2026-09-05", location: "Del Mar Park" },
+        { date: "2026-09-19", location: "Del Mar Park" },
+        { date: "2026-10-03", location: "Del Mar Park" },
+        { date: "2026-10-17", location: "Del Mar Park" }
       ]
     },
 

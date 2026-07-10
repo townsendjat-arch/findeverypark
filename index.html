@@ -961,9 +961,6 @@
     <!-- SPONSOR AD -->
     <section class="sponsor-slot" aria-label="Sponsored">
       <div class="sponsor-slot-label">Presented by a local family business</div>
-      <a href="mailto:jason@findeverypark.com?subject=Sponsorship" id="index-sponsor-link" class="sponsor-slot-link">
-        <img id="index-sponsor-img" src="images/cta_ad.png" alt="Sponsor this page — reach Front Range families" class="sponsor-slot-img">
-      </a>
       <div class="sponsor-slot-sub">Your business here · <a href="mailto:jason@findeverypark.com?subject=Sponsorship">Learn more</a></div>
     </section>
 
@@ -1202,13 +1199,6 @@
     }
 
     mountHomeFeaturedEvents();
-
-    // Rotate sponsor ad
-    const indexAds = ['images/cta_ad.png', 'images/cta_dad.png'];
-    const indexAdEl = document.getElementById('index-sponsor-img');
-    if (indexAdEl) {
-      indexAdEl.src = indexAds[Math.floor(Math.random() * indexAds.length)];
-    }
 
     // Collapse the city grid: show the first 8, reveal the rest on click.
     (function () {
