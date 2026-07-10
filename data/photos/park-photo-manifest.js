@@ -14,6 +14,12 @@
         { id:"red-tailed-hawk-park-gallery-03", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783540549/Photo_Jun_19_2026_3_24_44_PM_badevs.jpg", alt:"Red-tailed Hawk Park, Aurora", sortOrder:3 },
         { id:"red-tailed-hawk-park-gallery-04", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783540549/Photo_Jun_19_2026_3_24_09_PM_aijz44.jpg", alt:"Red-tailed Hawk Park, Aurora", sortOrder:4 },
       ],
+      "co-aurora-del-mar-park": [
+        { id:"del-mar-park-hero-01", role:"hero", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783709746/Photo_Jul_10_2026_10_52_53_AM_k7f5sc.heic", alt:"Del Mar Park, Aurora", sortOrder:1 },
+        { id:"del-mar-park-gallery-02", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783709747/Photo_Jul_10_2026_10_51_39_AM_wwzg2t.heic", alt:"Del Mar Park, Aurora", sortOrder:2 },
+        { id:"del-mar-park-gallery-03", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783709746/Photo_Jul_10_2026_10_53_04_AM_jlf6b4.heic", alt:"Del Mar Park, Aurora", sortOrder:3 },
+        { id:"del-mar-park-gallery-04", role:"gallery", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783709746/Photo_Jul_10_2026_10_52_58_AM_pyjkg3.heic", alt:"Del Mar Park, Aurora", sortOrder:4 },
+      ],
       "co-aurora-delaney-farm": [],
       "co-aurora-sports-park": [
         { id:"sports-park-hero-01", role:"hero", src:"https://res.cloudinary.com/dzowrsgyp/image/upload/f_auto,q_auto/v1783547558/Photo_Jun_20_2026_7_38_52_AM_vszk3f.heic", alt:"Sports Park, Aurora", sortOrder:1 },

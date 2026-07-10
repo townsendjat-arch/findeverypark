@@ -1488,13 +1488,7 @@ ac:46.5,
 lat:39.684523,
 lng:-104.842786,
 f:{tennis:true,playground:true,baseball:true,pool:true,trails:true,restroom:true,shelter:true,basketball:true},
-photos:[
-  
-  "images/utah-park/utah-park-09.jpg",
-  "images/utah-park/utah-park-13.jpg",
-  "images/utah-park/utah-park-16.jpg",
-  "images/utah-park/utah-park-06.jpg"
-],
+photos:[],
 d:`One of Aurora's most versatile parks, and after April 2026 the pool makes it even more worth the trip. Utah Park at 46.5 acres packs in 3 baseball diamonds, 10 lighted tennis courts, a playground, a reservable shelter, and direct access to the Westerly Creek Trail — the kind of mix that works for a quick visit or a full afternoon. The tennis setup alone is unusual for a community park; most parks have two courts, not ten with lights and shade seating.
 
 The big news is the indoor pool. Utah Pool reopened April 6, 2026 after a full renovation: new liner, new filtration system, new water slide with a soft landing pad, leisure pool refresh, and repairs to cast-iron piping that dated back to the original 1974 construction. The rebuilt filtration system is expected to save around 200,000 gallons of water per year. The pool now includes a 25-meter main pool (8 lanes, diving boards), a leisure pool, and a zero-depth water playground for younger kids.
