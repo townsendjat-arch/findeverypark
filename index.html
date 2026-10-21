@@ -1026,6 +1026,7 @@
 
   <script src="growth-widgets.js"></script>
   <script src="data/events/events-manifest.js"></script>
+  <script src="city-events.js"></script>
   <script src="city-centroids.js"></script>
   <script>
     function escapeHomeEventText(value) {
@@ -1034,26 +1035,12 @@
       });
     }
 
-    function eventEndDate(event) {
-      if (event.series_end) {
-        return new Date(event.series_end + 'T23:59:59');
-      }
-      if (event.dateEnd) {
-        return new Date(event.dateEnd);
-      }
-      if (event.dateStart) {
-        return new Date(event.dateStart);
-      }
-      return null;
-    }
-
     function eventStartDate(event) {
-      return new Date(event.series_start ? event.series_start + 'T00:00:00' : event.dateStart || 0);
+      return window.FEP_EVENTS.startValue(event);
     }
 
     function isCurrentHomeEvent(event, today) {
-      var end = eventEndDate(event);
-      return !end || end >= today;
+      return window.FEP_EVENTS.isCurrent(event, today);
     }
 
     function eventCityLabel(event, cities) {
@@ -1109,7 +1096,6 @@
       if (!root || !window.EVENTS_DATA || !Array.isArray(window.EVENTS_DATA.events)) return;
 
       var today = new Date();
-      today.setHours(0, 0, 0, 0);
 
       var userCity = detectedHomeCity();
       // Only personalize when it's a city we actually map; otherwise use the curated fallback.
@@ -1127,13 +1113,13 @@
           var db = fepCityDistanceSq(userCity, b.city);
           if (da !== db) return da - db;
           if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
-          return eventStartDate(a) - eventStartDate(b);
+          return eventStartDate(a).localeCompare(eventStartDate(b));
         }).slice(0, 3);
       } else {
         // No location signal: featured first, then soonest (original behavior).
         events = current.slice().sort(function(a, b) {
           if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
-          return eventStartDate(a) - eventStartDate(b);
+          return eventStartDate(a).localeCompare(eventStartDate(b));
         }).slice(0, 3);
       }
 

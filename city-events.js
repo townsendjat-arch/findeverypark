@@ -1,3 +1,76 @@
+/* Shared event rules. All local dates/times are in Colorado, not the visitor's
+   time zone. This file is loaded by the events page, homepage and city guides. */
+(function (root) {
+  var timeZone = 'America/Denver';
+  function localStamp(now) {
+    var parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+    }).formatToParts(now || new Date());
+    var values = {};
+    parts.forEach(function (part) { values[part.type] = part.value; });
+    return values.year + '-' + values.month + '-' + values.day + 'T' +
+      values.hour + ':' + values.minute + ':' + values.second;
+  }
+  function validDate(value) {
+    var match = /^(\d{4})-(\d{2})-(\d{2})(?:$|T)/.exec(value || '');
+    if (!match) return false;
+    var date = new Date(Date.UTC(+match[1], +match[2] - 1, +match[3]));
+    return date.getUTCFullYear() === +match[1] && date.getUTCMonth() === +match[2] - 1 && date.getUTCDate() === +match[3];
+  }
+  function endValue(event) {
+    // A verified exact final end takes precedence over a date-only series end.
+    return event.dateEnd || event.endDate || event.series_end ||
+      String(event.dateStart || event.startDate || '').slice(0, 10);
+  }
+  function isPublishable(event) {
+    return !!event && (!event.status || event.status === 'approved' || event.status === 'archived');
+  }
+  var localEndCache = new Map();
+  function localEndInstant(value) {
+    if (localEndCache.has(value)) return localEndCache.get(value);
+    var wall = Date.parse(value + 'Z');
+    var candidates = [];
+    // Sampling both sides of a transition obtains the zone's actual offsets.
+    // For a repeated legacy wall time, use the later occurrence, once only.
+    [-12, 12].forEach(function (hours) {
+      var sample = wall + hours * 60 * 60 * 1000;
+      var offset = Date.parse(localStamp(new Date(sample)) + 'Z') - sample;
+      var instant = wall - offset;
+      if (localStamp(new Date(instant)) === value) candidates.push(instant);
+    });
+    var result = candidates.length ? Math.max.apply(null, candidates) : NaN;
+    localEndCache.set(value, result);
+    return result;
+  }
+  function isExpired(event, now) {
+    now = now || new Date();
+    var end = endValue(event);
+    // Missing/invalid dates must never produce immortal current listings.
+    if (!validDate(end)) return true;
+    if (end.length === 10) return localStamp(now).slice(0, 10) > end;
+    if (/(?:Z|[+-]\d{2}:\d{2})$/.test(end)) {
+      var instant = Date.parse(end);
+      return !Number.isFinite(instant) || now.getTime() >= instant;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/.test(end)) return true;
+    var localInstant = localEndInstant(end.length === 16 ? end + ':00' : end);
+    return !Number.isFinite(localInstant) || now.getTime() >= localInstant;
+  }
+  function isCurrent(event, now) {
+    return isPublishable(event) && event.status !== 'archived' && !isExpired(event, now);
+  }
+  function normCity(value) {
+    return String(value || '').trim().toLowerCase().replace(/[-\s]+/g, '_');
+  }
+  function startValue(event) {
+    return event.series_start || event.dateStart || event.startDate || '';
+  }
+  root.FEP_EVENTS = { timeZone: timeZone, localStamp: localStamp, validDate: validDate,
+    endValue: endValue, startValue: startValue, isPublishable: isPublishable,
+    isExpired: isExpired, isCurrent: isCurrent, normCity: normCity };
+})(typeof window === 'undefined' ? globalThis : window);
+
 /* city-events.js — injects live, city-specific events into the .events-callout
    block on city pages. Reads the city from the callout's "events.html?city=..."
    link, so no per-page configuration is needed. Self-contained: depends only on
@@ -9,24 +82,12 @@
     });
   }
 
-  function normCity(value) {
-    return String(value == null ? '' : value).trim().toLowerCase().replace(/_/g, '-');
-  }
-
-  function endDate(event) {
-    if (event.series_end) return new Date(event.series_end + 'T23:59:59');
-    if (event.dateEnd) return new Date(event.dateEnd);
-    if (event.dateStart) return new Date(event.dateStart);
-    return null;
-  }
+  var rules = window.FEP_EVENTS;
+  var normCity = rules.normCity;
+  var isCurrent = rules.isCurrent;
 
   function startDate(event) {
-    return new Date(event.series_start ? event.series_start + 'T00:00:00' : event.dateStart || 0);
-  }
-
-  function isCurrent(event, today) {
-    var end = endDate(event);
-    return !end || end >= today;
+    return rules.startValue(event);
   }
 
   function oneLine(event) {
@@ -51,7 +112,7 @@
       .filter(function (e) { return e && normCity(e.city) === normCity(cityKey) && isCurrent(e, today); })
       .sort(function (a, b) {
         if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
-        return startDate(a) - startDate(b);
+        return startDate(a).localeCompare(startDate(b));
       })
       .slice(0, 3);
   }
@@ -110,7 +171,6 @@
     injectStyles();
 
     var today = new Date();
-    today.setHours(0, 0, 0, 0);
 
     Array.prototype.forEach.call(callouts, function (callout) {
       if (callout.querySelector('.city-event-grid')) return; // already mounted
@@ -123,7 +183,10 @@
       }
 
       var events = selectCityEvents(data.events, cityKey, today);
-      if (!events.length) return; // hide-if-empty: keep the "View all events" link as-is
+      if (!events.length) {
+        callout.style.display = 'none';
+        return;
+      }
 
       var grid = document.createElement('div');
       grid.className = 'city-event-grid';

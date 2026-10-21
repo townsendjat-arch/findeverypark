@@ -1,13 +1,19 @@
 // FindEveryPark — Events Manifest
-// Version: 2026-06 | Curated Aurora + Parker Summer Events
-// Source: Aurora Front Range Summer 2026 Master Schedule + Parker community events
-// Covers: June – August 2026 | Aurora & Parker, CO
+// Updated October 21, 2026 | Source-checked fall listings
+// Current research window: October 21–November 1, 2026; legacy listings retained in the archive.
+// See docs/event-system.md for schema, verification, expiry and review workflow.
 
 window.EVENTS_DATA = {
 
-  updatedLabel: "Updated June 2026",
+  updatedLabel: "Details checked October 21, 2026",
 
   cities: {
+    centennial: {
+      label: "Centennial",
+      subtitle: "Curated family events in Centennial.",
+      submitHeading: "Know a Centennial event?",
+      footerNote: "Centennial events sourced from recreation organizers and community calendars."
+    },
     aurora: {
       label: "Aurora",
       subtitle: "Curated family events in Aurora — updated weekly.",
@@ -84,6 +90,606 @@ window.EVENTS_DATA = {
 
   events: [
 
+    // Source-checked fall events. Unknown fields are labeled; never inferred.
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-halloween-on-havana-2026",
+      "city": "aurora",
+      "title": "Halloween on Havana Street",
+      "description": "Collect candy at participating shops and join the costume contest. Candy is available while supplies last; contest entrants complete a photo waiver on site.",
+      "href": "https://onhavanastreet.com/events/2026-halloween-on-havana-street/",
+      "locationLabel": "The Gardens on Havana, 10551 E. Garden Drive, Aurora, CO 80012; costume contest: 1250 S. Ironton Street #120",
+      "dateStart": "2026-10-24T11:00:00-06:00",
+      "dateEnd": "2026-10-24T13:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "timeLabel": "11 a.m.–1 p.m. MDT",
+      "costLabel": "Free; candy while supplies last",
+      "costType": "free",
+      "audienceLabel": "Families and all ages; pet costume category",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://onhavanastreet.com/events/2026-halloween-on-havana-street/"
+      ],
+      "registrationLabel": "No advance registration stated; costume contest entry is in person.",
+      "availabilityLabel": "Published event; no advance ticket inventory applies.",
+      "uncertaintyNotes": [
+        "Organizer inconsistently calls the contest substation District 1 and District 2. Use verified street address, not district number."
+      ],
+      "nearbyParks": [
+        {
+          "id": "co-aurora-expo-park",
+          "name": "Expo Park"
+        }
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-trick-or-treat-nature-trail-2026",
+      "city": "aurora",
+      "title": "Trick or Treat Nature Trail",
+      "description": "A costume-friendly nature trail with candy, games and autumn wildlife activities. Registration is required; confirm a time slot with Aurora Parks before going.",
+      "href": "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+      "locationLabel": "Morrison Nature Center at Star K Ranch, 16002 E. Smith Road, Aurora, CO",
+      "dateStart": "2026-10-24T10:00:00-06:00",
+      "dateEnd": "2026-10-25T15:00:00-06:00",
+      "dateLabel": "October 24 and 25, 2026",
+      "timeLabel": "10 a.m.–3 p.m. MDT each day",
+      "costLabel": "$6; children younger than 2 free",
+      "costType": "paid",
+      "audienceLabel": "All ages and abilities",
+      "sourceType": "city_source",
+      "sourceUrls": [
+        "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+        "https://www.visitaurora.com/blog/halloween/"
+      ],
+      "series_start": "2026-10-24",
+      "series_end": "2026-10-25",
+      "recurrence_label": "October 24 and 25, 2026 · Saturday and Sunday only",
+      "schedule": [
+        {
+          "date": "2026-10-24",
+          "time": "10 a.m.–3 p.m. MDT",
+          "location": "Morrison Nature Center",
+          "note": "Published local event hours; check organizer for changes."
+        },
+        {
+          "date": "2026-10-25",
+          "time": "10 a.m.–3 p.m. MDT",
+          "location": "Morrison Nature Center",
+          "note": "Published local event hours; check organizer for changes."
+        }
+      ],
+      "registrationLabel": "Required through AuroraGov.org/Nature.",
+      "registrationUrl": "https://anc.apm.activecommunities.com/auroracolorado/activity/search?activity_category_ids=33&activity_select_param=2&onlineSiteId=0&viewMode=list&locale=en-US",
+      "availabilityLabel": "Remaining registration slots not verified.",
+      "uncertaintyNotes": [
+        "The city's source article is explicitly dated September 1, 2026.",
+        "The linked ActiveCommunities registration page rendered no inventory; do not promise availability.",
+        "Do not use the archived 2025 $2 price or 3:15 p.m. end time."
+      ],
+      "nearbyParks": [
+        {
+          "id": "co-aurora-star-k-ranch",
+          "name": "Star K Ranch"
+        }
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-fall-for-you-2026",
+      "city": "aurora",
+      "title": "Fall for YOU",
+      "description": "Family festival with circus entertainment, creative activities, farm animals, train rides and more. Tickets cover one day; food, drinks and shopping cost extra.",
+      "href": "https://www.arapahoecountyeventcenter.com/p/signature-events/fall-for-you",
+      "locationLabel": "Arapahoe County Fairgrounds, 25690 E. Quincy Avenue, Aurora, CO 80016",
+      "dateStart": "2026-10-24T11:00:00-06:00",
+      "dateEnd": "2026-10-25T16:00:00-06:00",
+      "dateLabel": "October 24 and 25, 2026",
+      "timeLabel": "11 a.m.–4 p.m. MDT each day",
+      "costLabel": "$15 advance / $17 day-of; ages 2 and under free; free parking",
+      "costType": "paid",
+      "audienceLabel": "All ages",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.arapahoecountyeventcenter.com/p/signature-events/fall-for-you"
+      ],
+      "series_start": "2026-10-24",
+      "series_end": "2026-10-25",
+      "recurrence_label": "October 24 and 25, 2026 · Saturday and Sunday only",
+      "schedule": [
+        {
+          "date": "2026-10-24",
+          "time": "11 a.m.–4 p.m. MDT",
+          "location": "Arapahoe County Fairgrounds",
+          "note": "Published local event hours; check organizer for changes."
+        },
+        {
+          "date": "2026-10-25",
+          "time": "11 a.m.–4 p.m. MDT",
+          "location": "Arapahoe County Fairgrounds",
+          "note": "Published local event hours; check organizer for changes."
+        }
+      ],
+      "registrationLabel": "Tickets required; card-only gate purchases. One-day ticket.",
+      "availabilityLabel": "Organizer displays a $15 Buy Now option; inventory not separately verified.",
+      "uncertaintyNotes": [
+        "Rain or shine; no refunds.",
+        "Pets prohibited except service animals and registered Doppelganger Dog Dash participants."
+      ],
+      "registrationUrl": "https://www.arapahoecountyeventcenter.com/p/signature-events/fall-for-you",
+      "nearbyParks": [
+        {
+          "id": "co-aurora-aurora-reservoir",
+          "name": "Aurora Reservoir"
+        }
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-nicks-fall-fest-2026",
+      "city": "aurora",
+      "title": "Nick’s Fall Fest",
+      "description": "Free-entry fall outing with a straw maze, games and a children's play area. Pumpkins, rides and other purchases cost extra.",
+      "href": "https://nicksgardencenter.com/fallfest-2026/",
+      "locationLabel": "Nick’s Garden Center, 2001 S. Chambers Road, Aurora, CO 80014",
+      "dateStart": "2026-09-26T08:00:00-06:00",
+      "dateEnd": "2026-10-31T18:00:00-06:00",
+      "dateLabel": "Daily through October 31, 2026",
+      "timeLabel": "Mon–Sat 8 a.m.–6 p.m.; Sun 9 a.m.–5 p.m. MDT",
+      "costLabel": "Free entry; most rides $6 each; $22 four-ride wristband; pumpkins extra",
+      "costType": "free",
+      "audienceLabel": "Families and children",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://nicksgardencenter.com/fallfest-2026/"
+      ],
+      "series_start": "2026-09-26",
+      "series_end": "2026-10-31",
+      "recurrence_label": "Daily through October 31, 2026 · Daily; Sunday hours differ",
+      "schedule": [
+        {
+          "date": "2026-10-21",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-22",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-23",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-24",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-25",
+          "time": "9 a.m.–5 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-26",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-27",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-28",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-29",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-30",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        },
+        {
+          "date": "2026-10-31",
+          "time": "8 a.m.–6 p.m. MDT",
+          "location": "Nick’s Garden Center",
+          "note": ""
+        }
+      ],
+      "registrationLabel": "Walk-in; activity tokens purchased in the greenhouse.",
+      "availabilityLabel": "Open daily according to organizer; no reservations stated.",
+      "uncertaintyNotes": [
+        "Year is explicit in page title, navigation and canonical URL.",
+        "Schedule enumerates only the remaining requested-window dates, October 21–31.",
+        "Published hours are for the Fall Fest; no separate ride-specific hours verified."
+      ],
+      "nearbyParks": [
+        {
+          "id": "co-aurora-jewell-wetlands",
+          "name": "Jewell Wetlands"
+        }
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-mall-o-ween-2026",
+      "city": "aurora",
+      "title": "Mall-O-Ween",
+      "description": "Indoor mall trick-or-treating, costume contests, dance performances and free family activities at participating retailers.",
+      "href": "https://www.towncenterataurora.com/events/mall-o-ween",
+      "locationLabel": "Town Center at Aurora, 14200 E. Alameda Avenue, Aurora, CO 80012",
+      "dateStart": "2026-10-31T12:00:00-06:00",
+      "dateEnd": "2026-10-31T16:00:00-06:00",
+      "dateLabel": "Saturday, October 31, 2026",
+      "timeLabel": "Noon–4 p.m. MDT",
+      "costLabel": "Free admission and family activities; purchases extra",
+      "costType": "free",
+      "audienceLabel": "Families and all ages",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.towncenterataurora.com/events/mall-o-ween"
+      ],
+      "registrationLabel": "No registration requirement stated.",
+      "availabilityLabel": "Published free event; no ticket inventory stated.",
+      "uncertaintyNotes": [],
+      "nearbyParks": [
+        {
+          "id": "co-aurora-expo-park",
+          "name": "Expo Park"
+        }
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "denver-boonion-station-2026",
+      "city": "denver",
+      "title": "BOOnion Station",
+      "description": "Trick-or-treat through Union Station, enjoy mini-train rides and face painting, and join the costume contest.",
+      "href": "https://www.denverunionstation.com/events/boonion-station-2026/",
+      "locationLabel": "Denver Union Station, 1701 Wynkoop Street, Denver, CO 80202",
+      "dateStart": "2026-10-29T16:00:00-06:00",
+      "dateEnd": "2026-10-29T19:00:00-06:00",
+      "dateLabel": "Thursday, October 29, 2026",
+      "timeLabel": "4–7 p.m. MDT",
+      "costLabel": "Free",
+      "costType": "free",
+      "audienceLabel": "All ages and families",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.denverunionstation.com/events/boonion-station-2026/",
+        "https://www.rtd-denver.com/community/events/2026/boonion-station"
+      ],
+      "registrationLabel": "No registration requirement stated.",
+      "availabilityLabel": "Published free event; no ticket inventory stated.",
+      "uncertaintyNotes": [
+        "RTD's participating-organizer listing explicitly confirms 2026, MDT timezone and full street address."
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "denver-boo-at-zoo-2026",
+      "city": "denver",
+      "title": "Boo at the Zoo",
+      "description": "Timed evening trick-or-treating with nine candy stations, costumed creatures and animal ambassadors. Reserve your chosen entry time; tickets can sell out.",
+      "href": "https://denverzoo.org/events/boo-at-the-zoo/",
+      "locationLabel": "Denver Zoo Conservation Alliance, 2300 Steele Street, Denver, CO 80205",
+      "dateStart": "2026-10-02T16:30:00-06:00",
+      "dateEnd": "2026-10-30T21:00:00-06:00",
+      "dateLabel": "October 23–25 and 30, 2026",
+      "timeLabel": "4:30–9 p.m. MDT on listed dates",
+      "costLabel": "Adults/seniors $27.95; youth $20.95; ages 2 and under free; members save 10%",
+      "costType": "paid",
+      "audienceLabel": "All ages; not designed as a frightening event",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://denverzoo.org/events/boo-at-the-zoo/"
+      ],
+      "series_start": "2026-10-02",
+      "series_end": "2026-10-30",
+      "recurrence_label": "October 23–25 and 30, 2026 · Selected nights only; not daily",
+      "schedule": [
+        {
+          "date": "2026-10-23",
+          "time": "4:30 p.m.–9 p.m. MDT",
+          "location": "Denver Zoo Conservation Alliance",
+          "note": "Published local event hours; check organizer for changes."
+        },
+        {
+          "date": "2026-10-24",
+          "time": "4:30 p.m.–9 p.m. MDT",
+          "location": "Denver Zoo Conservation Alliance",
+          "note": "Published local event hours; check organizer for changes."
+        },
+        {
+          "date": "2026-10-25",
+          "time": "4:30 p.m.–9 p.m. MDT",
+          "location": "Denver Zoo Conservation Alliance",
+          "note": "Published local event hours; check organizer for changes."
+        },
+        {
+          "date": "2026-10-30",
+          "time": "4:30 p.m.–9 p.m. MDT",
+          "location": "Denver Zoo Conservation Alliance",
+          "note": "Published local event hours; check organizer for changes."
+        }
+      ],
+      "registrationLabel": "Timed tickets required.",
+      "availabilityLabel": "Exact dates and entry-slot availability not verified; ticket page entered a queue.",
+      "uncertaintyNotes": [
+        "Schedule and prices cover remaining general-admission nights; October 31 sensory-friendly night is a separate listing.",
+        "The visible page does not define the youth age bracket.",
+        "Ticketing redirected to an inaccessible queue, so do not claim slots are available."
+      ],
+      "registrationUrl": "https://my.denverzoo.org/events?kid=10&startdate=2026-10-01",
+      "nearbyParks": [
+        {
+          "id": "co-denver-city-park-nature-play",
+          "name": "City Park Nature Play"
+        }
+      ]
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "denver-boo-at-zoo-sensory-2026",
+      "city": "denver",
+      "title": "Boo at the Zoo: Sensory-Friendly Night",
+      "description": "An adapted trick-or-treat evening with reduced crowds, softer music, increased lighting, quiet rooms and stationary costumed characters.",
+      "href": "https://denverzoo.org/events/batz-sensory-friendly/",
+      "locationLabel": "Denver Zoo Conservation Alliance, 2300 Steele Street, Denver, CO 80205",
+      "dateStart": "2026-10-31T16:30:00-06:00",
+      "dateEnd": "2026-10-31T21:00:00-06:00",
+      "dateLabel": "Saturday, October 31, 2026",
+      "timeLabel": "4:30–9 p.m. MDT",
+      "costLabel": "Adults/seniors $25.95; youth $18.95; ages 2 and under free; members save 10%",
+      "costType": "paid",
+      "audienceLabel": "Families, including guests with sensory processing disorders",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://denverzoo.org/events/batz-sensory-friendly/",
+        "https://denverzoo.org/events/boo-at-the-zoo/"
+      ],
+      "registrationLabel": "Tickets required.",
+      "availabilityLabel": "Exact ticket inventory not verified.",
+      "uncertaintyNotes": [
+        "The main Boo at the Zoo page's October 2026 calendar establishes the year.",
+        "Youth age bracket is not defined in the visible event text.",
+        "Use this night's lower published prices, not general-night pricing."
+      ],
+      "registrationUrl": "https://my.denverzoo.org/events?kid=10&startdate=2026-10-01",
+      "nearbyParks": [
+        {
+          "id": "co-denver-city-park-nature-play",
+          "name": "City Park Nature Play"
+        }
+      ]
+    },
+    {
+      "id": "parker-trunk-or-treat-mainstreet-2026-10-24",
+      "city": "parker",
+      "title": "Trunk or Treat on Mainstreet",
+      "section": "holiday",
+      "recurring": false,
+      "description": "Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m. Every child needs an individual timed ticket; parents do not need tickets. Ticket inventory could not be verified, so reserve before going.",
+      "href": "https://www.downtownparker.com/trunkortreat/",
+      "locationLabel": "Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138",
+      "dateStart": "2026-10-24T13:00:00-06:00",
+      "dateEnd": "2026-10-24T17:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "timeLabel": "1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)",
+      "costLabel": "Free; individual timed-entry ticket required for each child. Adults do not need a ticket.",
+      "costType": "free",
+      "audienceLabel": "Families with children; sensory hour reserved for attendees with sensory sensitivities",
+      "sourceType": "organizer",
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "sourceUrls": [
+        "https://www.downtownparker.com/trunkortreat/",
+        "https://www.parker-station.com/"
+      ],
+      "registrationUrl": "https://www.tickettailor.com/events/downtownparker/2450038",
+      "evidenceNote": "Official event page supplies date, times, street address, free admission and ticket conditions. Venue's own homepage verifies Parker, CO 80138.",
+      "timezone": "America/Denver",
+      "availabilityLabel": "Organizer provides timed-entry signup; ticketing page inaccessible to research tool. Vendor spaces are full, but this is not evidence that attendee tickets are sold out.",
+      "registrationLabel": "Individual timed-entry ticket required for every child; adults do not need tickets.",
+      "nearbyParks": [
+        {
+          "id": "co-parker-o-brien-park",
+          "name": "O'Brien Park"
+        }
+      ]
+    },
+    {
+      "id": "parker-all-treats-no-tricks-2026-10-30",
+      "city": "parker",
+      "title": "All Treats, No Tricks: Sensory-Friendly Trick or Treat",
+      "section": "holiday",
+      "recurring": false,
+      "description": "Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Families must RSVP. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.",
+      "href": "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/",
+      "locationLabel": "Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138",
+      "dateStart": "2026-10-30T18:00:00-06:00",
+      "dateEnd": "2026-10-30T21:30:00-06:00",
+      "dateLabel": "Friday, October 30, 2026",
+      "timeLabel": "6–9:30 p.m. (America/Denver); costume parade at 8 p.m.",
+      "costLabel": "Free; family RSVP required",
+      "costType": "free",
+      "audienceLabel": "All kids and siblings; sensory-friendly, not restricted to children with disabilities",
+      "sourceType": "organizer",
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "sourceUrls": [
+        "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/"
+      ],
+      "evidenceNote": "Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.",
+      "timezone": "America/Denver",
+      "availabilityLabel": "Organizer requires a family RSVP, but no usable RSVP link or remaining capacity was exposed in the fetched page. Follow the organizer's event page for booking instructions.",
+      "registrationLabel": "Family RSVP required through organizer; direct booking link not exposed.",
+      "nearbyParks": [
+        {
+          "id": "co-parker-challenger-regional-park",
+          "name": "Challenger Regional Park"
+        }
+      ]
+    },
+    {
+      "city": "centennial",
+      "title": "Trick-or-Treat Street at Goodson",
+      "dateStart": "2026-10-23T16:00:00-06:00",
+      "dateEnd": "2026-10-23T18:30:00-06:00",
+      "locationLabel": "Goodson Recreation Center back parking lot, 6315 S. University Blvd., Centennial, CO 80121",
+      "description": "Outdoor Halloween candy, costume and game event for families. City calls this Trick or Treat Trail; recreation organizer calls it Trick-or-Treat Street.",
+      "costLabel": "Admission price not published in accessible sources; check organizer",
+      "audienceLabel": "Families and youth",
+      "href": "https://www.ssprd.org/News-And-Events/Post/20718",
+      "sourceUrls": [
+        "https://www.centennialco.gov/Events-directory",
+        "https://www.ssprd.org/News-And-Events/Post/20718",
+        "https://www.ssprd.org/Goodson-Recreation-Center"
+      ],
+      "registrationUrl": "https://register.ssprd.org/CO/south-suburban-parks-rec/catalog/index/6694995354939e39b6f836912be9da70?filter=c2VhcmNoPXRyaWNr",
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "uncertaintyNotes": [
+        "2026 date, start/end and address verified, but price, registration requirements and inventory not verified. Organizer registration page returned 403; city detail page was inaccessible. Do not label free. Facility's own page gives ZIP 80121, while nearby race listing uses 80122."
+      ],
+      "dateLabel": "Friday, October 23, 2026",
+      "id": "centennial-goodson-trick-or-treat-2026",
+      "timeLabel": "4–6:30 p.m. MDT",
+      "costType": "unknown",
+      "registrationLabel": "Confirm price and registration requirements with South Suburban before attending.",
+      "availabilityLabel": "Registration inventory not verified.",
+      "sourceType": "city_source",
+      "nearbyParks": [
+        {
+          "id": "co-centennial-dekoevend-park",
+          "name": "deKoevend Park"
+        }
+      ]
+    },
+    {
+      "city": "centennial",
+      "title": "Hoofin' It Through the Hollows 5K",
+      "dateStart": "2026-10-24T17:00:00-06:00",
+      "dateEnd": "2026-10-24",
+      "dateLabel": "Saturday, October 24, 2026",
+      "timeLabel": "Costume contest 5 p.m.; race 5:30 p.m. MDT; end time not published",
+      "locationLabel": "deKoevend Park / Goodson Recreation Center, 6315 S. University Blvd., Centennial, CO",
+      "description": "Halloween 5K for runners of all ages and abilities, families and dogs. Costumes encouraged.",
+      "costLabel": "Adults $20 plus processing fee (displayed adult total $22.45); ages 14 and younger $15 plus unverified processing fee; optional shirts cost extra",
+      "costType": "paid",
+      "audienceLabel": "All ages and abilities; families and dogs welcome",
+      "href": "https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K",
+      "sourceUrls": [
+        "https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K",
+        "https://www.ssprd.org/News-And-Events/Post/20718"
+      ],
+      "availabilityNote": "Live registration button displayed and registration deadline is Oct. 24 at 5:35 p.m. MDT; individual capacity not shown.",
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "uncertaintyNotes": [
+        "No official event end time found. Do not invent dateEnd. Race page ZIP is 80122; Goodson facility page says 80121 for same street address."
+      ],
+      "id": "centennial-hoofin-hollows-5k-2026",
+      "calendarDisabled": true,
+      "registrationUrl": "https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K",
+      "registrationLabel": "Race registration required; optional shirts cost extra.",
+      "availabilityLabel": "Published registration deadline: October 24 at 5:35 p.m. MDT. Capacity not verified.",
+      "sourceType": "organizer",
+      "nearbyParks": [
+        {
+          "id": "co-centennial-dekoevend-park",
+          "name": "deKoevend Park"
+        }
+      ]
+    },
+    {
+      "city": "centennial",
+      "title": "Spooky Streets at The Streets at SouthGlenn",
+      "dateStart": "2026-10-23T16:30:00-06:00",
+      "dateEnd": "2026-10-23T19:30:00-06:00",
+      "locationLabel": "Commons Park along Commons Avenue, The Streets at SouthGlenn, 6851 S. Vine St., Centennial, CO 80122",
+      "costLabel": "Free according to Centennial Arts and Cultural Foundation",
+      "audienceLabel": "Families with children",
+      "href": "https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/",
+      "sourceUrls": [
+        "https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/",
+        "https://www.artworkssouthglenn.com/events"
+      ],
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "uncertaintyNotes": [
+        "Date, time, cost and address are on the local arts foundation's community calendar. ARTWORKS participating gallery corroborates Oct. 23, 4:30–7:30 p.m. but does not explicitly state year. Organizer's direct site returned 406/inaccessible, so strict organizer/city-source requirement not met for the 2026 date."
+      ],
+      "dateLabel": "Friday, October 23, 2026",
+      "id": "centennial-spooky-streets-2026",
+      "timeLabel": "4:30–7:30 p.m. MDT",
+      "description": "Family Halloween festivities at Commons Park. Date, hours and free admission are listed by the Centennial Arts and Cultural Foundation; the organizer page could not be independently checked.",
+      "costType": "free",
+      "sourceType": "community",
+      "registrationLabel": "No advance registration is stated on the community listing; check the organizer for changes.",
+      "availabilityLabel": "Source: local arts foundation calendar, corroborated by participating gallery. Organizer page inaccessible during verification."
+    },
+
+    // Legacy seasonal listings (automatically archived after their final date).
     // ONGOING SUMMER EVENTS — Movies in the Park
 
     {
@@ -411,6 +1017,8 @@ window.EVENTS_DATA = {
 
     {
       id: "parker-farmers-market",
+      status: "needs_review",
+      reviewNote: "Legacy spring-through-fall placeholder has no verified 2026 operating dates or hours. Hidden until rechecked.",
       city: "parker",
       title: "Parker Farmers Market",
       section: "ongoing",
