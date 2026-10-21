@@ -11,6 +11,14 @@ Last verified: **2026-10-21 (UTC)**. Charles's flooring website remains Priority
 - Observed `main`: `4cc92478c04cd281dc8d0cd2eab4b9f5627f8579`, last deployed by [2026-07-10 Pages run 29118368222](https://github.com/townsendjat-arch/findeverypark/actions/runs/29118368222). That is not this events package.
 - The four-file tracking addition is documentation-only and creates a distinct head. [PR commits](https://github.com/townsendjat-arch/findeverypark/pull/2/commits) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks) identify the current exact revision and its own result, separately from the code-tested baseline above.
 
+## Status index
+
+- **Completed:** the events implementation, source review, scoped tests and tracking work listed below. None of this review package is marked released.
+- **In Progress:** no design or feature implementation. Current documentation-revision CI status is shown in [PR checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks).
+- **Pending:** near-publication source/inventory rechecks (F3), physical-device/assistive-technology QA (F4), and post-release verification after an authorized release (F6).
+- **Blocked:** launch remains blocked until the source/manual-QA gates and required approvals (F1-F5) are resolved or explicitly dispositioned; passing CI alone cannot clear them.
+- **Awaiting Approval:** final content/visual review (F1), source-uncertainty disposition (F2), and exact-candidate merge/deployment (F5). Gate details below remain authoritative.
+
 ## Completed development and source review
 
 | Item | Development/review state | Release state | Evidence |
