@@ -2,8 +2,8 @@
   "name": "findeverypark",
   "private": true,
   "scripts": {
-    "test": "node --test tests/events.test.js",
-    "test:browser": "node tests/events.browser.js"
+    "test": "node --test tests/events.test.js tests/discovery.test.js",
+    "test:browser": "node tests/events.browser.js && node tests/discovery.browser.js"
   },
   "devDependencies": {
     "playwright": "1.62.1",

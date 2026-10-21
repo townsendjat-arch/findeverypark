@@ -158,13 +158,17 @@ window.EVENTS_DATA = {
           "date": "2026-10-24",
           "time": "10 a.m.–3 p.m. MDT",
           "location": "Morrison Nature Center",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-24T10:00:00-06:00",
+          "dateEnd": "2026-10-24T15:00:00-06:00"
         },
         {
           "date": "2026-10-25",
           "time": "10 a.m.–3 p.m. MDT",
           "location": "Morrison Nature Center",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-25T10:00:00-06:00",
+          "dateEnd": "2026-10-25T15:00:00-06:00"
         }
       ],
       "registrationLabel": "Required through AuroraGov.org/Nature.",
@@ -178,7 +182,8 @@ window.EVENTS_DATA = {
       "nearbyParks": [
         {
           "id": "co-aurora-star-k-ranch",
-          "name": "Star K Ranch"
+          "name": "Star K Ranch",
+          "relationship": "host"
         }
       ]
     },
@@ -213,13 +218,17 @@ window.EVENTS_DATA = {
           "date": "2026-10-24",
           "time": "11 a.m.–4 p.m. MDT",
           "location": "Arapahoe County Fairgrounds",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-24T11:00:00-06:00",
+          "dateEnd": "2026-10-24T16:00:00-06:00"
         },
         {
           "date": "2026-10-25",
           "time": "11 a.m.–4 p.m. MDT",
           "location": "Arapahoe County Fairgrounds",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-25T11:00:00-06:00",
+          "dateEnd": "2026-10-25T16:00:00-06:00"
         }
       ],
       "registrationLabel": "Tickets required; card-only gate purchases. One-day ticket.",
@@ -267,67 +276,89 @@ window.EVENTS_DATA = {
           "date": "2026-10-21",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-21T08:00:00-06:00",
+          "dateEnd": "2026-10-21T18:00:00-06:00"
         },
         {
           "date": "2026-10-22",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-22T08:00:00-06:00",
+          "dateEnd": "2026-10-22T18:00:00-06:00"
         },
         {
           "date": "2026-10-23",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-23T08:00:00-06:00",
+          "dateEnd": "2026-10-23T18:00:00-06:00"
         },
         {
           "date": "2026-10-24",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-24T08:00:00-06:00",
+          "dateEnd": "2026-10-24T18:00:00-06:00"
         },
         {
           "date": "2026-10-25",
           "time": "9 a.m.–5 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-25T09:00:00-06:00",
+          "dateEnd": "2026-10-25T17:00:00-06:00"
         },
         {
           "date": "2026-10-26",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-26T08:00:00-06:00",
+          "dateEnd": "2026-10-26T18:00:00-06:00"
         },
         {
           "date": "2026-10-27",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-27T08:00:00-06:00",
+          "dateEnd": "2026-10-27T18:00:00-06:00"
         },
         {
           "date": "2026-10-28",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-28T08:00:00-06:00",
+          "dateEnd": "2026-10-28T18:00:00-06:00"
         },
         {
           "date": "2026-10-29",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-29T08:00:00-06:00",
+          "dateEnd": "2026-10-29T18:00:00-06:00"
         },
         {
           "date": "2026-10-30",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-30T08:00:00-06:00",
+          "dateEnd": "2026-10-30T18:00:00-06:00"
         },
         {
           "date": "2026-10-31",
           "time": "8 a.m.–6 p.m. MDT",
           "location": "Nick’s Garden Center",
-          "note": ""
+          "note": "",
+          "dateStart": "2026-10-31T08:00:00-06:00",
+          "dateEnd": "2026-10-31T18:00:00-06:00"
         }
       ],
       "registrationLabel": "Walk-in; activity tokens purchased in the greenhouse.",
@@ -439,25 +470,33 @@ window.EVENTS_DATA = {
           "date": "2026-10-23",
           "time": "4:30 p.m.–9 p.m. MDT",
           "location": "Denver Zoo Conservation Alliance",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-23T16:30:00-06:00",
+          "dateEnd": "2026-10-23T21:00:00-06:00"
         },
         {
           "date": "2026-10-24",
           "time": "4:30 p.m.–9 p.m. MDT",
           "location": "Denver Zoo Conservation Alliance",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-24T16:30:00-06:00",
+          "dateEnd": "2026-10-24T21:00:00-06:00"
         },
         {
           "date": "2026-10-25",
           "time": "4:30 p.m.–9 p.m. MDT",
           "location": "Denver Zoo Conservation Alliance",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-25T16:30:00-06:00",
+          "dateEnd": "2026-10-25T21:00:00-06:00"
         },
         {
           "date": "2026-10-30",
           "time": "4:30 p.m.–9 p.m. MDT",
           "location": "Denver Zoo Conservation Alliance",
-          "note": "Published local event hours; check organizer for changes."
+          "note": "Published local event hours; check organizer for changes.",
+          "dateStart": "2026-10-30T16:30:00-06:00",
+          "dateEnd": "2026-10-30T21:00:00-06:00"
         }
       ],
       "registrationLabel": "Timed ticket required for every participant, including a free ticket for each child age 2 or under. Organizer hours are 4:30–9 p.m.; ticket-page heading conflicts at 10 p.m. Confirm your chosen entry time.",
@@ -592,7 +631,8 @@ window.EVENTS_DATA = {
       "nearbyParks": [
         {
           "id": "co-centennial-dekoevend-park",
-          "name": "deKoevend Park"
+          "name": "deKoevend Park",
+          "relationship": "host"
         }
       ]
     },

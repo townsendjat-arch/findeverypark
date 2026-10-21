@@ -56,7 +56,7 @@ async function check(name, callback) {
       assert.match(await nature.textContent(), /10 a\.m\./);
       assert.match(await nature.textContent(), /Details checked October 21, 2026/);
       assert.ok(await nature.locator('a:has-text("Registration")').count());
-      const parkHref = await nature.locator('a:has-text("Park stop")').getAttribute('href');
+      const parkHref = await nature.locator('a:has-text("At this park")').getAttribute('href');
       assert.match(parkHref, /co-aurora-star-k-ranch/);
       assert.match(await nature.textContent(), /not verified/);
     });

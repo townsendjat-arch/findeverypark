@@ -1,5 +1,21 @@
 # FindEveryPark: verification ledger
 
+Updated: **2026-10-21 (UTC)**. Discovery evidence is separate from the corrected PR #2 baseline below.
+
+## Separate discovery draft validation
+
+- Base: `4247d0be71d913239a4a8cf42c8743218b1465b8`; branch `review/improve-event-discovery-2026`. Prior PR #2 checks do not establish discovery success.
+- Local focused verification after the 11-listing rebase: original 14 + new 15 Node tests pass under UTC, America/Los_Angeles and Asia/Tokyo (87 executions). Code/test head `d8c57f4594fb7f48f3841a3d0ba5e256595230c8` passed [run 39652020785](https://github.com/townsendjat-arch/findeverypark/actions/runs/39652020785): 54 baseline + 52 discovery browser checks in each engine (212 total), 29 Node tests under all three time zones per job (174 CI executions), and 26 scoped axe audits with zero violations. Whitespace/syntax and 41 relative documentation paths also pass. Subsequent documentation-only heads are reported separately in the [draft PR](https://github.com/townsendjat-arch/findeverypark/pull/3); do not infer their check status from this code head.
+- Initial discovery head `e6318a619042119da5ba90ce8d07210a6de66054`, [run 39648941125](https://github.com/townsendjat-arch/findeverypark/actions/runs/39648941125): each engine passed 48/48 baseline checks and 36/52 discovery checks. Found real 320px city-tile overflow (354–356px page width), now addressed by stacking that existing grid below 360px. Other discovery failures were a navigation wait race and a test date regex accidentally matching the time 4:30, which left the test clock changed and caused cascading failures. Harness now waits for internal navigation, matches exact date tokens and resets time per check. The exact-head rerun above passed after those fixes; the initial failure is retained as history, not relabeled a pass.
+- Screenshot review: inspected desktop weekend cards and mobile date controls, anchored cards, park profile and 320/400px tiles in Chromium/WebKit. Weekend sessions, prices and caveats remain readable; existing tiles no longer overflow. A pre-existing 320px homepage brand/hero-kicker overlap remains outside this tile-only fix; the primary park CTA is usable. No broader header redesign was made. Images and complete run artifacts are available from the draft PR/checks; artifacts expire October 28, 2026.
+- Browser suites cover date/city combinations, real recurring sessions, sold-out preview exclusion, October 30–November 1 DST/month boundary, empty November/December, keyboard select/action controls, URL/history/hash anchors, event→park→city-events→Back and narrow homepage overflow.
+- Browser automation uses Chromium and Playwright WebKit in emulated 1440, 390, 320 and 400 CSS-pixel viewports. A 320px view is also a reflow proxy, not an actual 400% browser-zoom test. Physical iOS/Android, actual Safari, VoiceOver/TalkBack and live external booking inventory remain **NOT TESTED**.
+- Local Chromium launch is blocked by `process_singleton_posix.cc socket() failed: Operation not permitted`; no local browser pass is claimed. Test-only PR workflow permits this one additional named draft branch with contents-read permissions, exact-head checkout and no deployment step; Node checks now run under UTC, Los Angeles and Tokyo in each job; permissions/triggers/deployment scope are unchanged.
+
+## Corrected PR #2 baseline (not discovery evidence)
+
+The following records describe the separate correction package only; they do not establish the discovery draft’s readiness.
+
 Updated: **2026-10-21 (UTC)**. Scope: 11 active listings after the owner-requested sold-out removal and RSVP hold, not whole-site certification.
 
 ## Exact revision and results

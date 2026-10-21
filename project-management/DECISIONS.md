@@ -4,6 +4,9 @@ Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize
 
 | Date | Decision and status | Consequence / evidence |
 | --- | --- | --- |
+| 2026-10-21 | APPROVED/IMPLEMENTED in a separate draft only: four bounded discovery changes | Real Friday–Sunday weekend preview; wrap existing narrow tiles; compact date filter with city/history; internal event anchors and accurate host/nearby park journey. Preserve park-first experience; no new events/parks/cities/section, merge or deploy |
+| 2026-10-21 | VERIFIED FOR REVIEW, not released: discovery code head `d8c57f4` | [Exact-head CI](https://github.com/townsendjat-arch/findeverypark/actions/runs/39652020785) and screenshot inspection passed after the initial failed run; physical-device and existing narrow hero-overlap limits recorded in [TESTING](TESTING.md) |
+| 2026-10-21 | STACKED REVIEW: discovery branch targets corrected PR #2 branch | Base `4247d0be71d913239a4a8cf42c8743218b1465b8`; independent discovery diff, explicit dependency. Keep corrections on PR #2 and require separate review/release decisions |
 | 2026-10-21 | IMPLEMENTED for review: use the existing shared events manifest and static workflow | No new backend/provider/service. [Event maintenance guide](../docs/event-system.md) |
 | 2026-10-21 | PRESERVED: park discovery first, with the existing three-card events preview below it | No carousel, hero promotion, modal or homepage redesign. [Review report](../docs/events-review-2026-10-21.md#homepage-recommendation) |
 | 2026-10-21 | IMPLEMENTED for review: shared America/Denver expiry, current-event filters/history and corrected calendar behavior | Exact/date-only/DST/multi-session behavior tested on the recorded code head; not yet deployed. [Testing ledger](TESTING.md) |
