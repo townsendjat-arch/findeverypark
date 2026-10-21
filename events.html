@@ -285,6 +285,9 @@
     .pumpkin-costs > div { display: grid; grid-template-columns: 75px minmax(0,1fr); gap: 8px; margin: 5px 0; }
     .pumpkin-costs dt { font-weight: 600; color: var(--ink); }
     .pumpkin-costs dd { margin: 0; color: var(--ink-light); }
+    .pumpkin-costs strong { color: var(--ink); font-weight: 700; }
+    .pumpkin-detail-costs dt { font-weight: 600; margin-top: 8px; }
+    .pumpkin-detail-costs dd { margin: 0; }
     .pumpkin-warning { margin: 8px 0; padding: 8px 10px; border-left: 2px solid var(--sunset); background: var(--bg-warm); font-size: 13px; line-height: 1.65; color: var(--ink); }
     .pumpkin-card, .pumpkin-card * { overflow-wrap: anywhere; min-width: 0; }
     .pumpkin-card .event-actions a { min-height: 44px; display: inline-flex; align-items: center; white-space: normal; }
@@ -1003,6 +1006,19 @@
       (fullDetails && item.note ? ' · ' + item.note : '');
   }
 
+  function pumpkinCompactVisitLabel(item, pumpkin) {
+    const day = new Date(item.dateStart).toLocaleDateString('en-US', {
+      timeZone: eventRules.timeZone, weekday: 'short', month: 'short', day: 'numeric'
+    });
+    const cutoff = pumpkin.cutoffSummary || item.lastEntry;
+    return day + ' · ' + item.time + (cutoff ? ' · ' + cutoff : '');
+  }
+
+  function emphasizePumpkinCost(value) {
+    // Escape first; only fixed markup around prices and simple cost labels.
+    return escapeHtml(value).replace(/(\$\d[\d.,]*(?:[–-]\$?\d[\d.,]*)?|\b(?:Free|Included|Extra|Not listed)\b)/gi, '<strong>$1</strong>');
+  }
+
   function renderPumpkinCard(event) {
     const p = event.pumpkin;
     const card = document.createElement('article');
@@ -1013,30 +1029,36 @@
     card.dataset.category = 'pumpkin-patches';
     card.dataset.current = 'true';
     const visits = eventRules.nextPumpkinVisits(event, today);
-    const next = visits.slice(0, 2).map(function (item) { return pumpkinVisitLabel(item, false); });
+    const next = visits[0] ? pumpkinCompactVisitLabel(visits[0], p) : 'No later entry times listed. Check with the farm.';
     const schedule = (event.schedule || []).filter(function (item) {
       return !eventRules.isExpired({ dateEnd: item.dateEnd }, today);
     });
-    const costRows = [['Entry', p.entryCost], ['Pumpkins', p.pumpkinCost], ['Activities', p.activityCost]];
+    const summary = p.costSummary || {};
+    const costRows = [['Entry', summary.entry || p.entryCost], ['Pumpkins', summary.pumpkins || p.pumpkinCost], ['Activities', summary.activities || p.activityCost]];
+    const fullCostRows = [['Entry', p.entryCost], ['Pumpkins', p.pumpkinCost], ['Activities', p.activityCost]];
+    const criticalWarnings = p.criticalWarnings || p.warnings || [];
     const link = event.href || '';
     card.innerHTML =
       '<div class="event-card-header"><h4 class="event-title">' + escapeHtml(event.title) + '</h4>' +
-      '<p class="event-meta">' + escapeHtml(cityLabel(event)) + ' · ' + escapeHtml(event.audienceLabel) + '</p></div>' +
-      '<p class="pumpkin-picking">Pumpkin experience: ' + escapeHtml(p.pickingType) + '</p>' +
-      '<p class="event-description">Good fit: ' + escapeHtml(p.goodFit) + '</p>' +
-      '<p class="event-description">' + escapeHtml(event.dateLabel) + '</p>' +
-      '<p class="event-description pumpkin-next"><strong>' + (p.operatingStatus === 'conflicting' ? 'Published dates, operation unconfirmed: ' : 'Next published visits: ') +
-      '</strong>' + escapeHtml(next.length ? next.join(' • ') : 'Today’s entry cutoff has passed. No later verified admission dates.') +
-      ' Published schedule, not live availability.</p>' +
-      '<dl class="pumpkin-costs">' + costRows.map(function (row) { return '<div><dt>' + row[0] + '</dt><dd>' + escapeHtml(row[1]) + '</dd></div>'; }).join('') + '</dl>' +
-      '<div class="pumpkin-warning"><strong>Before you go</strong><ul class="event-detail-list">' + (p.warnings || []).map(function (warning) { return '<li>' + escapeHtml(warning) + '</li>'; }).join('') + '</ul></div>' +
+      '<p class="event-meta">' + escapeHtml(cityLabel(event)) + '</p></div>' +
+      '<p class="pumpkin-picking">' + escapeHtml(p.pickingType) + '</p>' +
+      '<p class="event-description pumpkin-fit">' + escapeHtml(p.fitLabel || p.goodFit) + '</p>' +
+      '<p class="event-description pumpkin-next"><strong>' + (p.operatingStatus === 'conflicting' ? 'Listed hours, opening unconfirmed: ' : 'Next listed: ') +
+      '</strong>' + escapeHtml(next) + '</p>' +
+      '<dl class="pumpkin-costs">' + costRows.map(function (row) { return '<div><dt>' + row[0] + '</dt><dd>' + emphasizePumpkinCost(row[1]) + '</dd></div>'; }).join('') + '</dl>' +
+      (criticalWarnings.length ? '<div class="pumpkin-warning"><strong>Before you go</strong><ul class="event-detail-list">' + criticalWarnings.map(function (warning) { return '<li>' + escapeHtml(warning) + '</li>'; }).join('') + '</ul></div>' : '') +
       '<div class="event-actions">' +
       (link ? '<a class="event-link" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">' + (p.operatingStatus === 'conflicting' ? 'Check official status' : 'Official information') + '</a>' : '') +
       (event.registrationUrl && p.operatingStatus !== 'conflicting' ? '<a class="cal-link" href="' + escapeHtml(event.registrationUrl) + '" target="_blank" rel="noopener">Check ticket details</a>' : '') +
       (event.nearbyParks && event.nearbyParks.length ? parkLinks(event) : '') + '</div>' +
       '<details class="event-dates"><summary>Dates, costs &amp; practical details</summary>' +
       '<p class="event-description">' + escapeHtml(event.locationLabel) + '</p>' +
-      '<p class="event-description">' + escapeHtml(event.timeLabel) + ' All times America/Denver.</p>' +
+      '<p class="event-description">' + escapeHtml(event.audienceLabel) + '</p>' +
+      '<p class="event-description">' + escapeHtml(p.goodFit) + '</p>' +
+      '<p class="event-description">' + escapeHtml(event.dateLabel) + '</p>' +
+      '<p class="event-description">' + escapeHtml(event.timeLabel) + ' All times Mountain Time.</p>' +
+      '<dl class="pumpkin-detail-costs event-description">' + fullCostRows.map(function (row) { return '<dt>' + row[0] + '</dt><dd>' + escapeHtml(row[1]) + '</dd>'; }).join('') + '</dl>' +
+      '<ul class="event-detail-list pumpkin-full-warnings">' + (p.warnings || []).map(function (line) { return '<li>' + escapeHtml(line) + '</li>'; }).join('') + '</ul>' +
       '<ul class="event-detail-list">' + schedule.map(function (item) { return '<li>' + escapeHtml(pumpkinVisitLabel(item, true)) +
         (['sold_out', 'cancelled', 'closed'].includes(item.availability) ? ' · ' + escapeHtml(item.availability.replace('_', ' ')) : '') + '</li>'; }).join('') + '</ul>' +
       '<ul class="event-detail-list">' + (p.essentials || []).map(function (line) { return '<li>' + escapeHtml(line) + '</li>'; }).join('') + '</ul>' +

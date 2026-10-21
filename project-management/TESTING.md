@@ -2,7 +2,11 @@
 
 Updated: **2026-10-21 (UTC)**. Current scope: six pumpkin cards and 16 reviewed canonical records; prior 11-listing release evidence is retained below. This is not whole-site certification.
 
-## Pumpkin draft validation (current)
+## Readability continuation (current)
+
+The October 21 owner-requested copy pass uses first-pass head `57b28792ba1fea69bc8b6426a8f0ed8768b2c62b` as its immutable before/after baseline. Additive display fields shorten collapsed cards; every prior source field and all 47 records are regression-checked unchanged. Visible prices, visit-blocking warnings and cutoffs remain explicit; secondary explanations move to details. Local Node: 20/20 passing. Exact-head browser results, both-width height/word comparisons and updated screenshots are pending and must pass before the existing owner-only preview is updated.
+
+## Completed first pumpkin draft validation
 
 - Baseline: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`; branch `review/six-pumpkin-patches-2026`. [Draft PR #4](https://github.com/townsendjat-arch/findeverypark/pull/4) and its exact-head checks identify the containing revision; never substitute a previous SHA's checks.
 - Focused Node coverage: released 11-ID preservation (ten records unchanged and deliberate Nick enrichment), six pumpkin records/16 total, source snapshot equality, explicit occurrence metadata, closed weekdays, individual sold-out/cancelled dates, gate versus activity cutoffs, final expiry, November 1 MST, unknown Miller end, pricing/booking warnings and safe official URLs.

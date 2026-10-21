@@ -418,7 +418,14 @@ window.EVENTS_DATA = {
           "pumpkins": "Retail pumpkins extra; price unpublished.",
           "activities": "Most rides $6; $22 wristband is one turn each on four rides, not unlimited.",
           "warning": "Vine picking is not verified. Pumpkin prices, activity taxes/fees, ride-specific hours and age/height limits are unpublished; parking, restrooms and accessibility are unverified."
-        }
+        },
+        "fitLabel": "Playtime and a quick garden-center pumpkin stop.",
+        "costSummary": {
+          "entry": "Free entry for all ages.",
+          "pumpkins": "Extra; prices aren’t listed online.",
+          "activities": "$6 for most rides; $22 wristband for one turn each on four rides, not unlimited. Wristband excludes mini golf."
+        },
+        "criticalWarnings": []
       }
     },
     {
@@ -617,7 +624,17 @@ window.EVENTS_DATA = {
           "activities": "Core festival activities included; optional attractions cost extra.",
           "warning": "Current operation is unresolved: the homepage says activities are closed despite published festival dates. Confirm before travel or booking. Pumpkin prices conflict; final taxes/fees, parking charge, stock and daily optional-attraction availability remain unconfirmed."
         },
-        "operatingStatus": "conflicting"
+        "operatingStatus": "conflicting",
+        "fitLabel": "A big farm day with field picking and a corn maze.",
+        "costSummary": {
+          "entry": "$13.50–$42 ages 4+, by date and ticket; ages 0–3 free. Final fees/taxes aren’t confirmed.",
+          "pumpkins": "$3–$20 on the size chart, but $2–$12 in the FAQ. Confirm the price.",
+          "activities": "Included: wagon, maze and family play. Some attractions and food cost extra."
+        },
+        "criticalWarnings": [
+          "Confirm before going: the farm advertises festival dates but says activities are closed. Opening is not confirmed.",
+          "If open, online tickets are recommended; sold out online means no tickets at the gate."
+        ]
       }
     },
     {
@@ -785,7 +802,17 @@ window.EVENTS_DATA = {
           "pumpkins": "Stocked-field pumpkins extra; prices charted onsite.",
           "activities": "Pay separately for attractions; large maze adult $15/child $10.",
           "warning": "Booking instructions conflict, and large-maze entry closes either 90 minutes or 2 hours early according to different official pages. Confirm both. Pumpkin prices are onsite only; adult/child price boundaries, taxes/fees, live capacity and formal accessibility are unverified."
-        }
+        },
+        "fitLabel": "Choose a few paid rides or enjoy the free play areas.",
+        "costSummary": {
+          "entry": "Free entry for all ages.",
+          "pumpkins": "Extra; prices posted onsite. Pumpkins are brought into the field, not picked from vines.",
+          "activities": "Large maze: $15 adult/$10 child (age cutoffs not posted); ages 0–4 free. Other attractions extra."
+        },
+        "cutoffSummary": "Large-maze entry ends 90 minutes or 2 hours before closing; confirm with the farm.",
+        "criticalWarnings": [
+          "Check how to buy maze tickets: the official pages disagree about online booking."
+        ]
       }
     },
     {
@@ -978,7 +1005,16 @@ window.EVENTS_DATA = {
           "pumpkins": "$28 adult package includes one only when available; other inclusion/prices unverified.",
           "activities": "Adult packages $18/$28/$40; ages 4–10 $10 ride or $18 one bag.",
           "warning": "Exact season end is unknown; October 31 is an editorial coverage boundary, not a confirmed closing date. Pumpkin supply is conditional. Individual pumpkin prices, under-4 charges, adult price-age boundary, fees, reservations and accessible routes remain unverified. Every visitor needs a waiver."
-        }
+        },
+        "fitLabel": "A hands-on harvest trip for the family.",
+        "costSummary": {
+          "entry": "Free grounds entry; rides and harvesting cost extra.",
+          "pumpkins": "$28 adult one-bag package includes a pumpkin only when available. Other pumpkin prices aren’t confirmed.",
+          "activities": "$18–$40 adult ride/harvest packages; ages 4–10 pay $10 for a ride or $18 for one-bag harvesting."
+        },
+        "criticalWarnings": [
+          "Every visitor needs a waiver. Under-4 ride prices aren’t confirmed; check before paying."
+        ]
       }
     },
     {
@@ -1076,7 +1112,16 @@ window.EVENTS_DATA = {
           "pumpkins": "Field-picked pumpkins extra; numeric prices unpublished.",
           "activities": "Core activities included; ammunition, cow cuddling, food and other extras cost more.",
           "warning": "Online ticket and waiver required; phone purchase at the gate allowed. Operator says no ticket fees, but tax breakdown and checkout are unverified. HTTP 403 inspection is not proof checkout is broken. Pumpkin/add-on prices, capacity, last entry, refunds and access remain uncertain; paintball-perk quantities conflict."
-        }
+        },
+        "fitLabel": "A full day of farm play without spooky scares.",
+        "costSummary": {
+          "entry": "$27.95 ages 3+; ages 0–2 free without a perk. No ticket fees advertised.",
+          "pumpkins": "Extra; size-based prices aren’t listed online. A mini pumpkin may be a paid-ticket perk.",
+          "activities": "Included: mazes, wagon rides and farm play. Food, ammunition and cow cuddling cost extra."
+        },
+        "criticalWarnings": [
+          "Online ticket and waiver required; phone purchase at the gate is allowed. We couldn’t confirm ticket availability."
+        ]
       }
     },
     {
@@ -1212,7 +1257,16 @@ window.EVENTS_DATA = {
           "pumpkins": "U-pick or pre-picked pumpkins extra; price list undated.",
           "activities": "Hayrides, children’s mazes and games included; feed/duck/train $3 base and mining $7 base.",
           "warning": "The $11.37 total was one October 24 ticket quote only, not every date’s price. Pumpkin prices lack a 2026 date. Add-on tax, pass fees, advance-purchase versus walk-up rules, capacity, last entry, refunds, parking, restrooms and accessibility remain unverified."
-        }
+        },
+        "fitLabel": "Hayrides and children’s mazes, with field or display pumpkins.",
+        "costSummary": {
+          "entry": "$10 + online fees ages 3+; under-3s free.",
+          "pumpkins": "Extra; the listed pumpkin prices aren’t dated for 2026.",
+          "activities": "Included: hayrides, mazes and games. Feed, duck and train $3 each; mining $7, plus online fees."
+        },
+        "criticalWarnings": [
+          "Online tickets are for one selected date. Check whether advance booking is needed; walk-up entry isn’t confirmed."
+        ]
       },
       "priceSample": {
         "checkedAt": "2026-10-21T19:42:00Z",

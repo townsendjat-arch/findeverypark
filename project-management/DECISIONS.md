@@ -13,6 +13,10 @@ The owner approved all six researched listings and the decision-first card struc
 - Miller's October 31 coverage endpoint is editorial; the organizer's approximate mid-November season end is not converted into an invented date.
 - Extend only the existing test workflow's branch allowlist, with no permission or deployment changes. Browser network tests remain read-only.
 
+### Readability request after screenshot review
+
+The owner requested shorter comparison cards, bold/scannable Entry/Pumpkins/Activities prices and natural parent-facing language, with secondary explanations in existing details. Critical operating/booking warnings and all verified facts/qualifications/links/accessibility must survive. This authorizes a focused copy pass on PR #4 and an update to the existing private preview after tests, not a redesign, feature, PR #3 import or production release.
+
 ### Follow-up review decisions
 
 - The owner approved updating only the existing owner-only preview after all release-related checks pass. No production deployment, merge, new preview host or wider access is authorized.

@@ -230,3 +230,64 @@ test('closure, picking, fee and uncertain-season qualifications cannot become co
   assert.equal(miller.schedule.some(item => item.date.startsWith('2026-11')), false);
   assert.match(miller.pumpkin.warnings.join(' '), /end.*(?:unknown|unconfirmed|not confirmed)|exact.*end/i);
 });
+
+test('readability pass preserves all historical records and 16 reviewed canonical records exactly', () => {
+  const { execFileSync } = require('node:child_process');
+  const beforeRef = '57b28792ba1fea69bc8b6426a8f0ed8768b2c62b';
+  // CI may use a shallow checkout. Fetch only this immutable public commit object.
+  try { execFileSync('git', ['cat-file', '-e', beforeRef + '^{commit}'], {cwd:root,stdio:'pipe'}); }
+  catch (_) { execFileSync('git', ['fetch', '--no-tags', '--depth=1', 'origin', beforeRef], {cwd:root,stdio:'pipe'}); }
+  const baseline = { window:{} };
+  vm.createContext(baseline);
+  vm.runInContext(execFileSync('git', ['show', beforeRef + ':data/events/events-manifest.js'], {cwd:root,encoding:'utf8'}), baseline);
+  const original = JSON.parse(JSON.stringify(baseline.window.EVENTS_DATA.events));
+  const current = JSON.parse(JSON.stringify(data.events));
+  assert.equal(original.length, 47);
+  assert.equal(current.length, original.length);
+  assert.equal(current.filter(event => event.verifiedAt === '2026-10-21').length, 16);
+  for (const event of current) {
+    if (!event.pumpkin) continue;
+    // These are the only approved additive presentation fields. All old prices,
+    // warnings, links, schedules, cutoffs, booking rules and metadata stay exact.
+    delete event.pumpkin.fitLabel;
+    delete event.pumpkin.costSummary;
+    delete event.pumpkin.criticalWarnings;
+    delete event.pumpkin.cutoffSummary;
+  }
+  assert.deepEqual(current, original);
+});
+
+test('concise pumpkin comparison fields remain complete and preserve visit-blocking warnings', () => {
+  const pumpkins = data.events.filter(rules.isPumpkin);
+  assert.equal(pumpkins.length, 6);
+  for (const event of pumpkins) {
+    const p = event.pumpkin;
+    assert.equal(typeof p.fitLabel, 'string', event.id + ': family-fit summary');
+    assert.ok(p.fitLabel.trim());
+    assert.deepEqual(Object.keys(p.costSummary).sort(), ['activities','entry','pumpkins']);
+    for (const field of ['entry','pumpkins','activities']) {
+      assert.equal(typeof p.costSummary[field], 'string', event.id + ': ' + field);
+      assert.ok(p.costSummary[field].trim());
+      assert.match(p.costSummary[field], /\$[\d,.]+|\bFree\b|\bIncluded\b|\bExtra\b|\bNot listed\b/i,
+        event.id + ': price-first amount or explicit cost status');
+    }
+    assert.ok(Array.isArray(p.criticalWarnings));
+    assert.ok(p.criticalWarnings.every(warning => typeof warning === 'string' && warning.trim()));
+    const collapsed = [p.pickingType,p.fitLabel,...Object.values(p.costSummary),...p.criticalWarnings].join(' ');
+    assert.doesNotMatch(collapsed, /\beditorial\b|\b(?:un)?verified\b/i, event.id + ': parent-friendly main-card language');
+    assert.doesNotMatch(collapsed, /guaranteed (?:entry|tickets|availability)|tickets available now/i);
+  }
+  const critical = city => pumpkins.find(event => event.city === city).pumpkin.criticalWarnings.join(' ');
+  assert.match(critical('erie'), /conflict|disagree|contradict|(?:dates|festival).*but.*(?:closed|not open)|closed.*(?:dates|festival)/i);
+  assert.match(critical('erie'), /open|closed|closure|operating/i);
+  assert.match(critical('erie'), /check|confirm|call/i);
+  assert.match(critical('thornton'), /ticket|book/i);
+  const maizeCutoff = pumpkins.find(event => event.city === 'thornton').pumpkin.cutoffSummary;
+  assert.match(maizeCutoff, /90 minutes.*2 hours.*before closing/i);
+  assert.match(critical('thornton'), /check|confirm|conflict/i);
+  assert.match(critical('platteville'), /waiver/i);
+  assert.match(critical('platteville'), /required|every|each/i);
+  assert.match(critical('kiowa'), /ticket/i);
+  assert.match(critical('kiowa'), /waiver/i);
+  assert.match(critical('kiowa'), /required|need|must/i);
+});

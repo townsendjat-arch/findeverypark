@@ -2,7 +2,13 @@
 
 Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
 
-## Current pumpkin draft status
+## Current readability continuation
+
+- Owner requested shorter parent-friendly cards on October 21 after screenshot review, with the same design and six listings. Implemented one next day, concise fit copy, price-first rows and only critical visible warnings. Full source facts remain in expanded details.
+- **Validation in progress:** 20/20 local Node tests pass. Exact-head Chromium/WebKit, before/after mobile evidence and independent review are required before updating the existing owner-only preview.
+- No new feature, park dataset, PR #3 change, production merge or deployment is authorized. The following completed first-pass evidence is retained, not substituted for this new revision’s checks.
+
+## Completed first pumpkin draft status
 
 - **Implemented; ready for owner review: YES**, subject to the containing revision’s exact-head checks: six pumpkin decision cards in the existing Holiday & Seasonal Events experience; exactly 16 reviewed canonical records (the released 11 plus five new records, with Nick enriched in place).
 - Baseline verified **October 21, 2026 (UTC)**: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`, merged PR #2. New branch: `review/six-pumpkin-patches-2026`; [draft PR #4](https://github.com/townsendjat-arch/findeverypark/pull/4).

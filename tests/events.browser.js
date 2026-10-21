@@ -17,8 +17,20 @@ try { execFileSync('git', ['cat-file', '-e', baselineRef + '^{commit}'], { cwd:r
 catch (_) { execFileSync('git', ['fetch', '--no-tags', '--depth=1', 'origin', baselineRef], { cwd:root, stdio:'pipe' }); }
 const baselineFiles = new Map(['index.html','data/events/events-manifest.js','city-events.js'].map(file =>
   [file, execFileSync('git', ['show', baselineRef + ':' + file], { cwd:root })]));
+// This is a separate before/after reference for the focused card-readability pass.
+// Do not replace the released homepage baseline above with this feature branch.
+const readabilityBaselineRef = '57b28792ba1fea69bc8b6426a8f0ed8768b2c62b';
+try { execFileSync('git', ['cat-file', '-e', readabilityBaselineRef + '^{commit}'], { cwd:root, stdio:'pipe' }); }
+catch (_) { execFileSync('git', ['fetch', '--no-tags', '--depth=1', 'origin', readabilityBaselineRef], { cwd:root, stdio:'pipe' }); }
+const readabilityBaselineFiles = new Map(['events.html','data/events/events-manifest.js','city-events.js'].map(file =>
+  [file, execFileSync('git', ['show', readabilityBaselineRef + ':' + file], { cwd:root })]));
 const server = http.createServer((req, res) => {
   let requested = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+  if (requested.startsWith('/__readability_baseline__/')) {
+    requested = requested.slice('/__readability_baseline__'.length);
+    const snapshot = readabilityBaselineFiles.get(requested.slice(1));
+    if (snapshot) { res.setHeader('Content-Type', requested.endsWith('.html') ? 'text/html' : 'text/javascript'); res.end(snapshot); return; }
+  }
   if (requested.startsWith('/__baseline__/')) {
     requested = requested.slice('/__baseline__'.length);
     const snapshot = baselineFiles.get(requested.slice(1));
@@ -280,15 +292,17 @@ async function check(name, callback) {
       // The separate discovery PR is not part of this feature.
       assert.equal(await page.locator('.event-date-select').count(), 0);
     });
-    await check(`${label}: pumpkin picking, costs, next dates and warnings stay outside closed details`, async () => {
+    await check(`${label}: concise pumpkin cards retain critical warnings and price-first costs outside details`, async () => {
       const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
       assert.equal(await cards.count(), 6);
       for (let index = 0; index < await cards.count(); index++) {
         const card = cards.nth(index);
         const id = await card.getAttribute('data-event-id');
+        const event = await page.evaluate(eventId => window.EVENTS_DATA.events.find(item => item.id === eventId), id);
+        const published = event.pumpkin;
         assert.ok(await card.locator('details > summary').count(), `${id}: schedule disclosure`);
         await card.locator('details').evaluateAll(items => items.forEach(details => { details.open = false; }));
-        for (const selector of ['.pumpkin-picking','.pumpkin-costs','.pumpkin-next','.pumpkin-warning']) {
+        for (const selector of ['.pumpkin-picking','.pumpkin-costs','.pumpkin-next', ...(published.criticalWarnings.length ? ['.pumpkin-warning'] : [])]) {
           const items = card.locator(selector);
           assert.ok(await items.count() > 0, `${id}: ${selector} is present`);
           for (let itemIndex = 0; itemIndex < await items.count(); itemIndex++) {
@@ -299,26 +313,94 @@ async function check(name, callback) {
               `${id}: ${selector} must not be hidden in a disclosure`);
           }
         }
-        const published = await page.evaluate(eventId => window.EVENTS_DATA.events.find(event => event.id === eventId).pumpkin, id);
         const visibleWarnings = (await card.locator('.pumpkin-warning').allTextContents()).join(' ');
-        for (const warning of published.warnings) {
-          assert.ok(visibleWarnings.includes(warning), `${id}: every source-backed warning remains visible`);
+        for (const warning of published.criticalWarnings) {
+          assert.ok(visibleWarnings.includes(warning), `${id}: every critical warning remains visible`);
         }
-        const visibleCosts = (await card.locator('.pumpkin-costs').allTextContents()).join(' ');
-        for (const field of ['entryCost','pumpkinCost','activityCost']) {
-          assert.ok(visibleCosts.includes(published[field]), `${id}: complete ${field} stays visible`);
+        const rows = card.locator('.pumpkin-costs > div');
+        assert.equal(await rows.count(), 3, `${id}: three comparison rows`);
+        assert.deepEqual(await rows.locator('dt').allTextContents(), ['Entry','Pumpkins','Activities']);
+        for (const [rowIndex, field] of ['entry','pumpkins','activities'].entries()) {
+          const row = rows.nth(rowIndex);
+          const value = row.locator('dd');
+          assert.equal((await value.textContent()).trim(), published.costSummary[field], `${id}: ${field} summary`);
+          assert.ok(await value.locator('strong').count() > 0, `${id}: ${field} emphasizes its price semantically`);
+          const emphasis = (await value.locator('strong').allTextContents()).join(' ');
+          assert.match(emphasis, /\$[\d,.]+|\bFree\b|\bIncluded\b|\bExtra\b|\bNot listed\b/i, `${id}: ${field} emphasizes a monetary amount or explicit cost status`);
         }
+        const collapsedText = await card.innerText();
+        assert.ok(collapsedText.includes(published.fitLabel), `${id}: concise family fit remains visible`);
         assert.ok((await card.locator('.pumpkin-picking').textContent()).includes(published.pickingType));
-        assert.match(await card.textContent(), /Details checked October 21, 2026/);
+        assert.doesNotMatch(collapsedText, /\beditorial\b|\b(?:un)?verified\b/i, `${id}: collapsed copy uses everyday language`);
+        const upcoming = await page.evaluate(eventId => window.FEP_EVENTS.nextPumpkinVisits(
+          window.EVENTS_DATA.events.find(item => item.id === eventId), new Date()), id);
+        const nextText = await card.locator('.pumpkin-next').textContent();
+        assert.ok(upcoming.length > 0);
+        const compactDate = date => new Date(date + 'T12:00:00Z').toLocaleDateString('en-US',
+          {timeZone:'America/Denver',weekday:'short',month:'short',day:'numeric'});
+        assert.ok(nextText.includes(compactDate(upcoming[0].date)), `${id}: one next visit is visible`);
+        assert.ok(nextText.includes(upcoming[0].time), `${id}: source hours preserved`);
+        if (upcoming[0].lastEntry) assert.ok(nextText.includes(published.cutoffSummary || upcoming[0].lastEntry), `${id}: arrival cutoff preserved`);
+        for (const later of upcoming.slice(1)) assert.ok(!nextText.includes(compactDate(later.date)), `${id}: later dates belong in details`);
         // No CTA implies that a published schedule guarantees a ticket or crop.
         assert.doesNotMatch(await card.locator('a, button').allTextContents().then(texts => texts.join(' ')),
           /guaranteed (?:entry|tickets|availability)|tickets available now|book confirmed/i);
       }
-      const anderson = cards.filter({ hasText: /Anderson/ });
-      assert.equal(await anderson.count(), 1);
-      assert.match(await anderson.locator('.pumpkin-warning').allTextContents().then(texts => texts.join(' ')),
-        /conflict|inconsistent|confirm/i);
+      const anderson = page.locator('.pumpkin-card[data-city="erie"] .pumpkin-warning');
+      assert.match(await anderson.textContent(), /conflict|disagree|contradict|(?:dates|festival).*but.*(?:closed|not open)|closed.*(?:dates|festival)/i);
+      assert.match(await anderson.textContent(), /open|closed|closure|operating/i);
+      assert.match(await anderson.textContent(), /check|confirm|call/i);
+      const maize = await page.locator('.pumpkin-card[data-city="thornton"] .pumpkin-warning').textContent();
+      assert.match(maize, /ticket|book/i); assert.match(maize, /check|confirm|conflict/i);
+      const miller = await page.locator('.pumpkin-card[data-city="platteville"] .pumpkin-warning').textContent();
+      assert.match(miller, /waiver/i); assert.match(miller, /required|every|each/i);
+      const patch = await page.locator('.pumpkin-card[data-city="kiowa"] .pumpkin-warning').textContent();
+      assert.match(patch, /ticket/i); assert.match(patch, /waiver/i); assert.match(patch, /required|need|must/i);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+    });
+    await check(`${label}: expandable pumpkin details preserve all original facts, qualifications, full dates and links`, async () => {
+      const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
+      assert.equal(await cards.count(), 6);
+      for (let index = 0; index < await cards.count(); index++) {
+        const card = cards.nth(index);
+        const id = await card.getAttribute('data-event-id');
+        const event = await page.evaluate(eventId => window.EVENTS_DATA.events.find(item => item.id === eventId), id);
+        const p = event.pumpkin;
+        const details = card.locator('details').first();
+        await details.locator(':scope > summary').focus();
+        await page.keyboard.press('Enter');
+        assert.equal(await details.getAttribute('open'), '');
+        const text = await details.innerText();
+        for (const fact of [event.audienceLabel, event.dateLabel, event.timeLabel, event.locationLabel,
+          event.registrationLabel, event.availabilityLabel, p.goodFit, p.entryCost, p.pumpkinCost, p.activityCost,
+          ...p.warnings, ...p.essentials].filter(Boolean)) {
+          assert.ok(text.includes(fact), `${id}: original detail is preserved: ${fact}`);
+        }
+        for (const occurrence of event.schedule) {
+          const date = new Date(occurrence.date + 'T12:00:00Z').toLocaleDateString('en-US',
+            {timeZone:'America/Denver',month:'long',day:'numeric',year:'numeric'});
+          for (const fact of [date, occurrence.time, occurrence.lastEntry, occurrence.note].filter(Boolean)) {
+            assert.ok(text.includes(fact), `${id}: full schedule fact is preserved: ${fact}`);
+          }
+        }
+        assert.match(text, /Details checked October 21, 2026/);
+        const hrefs = await card.locator('a').evaluateAll(links => links.map(link => link.href));
+        for (const source of [event.href, event.registrationUrl, ...event.sourceUrls].filter(Boolean)) {
+          // A conflicting operating status keeps official sources but suppresses a purchase CTA.
+          if (source === event.registrationUrl && p.operatingStatus === 'conflicting') continue;
+          assert.ok(hrefs.includes(source), `${id}: source or booking link is retained`);
+        }
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+        await card.screenshot({path:path.join(output,`${engineName}-pumpkin-expanded-${id}-${label}.png`)});
+        await details.locator(':scope > summary').focus();
+        await page.keyboard.press('Space');
+        assert.equal(await details.getAttribute('open'), null);
+      }
+      await page.locator('.pumpkin-card details').evaluateAll(items => items.forEach(details => { details.open = true; }));
+      const audit = await new AxeBuilder({page}).include('main').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
+      fs.writeFileSync(path.join(output, `${engineName}-axe-pumpkins-expanded-${label}.json`), JSON.stringify(audit.violations,null,2));
+      await page.locator('.pumpkin-card details').evaluateAll(items => items.forEach(details => { details.open = false; }));
+      assert.deepEqual(audit.violations.map(v => ({id:v.id,impact:v.impact,nodes:v.nodes.length})), []);
     });
     await check(`${label}: exact pumpkin city filters do not generate unsupported park links`, async () => {
       for (const city of ['erie','thornton','platteville','kiowa','louisville','aurora']) {
@@ -409,7 +491,7 @@ async function check(name, callback) {
         assert.ok(await summary.evaluate(element => element === document.activeElement));
         await page.keyboard.press('Space');
         assert.equal(await details.getAttribute('open'), null);
-        assert.ok(await card.locator('.pumpkin-warning').first().isVisible());
+        for (const warning of await card.locator('.pumpkin-warning').all()) assert.ok(await warning.isVisible());
       }
       for (const box of await page.locator('.event-category-pill').evaluateAll(items => items.map(item => ({ width:item.getBoundingClientRect().width,height:item.getBoundingClientRect().height })))) {
         assert.ok(box.height >= 44 && box.width >= 44, 'category controls have at least 44px targets');
@@ -438,21 +520,55 @@ async function check(name, callback) {
       fs.writeFileSync(path.join(output, `${engineName}-axe-pumpkins-${label}.json`), JSON.stringify(audit.violations,null,2));
       assert.deepEqual(audit.violations.map(v => ({id:v.id,impact:v.impact,nodes:v.nodes.length})), []);
     });
+    await check(`${label}: every collapsed pumpkin card is shorter than the exact pre-readability baseline`, async () => {
+      await page.clock.setFixedTime(new Date('2026-10-21T16:00:00Z'));
+      const measure = () => Array.from(document.querySelectorAll('.pumpkin-card')).map(card => ({
+        id:card.dataset.eventId, height:card.getBoundingClientRect().height,
+        width:card.getBoundingClientRect().width,
+        visibleWords:card.innerText.trim().split(/\s+/).length,
+        detailsOpen:card.querySelector('details').open
+      }));
+      const capture = async url => {
+        await page.goto(url);
+        await page.evaluate(() => document.fonts.ready);
+        assert.equal(await page.locator('.pumpkin-card:visible').count(), 6);
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+        return page.evaluate(measure);
+      };
+      const before = await capture(origin + '/__readability_baseline__/events.html?category=pumpkin-patches#pumpkin-patches');
+      const after = await capture(origin + '/events.html?category=pumpkin-patches#pumpkin-patches');
+      const cards = after.map(card => {
+        const previous = before.find(item => item.id === card.id);
+        assert.ok(previous, card.id + ': same canonical record exists in baseline');
+        return {id:card.id, before:previous, after:card,
+          savedPixels:Math.round((previous.height - card.height) * 100) / 100,
+          reductionPercent:Math.round((1 - card.height / previous.height) * 1000) / 10};
+      });
+      const evidence = {baselineRef:readabilityBaselineRef, engine:engineName, viewport, cards};
+      fs.writeFileSync(path.join(output, `${engineName}-pumpkin-readability-${label}.json`), JSON.stringify(evidence,null,2));
+      console.log('PUMPKIN READABILITY', label, JSON.stringify(evidence));
+      for (const card of cards) {
+        assert.equal(card.before.detailsOpen, false);
+        assert.equal(card.after.detailsOpen, false);
+        assert.ok(card.after.height < card.before.height, card.id + ': the closed card must be shorter');
+        assert.ok(card.after.visibleWords < card.before.visibleWords, card.id + ': main-card copy must be more concise');
+      }
+    });
     await check(`${label}: Nick's next visit advances in an open tab and preserves disclosure state`, async () => {
       // October 21 at 5:59 p.m. MDT, even though the Tokyo test visitor is on October 22.
       await page.clock.setFixedTime(new Date('2026-10-21T23:59:00Z'));
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=aurora#pumpkin-patches');
       const card = page.locator('.pumpkin-card[data-event-id="aurora-nicks-fall-fest-2026"]');
       assert.equal(await card.count(), 1);
-      assert.match(await card.locator('.pumpkin-next').textContent(), /October 21, 2026/);
+      assert.match(await card.locator('.pumpkin-next').textContent(), /Wed, Oct 21/);
       await card.locator('details > summary').click();
       assert.equal(await card.locator('details').getAttribute('open'), '');
       // The 6 p.m. close removes today's occurrence, not the still-running series.
       await page.clock.setFixedTime(new Date('2026-10-22T00:01:00Z'));
       await page.clock.fastForward('01:00');
       assert.equal(await card.count(), 1);
-      assert.match(await card.locator('.pumpkin-next').textContent(), /October 22, 2026/);
-      assert.doesNotMatch(await card.locator('.pumpkin-next').textContent(), /October 21, 2026/);
+      assert.match(await card.locator('.pumpkin-next').textContent(), /Thu, Oct 22/);
+      assert.doesNotMatch(await card.locator('.pumpkin-next').textContent(), /Oct 21/);
       assert.equal(await card.locator('details').getAttribute('open'), '');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 1);
       assert.equal(new URL(page.url()).searchParams.get('category'), 'pumpkin-patches');
@@ -466,8 +582,8 @@ async function check(name, callback) {
       assert.equal(await card.count(), 1);
       assert.match(await card.textContent(), /7th Generation/);
       const next = await card.locator('.pumpkin-next').textContent();
-      assert.match(next, /October 29, 2026/);
-      assert.doesNotMatch(next, /October (?:26|27|28), 2026/);
+      assert.match(next, /Thu, Oct 29/);
+      assert.doesNotMatch(next, /Oct (?:26|27|28)\b/);
       // November 1 is back on MST: 6 p.m. local is November 2 at 01:00 UTC.
       await page.clock.setFixedTime(new Date('2026-11-02T00:59:00Z'));
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=louisville#pumpkin-patches');
