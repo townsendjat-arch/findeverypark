@@ -1,6 +1,16 @@
 # FindEveryPark: decision log
 
-Updated: **2026-10-21 (UTC)**. The six-listing pumpkin draft and test-gated owner-only preview are approved; production release and the separate discovery PR remain distinct.
+Updated: **2026-10-21 (UTC)**. The revised Priority 1 event batch is approved for a new draft PR only. No merge, deployment or preview publication is authorized.
+
+## Priority 1 implementation decision, October 21, 2026
+
+The owner explicitly approved the revised 12-event shortlist and implementation order, fresh official verification, a new branch from latest main, preservation of existing functionality and a draft PR with tests/screenshots. This supersedes earlier plan-only wording for the shortlist, not any launch gate. A later owner decision leaves Kiddie Academy out after a blocked current-booking recheck and retains Hallelujah with visibly unconfirmed optional-RSVP availability: 11 additions, no substitutes.
+
+- Use merged pumpkin main `3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be`; preserve every original event object. Add only the three missing event-city metadata entries. No PR #3 code, extra records, park datasets or layout/runtime changes.
+- Include NAPA only while its October 22 at 5 p.m. MDT publication target remains feasible. It remains conditional in the draft; if missed, omit it and retest the remaining 10-event candidate without automatic substitution. This is an editorial gate, not an organizer booking deadline.
+- Keep registration/costume/access restrictions in visible existing labels and descriptions, including short previews. The concert’s unknown end uses existing date-only expiry and `calendarDisabled`; no new duration or feature.
+- The Castle Pines kit deadline concerns optional paid race participation, not free festival admission; the chili cancellation does not cancel the festival.
+- Publication, including an interactive preview, requires separate authorization. Current work stops at a draft PR and verified review evidence. Recommend the requested small October 30–31 second release afterward, without implementing it.
 
 ## Pumpkin implementation decision, October 21, 2026
 

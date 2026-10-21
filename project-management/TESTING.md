@@ -1,8 +1,20 @@
 # FindEveryPark: verification ledger
 
-Updated: **2026-10-21 (UTC)**. Current scope: six pumpkin cards and 16 reviewed canonical records; prior 11-listing release evidence is retained below. This is not whole-site certification.
+Updated: **2026-10-21 (UTC)**. Current scope: additive Priority 1 content on merged pumpkin main; prior evidence below is historical and does not prove the current head. This is not whole-site certification.
 
-## Readability continuation (current)
+## Priority 1 content batch
+
+- Baseline: exact merged main `3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be`. Branch: `review/priority-one-halloween-2026`. The draft PR’s validation section records the exact candidate SHA, terminal CI run, engine totals and screenshot artifact links; only matching-head checks establish success. The CI `*-results.json` files enumerate every executed check and failure.
+- Fixed October 22, 2026 at 16:00 UTC: 58 total, 27 current, 30 archived, one excluded. The no-NAPA contingency is 57/26/30/1. Kiddie Academy is held with owner agreement; Hallelujah is included with an owner-approved unconfirmed optional-RSVP warning. Node assertions compare every original record object against immutable main, and additions against the approved sequence minus the explicitly held Kiddie Academy ID and dated source snapshot. Three new city metadata entries only; no held-event reintroduction or second-batch substitution.
+- Browser coverage in Chromium and Playwright WebKit: existing pumpkin/readability/DST regressions; all 11 individual new event cards and official/registration/calendar URLs; short-preview restriction preservation; 320×740, 390×844 and 1440×1000; keyboard links/city filtering, new-city aliases/Back/Forward, Events/card/preview bounds, all-visible-cards main-content axe scans, and concert date-only expiry with no invented calendar end. Screenshot filenames include the event ID and viewport. Isolated one-record homepage fixtures exercise the real preview renderer but do not claim those records appear in the default three-card ranking.
+- The homepage overflow comparator now uses current main `3a12e7b`, not the old PR #2 baseline. Existing city/intent-tile overflow belongs to separate PR #3. Events and preview-module bounds remain strict; whole-homepage width must not worsen. The older `57b28792` readability comparator remains unchanged for the six existing pumpkin cards.
+- The only workflow change adds this exact review branch to the existing test-only allowlist. PR-only trigger, contents-read permission, exact-head checkout, no persisted credentials, dependency versions and no-deployment behavior remain unchanged. No production workflow or hosting setting was edited.
+- Local Node validation passed 25/25 under UTC, America/Los_Angeles and Asia/Tokyo (75 executions, no failures/skips). JavaScript syntax and whitespace checks passed. These local results do not substitute for exact-head browser CI.
+- Local browser launch was checked again: the Playwright headless-shell executable is absent. No local browser pass is claimed; browser evidence comes from exact-head CI. Physical iPhone/Android, actual Safari, VoiceOver/TalkBack and whole-site accessibility remain unverified, not implied by engine/viewport/scoped axe checks.
+- Source facts and availability checks are separately timestamped in the [Priority 1 source snapshot](../docs/priority-one-source-review-2026-10-21.json). Ticket controls are dated offers, not reservations or remaining-capacity guarantees. Before any separately approved release, recheck cancellation/weather/booking status and NAPA’s editorial deadline.
+
+## Historical PR #4 readability continuation
+
 
 The October 21 owner-requested copy pass uses first-pass head `57b28792ba1fea69bc8b6426a8f0ed8768b2c62b` as its immutable before/after baseline. Additive display fields shorten collapsed cards; every prior source field and all 47 records are regression-checked unchanged. Visible prices, visit-blocking warnings and cutoffs remain explicit; secondary explanations move to details. **PASS**, October 21 at 20:43 UTC: code/test head `652f85da5c1d847ee98030b772e56f64d6460353`, [run 39672476566](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566), **93/93 Chromium + 93/93 WebKit**, **20/20 Node in each job**. Local Node also passed under UTC, America/Los_Angeles and Asia/Tokyo (60 executions). No skipped checks or failures.
 
