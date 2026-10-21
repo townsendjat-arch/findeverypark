@@ -511,8 +511,8 @@ async function check(name, callback) {
       fs.writeFileSync(path.join(output, `${engineName}-home-overflow-baseline-${label}.json`),JSON.stringify(evidence,null,2));
       console.log('HOMEPAGE BASELINE', label, JSON.stringify(evidence));
       assert.ok(candidate.scrollWidth <= baseline.scrollWidth, 'pumpkin content must not worsen inherited whole-homepage overflow');
-      // PR #3, not this feature, owns the pre-existing city-tile wrap correction.
-      if (baseline.scrollWidth > viewport.width) assert.ok(baseline.offenders.some(el => /city-card|city-grid/.test(el.classes)), 'identify inherited city-grid overflow');
+      // PR #3, not this feature, owns the pre-existing city/intent-tile wrap correction.
+      if (baseline.scrollWidth > viewport.width) assert.ok(baseline.offenders.some(el => /city-card|city-grid|intent-card|intent-grid|intent-label|intent-sub/.test(el.classes)), 'identify inherited city/intent-tile overflow');
     });
     await check(`${label}: Miller verification horizon never becomes a false Past Event claim`, async () => {
       await page.clock.setFixedTime(new Date('2026-11-01T17:00:00Z'));
