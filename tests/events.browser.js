@@ -144,6 +144,77 @@ async function check(name, callback) {
       await page.locator('.home-events').scrollIntoViewIfNeeded();
       await page.screenshot({ path: path.join(output, `${engineName}-homepage-events-${label}.png`), fullPage: false });
     });
+    await check(`${label}: Parker sold-out and RSVP warnings are visible without booking claims`, async () => {
+      await page.goto(origin + '/events.html?city=parker');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 2);
+      const sold = page.locator('[data-event-id="parker-trunk-or-treat-mainstreet-2026-10-24"]');
+      assert.match(await sold.locator('.free-badge').textContent(), /^SOLD OUT/);
+      assert.match(await sold.locator('.event-description').first().textContent(), /^SOLD OUT: attendee tickets/);
+      assert.equal(await sold.locator('a[href*="tickettailor"], a[href*="calendar.google"]').count(), 0);
+      assert.equal(await sold.locator('a:has-text("Registration")').count(), 0);
+      assert.equal(await sold.locator('a.event-link').getAttribute('href'), 'https://www.downtownparker.com/trunkortreat/');
+      const violet = page.locator('[data-event-id="parker-all-treats-no-tricks-2026-10-30"]');
+      assert.match(await violet.locator('.free-badge').textContent(), /required family RSVP has no usable signup link/);
+      assert.match(await violet.locator('.event-description').first().textContent(), /^Family RSVP required; signup link unavailable\. Do not assume walk-in entry/);
+      assert.equal(await violet.locator('a:has-text("Registration")').count(), 0);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      await sold.screenshot({ path:path.join(output, `${engineName}-sold-out-${label}.png`) });
+      await violet.screenshot({ path:path.join(output, `${engineName}-rsvp-warning-${label}.png`) });
+    });
+    await check(`${label}: Centennial unknowns, Hoofin price/cutoff and organizer correction`, async () => {
+      await page.goto(origin + '/events.html?city=centennial');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 3);
+      const goodson = page.locator('[data-event-id="centennial-goodson-trick-or-treat-2026"]');
+      assert.match(await goodson.locator('.cost-badge').textContent(), /Fee and registration requirements unverified/);
+      assert.match(await goodson.locator('.event-description').first().textContent(), /^Fee and booking rules unverified/);
+      assert.match(await goodson.textContent(), /Adult 18\+ must accompany children/);
+      const hoofin = page.locator('[data-event-id="centennial-hoofin-hollows-5k-2026"]');
+      assert.match(await hoofin.textContent(), /Adult total \$22\.45; ages 4–14 total \$17\.15/);
+      assert.match(await hoofin.textContent(), /conflict on the cutoff/);
+      assert.match(await hoofin.textContent(), /end time not published/);
+      assert.equal(await hoofin.locator('a[href*="calendar.google"]').count(), 0);
+      assert.equal(await page.locator('[data-event-id="centennial-spooky-streets-2026"] a.event-link').getAttribute('href'), 'https://www.shopsouthglenn.com/event/spooky-streets-2/');
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      await goodson.screenshot({ path:path.join(output, `${engineName}-fee-warning-${label}.png`) });
+      await hoofin.screenshot({ path:path.join(output, `${engineName}-hoofin-correction-${label}.png`) });
+    });
+    await check(`${label}: corrected warning cards retain scoped accessibility`, async () => {
+      for (const city of ['parker','centennial']) {
+        await page.goto(origin + '/events.html?city=' + city);
+        await page.evaluate(async () => { await document.fonts.ready; await Promise.all(Array.from(document.querySelectorAll('.event-filter-pill')).flatMap(item => item.getAnimations().map(animation => animation.finished.catch(() => {})))); });
+        const audit = await new AxeBuilder({page}).include('main').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
+        fs.writeFileSync(path.join(output, `${engineName}-axe-${city}-${label}.json`), JSON.stringify(audit.violations,null,2));
+        assert.deepEqual(audit.violations.map(v => ({id:v.id,impact:v.impact,nodes:v.nodes.length})), []);
+      }
+    });
+    await check(`${label}: zoo age bands, infant tickets and sampled availability`, async () => {
+      await page.goto(origin + '/events.html?city=denver');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 3);
+      for (const id of ['denver-boo-at-zoo-2026','denver-boo-at-zoo-sensory-2026']) {
+        const card = page.locator(`[data-event-id="${id}"]`);
+        const text = await card.textContent();
+        assert.match(text,/youth ages 3–15/); assert.match(text,/free ticket for each child age 2 or under/);
+        assert.match(text,/4:30–9 p\.m\./); assert.match(text,/heading conflicts at 10 p\.m\./);
+        assert.match(text,/other slots were not tested/); assert.match(text,/current availability is not guaranteed/);
+      }
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+    });
+    await check(`${label}: short homepage and city previews retain material warnings`, async () => {
+      for (const [city,title,warning] of [
+        ['parker','Trunk or Treat on Mainstreet',/^SOLD OUT: attendee tickets/],
+        ['parker','All Treats, No Tricks',/Family RSVP required; signup link unavailable\. Do not assume walk-in entry/],
+        ['centennial','Trick-or-Treat Street at Goodson',/Fee and booking rules unverified/]
+      ]) {
+        for (const [url,prefix] of [['/index.html?city='+city,'home'],['/best-parks-'+city+'.html','city']]) {
+          await page.goto(origin + url);
+          const card = page.locator('.'+prefix+'-event-card').filter({has:page.locator('h3',{hasText:title})});
+          assert.equal(await card.count(),1);
+          assert.match(await card.locator('.'+prefix+'-event-desc').textContent(),warning);
+          if (city === 'centennial') assert.match(await card.locator('.'+prefix+'-event-desc').textContent(),/Adult 18\+ must accompany children/);
+          await card.screenshot({path:path.join(output,`${engineName}-${prefix}-warning-${city}-${title.startsWith('All')?'rsvp':city==='parker'?'sold':'fee'}-${label}.png`)});
+        }
+      }
+    });
     await check(`${label}: no uncaught JavaScript exceptions`, async () => assert.deepEqual(pageErrors, []));
     await context.close();
   }

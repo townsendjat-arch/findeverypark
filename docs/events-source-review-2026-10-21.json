@@ -164,7 +164,7 @@
       "dateEnd": "2026-10-31T18:00:00-06:00",
       "dateLabel": "Daily through October 31, 2026",
       "timeLabel": "Mon–Sat 8 a.m.–6 p.m.; Sun 9 a.m.–5 p.m. MDT",
-      "costLabel": "Free entry; most rides $6 each; $22 four-ride wristband; pumpkins extra",
+      "costLabel": "Free entry; most rides $6; $22 wristband: one use each of train, tractor, pedal karts and inflatable course; pumpkins extra",
       "costType": "free",
       "audienceLabel": "Families and children",
       "sourceType": "organizer",
@@ -335,12 +335,13 @@
       "dateEnd": "2026-10-30T21:00:00-06:00",
       "dateLabel": "October 23–25 and 30, 2026",
       "timeLabel": "4:30–9 p.m. MDT on listed dates",
-      "costLabel": "Adults/seniors $27.95; youth $20.95; ages 2 and under free; members save 10%",
+      "costLabel": "Adults/seniors $27.95; youth ages 3–15 $20.95; ages 2 and under free; members save 10%",
       "costType": "paid",
       "audienceLabel": "All ages; not designed as a frightening event",
       "sourceType": "organizer",
       "sourceUrls": [
-        "https://denverzoo.org/events/boo-at-the-zoo/"
+        "https://denverzoo.org/events/boo-at-the-zoo/",
+        "https://my.denverzoo.org/2026-batz/76815"
       ],
       "series_start": "2026-10-02",
       "series_end": "2026-10-30",
@@ -371,12 +372,12 @@
           "note": "Published local event hours; check organizer for changes."
         }
       ],
-      "registrationLabel": "Timed tickets required.",
-      "availabilityLabel": "Exact dates and entry-slot availability not verified; ticket page entered a queue.",
+      "registrationLabel": "Timed ticket required for every participant, including a free ticket for each child age 2 or under. Organizer hours are 4:30–9 p.m.; ticket-page heading conflicts at 10 p.m. Confirm your chosen entry time.",
+      "availabilityLabel": "October 23 at 4:30 p.m. showed quantity options when checked October 21; other slots were not tested. No reservation was made and current availability is not guaranteed.",
       "uncertaintyNotes": [
-        "Schedule and prices cover remaining general-admission nights; October 31 sensory-friendly night is a separate listing.",
-        "The visible page does not define the youth age bracket.",
-        "Ticketing redirected to an inaccessible queue, so do not claim slots are available."
+        "Organizer gives 4:30–9 p.m. event hours. Ticket-page heading says 10 p.m., conflicting with organizer hours and actual early-evening entry choices. Do not treat 10 p.m. as a verified event time.",
+        "Ticket selector confirms youth ages 3–15 and free timed tickets required for children age 2 or under. Point-in-time quantity options are not a checkout or inventory guarantee.",
+        "Sensory-friendly October 31 has separate lower pricing; general-night prices must not be used for it."
       ],
       "registrationUrl": "https://my.denverzoo.org/events?kid=10&startdate=2026-10-01",
       "nearbyParks": [
@@ -402,20 +403,21 @@
       "dateEnd": "2026-10-31T21:00:00-06:00",
       "dateLabel": "Saturday, October 31, 2026",
       "timeLabel": "4:30–9 p.m. MDT",
-      "costLabel": "Adults/seniors $25.95; youth $18.95; ages 2 and under free; members save 10%",
+      "costLabel": "Adults/seniors $25.95; youth ages 3–15 $18.95; ages 2 and under free; members save 10%",
       "costType": "paid",
       "audienceLabel": "Families, including guests with sensory processing disorders",
       "sourceType": "organizer",
       "sourceUrls": [
         "https://denverzoo.org/events/batz-sensory-friendly/",
-        "https://denverzoo.org/events/boo-at-the-zoo/"
+        "https://denverzoo.org/events/boo-at-the-zoo/",
+        "https://my.denverzoo.org/2026-batz/76819"
       ],
-      "registrationLabel": "Tickets required.",
-      "availabilityLabel": "Exact ticket inventory not verified.",
+      "registrationLabel": "Timed ticket required for every participant, including a free ticket for each child age 2 or under. Organizer hours are 4:30–9 p.m.; ticket-page heading conflicts at 10 p.m. Confirm your chosen entry time.",
+      "availabilityLabel": "October 31 at 4:30 p.m. showed quantity options when checked October 21; other slots were not tested. No reservation was made and current availability is not guaranteed.",
       "uncertaintyNotes": [
-        "The main Boo at the Zoo page's October 2026 calendar establishes the year.",
-        "Youth age bracket is not defined in the visible event text.",
-        "Use this night's lower published prices, not general-night pricing."
+        "Organizer gives 4:30–9 p.m. event hours. Ticket-page heading says 10 p.m., conflicting with organizer hours and actual early-evening entry choices. Do not treat 10 p.m. as a verified event time.",
+        "Ticket selector confirms youth ages 3–15 and free timed tickets required for children age 2 or under. Point-in-time quantity options are not a checkout or inventory guarantee.",
+        "Sensory-friendly October 31 has separate lower pricing; general-night prices must not be used for it."
       ],
       "registrationUrl": "https://my.denverzoo.org/events?kid=10&startdate=2026-10-01",
       "nearbyParks": [
@@ -431,14 +433,14 @@
       "title": "Trunk or Treat on Mainstreet",
       "section": "holiday",
       "recurring": false,
-      "description": "Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m. Every child needs an individual timed ticket; parents do not need tickets. Ticket inventory could not be verified, so reserve before going.",
+      "description": "SOLD OUT: attendee tickets (checked Oct. 21). Information only; every child needs a timed ticket. Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m.",
       "href": "https://www.downtownparker.com/trunkortreat/",
       "locationLabel": "Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138",
       "dateStart": "2026-10-24T13:00:00-06:00",
       "dateEnd": "2026-10-24T17:00:00-06:00",
       "dateLabel": "Saturday, October 24, 2026",
       "timeLabel": "1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)",
-      "costLabel": "Free; individual timed-entry ticket required for each child. Adults do not need a ticket.",
+      "costLabel": "SOLD OUT — free timed tickets required for children",
       "costType": "free",
       "audienceLabel": "Families with children; sensory hour reserved for attendees with sensory sensitivities",
       "sourceType": "organizer",
@@ -446,19 +448,21 @@
       "verifiedAt": "2026-10-21",
       "sourceUrls": [
         "https://www.downtownparker.com/trunkortreat/",
-        "https://www.parker-station.com/"
+        "https://www.parker-station.com/",
+        "https://www.downtownparker.com/trunk-or-treat-attendee-policy",
+        "https://www.tickettailor.com/events/downtownparker/2450038"
       ],
-      "registrationUrl": "https://www.tickettailor.com/events/downtownparker/2450038",
-      "evidenceNote": "Official event page supplies date, times, street address, free admission and ticket conditions. Venue's own homepage verifies Parker, CO 80138.",
+      "evidenceNote": "Organizer and attendee policy confirm date, hours, location and child ticket rules. The linked Ticket Tailor attendee page explicitly showed Sold out on October 21, 2026 at 17:18 UTC.",
       "timezone": "America/Denver",
-      "availabilityLabel": "Organizer provides timed-entry signup; ticketing page inaccessible to research tool. Vendor spaces are full, but this is not evidence that attendee tickets are sold out.",
-      "registrationLabel": "Individual timed-entry ticket required for every child; adults do not need tickets.",
+      "availabilityLabel": "Attendee tickets SOLD OUT on October 21, 2026. This is the attendee ticket status, separate from vendor spaces. No tickets are offered here.",
+      "registrationLabel": "Existing ticket holders: every child needs an individual 45-minute timed-entry ticket; adults do not need tickets.",
       "nearbyParks": [
         {
           "id": "co-parker-o-brien-park",
           "name": "O'Brien Park"
         }
-      ]
+      ],
+      "calendarDisabled": true
     },
     {
       "id": "parker-all-treats-no-tricks-2026-10-30",
@@ -466,14 +470,14 @@
       "title": "All Treats, No Tricks: Sensory-Friendly Trick or Treat",
       "section": "holiday",
       "recurring": false,
-      "description": "Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Families must RSVP. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.",
+      "description": "Family RSVP required; signup link unavailable. Do not assume walk-in entry. Capacity unverified. Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.",
       "href": "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/",
       "locationLabel": "Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138",
       "dateStart": "2026-10-30T18:00:00-06:00",
       "dateEnd": "2026-10-30T21:30:00-06:00",
       "dateLabel": "Friday, October 30, 2026",
       "timeLabel": "6–9:30 p.m. (America/Denver); costume parade at 8 p.m.",
-      "costLabel": "Free; family RSVP required",
+      "costLabel": "Free; required family RSVP has no usable signup link",
       "costType": "free",
       "audienceLabel": "All kids and siblings; sensory-friendly, not restricted to children with disabilities",
       "sourceType": "organizer",
@@ -484,8 +488,8 @@
       ],
       "evidenceNote": "Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.",
       "timezone": "America/Denver",
-      "availabilityLabel": "Organizer requires a family RSVP, but no usable RSVP link or remaining capacity was exposed in the fetched page. Follow the organizer's event page for booking instructions.",
-      "registrationLabel": "Family RSVP required through organizer; direct booking link not exposed.",
+      "availabilityLabel": "RSVP route and capacity unresolved as of October 21. Do not assume walk-in admission; confirm an RSVP with the organizer before attending.",
+      "registrationLabel": "Family RSVP required. No usable attendee signup link was found on the organizer page, including its expanded FAQ.",
       "nearbyParks": [
         {
           "id": "co-parker-challenger-regional-park",
@@ -499,12 +503,12 @@
       "dateStart": "2026-10-23T16:00:00-06:00",
       "dateEnd": "2026-10-23T18:30:00-06:00",
       "locationLabel": "Goodson Recreation Center back parking lot, 6315 S. University Blvd., Centennial, CO 80121",
-      "description": "Outdoor Halloween candy, costume and game event for families. City calls this Trick or Treat Trail; recreation organizer calls it Trick-or-Treat Street.",
-      "costLabel": "Admission price not published in accessible sources; check organizer",
-      "audienceLabel": "Families and youth",
+      "description": "Fee and booking rules unverified. Confirm requirements before attending. Adult 18+ must accompany children. Outdoor Halloween candy, costume and game event in Goodson Recreation Center’s back parking lot.",
+      "costLabel": "Fee and registration requirements unverified",
+      "audienceLabel": "Families and youth; children must be accompanied by an adult age 18+",
       "href": "https://www.ssprd.org/News-And-Events/Post/20718",
       "sourceUrls": [
-        "https://www.centennialco.gov/Events-directory",
+        "https://www.centennialco.gov/Calendar/South-Suburban-Trick-or-Treat-Trail",
         "https://www.ssprd.org/News-And-Events/Post/20718",
         "https://www.ssprd.org/Goodson-Recreation-Center"
       ],
@@ -515,14 +519,14 @@
       "verifiedAt": "2026-10-21",
       "timezone": "America/Denver",
       "uncertaintyNotes": [
-        "2026 date, start/end and address verified, but price, registration requirements and inventory not verified. Organizer registration page returned 403; city detail page was inaccessible. Do not label free. Facility's own page gives ZIP 80121, while nearby race listing uses 80122."
+        "City detail page confirms October 23, 2026, 4–6:30 p.m., the street address and adult 18+ supervision. Organizer confirms the back parking lot. Official registration page was access-denied; do not infer price or booking requirements from general facility fees or secondary reports."
       ],
       "dateLabel": "Friday, October 23, 2026",
       "id": "centennial-goodson-trick-or-treat-2026",
       "timeLabel": "4–6:30 p.m. MDT",
       "costType": "unknown",
-      "registrationLabel": "Confirm price and registration requirements with South Suburban before attending.",
-      "availabilityLabel": "Registration inventory not verified.",
+      "registrationLabel": "Confirm admission price and booking requirements with South Suburban before attending; do not assume free or walk-in admission.",
+      "availabilityLabel": "Fee, registration rules and capacity remain unresolved. Official registration page could not be accessed on October 21.",
       "sourceType": "city_source",
       "nearbyParks": [
         {
@@ -540,28 +544,32 @@
       "timeLabel": "Costume contest 5 p.m.; race 5:30 p.m. MDT; end time not published",
       "locationLabel": "deKoevend Park / Goodson Recreation Center, 6315 S. University Blvd., Centennial, CO",
       "description": "Halloween 5K for runners of all ages and abilities, families and dogs. Costumes encouraged.",
-      "costLabel": "Adults $20 plus processing fee (displayed adult total $22.45); ages 14 and younger $15 plus unverified processing fee; optional shirts cost extra",
+      "costLabel": "Adult total $22.45; ages 4–14 total $17.15; participating under-4 price unknown; optional shirts extra",
       "costType": "paid",
       "audienceLabel": "All ages and abilities; families and dogs welcome",
       "href": "https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K",
       "sourceUrls": [
         "https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K",
-        "https://www.ssprd.org/News-And-Events/Post/20718"
+        "https://www.ssprd.org/News-And-Events/Post/20718",
+        "https://runsignup.com/Race/Events/CO/Centennial/HoofinThroughtheHollows5K",
+        "https://runsignup.com/Race/HoofinThroughtheHollows5K/Page/FAQ"
       ],
-      "availabilityNote": "Live registration button displayed and registration deadline is Oct. 24 at 5:35 p.m. MDT; individual capacity not shown.",
       "section": "holiday",
       "recurring": false,
       "status": "approved",
       "verifiedAt": "2026-10-21",
       "timezone": "America/Denver",
       "uncertaintyNotes": [
-        "No official event end time found. Do not invent dateEnd. Race page ZIP is 80122; Goodson facility page says 80121 for same street address."
+        "No official event end time found. Date-only expiry is not an event closing time; calendar export remains disabled.",
+        "Public registration table lists $17.15 for ages 4–14, not every child under 15. Adult displayed total is $22.45. Optional shirts cost extra.",
+        "Registration table says 5:35 p.m.; organizer FAQ says registration closes at the 5:30 p.m. race start. Neither is presented here as a reliable booking deadline.",
+        "Race page ZIP is 80122; organizer FAQ and Goodson facility page use 80121 for the same street address."
       ],
       "id": "centennial-hoofin-hollows-5k-2026",
       "calendarDisabled": true,
       "registrationUrl": "https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K",
-      "registrationLabel": "Race registration required; optional shirts cost extra.",
-      "availabilityLabel": "Published registration deadline: October 24 at 5:35 p.m. MDT. Capacity not verified.",
+      "registrationLabel": "Race registration required. Official pages conflict on the cutoff (5:30 vs. 5:35 p.m. MDT); confirm with the organizer in advance rather than relying on the later time.",
+      "availabilityLabel": "Remaining race capacity not verified. Event end time and price for participating children under 4 are unknown.",
       "sourceType": "organizer",
       "nearbyParks": [
         {
@@ -576,29 +584,27 @@
       "dateStart": "2026-10-23T16:30:00-06:00",
       "dateEnd": "2026-10-23T19:30:00-06:00",
       "locationLabel": "Commons Park along Commons Avenue, The Streets at SouthGlenn, 6851 S. Vine St., Centennial, CO 80122",
-      "costLabel": "Free according to Centennial Arts and Cultural Foundation",
+      "costLabel": "Free",
       "audienceLabel": "Families with children",
-      "href": "https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/",
+      "href": "https://www.shopsouthglenn.com/event/spooky-streets-2/",
       "sourceUrls": [
-        "https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/",
-        "https://www.artworkssouthglenn.com/events"
+        "https://www.shopsouthglenn.com/event/spooky-streets-2/",
+        "https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/"
       ],
       "section": "holiday",
       "recurring": false,
       "status": "approved",
       "verifiedAt": "2026-10-21",
       "timezone": "America/Denver",
-      "uncertaintyNotes": [
-        "Date, time, cost and address are on the local arts foundation's community calendar. ARTWORKS participating gallery corroborates Oct. 23, 4:30–7:30 p.m. but does not explicitly state year. Organizer's direct site returned 406/inaccessible, so strict organizer/city-source requirement not met for the 2026 date."
-      ],
+      "uncertaintyNotes": [],
       "dateLabel": "Friday, October 23, 2026",
       "id": "centennial-spooky-streets-2026",
       "timeLabel": "4:30–7:30 p.m. MDT",
-      "description": "Family Halloween festivities at Commons Park. Date, hours and free admission are listed by the Centennial Arts and Cultural Foundation; the organizer page could not be independently checked.",
+      "description": "Family Halloween festivities at Commons Park along Commons Avenue. The organizer confirms October 23, 2026, 4:30–7:30 p.m. and free admission.",
       "costType": "free",
-      "sourceType": "community",
-      "registrationLabel": "No advance registration is stated on the community listing; check the organizer for changes.",
-      "availabilityLabel": "Source: local arts foundation calendar, corroborated by participating gallery. Organizer page inaccessible during verification."
+      "sourceType": "organizer",
+      "registrationLabel": "No advance attendee registration requirement stated on the organizer page.",
+      "availabilityLabel": "Published free event; no ticket inventory mechanism stated. Direct organizer details checked October 21, 2026."
     }
   ],
   "exclusions": [
@@ -686,5 +692,7 @@
       "evidenceExcerpt": "Date: Oct. 24, 2026 ... Time: 9 A.M. or 10:30 A.M.",
       "blocker": "Official timing conflict: current Aquatics Events page says 9 a.m. OR 10:30 a.m.; dated Aug. 20 news item says 9–10:30 a.m. Session end times unavailable. Event page also says Lincoln Dr., but facility page verifies Lincoln Ave. Do not publish a fabricated single 9–10:30 window."
     }
-  ]
+  ],
+  "sourceRecheckedAtUTC": "2026-10-21T17:21:35Z",
+  "correctionScope": "Existing 13 listings only; October 21 source-recheck corrections. No new events, park records, features or release approval."
 }

@@ -6,186 +6,214 @@
 
 ## Listings and evidence
 
+Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The narrow correction pass retains all 13 listings; Parker Trunk or Treat is informational and sold out. Goodson and Violet Bridge warnings lead their descriptions so they remain visible in short homepage/city previews as well as full cards. No unknown fee, end time or availability is inferred.
+
 ### Aurora
 
 #### Halloween on Havana Street
 
-- When: Saturday, October 24, 2026; 11 a.m.–1 p.m. MDT
+- Date: Saturday, October 24, 2026
+- Hours (Mountain Time): 11 a.m.–1 p.m. MDT
 - Where: The Gardens on Havana, 10551 E. Garden Drive, Aurora, CO 80012; costume contest: 1250 S. Ironton Street #120
 - Admission: Free; candy while supplies last
 - Audience: Families and all ages; pet costume category
-- Checked: 2026-10-21; source type: organizer
+- Description: Collect candy at participating shops and join the costume contest. Candy is available while supplies last; contest entrants complete a photo waiver on site.
 - Event details: https://onhavanastreet.com/events/2026-halloween-on-havana-street/
 - Registration notes: No advance registration stated; costume contest entry is in person.
 - Availability: Published event; no advance ticket inventory applies.
+- Checked: 2026-10-21; source type: organizer
 - Verification limits: Organizer inconsistently calls the contest substation District 1 and District 2. Use verified street address, not district number.
 - Sources: https://onhavanastreet.com/events/2026-halloween-on-havana-street/
 
 #### Trick or Treat Nature Trail
 
-- When: October 24 and 25, 2026; 10 a.m.–3 p.m. MDT each day
+- Date: October 24 and 25, 2026
+- Hours (Mountain Time): 10 a.m.–3 p.m. MDT each day
 - Where: Morrison Nature Center at Star K Ranch, 16002 E. Smith Road, Aurora, CO
 - Admission: $6; children younger than 2 free
 - Audience: All ages and abilities
-- Checked: 2026-10-21; source type: city_source
+- Description: A costume-friendly nature trail with candy, games and autumn wildlife activities. Registration is required; confirm a time slot with Aurora Parks before going.
 - Event details: https://www.auroragov.org/news/whats_new/aurora_fall_activities
 - Registration: https://anc.apm.activecommunities.com/auroracolorado/activity/search?activity_category_ids=33&activity_select_param=2&onlineSiteId=0&viewMode=list&locale=en-US
 - Registration notes: Required through AuroraGov.org/Nature.
 - Availability: Remaining registration slots not verified.
+- Checked: 2026-10-21; source type: city_source
 - Verification limits: The city's source article is explicitly dated September 1, 2026. The linked ActiveCommunities registration page rendered no inventory; do not promise availability. Do not use the archived 2025 $2 price or 3:15 p.m. end time.
 - Sources: https://www.auroragov.org/news/whats_new/aurora_fall_activities ; https://www.visitaurora.com/blog/halloween/
 
 #### Fall for YOU
 
-- When: October 24 and 25, 2026; 11 a.m.–4 p.m. MDT each day
+- Date: October 24 and 25, 2026
+- Hours (Mountain Time): 11 a.m.–4 p.m. MDT each day
 - Where: Arapahoe County Fairgrounds, 25690 E. Quincy Avenue, Aurora, CO 80016
 - Admission: $15 advance / $17 day-of; ages 2 and under free; free parking
 - Audience: All ages
-- Checked: 2026-10-21; source type: organizer
+- Description: Family festival with circus entertainment, creative activities, farm animals, train rides and more. Tickets cover one day; food, drinks and shopping cost extra.
 - Event details: https://www.arapahoecountyeventcenter.com/p/signature-events/fall-for-you
 - Registration: https://www.arapahoecountyeventcenter.com/p/signature-events/fall-for-you
 - Registration notes: Tickets required; card-only gate purchases. One-day ticket.
 - Availability: Organizer displays a $15 Buy Now option; inventory not separately verified.
+- Checked: 2026-10-21; source type: organizer
 - Verification limits: Rain or shine; no refunds. Pets prohibited except service animals and registered Doppelganger Dog Dash participants.
 - Sources: https://www.arapahoecountyeventcenter.com/p/signature-events/fall-for-you
 
 #### Nick’s Fall Fest
 
-- When: Daily through October 31, 2026; Mon–Sat 8 a.m.–6 p.m.; Sun 9 a.m.–5 p.m. MDT
+- Date: Daily through October 31, 2026
+- Hours (Mountain Time): Mon–Sat 8 a.m.–6 p.m.; Sun 9 a.m.–5 p.m. MDT
 - Where: Nick’s Garden Center, 2001 S. Chambers Road, Aurora, CO 80014
-- Admission: Free entry; most rides $6 each; $22 four-ride wristband; pumpkins extra
+- Admission: Free entry; most rides $6; $22 wristband: one use each of train, tractor, pedal karts and inflatable course; pumpkins extra
 - Audience: Families and children
-- Checked: 2026-10-21; source type: organizer
+- Description: Free-entry fall outing with a straw maze, games and a children's play area. Pumpkins, rides and other purchases cost extra.
 - Event details: https://nicksgardencenter.com/fallfest-2026/
 - Registration notes: Walk-in; activity tokens purchased in the greenhouse.
 - Availability: Open daily according to organizer; no reservations stated.
+- Checked: 2026-10-21; source type: organizer
 - Verification limits: Year is explicit in page title, navigation and canonical URL. Schedule enumerates only the remaining requested-window dates, October 21–31. Published hours are for the Fall Fest; no separate ride-specific hours verified.
 - Sources: https://nicksgardencenter.com/fallfest-2026/
 
 #### Mall-O-Ween
 
-- When: Saturday, October 31, 2026; Noon–4 p.m. MDT
+- Date: Saturday, October 31, 2026
+- Hours (Mountain Time): Noon–4 p.m. MDT
 - Where: Town Center at Aurora, 14200 E. Alameda Avenue, Aurora, CO 80012
 - Admission: Free admission and family activities; purchases extra
 - Audience: Families and all ages
-- Checked: 2026-10-21; source type: organizer
+- Description: Indoor mall trick-or-treating, costume contests, dance performances and free family activities at participating retailers.
 - Event details: https://www.towncenterataurora.com/events/mall-o-ween
 - Registration notes: No registration requirement stated.
 - Availability: Published free event; no ticket inventory stated.
+- Checked: 2026-10-21; source type: organizer
 - Sources: https://www.towncenterataurora.com/events/mall-o-ween
 
 ### Centennial
 
 #### Trick-or-Treat Street at Goodson
 
-- When: Friday, October 23, 2026; 4–6:30 p.m. MDT
+- Date: Friday, October 23, 2026
+- Hours (Mountain Time): 4–6:30 p.m. MDT
 - Where: Goodson Recreation Center back parking lot, 6315 S. University Blvd., Centennial, CO 80121
-- Admission: Admission price not published in accessible sources; check organizer
-- Audience: Families and youth
-- Checked: 2026-10-21; source type: city_source
+- Admission: Fee and registration requirements unverified
+- Audience: Families and youth; children must be accompanied by an adult age 18+
+- Description: Fee and booking rules unverified. Confirm requirements before attending. Adult 18+ must accompany children. Outdoor Halloween candy, costume and game event in Goodson Recreation Center’s back parking lot.
 - Event details: https://www.ssprd.org/News-And-Events/Post/20718
 - Registration: https://register.ssprd.org/CO/south-suburban-parks-rec/catalog/index/6694995354939e39b6f836912be9da70?filter=c2VhcmNoPXRyaWNr
-- Registration notes: Confirm price and registration requirements with South Suburban before attending.
-- Availability: Registration inventory not verified.
-- Verification limits: 2026 date, start/end and address verified, but price, registration requirements and inventory not verified. Organizer registration page returned 403; city detail page was inaccessible. Do not label free. Facility's own page gives ZIP 80121, while nearby race listing uses 80122.
-- Sources: https://www.centennialco.gov/Events-directory ; https://www.ssprd.org/News-And-Events/Post/20718 ; https://www.ssprd.org/Goodson-Recreation-Center
+- Registration notes: Confirm admission price and booking requirements with South Suburban before attending; do not assume free or walk-in admission.
+- Availability: Fee, registration rules and capacity remain unresolved. Official registration page could not be accessed on October 21.
+- Checked: 2026-10-21; source type: city_source
+- Verification limits: City detail page confirms October 23, 2026, 4–6:30 p.m., the street address and adult 18+ supervision. Organizer confirms the back parking lot. Official registration page was access-denied; do not infer price or booking requirements from general facility fees or secondary reports.
+- Sources: https://www.centennialco.gov/Calendar/South-Suburban-Trick-or-Treat-Trail ; https://www.ssprd.org/News-And-Events/Post/20718 ; https://www.ssprd.org/Goodson-Recreation-Center
 
 #### Hoofin' It Through the Hollows 5K
 
-- When: Saturday, October 24, 2026; Costume contest 5 p.m.; race 5:30 p.m. MDT; end time not published
+- Date: Saturday, October 24, 2026
+- Hours (Mountain Time): Costume contest 5 p.m.; race 5:30 p.m. MDT; end time not published
 - Where: deKoevend Park / Goodson Recreation Center, 6315 S. University Blvd., Centennial, CO
-- Admission: Adults $20 plus processing fee (displayed adult total $22.45); ages 14 and younger $15 plus unverified processing fee; optional shirts cost extra
+- Admission: Adult total $22.45; ages 4–14 total $17.15; participating under-4 price unknown; optional shirts extra
 - Audience: All ages and abilities; families and dogs welcome
-- Checked: 2026-10-21; source type: organizer
+- Description: Halloween 5K for runners of all ages and abilities, families and dogs. Costumes encouraged.
 - Event details: https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K
 - Registration: https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K
-- Registration notes: Race registration required; optional shirts cost extra.
-- Availability: Published registration deadline: October 24 at 5:35 p.m. MDT. Capacity not verified.
-- Verification limits: No official event end time found. Do not invent dateEnd. Race page ZIP is 80122; Goodson facility page says 80121 for same street address.
-- Sources: https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K ; https://www.ssprd.org/News-And-Events/Post/20718
+- Registration notes: Race registration required. Official pages conflict on the cutoff (5:30 vs. 5:35 p.m. MDT); confirm with the organizer in advance rather than relying on the later time.
+- Availability: Remaining race capacity not verified. Event end time and price for participating children under 4 are unknown.
+- Checked: 2026-10-21; source type: organizer
+- Verification limits: No official event end time found. Date-only expiry is not an event closing time; calendar export remains disabled. Public registration table lists $17.15 for ages 4–14, not every child under 15. Adult displayed total is $22.45. Optional shirts cost extra. Registration table says 5:35 p.m.; organizer FAQ says registration closes at the 5:30 p.m. race start. Neither is presented here as a reliable booking deadline. Race page ZIP is 80122; organizer FAQ and Goodson facility page use 80121 for the same street address.
+- Sources: https://runsignup.com/Race/CO/Centennial/HoofinThroughtheHollows5K ; https://www.ssprd.org/News-And-Events/Post/20718 ; https://runsignup.com/Race/Events/CO/Centennial/HoofinThroughtheHollows5K ; https://runsignup.com/Race/HoofinThroughtheHollows5K/Page/FAQ
 
 #### Spooky Streets at The Streets at SouthGlenn
 
-- When: Friday, October 23, 2026; 4:30–7:30 p.m. MDT
+- Date: Friday, October 23, 2026
+- Hours (Mountain Time): 4:30–7:30 p.m. MDT
 - Where: Commons Park along Commons Avenue, The Streets at SouthGlenn, 6851 S. Vine St., Centennial, CO 80122
-- Admission: Free according to Centennial Arts and Cultural Foundation
+- Admission: Free
 - Audience: Families with children
-- Checked: 2026-10-21; source type: community
-- Event details: https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/
-- Registration notes: No advance registration is stated on the community listing; check the organizer for changes.
-- Availability: Source: local arts foundation calendar, corroborated by participating gallery. Organizer page inaccessible during verification.
-- Verification limits: Date, time, cost and address are on the local arts foundation's community calendar. ARTWORKS participating gallery corroborates Oct. 23, 4:30–7:30 p.m. but does not explicitly state year. Organizer's direct site returned 406/inaccessible, so strict organizer/city-source requirement not met for the 2026 date.
-- Sources: https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/ ; https://www.artworkssouthglenn.com/events
+- Description: Family Halloween festivities at Commons Park along Commons Avenue. The organizer confirms October 23, 2026, 4:30–7:30 p.m. and free admission.
+- Event details: https://www.shopsouthglenn.com/event/spooky-streets-2/
+- Registration notes: No advance attendee registration requirement stated on the organizer page.
+- Availability: Published free event; no ticket inventory mechanism stated. Direct organizer details checked October 21, 2026.
+- Checked: 2026-10-21; source type: organizer
+- Sources: https://www.shopsouthglenn.com/event/spooky-streets-2/ ; https://centennial-art.org/event/spooky-streets-at-the-streets-at-southglenn/
 
 ### Parker
 
 #### Trunk or Treat on Mainstreet
 
-- When: Saturday, October 24, 2026; 1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)
+- Date: Saturday, October 24, 2026
+- Hours (Mountain Time): 1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)
 - Where: Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138
-- Admission: Free; individual timed-entry ticket required for each child. Adults do not need a ticket.
+- Admission: SOLD OUT — free timed tickets required for children
 - Audience: Families with children; sensory hour reserved for attendees with sensory sensitivities
-- Checked: 2026-10-21; source type: organizer
+- Description: SOLD OUT: attendee tickets (checked Oct. 21). Information only; every child needs a timed ticket. Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m.
 - Event details: https://www.downtownparker.com/trunkortreat/
-- Registration: https://www.tickettailor.com/events/downtownparker/2450038
-- Registration notes: Individual timed-entry ticket required for every child; adults do not need tickets.
-- Availability: Organizer provides timed-entry signup; ticketing page inaccessible to research tool. Vendor spaces are full, but this is not evidence that attendee tickets are sold out.
-- Sources: https://www.downtownparker.com/trunkortreat/ ; https://www.parker-station.com/
+- Registration notes: Existing ticket holders: every child needs an individual 45-minute timed-entry ticket; adults do not need tickets.
+- Availability: Attendee tickets SOLD OUT on October 21, 2026. This is the attendee ticket status, separate from vendor spaces. No tickets are offered here.
+- Checked: 2026-10-21; source type: organizer
+- Evidence: Organizer and attendee policy confirm date, hours, location and child ticket rules. The linked Ticket Tailor attendee page explicitly showed Sold out on October 21, 2026 at 17:18 UTC.
+- Sources: https://www.downtownparker.com/trunkortreat/ ; https://www.parker-station.com/ ; https://www.downtownparker.com/trunk-or-treat-attendee-policy ; https://www.tickettailor.com/events/downtownparker/2450038
 
 #### All Treats, No Tricks: Sensory-Friendly Trick or Treat
 
-- When: Friday, October 30, 2026; 6–9:30 p.m. (America/Denver); costume parade at 8 p.m.
+- Date: Friday, October 30, 2026
+- Hours (Mountain Time): 6–9:30 p.m. (America/Denver); costume parade at 8 p.m.
 - Where: Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138
-- Admission: Free; family RSVP required
+- Admission: Free; required family RSVP has no usable signup link
 - Audience: All kids and siblings; sensory-friendly, not restricted to children with disabilities
-- Checked: 2026-10-21; source type: organizer
+- Description: Family RSVP required; signup link unavailable. Do not assume walk-in entry. Capacity unverified. Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.
 - Event details: https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/
-- Registration notes: Family RSVP required through organizer; direct booking link not exposed.
-- Availability: Organizer requires a family RSVP, but no usable RSVP link or remaining capacity was exposed in the fetched page. Follow the organizer's event page for booking instructions.
+- Registration notes: Family RSVP required. No usable attendee signup link was found on the organizer page, including its expanded FAQ.
+- Availability: RSVP route and capacity unresolved as of October 21. Do not assume walk-in admission; confirm an RSVP with the organizer before attending.
+- Checked: 2026-10-21; source type: organizer
+- Evidence: Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.
 - Sources: https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/
 
 ### Denver
 
 #### BOOnion Station
 
-- When: Thursday, October 29, 2026; 4–7 p.m. MDT
+- Date: Thursday, October 29, 2026
+- Hours (Mountain Time): 4–7 p.m. MDT
 - Where: Denver Union Station, 1701 Wynkoop Street, Denver, CO 80202
 - Admission: Free
 - Audience: All ages and families
-- Checked: 2026-10-21; source type: organizer
+- Description: Trick-or-treat through Union Station, enjoy mini-train rides and face painting, and join the costume contest.
 - Event details: https://www.denverunionstation.com/events/boonion-station-2026/
 - Registration notes: No registration requirement stated.
 - Availability: Published free event; no ticket inventory stated.
+- Checked: 2026-10-21; source type: organizer
 - Verification limits: RTD's participating-organizer listing explicitly confirms 2026, MDT timezone and full street address.
 - Sources: https://www.denverunionstation.com/events/boonion-station-2026/ ; https://www.rtd-denver.com/community/events/2026/boonion-station
 
 #### Boo at the Zoo
 
-- When: October 23–25 and 30, 2026; 4:30–9 p.m. MDT on listed dates
+- Date: October 23–25 and 30, 2026
+- Hours (Mountain Time): 4:30–9 p.m. MDT on listed dates
 - Where: Denver Zoo Conservation Alliance, 2300 Steele Street, Denver, CO 80205
-- Admission: Adults/seniors $27.95; youth $20.95; ages 2 and under free; members save 10%
+- Admission: Adults/seniors $27.95; youth ages 3–15 $20.95; ages 2 and under free; members save 10%
 - Audience: All ages; not designed as a frightening event
-- Checked: 2026-10-21; source type: organizer
+- Description: Timed evening trick-or-treating with nine candy stations, costumed creatures and animal ambassadors. Reserve your chosen entry time; tickets can sell out.
 - Event details: https://denverzoo.org/events/boo-at-the-zoo/
 - Registration: https://my.denverzoo.org/events?kid=10&startdate=2026-10-01
-- Registration notes: Timed tickets required.
-- Availability: Exact dates and entry-slot availability not verified; ticket page entered a queue.
-- Verification limits: Schedule and prices cover remaining general-admission nights; October 31 sensory-friendly night is a separate listing. The visible page does not define the youth age bracket. Ticketing redirected to an inaccessible queue, so do not claim slots are available.
-- Sources: https://denverzoo.org/events/boo-at-the-zoo/
+- Registration notes: Timed ticket required for every participant, including a free ticket for each child age 2 or under. Organizer hours are 4:30–9 p.m.; ticket-page heading conflicts at 10 p.m. Confirm your chosen entry time.
+- Availability: October 23 at 4:30 p.m. showed quantity options when checked October 21; other slots were not tested. No reservation was made and current availability is not guaranteed.
+- Checked: 2026-10-21; source type: organizer
+- Verification limits: Organizer gives 4:30–9 p.m. event hours. Ticket-page heading says 10 p.m., conflicting with organizer hours and actual early-evening entry choices. Do not treat 10 p.m. as a verified event time. Ticket selector confirms youth ages 3–15 and free timed tickets required for children age 2 or under. Point-in-time quantity options are not a checkout or inventory guarantee. Sensory-friendly October 31 has separate lower pricing; general-night prices must not be used for it.
+- Sources: https://denverzoo.org/events/boo-at-the-zoo/ ; https://my.denverzoo.org/2026-batz/76815
 
 #### Boo at the Zoo: Sensory-Friendly Night
 
-- When: Saturday, October 31, 2026; 4:30–9 p.m. MDT
+- Date: Saturday, October 31, 2026
+- Hours (Mountain Time): 4:30–9 p.m. MDT
 - Where: Denver Zoo Conservation Alliance, 2300 Steele Street, Denver, CO 80205
-- Admission: Adults/seniors $25.95; youth $18.95; ages 2 and under free; members save 10%
+- Admission: Adults/seniors $25.95; youth ages 3–15 $18.95; ages 2 and under free; members save 10%
 - Audience: Families, including guests with sensory processing disorders
-- Checked: 2026-10-21; source type: organizer
+- Description: An adapted trick-or-treat evening with reduced crowds, softer music, increased lighting, quiet rooms and stationary costumed characters.
 - Event details: https://denverzoo.org/events/batz-sensory-friendly/
 - Registration: https://my.denverzoo.org/events?kid=10&startdate=2026-10-01
-- Registration notes: Tickets required.
-- Availability: Exact ticket inventory not verified.
-- Verification limits: The main Boo at the Zoo page's October 2026 calendar establishes the year. Youth age bracket is not defined in the visible event text. Use this night's lower published prices, not general-night pricing.
-- Sources: https://denverzoo.org/events/batz-sensory-friendly/ ; https://denverzoo.org/events/boo-at-the-zoo/
+- Registration notes: Timed ticket required for every participant, including a free ticket for each child age 2 or under. Organizer hours are 4:30–9 p.m.; ticket-page heading conflicts at 10 p.m. Confirm your chosen entry time.
+- Availability: October 31 at 4:30 p.m. showed quantity options when checked October 21; other slots were not tested. No reservation was made and current availability is not guaranteed.
+- Checked: 2026-10-21; source type: organizer
+- Verification limits: Organizer gives 4:30–9 p.m. event hours. Ticket-page heading says 10 p.m., conflicting with organizer hours and actual early-evening entry choices. Do not treat 10 p.m. as a verified event time. Ticket selector confirms youth ages 3–15 and free timed tickets required for children age 2 or under. Point-in-time quantity options are not a checkout or inventory guarantee. Sensory-friendly October 31 has separate lower pricing; general-night prices must not be used for it.
+- Sources: https://denverzoo.org/events/batz-sensory-friendly/ ; https://denverzoo.org/events/boo-at-the-zoo/ ; https://my.denverzoo.org/2026-batz/76819
 
 ## Held back, not published
 
@@ -219,7 +247,7 @@ Keep the existing three-card upcoming-events preview beneath park discovery. The
 - Desktop/mobile Chromium and WebKit checks plus screenshots run in a read-only review-branch-only GitHub Actions workflow. No deployment steps, credentials, purchases or external submissions. Final status is recorded in the PR; do not infer success from this document alone.
 - Local Chromium startup blocked by process socket restrictions; escalation failed during environment setup. Cloud browser could not access the isolated local server; file URL access is unsupported. No local visual pass claimed.
 - Real-device iOS/Android, VoiceOver/TalkBack and live ticket inventory remain unverified. Source changes/weather/cancellations require editorial rechecking.
-- Unknown facts remain labeled: Goodson admission/registration requirements, Hoofin end time and child processing fee, and Spooky Streets direct-organizer confirmation.
+- Unknown facts remain labeled: Goodson fee/booking/capacity, Violet Bridge RSVP route/capacity, Hoofin end time/under-4 price/cutoff conflict and sampled zoo availability. Spooky Streets direct-organizer confirmation is now established. Parker attendee tickets are explicitly sold out; its registration and calendar links are omitted.
 
 ## Review and release
 

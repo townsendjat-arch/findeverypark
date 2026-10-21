@@ -87,3 +87,59 @@ test('inline production JavaScript compiles', () => {
     }
   }
 });
+
+test('correction pass keeps exactly the original 13 reviewed records and matches source audit', () => {
+  const verified = data.events.filter(e => e.verifiedAt === '2026-10-21');
+  const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
+  assert.equal(verified.length, 13);
+  assert.deepEqual(JSON.parse(JSON.stringify(verified)), audit.events);
+  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, parker:2, centennial:3 });
+});
+test('Parker attendee sold-out status is explicit and not offered as registration', () => {
+  const event = data.events.find(e => e.id === 'parker-trunk-or-treat-mainstreet-2026-10-24');
+  assert.match(event.costLabel, /^SOLD OUT/);
+  assert.match(event.description, /^SOLD OUT: attendee tickets/);
+  assert.match(event.availabilityLabel, /Attendee tickets SOLD OUT/);
+  assert.equal(event.registrationUrl, undefined);
+  assert.equal(event.calendarDisabled, true);
+  assert.doesNotMatch(event.description, /reserve before going|inventory could not be verified/);
+  assert.ok(event.sourceUrls.includes('https://www.tickettailor.com/events/downtownparker/2450038'));
+});
+test('Goodson and Violet warnings survive existing 118-character preview truncation', () => {
+  const preview = e => e.description.length > 118 ? e.description.slice(0,115).replace(/\s+\S*$/, '') + '…' : e.description;
+  const goodson = data.events.find(e => e.id === 'centennial-goodson-trick-or-treat-2026');
+  assert.equal(goodson.costType, 'unknown');
+  assert.match(preview(goodson), /Fee and booking rules unverified/);
+  assert.match(preview(goodson), /Adult 18\+ must accompany children/);
+  const violet = data.events.find(e => e.id === 'parker-all-treats-no-tricks-2026-10-30');
+  assert.match(preview(violet), /Family RSVP required; signup link unavailable/);
+  assert.match(preview(violet), /Do not assume walk-in entry/);
+  assert.equal(violet.registrationUrl, undefined);
+});
+test('Hoofin preserves verified price bands, qualified cutoff and unknown-end expiry', () => {
+  const event = data.events.find(e => e.id === 'centennial-hoofin-hollows-5k-2026');
+  assert.match(event.costLabel, /Adult total \$22\.45; ages 4–14 total \$17\.15/);
+  assert.match(event.costLabel, /under-4 price unknown/);
+  assert.match(event.registrationLabel, /conflict on the cutoff/);
+  assert.doesNotMatch(event.availabilityLabel, /Published registration deadline/);
+  assert.equal(event.availabilityNote, undefined);
+  assert.equal(event.dateEnd, '2026-10-24'); assert.equal(event.calendarDisabled, true);
+  assert.equal(rules.isCurrent(event, at('2026-10-25T05:59:59Z')), true);
+  assert.equal(rules.isCurrent(event, at('2026-10-25T06:00:00Z')), false);
+});
+test('Spooky Streets uses verified organizer provenance and zoo ticket details stay qualified', () => {
+  const spooky = data.events.find(e => e.id === 'centennial-spooky-streets-2026');
+  assert.equal(spooky.sourceType, 'organizer');
+  assert.equal(spooky.href, 'https://www.shopsouthglenn.com/event/spooky-streets-2/');
+  assert.equal(spooky.costLabel, 'Free');
+  for (const id of ['denver-boo-at-zoo-2026','denver-boo-at-zoo-sensory-2026']) {
+    const event = data.events.find(e => e.id === id);
+    assert.match(event.costLabel, /youth ages 3–15/);
+    assert.match(event.registrationLabel, /including a free ticket for each child age 2 or under/);
+    assert.match(event.registrationLabel, /heading conflicts at 10 p\.m\./);
+    assert.match(event.timeLabel, /4:30–9 p\.m\./);
+    assert.match(event.availabilityLabel, /other slots were not tested/);
+    assert.match(event.availabilityLabel, /current availability is not guaranteed/);
+  }
+  assert.match(data.events.find(e => e.id === 'aurora-nicks-fall-fest-2026').costLabel, /one use each of train, tractor, pedal karts and inflatable course/);
+});
