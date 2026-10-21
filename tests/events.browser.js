@@ -700,7 +700,7 @@ async function check(name, callback) {
         const button = page.locator(`.event-filter-pill[data-city="${key}"]`);
         await button.focus(); await page.keyboard.press('Space');
         assert.equal(await page.locator('[data-current="true"]:visible').count(),1);
-        assert.equal(new URL(page.url()).searchParams.get('city'),key);
+        assert.equal(new URL(page.url()).searchParams.get('city'),query);
         await page.goBack(); assert.equal(await page.locator('[data-current="true"]:visible').count(),currentCount);
         await page.goForward(); assert.equal(await page.locator('[data-current="true"]:visible').count(),1);
         await page.screenshot({path:path.join(output,`${engineName}-priority-one-city-${key}-${label}.png`),fullPage:false});
