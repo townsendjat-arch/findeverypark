@@ -2,11 +2,11 @@
 
 ## Scope and outcome
 
-13 source-checked fall listings proposed: Aurora 5, Centennial 3, Parker 2, Denver 3. Research window: October 21–November 1, 2026. Dates below are Mountain Time. A published event does not guarantee registration capacity. No organizer was contacted.
+12 active source-checked fall listings proposed: Aurora 5, Centennial 3, Parker 1, Denver 3. The original 13-event review is preserved; the owner requested removal of sold-out Parker Trunk or Treat. Research window: October 21–November 1, 2026. Dates below are Mountain Time. A published event does not guarantee registration capacity. No organizer was contacted.
 
 ## Listings and evidence
 
-Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The narrow correction pass retains all 13 listings; Parker Trunk or Treat is informational and sold out. Goodson and Violet Bridge warnings lead their descriptions so they remain visible in short homepage/city previews as well as full cards. No unknown fee, end time or availability is inferred.
+Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The candidate now contains 12 listings after the owner's October 21 request to remove sold-out Parker Trunk or Treat. Its sources remain in the held-back history below, not the manifest. Goodson and Violet Bridge warnings lead their descriptions so they remain visible in short homepage/city previews as well as full cards. No unknown fee, end time or availability is inferred.
 
 ### Aurora
 
@@ -136,21 +136,6 @@ Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The narrow
 
 ### Parker
 
-#### Trunk or Treat on Mainstreet
-
-- Date: Saturday, October 24, 2026
-- Hours (Mountain Time): 1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)
-- Where: Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138
-- Admission: SOLD OUT — free timed tickets required for children
-- Audience: Families with children; sensory hour reserved for attendees with sensory sensitivities
-- Description: SOLD OUT: attendee tickets (checked Oct. 21). Information only; every child needs a timed ticket. Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m.
-- Event details: https://www.downtownparker.com/trunkortreat/
-- Registration notes: Existing ticket holders: every child needs an individual 45-minute timed-entry ticket; adults do not need tickets.
-- Availability: Attendee tickets SOLD OUT on October 21, 2026. This is the attendee ticket status, separate from vendor spaces. No tickets are offered here.
-- Checked: 2026-10-21; source type: organizer
-- Evidence: Organizer and attendee policy confirm date, hours, location and child ticket rules. The linked Ticket Tailor attendee page explicitly showed Sold out on October 21, 2026 at 17:18 UTC.
-- Sources: https://www.downtownparker.com/trunkortreat/ ; https://www.parker-station.com/ ; https://www.downtownparker.com/trunk-or-treat-attendee-policy ; https://www.tickettailor.com/events/downtownparker/2450038
-
 #### All Treats, No Tricks: Sensory-Friendly Trick or Treat
 
 - Date: Friday, October 30, 2026
@@ -217,16 +202,38 @@ Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The narrow
 
 ## Held back, not published
 
+### Removed from candidate at owner request
+
+Parker Trunk or Treat was removed on October 21 because attendee tickets were sold out. It is absent from the current manifest, homepage, city previews and Events listing. The following is retained evidence, not an invitation or active listing.
+
+#### Trunk or Treat on Mainstreet
+
+- Date: Saturday, October 24, 2026
+- Hours (Mountain Time): 1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)
+- Where: Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138
+- Admission: SOLD OUT — free timed tickets required for children
+- Audience: Families with children; sensory hour reserved for attendees with sensory sensitivities
+- Description: SOLD OUT: attendee tickets (checked Oct. 21). Information only; every child needs a timed ticket. Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m.
+- Event details: https://www.downtownparker.com/trunkortreat/
+- Registration notes: Existing ticket holders: every child needs an individual 45-minute timed-entry ticket; adults do not need tickets.
+- Availability: Attendee tickets SOLD OUT on October 21, 2026. This is the attendee ticket status, separate from vendor spaces. No tickets are offered here.
+- Checked: 2026-10-21; source type: organizer
+- Evidence: Organizer and attendee policy confirm date, hours, location and child ticket rules. The linked Ticket Tailor attendee page explicitly showed Sold out on October 21, 2026 at 17:18 UTC.
+- Sources: https://www.downtownparker.com/trunkortreat/ ; https://www.parker-station.com/ ; https://www.downtownparker.com/trunk-or-treat-attendee-policy ; https://www.tickettailor.com/events/downtownparker/2450038
+
+
+### Other held-back research
+
 - Fall Into Fun: Accessible city article is dated September 30, 2025; no 2026 city date verified. Source: https://www.auroragov.org/news/whats_new/fall_into_fun_event
 - Fall-O-Ween: Tourism/aggregator pages list Oct24 2026, but organizer events page exposes no event details in readable output. Do not publish until primary date/hours verified. Source: https://www.shopsouthlands.com/events/
 - Bro 2 Bro Trunk or Treat: Third-party listings advertise Oct24 2026, but organizer website could not be opened; primary date not verified. Source: https://bro2brocsf.org/
 - Parents’ Night Out: Official 2026 article prints 5–8 a.m. for night program; unresolved apparent time typo. Do not silently correct to p.m. Source: https://www.auroragov.org/news/whats_new/aurora_fall_activities
 - Glow at the Gardens: Current official page verifies Oct15–18 and21–24, 5:30–9 p.m. and prices, but readable primary text lacks explicit 2026 year and ticket page returns403. Strong secondary 2026 support, held for strict explicit-year policy. Source: https://www.botanicgardens.org/events/public-events/glow-gardens
 - Spirits + Songs: Official event confirms Oct28 2026 at6 p.m., pay-what-you-wish suggested$20, but end time unknown. Optional inclusion only if schema handles unknown end without invention. Source: https://www.operacolorado.org/event/spirits-songs/
-- Fieldhouse Fright Night: Official 2026 date is October 10, outside October 21–November 1 window. Source: 
-- Spooktacular Fall Family Fun Fest: City directory verifies October 24, 2026 at SOS Centennial, 7562 S. University Blvd., Suite FF, Centennial, CO 80122. City detail and organizer Eventbrite unavailable; third-party sources conflict between 2–5 p.m. and 3–5 p.m. Not enough verified primary detail to publish. Source: 
-- Drop-In Spooky Skate: Official 2026 fall events article verifies October 24 at Family Sports Center and South Suburban Sports Complex, but schedule is dynamically rendered and times and event-specific price not verified. Source: 
-- Hallowhinny Pony Rides & Trunk-or-Treat: Only third-party October 25, 2026 listing found; official organizer source not verified. Do not publish as confirmed. Source: 
+- Fieldhouse Fright Night: Official 2026 date is October 10, outside October 21–November 1 window. Source:
+- Spooktacular Fall Family Fun Fest: City directory verifies October 24, 2026 at SOS Centennial, 7562 S. University Blvd., Suite FF, Centennial, CO 80122. City detail and organizer Eventbrite unavailable; third-party sources conflict between 2–5 p.m. and 3–5 p.m. Not enough verified primary detail to publish. Source:
+- Drop-In Spooky Skate: Official 2026 fall events article verifies October 24 at Family Sports Center and South Suburban Sports Complex, but schedule is dynamically rendered and times and event-specific price not verified. Source:
+- Hallowhinny Pony Rides & Trunk-or-Treat: Only third-party October 25, 2026 listing found; official organizer source not verified. Do not publish as confirmed. Source:
 - Floatin' Into Fall: Official timing conflict: current Aquatics Events page says 9 a.m. OR 10:30 a.m.; dated Aug. 20 news item says 9–10:30 a.m. Session end times unavailable. Event page also says Lincoln Dr., but facility page verifies Lincoln Ave. Do not publish a fabricated single 9–10:30 window. Source: https://parkerrec.com/2014/Aquatics-Events
 
 ## Code changes
@@ -247,7 +254,7 @@ Keep the existing three-card upcoming-events preview beneath park discovery. The
 - Desktop/mobile Chromium and WebKit checks plus screenshots run in a read-only review-branch-only GitHub Actions workflow. No deployment steps, credentials, purchases or external submissions. Final status is recorded in the PR; do not infer success from this document alone.
 - Local Chromium startup blocked by process socket restrictions; escalation failed during environment setup. Cloud browser could not access the isolated local server; file URL access is unsupported. No local visual pass claimed.
 - Real-device iOS/Android, VoiceOver/TalkBack and live ticket inventory remain unverified. Source changes/weather/cancellations require editorial rechecking.
-- Unknown facts remain labeled: Goodson fee/booking/capacity, Violet Bridge RSVP route/capacity, Hoofin end time/under-4 price/cutoff conflict and sampled zoo availability. Spooky Streets direct-organizer confirmation is now established. Parker attendee tickets are explicitly sold out; its registration and calendar links are omitted.
+- Unknown facts remain labeled: Goodson fee/booking/capacity, Violet Bridge RSVP route/capacity, Hoofin end time/under-4 price/cutoff conflict and sampled zoo availability. Spooky Streets direct-organizer confirmation is now established. Parker attendee tickets were sold out and the owner requested removal; its record is preserved only in source history, not the manifest.
 
 ## Review and release
 
@@ -257,7 +264,7 @@ For weekly maintenance see [event-system.md](event-system.md).
 
 ## Future research backlog: Front Range expansion
 
-Research snapshot: **October 21, 2026**. Research only, outside this 13-listing correction pass. The event-content priorities are October, November and December; this snapshot supplies October candidates, not verified November/December coverage. No new event, park record, city dataset, photo or discovery feature is implemented. Recheck source details, prices and capacity before a separate approval.
+Research snapshot: **October 21, 2026**. Research only, outside the existing-listing correction pass. The event-content priorities are October, November and December; this snapshot supplies October candidates, not verified November/December coverage. No new event, park record, city dataset, photo or discovery feature is implemented. Recheck source details, prices and capacity before a separate approval.
 
 ### High-priority data accuracy: Sagebrush playground
 

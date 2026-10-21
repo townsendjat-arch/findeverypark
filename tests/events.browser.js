@@ -96,7 +96,7 @@ async function check(name, callback) {
       await page.goForward(); assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Aurora');
       await page.locator('.event-filter-pill[data-city=""]').click();
       assert.equal(new URL(page.url()).searchParams.has('city'), false);
-      assert.ok(await page.locator('[data-current="true"]:visible').count() >= 10);
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 12);
     });
     await check(`${label}: empty city and hyphen alias`, async () => {
       await page.goto(origin + '/events.html?city=highlands-ranch');
@@ -144,22 +144,33 @@ async function check(name, callback) {
       await page.locator('.home-events').scrollIntoViewIfNeeded();
       await page.screenshot({ path: path.join(output, `${engineName}-homepage-events-${label}.png`), fullPage: false });
     });
-    await check(`${label}: Parker sold-out and RSVP warnings are visible without booking claims`, async () => {
+    await check(`${label}: Parker has only the remaining RSVP listing after sold-out removal`, async () => {
       await page.goto(origin + '/events.html?city=parker');
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 2);
-      const sold = page.locator('[data-event-id="parker-trunk-or-treat-mainstreet-2026-10-24"]');
-      assert.match(await sold.locator('.free-badge').textContent(), /^SOLD OUT/);
-      assert.match(await sold.locator('.event-description').first().textContent(), /^SOLD OUT: attendee tickets/);
-      assert.equal(await sold.locator('a[href*="tickettailor"], a[href*="calendar.google"]').count(), 0);
-      assert.equal(await sold.locator('a:has-text("Registration")').count(), 0);
-      assert.equal(await sold.locator('a.event-link').getAttribute('href'), 'https://www.downtownparker.com/trunkortreat/');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 1);
+      assert.equal(await page.locator('[data-event-id="parker-trunk-or-treat-mainstreet-2026-10-24"]').count(), 0);
+      assert.equal(await page.getByText('Trunk or Treat on Mainstreet', {exact:true}).count(), 0);
       const violet = page.locator('[data-event-id="parker-all-treats-no-tricks-2026-10-30"]');
       assert.match(await violet.locator('.free-badge').textContent(), /required family RSVP has no usable signup link/);
       assert.match(await violet.locator('.event-description').first().textContent(), /^Family RSVP required; signup link unavailable\. Do not assume walk-in entry/);
       assert.equal(await violet.locator('a:has-text("Registration")').count(), 0);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      await sold.screenshot({ path:path.join(output, `${engineName}-sold-out-${label}.png`) });
       await violet.screenshot({ path:path.join(output, `${engineName}-rsvp-warning-${label}.png`) });
+    });
+    await check(`${label}: synthetic sold-out fixture has no registration or calendar CTA`, async () => {
+      const rendered = await page.evaluate(() => {
+        // Test-only, detached DOM fixture. Never inserted into the manifest or live page.
+        const card = renderEventDetails({ event: {
+          id:'synthetic-sold-out', city:'parker', title:'Synthetic sold-out event',
+          description:'SOLD OUT: informational test fixture.', costLabel:'SOLD OUT', costType:'free',
+          dateStart:'2026-10-24T13:00:00-06:00', dateEnd:'2026-10-24T17:00:00-06:00',
+          calendarDisabled:true, href:'https://example.com/information'
+        } });
+        return { text:card.textContent, links:Array.from(card.querySelectorAll('a')).map(a => ({text:a.textContent, href:a.href})) };
+      });
+      assert.match(rendered.text, /SOLD OUT/);
+      assert.equal(rendered.links.some(a => /Registration|Add to Calendar/.test(a.text)), false);
+      assert.equal(rendered.links.some(a => /calendar\.google|tickettailor/.test(a.href)), false);
+      assert.equal(await page.locator('[data-event-id="synthetic-sold-out"]').count(), 0);
     });
     await check(`${label}: Centennial unknowns, Hoofin price/cutoff and organizer correction`, async () => {
       await page.goto(origin + '/events.html?city=centennial');
@@ -201,12 +212,12 @@ async function check(name, callback) {
     });
     await check(`${label}: short homepage and city previews retain material warnings`, async () => {
       for (const [city,title,warning] of [
-        ['parker','Trunk or Treat on Mainstreet',/^SOLD OUT: attendee tickets/],
         ['parker','All Treats, No Tricks',/Family RSVP required; signup link unavailable\. Do not assume walk-in entry/],
         ['centennial','Trick-or-Treat Street at Goodson',/Fee and booking rules unverified/]
       ]) {
         for (const [url,prefix] of [['/index.html?city='+city,'home'],['/best-parks-'+city+'.html','city']]) {
           await page.goto(origin + url);
+          assert.equal(await page.locator('.'+prefix+'-event-card').filter({hasText:'Trunk or Treat on Mainstreet'}).count(), 0);
           const card = page.locator('.'+prefix+'-event-card').filter({has:page.locator('h3',{hasText:title})});
           assert.equal(await card.count(),1);
           assert.match(await card.locator('.'+prefix+'-event-desc').textContent(),warning);

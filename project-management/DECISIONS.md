@@ -13,10 +13,11 @@ Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize
 | 2026-10-21 | DATED EXCEPTION: FindEveryPark only today; Charles paused today | Broader priority order and separate project release approvals preserved |
 | 2026-10-21 | NOT APPROVED: further design/features, merge/deploy, integrations, purchases or outside contact | No organizer/sponsor contact or service activation under this task |
 | 2026-10-21 | APPROVED: narrow corrections to the existing 13 October listings, tests and tracker | Parker sold out; Hoofin cutoff/prices; prominent Goodson/Violet warnings; Spooky organizer provenance; zoo/Nick precision. [Source report](../docs/events-review-2026-10-21.md) |
-| 2026-10-21 | RETAIN FOR REVIEW: all 13 records; no additions/holds silently applied | Goodson and Violet retained with warnings visible in full and short cards; unresolved requirements stay explicit |
+| 2026-10-21 | HISTORICAL: initially retained all 13 records; superseded for Parker by the owner-requested removal below | Goodson and Violet retained with warnings visible in full and short cards; unresolved requirements stay explicit |
 | 2026-10-21 | RECOMMENDATION ONLY: Sagebrush playground warning and expansion park research | No park record/photo edits. [Preserved backlog](../docs/events-review-2026-10-21.md#future-research-backlog-front-range-expansion) |
 | 2026-10-21 | CONTENT PRIORITIES: October, November and December only | No new month/event content added by this correction pass |
 | 2026-10-21 | SEPARATELY APPROVED: four discovery improvements in a distinct draft PR | Correct weekend membership, wrap/stack existing mobile tiles, compact 2026 date control, and accurate park connections/contextual link. Preserve city/URL/history and park-first design. No new events/sections, merge or deploy; none implemented in PR #2 |
+| 2026-10-21 | OWNER REQUEST: remove sold-out Parker Trunk or Treat from the candidate | 12 active listings; source evidence retained only in held-back audit/report history. No replacement event, merge or deployment |
 
 ## Existing documentation and history
 

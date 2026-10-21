@@ -1,22 +1,24 @@
 # FindEveryPark: verification ledger
 
-Updated: **2026-10-21 (UTC)**. Scope: existing 13-event correction package, not whole-site certification.
+Updated: **2026-10-21 (UTC)**. Scope: 12 active listings after the owner-requested sold-out removal, not whole-site certification.
 
 ## Exact revision and results
 
+The owner-requested removal is a new code/data/test revision. Its exact SHA, terminal CI and screenshots are recorded in [PR final validation](https://github.com/townsendjat-arch/findeverypark/pull/2) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks). Historical results below do not establish a pass for the removal revision. Local shell execution became unavailable during this pass; no fresh local Node or browser pass is claimed. Exact-head CI is the execution evidence.
+
 | Evidence | Exact target | Result |
 | --- | --- | --- |
-| Corrected data/test CI, [run 39647133538](https://github.com/townsendjat-arch/findeverypark/actions/runs/39647133538) | `f8d14df84967f59d5dab8d06119485f000b8480a` | PASS: 48/48 Chromium + 48/48 Playwright WebKit, 96 browser checks; 14/14 Node in each job |
-| Local Node regression suite | Same corrected manifest/test content | PASS: 14 tests under UTC, America/Los_Angeles and Asia/Tokyo, 42 executions; zero failures/skips/cancellations |
-| Tracking/backlog-only descendant | Containing documentation revision, identified by [PR commits](https://github.com/townsendjat-arch/findeverypark/pull/2/commits) | Final exact SHA and terminal CI are recorded in [PR final validation](https://github.com/townsendjat-arch/findeverypark/pull/2) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks); do not infer a pass from the previous row |
+| Historical 13-listing corrected data/test CI, [run 39647133538](https://github.com/townsendjat-arch/findeverypark/actions/runs/39647133538) | `f8d14df84967f59d5dab8d06119485f000b8480a` | PASS: 48/48 Chromium + 48/48 Playwright WebKit, 96 browser checks; 14/14 Node in each job |
+| Historical local Node regression suite | Same corrected manifest/test content | PASS: 14 tests under UTC, America/Los_Angeles and Asia/Tokyo, 42 executions; zero failures/skips/cancellations |
+| Historical 13-listing final head | `382bacc9562142cb70385e937451e343c45f5686`, [run 39647715578](https://github.com/townsendjat-arch/findeverypark/actions/runs/39647715578) | PASS: 48/48 Chromium + 48/48 WebKit; superseded by the removal revision |
 | Historical baseline | `4785a254a2dc54f6b45e8b3356dd2cc54c6d33f6`, [run 39639996775](https://github.com/townsendjat-arch/findeverypark/actions/runs/39639996775) | PASS before corrections: 33/33 Chromium + 33/33 WebKit; not evidence for the corrected content |
 
 ## Correction and regression coverage
 
-- Node: original expiry/date/DST/status/provenance/park-ID/syntax checks, plus exact 13-record count, city distribution and audit/manifest equality; sold-out/no-registration rules; warning preservation in existing 118-character previews; Hoofin price bands/qualified cutoff/date-only expiry; direct organizer provenance; zoo age/infant/availability qualifications and precise wristband copy.
-- Chromium/WebKit: original city selection/history/aliases, calendar behavior, in-tab expiry, expanded schedules, homepage/city consistency, keyboard targets, no overflow and JavaScript errors; corrected Parker/Goodson/Violet/Hoofin/Spooky/zoo content and CTA checks; warning-card screenshots and short homepage/city-preview assertions.
+- Node: original expiry/date/DST/status/provenance/park-ID/syntax checks, plus exact 12-record count, city distribution and audit/manifest equality; removed-record absence and preserved source history; warning preservation in existing 118-character previews; Hoofin price bands/qualified cutoff/date-only expiry; direct organizer provenance; zoo age/infant/availability qualifications and precise wristband copy.
+- Chromium/WebKit: original city selection/history/aliases, calendar behavior, in-tab expiry, expanded schedules, homepage/city consistency, keyboard targets, no overflow and JavaScript errors; removed Parker absence across events/homepage/city previews, detached synthetic sold-out CTA coverage, and corrected Goodson/Violet/Hoofin/Spooky/zoo content; warning-card screenshots and short homepage/city-preview assertions.
 - Viewports: 1440x1000, 390x844 and 320x740, with visitor time zones different from Colorado. Events-main-content axe WCAG 2 A/AA and 2.1 AA checks cover Aurora and the corrected Parker/Centennial warning cards. This is not whole-site accessibility certification.
-- No layout/runtime/park-data changes were required. Existing badges and description prefixes convey the warnings, including shortened previews. Original 13 listings and three-card homepage cap remain.
+- No layout/runtime/park-data changes were required. Existing badges and description prefixes convey the warnings, including shortened previews. 12 active listings and the three-card homepage cap remain; complete removed-event evidence is retained outside the manifest.
 
 Commands and procedures: [event-system.md](../docs/event-system.md#regression-checks), [package.json](../package.json). Exact final results must come from the matching CI run, not anticipated test counts.
 
@@ -24,7 +26,7 @@ Commands and procedures: [event-system.md](../docs/event-system.md#regression-ch
 
 Fresh source review finished **October 21, 2026 at 17:21 UTC**. [Listing report](../docs/events-review-2026-10-21.md) and [JSON audit](../docs/events-source-review-2026-10-21.json) contain source URLs and precise limitations.
 
-- Parker attendee tickets were sold out at 17:18 UTC; listing is informational. Registration/calendar links omitted.
+- Parker attendee tickets were sold out at 17:18 UTC; the owner subsequently requested removal. The record is absent from the manifest and preserved only in audit/report history.
 - Goodson fee/booking/capacity unresolved; adult 18+ accompaniment confirmed. Violet Bridge family RSVP required but practical signup link/capacity unresolved. No free/walk-in assumptions.
 - Hoofin has conflicting 5:30/5:35 p.m. cutoffs, unknown under-4 participant price and unknown end. Adult $22.45 and ages 4–14 $17.15 totals verified. Date-only expiry is policy, not a closing time.
 - Spooky Streets now has direct organizer confirmation; earlier community-only qualification is superseded.
@@ -33,11 +35,11 @@ Fresh source review finished **October 21, 2026 at 17:21 UTC**. [Listing report]
 
 ## Screenshots and verification limits
 
-Corrected card and short-preview screenshots are generated by each browser job in the linked run, with seven-day artifact retention. Visual inspection of 320px full sold-out/RSVP/fee cards and shortened homepage/city cards confirmed readable wrapping and visible warnings. Final-head artifacts and validation are linked in the PR. A missing artifact is not a new pass.
+Corrected card and short-preview screenshots are generated by each browser job in the linked run, with seven-day artifact retention. Historical 13-listing screenshots confirmed readable warnings. New removal-head checks must separately establish the remaining RSVP/fee cards and absence of the removed event; synthetic sold-out test data is never published. Final-head artifacts and validation are linked in the PR. A missing artifact is not a new pass.
 
 - **UNVERIFIED:** physical iOS/Android, actual Safari application, VoiceOver/TalkBack and whole-site accessibility.
 - **BLOCKED locally:** the earlier browser attempt hit process-socket/isolated-preview restrictions. No local browser pass is claimed; browser validation uses the exact-head GitHub Actions checkout.
 - **NOT CLAIMED:** general production build/lint/typecheck, a release, live post-deployment validation, organizer contact or integration activation.
 - Existing workflow rechecked: PR-only, named review branch, contents-read, exact-head checkout with no retained credentials, no deployment step. Browser tests block external action/analytics traffic. Main-only Pages history is not proof of hidden account/webhook configuration.
 
-The final documentation update is separate from code/source verification and does not refresh `verifiedAt`. [TASKS](TASKS.md#open-blockers-and-approvals) remains authoritative for owner decisions, manual QA and release gates.
+The owner-requested removal does not refresh source `verifiedAt`. [TASKS](TASKS.md#open-blockers-and-approvals) remains authoritative for owner decisions, manual QA and release gates.

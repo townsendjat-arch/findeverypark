@@ -88,22 +88,23 @@ test('inline production JavaScript compiles', () => {
   }
 });
 
-test('correction pass keeps exactly the original 13 reviewed records and matches source audit', () => {
+test('candidate contains 12 reviewed records after requested sold-out removal and matches source audit', () => {
   const verified = data.events.filter(e => e.verifiedAt === '2026-10-21');
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
-  assert.equal(verified.length, 13);
+  assert.equal(verified.length, 12);
   assert.deepEqual(JSON.parse(JSON.stringify(verified)), audit.events);
-  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, parker:2, centennial:3 });
+  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, parker:1, centennial:3 });
 });
-test('Parker attendee sold-out status is explicit and not offered as registration', () => {
-  const event = data.events.find(e => e.id === 'parker-trunk-or-treat-mainstreet-2026-10-24');
-  assert.match(event.costLabel, /^SOLD OUT/);
-  assert.match(event.description, /^SOLD OUT: attendee tickets/);
-  assert.match(event.availabilityLabel, /Attendee tickets SOLD OUT/);
-  assert.equal(event.registrationUrl, undefined);
-  assert.equal(event.calendarDisabled, true);
-  assert.doesNotMatch(event.description, /reserve before going|inventory could not be verified/);
-  assert.ok(event.sourceUrls.includes('https://www.tickettailor.com/events/downtownparker/2450038'));
+test('removed sold-out Parker event survives only in source history', () => {
+  const id = 'parker-trunk-or-treat-mainstreet-2026-10-24';
+  assert.equal(data.events.some(e => e.id === id), false);
+  const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
+  assert.equal(audit.events.some(e => e.id === id), false);
+  const held = audit.heldBackEvents.find(item => item.event.id === id);
+  assert.ok(held);
+  assert.match(held.reason, /Owner requested removal/);
+  assert.match(held.event.availabilityLabel, /Attendee tickets SOLD OUT/);
+  assert.ok(held.event.sourceUrls.includes('https://www.tickettailor.com/events/downtownparker/2450038'));
 });
 test('Goodson and Violet warnings survive existing 118-character preview truncation', () => {
   const preview = e => e.description.length > 118 ? e.description.slice(0,115).replace(/\s+\S*$/, '') + '…' : e.description;

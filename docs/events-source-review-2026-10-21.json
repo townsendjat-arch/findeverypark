@@ -428,43 +428,6 @@
       ]
     },
     {
-      "id": "parker-trunk-or-treat-mainstreet-2026-10-24",
-      "city": "parker",
-      "title": "Trunk or Treat on Mainstreet",
-      "section": "holiday",
-      "recurring": false,
-      "description": "SOLD OUT: attendee tickets (checked Oct. 21). Information only; every child needs a timed ticket. Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m.",
-      "href": "https://www.downtownparker.com/trunkortreat/",
-      "locationLabel": "Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138",
-      "dateStart": "2026-10-24T13:00:00-06:00",
-      "dateEnd": "2026-10-24T17:00:00-06:00",
-      "dateLabel": "Saturday, October 24, 2026",
-      "timeLabel": "1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)",
-      "costLabel": "SOLD OUT — free timed tickets required for children",
-      "costType": "free",
-      "audienceLabel": "Families with children; sensory hour reserved for attendees with sensory sensitivities",
-      "sourceType": "organizer",
-      "status": "approved",
-      "verifiedAt": "2026-10-21",
-      "sourceUrls": [
-        "https://www.downtownparker.com/trunkortreat/",
-        "https://www.parker-station.com/",
-        "https://www.downtownparker.com/trunk-or-treat-attendee-policy",
-        "https://www.tickettailor.com/events/downtownparker/2450038"
-      ],
-      "evidenceNote": "Organizer and attendee policy confirm date, hours, location and child ticket rules. The linked Ticket Tailor attendee page explicitly showed Sold out on October 21, 2026 at 17:18 UTC.",
-      "timezone": "America/Denver",
-      "availabilityLabel": "Attendee tickets SOLD OUT on October 21, 2026. This is the attendee ticket status, separate from vendor spaces. No tickets are offered here.",
-      "registrationLabel": "Existing ticket holders: every child needs an individual 45-minute timed-entry ticket; adults do not need tickets.",
-      "nearbyParks": [
-        {
-          "id": "co-parker-o-brien-park",
-          "name": "O'Brien Park"
-        }
-      ],
-      "calendarDisabled": true
-    },
-    {
       "id": "parker-all-treats-no-tricks-2026-10-30",
       "city": "parker",
       "title": "All Treats, No Tricks: Sensory-Friendly Trick or Treat",
@@ -694,5 +657,48 @@
     }
   ],
   "sourceRecheckedAtUTC": "2026-10-21T17:21:35Z",
-  "correctionScope": "Existing 13 listings only; October 21 source-recheck corrections. No new events, park records, features or release approval."
+  "correctionScope": "12 active listings after owner-requested removal of sold-out Parker Trunk or Treat. Original 13-event source history preserved; no new events, park records, features or release approval.",
+  "heldBackEvents": [
+    {
+      "removedAt": "2026-10-21",
+      "reason": "Owner requested removal from the release candidate because attendee tickets are sold out. Preserved as source history only, not an active listing.",
+      "event": {
+        "id": "parker-trunk-or-treat-mainstreet-2026-10-24",
+        "city": "parker",
+        "title": "Trunk or Treat on Mainstreet",
+        "section": "holiday",
+        "recurring": false,
+        "description": "SOLD OUT: attendee tickets (checked Oct. 21). Information only; every child needs a timed ticket. Outdoor trick-or-treating with local businesses. Sensory-sensitive entry is 1–2 p.m.; general admission is 2–5 p.m.",
+        "href": "https://www.downtownparker.com/trunkortreat/",
+        "locationLabel": "Parker Station rear parking lot, 19751 Mainstreet, Parker, CO 80138",
+        "dateStart": "2026-10-24T13:00:00-06:00",
+        "dateEnd": "2026-10-24T17:00:00-06:00",
+        "dateLabel": "Saturday, October 24, 2026",
+        "timeLabel": "1–2 p.m. sensory hour; 2–5 p.m. general admission (America/Denver)",
+        "costLabel": "SOLD OUT — free timed tickets required for children",
+        "costType": "free",
+        "audienceLabel": "Families with children; sensory hour reserved for attendees with sensory sensitivities",
+        "sourceType": "organizer",
+        "status": "approved",
+        "verifiedAt": "2026-10-21",
+        "sourceUrls": [
+          "https://www.downtownparker.com/trunkortreat/",
+          "https://www.parker-station.com/",
+          "https://www.downtownparker.com/trunk-or-treat-attendee-policy",
+          "https://www.tickettailor.com/events/downtownparker/2450038"
+        ],
+        "evidenceNote": "Organizer and attendee policy confirm date, hours, location and child ticket rules. The linked Ticket Tailor attendee page explicitly showed Sold out on October 21, 2026 at 17:18 UTC.",
+        "timezone": "America/Denver",
+        "availabilityLabel": "Attendee tickets SOLD OUT on October 21, 2026. This is the attendee ticket status, separate from vendor spaces. No tickets are offered here.",
+        "registrationLabel": "Existing ticket holders: every child needs an individual 45-minute timed-entry ticket; adults do not need tickets.",
+        "nearbyParks": [
+          {
+            "id": "co-parker-o-brien-park",
+            "name": "O'Brien Park"
+          }
+        ],
+        "calendarDisabled": true
+      }
+    }
+  ]
 }
