@@ -6,10 +6,10 @@ Updated: **2026-10-21 (UTC)**. Discovery is a separate draft package stacked on 
 
 - **Implemented for review:** existing homepage preview now uses at most three actual, nonexpired weekend listings with a labeled Friday–Sunday Colorado window, prices and availability caveats; narrow intent tiles wrap; one Events date select combines with city/history; event anchors and verified host/optional nearby park links complete the existing journey.
 - **Independent diff:** branch `review/improve-event-discovery-2026` targets `review/activate-events-october-2026` at base `4247d0be71d913239a4a8cf42c8743218b1465b8`. This intentionally depends on PR #2's corrected content/runtime. No discovery edits were made on PR #2.
-- **Testing in progress:** local Node suites pass; exact published-head Chromium/WebKit and screenshot inspection must be recorded before claiming review-ready. See [TESTING](TESTING.md).
+- **Discovery ready for owner review:** code head `d8c57f4` passed 212 browser checks, 174 CI Node executions and 26 scoped axe audits; final screenshots inspected. This is not physical-device signoff. See [TESTING](TESTING.md).
 - **Not released/launch-ready:** no merge, deployment, integration activation, purchase or outside contact. Owner content/visual review, source recheck near publication and physical-device/assistive-technology disposition remain necessary.
 - **Scope preserved:** 11 active reviewed event records, existing 18 park datasets, park-first hero/city discovery and original preview placement. No new event, park, city dataset, homepage section or detail-page system. November/December views may be empty; no content has been invented.
-- **Next:** complete exact-head testing and visual review; report remaining issues. PR #2 correction/source gates below still apply independently. Sagebrush/expansion work remains research-only.
+- **Next:** owner review and manual-QA disposition. Pre-existing 320px homepage brand/kicker overlap remains outside the approved tile fix; physical-device/assistive-technology testing and release approval remain open. PR #2 correction/source gates below still apply independently. Sagebrush/expansion work remains research-only.
 
 
 Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
