@@ -109,6 +109,11 @@ async function check(name, callback) {
       await button.focus(); await page.keyboard.press('Enter');
       assert.equal(await button.getAttribute('aria-pressed'), 'true');
       for (const box of await page.locator('.event-filter-pill').evaluateAll(items => items.map(item => ({ width:item.getBoundingClientRect().width,height:item.getBoundingClientRect().height })))) assert.ok(box.height >= 44 && box.width >= 44);
+      // Audit the settled selected state, not an intermediate color cross-fade.
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+        await Promise.all(Array.from(document.querySelectorAll('.event-filter-pill')).flatMap(item => item.getAnimations().map(animation => animation.finished.catch(() => {}))));
+      });
       const audit = await new AxeBuilder({ page }).include('main').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
       fs.writeFileSync(path.join(output, `${engineName}-axe-${label}.json`), JSON.stringify(audit.violations, null, 2));
       assert.deepEqual(audit.violations.map(v => ({ id:v.id, impact:v.impact, nodes:v.nodes.length })), []);
