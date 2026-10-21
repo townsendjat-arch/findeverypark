@@ -81,7 +81,8 @@ async function check(name, callback) {
     });
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: path.join(output, `${engineName}-events-aurora-${label}.png`), fullPage: false });
-    await page.locator('[data-current="true"]:visible').first().scrollIntoViewIfNeeded();
+    await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details > summary').click();
+    await page.locator('[data-current="true"]:visible').first().evaluate(card => card.scrollIntoView({ block: 'start' }));
     await page.screenshot({ path: path.join(output, `${engineName}-event-cards-${label}.png`), fullPage: false });
     await check(`${label}: all requested city filters and back/forward`, async () => {
       for (const city of ['centennial','parker','denver','aurora']) {
@@ -116,9 +117,11 @@ async function check(name, callback) {
       await page.clock.setFixedTime(new Date('2026-10-24T18:59:30Z'));
       await page.goto(origin + '/events.html?city=aurora');
       assert.equal(await page.locator('[data-event-id="aurora-halloween-on-havana-2026"]').count(), 1);
+      await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details > summary').click();
       await page.clock.setFixedTime(new Date('2026-10-24T19:00:01Z'));
       await page.clock.fastForward('01:00');
       assert.equal(await page.locator('[data-event-id="aurora-halloween-on-havana-2026"]').count(), 0);
+      assert.equal(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details').getAttribute('open'), '');
       await page.clock.setFixedTime(new Date('2026-11-02T20:00:00Z'));
       await page.goto(origin + '/events.html?city=aurora');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);

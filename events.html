@@ -29,7 +29,7 @@
     :root {
       --ink: #1a1a18;
       --ink-light: #5a5a52;
-      --ink-faint: #9a9a90;
+      --ink-faint: #6b6b62;
       --rule: #e2e0d8;
       --bg: #f9f8f4;
       --bg-warm: #f2f0e8;
@@ -589,7 +589,8 @@
     }
     .event-title { overflow-wrap: anywhere; }
     .event-actions a { min-height: 44px; display: inline-flex; align-items: center; white-space: normal; }
-    .event-dates summary { min-height: 44px; padding: 10px 0; }
+    .event-dates summary { min-height: 44px; padding: 10px 0; color: var(--sunset-dark); }
+    .footer-note a { text-decoration: underline; text-underline-offset: 2px; }
     a:focus-visible, summary:focus-visible { outline: 3px solid var(--grass); outline-offset: 3px; }
     .event-card-header {
       margin-bottom: 6px;
@@ -1036,6 +1037,7 @@
   }
 
   function renderCommunitySection(events) {
+    if (!events || !events.length) return;
     var section = renderSectionShell(
       'Community Meetups',
       'Casual outdoor meetups from Find Every Park, Mighty Dads, and local park communities.'
