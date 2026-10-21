@@ -1,6 +1,6 @@
 # FindEveryPark: decision log
 
-Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize release or new events; discovery improvements have a separate bounded draft-PR approval.
+Updated: **2026-10-21 (UTC)**. The six-listing pumpkin draft and test-gated owner-only preview are approved; production release and the separate discovery PR remain distinct.
 
 ## Pumpkin implementation decision, October 21, 2026
 
@@ -12,6 +12,12 @@ The owner approved all six researched listings and the decision-first card struc
 - Keep Anderson's published dates as qualified research, never confirmed opening/availability. Exclude it from promotional previews while the conflict remains.
 - Miller's October 31 coverage endpoint is editorial; the organizer's approximate mid-November season end is not converted into an invented date.
 - Extend only the existing test workflow's branch allowlist, with no permission or deployment changes. Browser network tests remain read-only.
+
+### Follow-up review decisions
+
+- The owner approved updating only the existing owner-only preview after all release-related checks pass. No production deployment, merge, new preview host or wider access is authorized.
+- The owner accepted unchanged homepage tile overflow as a documented pre-existing main issue, still owned by PR #3. Compare the exact main baseline and preserve strict Events/preview-module mobile bounds; do not import the separate tile fix.
+- PR #4 is the six-listing review deliverable. Final content/visual approval, near-publication source checks, real-device/assistive-technology disposition and exact production release approval remain outstanding.
 
 ## Historical decisions before the pumpkin approval
 

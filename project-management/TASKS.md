@@ -4,12 +4,13 @@ Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles pa
 
 ## Current pumpkin draft status
 
-- **Implementation in progress:** six pumpkin decision cards in the existing Holiday & Seasonal Events experience; exactly 16 reviewed canonical records (the released 11 plus five new records, with Nick enriched in place).
-- Baseline verified **October 21, 2026 (UTC)**: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`, merged PR #2. New branch: `review/six-pumpkin-patches-2026`.
-- **Ready for launch: NO.** New draft PR, final-head CI, interactive preview/content review, manual-QA disposition, near-publication source checks and exact release approval are distinct gates. No merge/deploy authorized by implementation approval.
+- **Implemented; ready for owner review: YES**, subject to the containing revision’s exact-head checks: six pumpkin decision cards in the existing Holiday & Seasonal Events experience; exactly 16 reviewed canonical records (the released 11 plus five new records, with Nick enriched in place).
+- Baseline verified **October 21, 2026 (UTC)**: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`, merged PR #2. New branch: `review/six-pumpkin-patches-2026`; [draft PR #4](https://github.com/townsendjat-arch/findeverypark/pull/4).
+- **Ready for launch: NO.** Code/test head `968a4f8411db372b0d7f2e5bb40aa1ea1cc0121c` passed [run 39669630609](https://github.com/townsendjat-arch/findeverypark/actions/runs/39669630609). The owner approved an existing owner-only preview after checks; preview/content approval, manual-QA disposition, near-publication source checks and exact production release approval remain distinct gates. PR #4 is draft and unmerged; no production deployment has occurred.
 - **PR #3 remains separate:** `ceb3f2873eb79aea8b92c1082687ea68c82218f7` was not imported or changed. Its date/weekend/discovery features remain deferred here. Category + existing city/history is the bounded navigation change.
 - Anderson's conflicting closed banner stays visible in Events but excludes it from homepage/city recommendations. Miller's actual season end remains unknown; October 31 is an editorial verified-date coverage boundary, not a published closing date. Every other pricing/booking/cutoff uncertainty stays visible.
 - Current six-listing sources and data snapshot: [pumpkin source review](../docs/pumpkin-source-review-2026-10-21.json). The original 11-record source audit remains historical and unchanged.
+- Existing homepage overflow is unchanged from exact main (Chromium 436px; WebKit 434px at 320/390px), explicitly accepted as a separate PR #3 issue. Pumpkin Events and preview-module bounds pass.
 - Test results for the containing revision are tracked in [TESTING](TESTING.md) and its exact PR checks. Browser viewports are not physical iPhone, Android or assistive-technology signoff.
 
 ## Historical PR #2 status at the prior tracking update
