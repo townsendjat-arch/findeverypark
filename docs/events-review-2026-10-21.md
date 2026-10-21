@@ -2,11 +2,11 @@
 
 ## Scope and outcome
 
-12 active source-checked fall listings proposed: Aurora 5, Centennial 3, Parker 1, Denver 3. The original 13-event review is preserved; the owner requested removal of sold-out Parker Trunk or Treat. Research window: October 21–November 1, 2026. Dates below are Mountain Time. A published event does not guarantee registration capacity. No organizer was contacted.
+11 active source-checked fall listings proposed: Aurora 5, Centennial 3, Parker 0, Denver 3. The original 13-event review is preserved; the owner requested removal of sold-out Parker Trunk or Treat and holding Violet Bridge until a functioning RSVP route is verified. Research window: October 21–November 1, 2026. Dates below are Mountain Time. A published event does not guarantee registration capacity. No organizer was contacted.
 
 ## Listings and evidence
 
-Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The candidate now contains 12 listings after the owner's October 21 request to remove sold-out Parker Trunk or Treat. Its sources remain in the held-back history below, not the manifest. Goodson and Violet Bridge warnings lead their descriptions so they remain visible in short homepage/city previews as well as full cards. No unknown fee, end time or availability is inferred.
+Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The candidate now contains 11 listings after the owner's October 21 requests to remove sold-out Parker Trunk or Treat and hold Violet Bridge pending a functioning RSVP route. Both source records remain in held-back history below, not the manifest. Goodson retains prominent fee/booking warnings; Hoofin retains verified prices and qualified registration information. No unknown fee, end time or availability is inferred.
 
 ### Aurora
 
@@ -136,20 +136,7 @@ Fresh source verification finished **October 21, 2026 at 17:21 UTC**. The candid
 
 ### Parker
 
-#### All Treats, No Tricks: Sensory-Friendly Trick or Treat
-
-- Date: Friday, October 30, 2026
-- Hours (Mountain Time): 6–9:30 p.m. (America/Denver); costume parade at 8 p.m.
-- Where: Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138
-- Admission: Free; required family RSVP has no usable signup link
-- Audience: All kids and siblings; sensory-friendly, not restricted to children with disabilities
-- Description: Family RSVP required; signup link unavailable. Do not assume walk-in entry. Capacity unverified. Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.
-- Event details: https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/
-- Registration notes: Family RSVP required. No usable attendee signup link was found on the organizer page, including its expanded FAQ.
-- Availability: RSVP route and capacity unresolved as of October 21. Do not assume walk-in admission; confirm an RSVP with the organizer before attending.
-- Checked: 2026-10-21; source type: organizer
-- Evidence: Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.
-- Sources: https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/
+No active Parker events in this candidate. The sold-out and unresolved-RSVP records are retained only in the held-back history.
 
 ### Denver
 
@@ -222,6 +209,25 @@ Parker Trunk or Treat was removed on October 21 because attendee tickets were so
 - Sources: https://www.downtownparker.com/trunkortreat/ ; https://www.parker-station.com/ ; https://www.downtownparker.com/trunk-or-treat-attendee-policy ; https://www.tickettailor.com/events/downtownparker/2450038
 
 
+### Held pending functioning RSVP route
+
+Violet Bridge is held at the owner's October 21 request until a functioning family RSVP route is verified. It is not in the current manifest or any public-facing candidate listing. Preserved evidence follows; this does not establish availability.
+
+#### All Treats, No Tricks: Sensory-Friendly Trick or Treat
+
+- Date: Friday, October 30, 2026
+- Hours (Mountain Time): 6–9:30 p.m. (America/Denver); costume parade at 8 p.m.
+- Where: Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138
+- Admission: Free; required family RSVP has no usable signup link
+- Audience: All kids and siblings; sensory-friendly, not restricted to children with disabilities
+- Description: Family RSVP required; signup link unavailable. Do not assume walk-in entry. Capacity unverified. Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.
+- Event details: https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/
+- Registration notes: Family RSVP required. No usable attendee signup link was found on the organizer page, including its expanded FAQ.
+- Availability: RSVP route and capacity unresolved as of October 21. Do not assume walk-in admission; confirm an RSVP with the organizer before attending.
+- Checked: 2026-10-21; source type: organizer
+- Evidence: Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.
+- Sources: https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/
+
 ### Other held-back research
 
 - Fall Into Fun: Accessible city article is dated September 30, 2025; no 2026 city date verified. Source: https://www.auroragov.org/news/whats_new/fall_into_fun_event
@@ -254,7 +260,7 @@ Keep the existing three-card upcoming-events preview beneath park discovery. The
 - Desktop/mobile Chromium and WebKit checks plus screenshots run in a read-only review-branch-only GitHub Actions workflow. No deployment steps, credentials, purchases or external submissions. Final status is recorded in the PR; do not infer success from this document alone.
 - Local Chromium startup blocked by process socket restrictions; escalation failed during environment setup. Cloud browser could not access the isolated local server; file URL access is unsupported. No local visual pass claimed.
 - Real-device iOS/Android, VoiceOver/TalkBack and live ticket inventory remain unverified. Source changes/weather/cancellations require editorial rechecking.
-- Unknown facts remain labeled: Goodson fee/booking/capacity, Violet Bridge RSVP route/capacity, Hoofin end time/under-4 price/cutoff conflict and sampled zoo availability. Spooky Streets direct-organizer confirmation is now established. Parker attendee tickets were sold out and the owner requested removal; its record is preserved only in source history, not the manifest.
+- Unknown facts remain labeled: Goodson fee/booking/capacity, held Violet Bridge RSVP route/capacity, Hoofin end time/under-4 price/cutoff conflict and sampled zoo availability. Spooky Streets direct-organizer confirmation is now established. Parker attendee tickets were sold out and the owner requested removal; its record is preserved only in source history, not the manifest.
 
 ## Review and release
 

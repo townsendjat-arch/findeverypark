@@ -17,7 +17,8 @@ Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize
 | 2026-10-21 | RECOMMENDATION ONLY: Sagebrush playground warning and expansion park research | No park record/photo edits. [Preserved backlog](../docs/events-review-2026-10-21.md#future-research-backlog-front-range-expansion) |
 | 2026-10-21 | CONTENT PRIORITIES: October, November and December only | No new month/event content added by this correction pass |
 | 2026-10-21 | SEPARATELY APPROVED: four discovery improvements in a distinct draft PR | Correct weekend membership, wrap/stack existing mobile tiles, compact 2026 date control, and accurate park connections/contextual link. Preserve city/URL/history and park-first design. No new events/sections, merge or deploy; none implemented in PR #2 |
-| 2026-10-21 | OWNER REQUEST: remove sold-out Parker Trunk or Treat from the candidate | 12 active listings; source evidence retained only in held-back audit/report history. No replacement event, merge or deployment |
+| 2026-10-21 | OWNER REQUEST: remove sold-out Parker Trunk or Treat from the candidate | 12 active listings at that checkpoint; source evidence retained only in held-back audit/report history. No replacement event, merge or deployment |
+| 2026-10-21 | OWNER DECISION: hold Violet Bridge until a functioning RSVP route is verified; keep Goodson warnings and Hoofin qualifications | Final candidate has 11 active listings. Both Parker records remain in held-back history only; no new listings, merge or deploy |
 
 ## Existing documentation and history
 

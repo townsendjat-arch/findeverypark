@@ -428,39 +428,6 @@
       ]
     },
     {
-      "id": "parker-all-treats-no-tricks-2026-10-30",
-      "city": "parker",
-      "title": "All Treats, No Tricks: Sensory-Friendly Trick or Treat",
-      "section": "holiday",
-      "recurring": false,
-      "description": "Family RSVP required; signup link unavailable. Do not assume walk-in entry. Capacity unverified. Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.",
-      "href": "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/",
-      "locationLabel": "Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138",
-      "dateStart": "2026-10-30T18:00:00-06:00",
-      "dateEnd": "2026-10-30T21:30:00-06:00",
-      "dateLabel": "Friday, October 30, 2026",
-      "timeLabel": "6–9:30 p.m. (America/Denver); costume parade at 8 p.m.",
-      "costLabel": "Free; required family RSVP has no usable signup link",
-      "costType": "free",
-      "audienceLabel": "All kids and siblings; sensory-friendly, not restricted to children with disabilities",
-      "sourceType": "organizer",
-      "status": "approved",
-      "verifiedAt": "2026-10-21",
-      "sourceUrls": [
-        "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/"
-      ],
-      "evidenceNote": "Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.",
-      "timezone": "America/Denver",
-      "availabilityLabel": "RSVP route and capacity unresolved as of October 21. Do not assume walk-in admission; confirm an RSVP with the organizer before attending.",
-      "registrationLabel": "Family RSVP required. No usable attendee signup link was found on the organizer page, including its expanded FAQ.",
-      "nearbyParks": [
-        {
-          "id": "co-parker-challenger-regional-park",
-          "name": "Challenger Regional Park"
-        }
-      ]
-    },
-    {
       "city": "centennial",
       "title": "Trick-or-Treat Street at Goodson",
       "dateStart": "2026-10-23T16:00:00-06:00",
@@ -657,7 +624,7 @@
     }
   ],
   "sourceRecheckedAtUTC": "2026-10-21T17:21:35Z",
-  "correctionScope": "12 active listings after owner-requested removal of sold-out Parker Trunk or Treat. Original 13-event source history preserved; no new events, park records, features or release approval.",
+  "correctionScope": "11 active listings after owner-requested removal of sold-out Parker Trunk or Treat and hold of Violet Bridge pending a functioning RSVP route. Original 13-event source history preserved; no new events, park records, features or release approval.",
   "heldBackEvents": [
     {
       "removedAt": "2026-10-21",
@@ -698,6 +665,43 @@
           }
         ],
         "calendarDisabled": true
+      }
+    },
+    {
+      "removedAt": "2026-10-21",
+      "reason": "Owner requested hold until a functioning family RSVP route is verified. Preserved as source history only, not an active listing.",
+      "event": {
+        "id": "parker-all-treats-no-tricks-2026-10-30",
+        "city": "parker",
+        "title": "All Treats, No Tricks: Sensory-Friendly Trick or Treat",
+        "section": "holiday",
+        "recurring": false,
+        "description": "Family RSVP required; signup link unavailable. Do not assume walk-in entry. Capacity unverified. Indoor, relaxed trick-or-treating with treat-bag decorating and an optional 8 p.m. costume parade. All kids and siblings are welcome. Event rooms are upstairs with elevator access; non-food goodies are expected at most provider tables.",
+        "href": "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/",
+        "locationLabel": "Douglas County Library: Parker, 20105 East Mainstreet, Parker, CO 80138",
+        "dateStart": "2026-10-30T18:00:00-06:00",
+        "dateEnd": "2026-10-30T21:30:00-06:00",
+        "dateLabel": "Friday, October 30, 2026",
+        "timeLabel": "6–9:30 p.m. (America/Denver); costume parade at 8 p.m.",
+        "costLabel": "Free; required family RSVP has no usable signup link",
+        "costType": "free",
+        "audienceLabel": "All kids and siblings; sensory-friendly, not restricted to children with disabilities",
+        "sourceType": "organizer",
+        "status": "approved",
+        "verifiedAt": "2026-10-21",
+        "sourceUrls": [
+          "https://violetbridgefoundation.org/events/all-treats-no-tricks-sensory-friendly-trick-or-treat/"
+        ],
+        "evidenceNote": "Organizer page explicitly provides year, full address, free admission, RSVP requirement, indoor location, ages and accessibility.",
+        "timezone": "America/Denver",
+        "availabilityLabel": "RSVP route and capacity unresolved as of October 21. Do not assume walk-in admission; confirm an RSVP with the organizer before attending.",
+        "registrationLabel": "Family RSVP required. No usable attendee signup link was found on the organizer page, including its expanded FAQ.",
+        "nearbyParks": [
+          {
+            "id": "co-parker-challenger-regional-park",
+            "name": "Challenger Regional Park"
+          }
+        ]
       }
     }
   ]

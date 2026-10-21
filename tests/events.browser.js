@@ -89,14 +89,14 @@ async function check(name, callback) {
         await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
         assert.equal(new URL(page.url()).searchParams.get('city'), city);
         const visible = page.locator('[data-current="true"]:visible');
-        assert.ok(await visible.count() > 0, city);
+        assert.equal(await visible.count(), ({centennial:3,parker:0,denver:3,aurora:5})[city], city);
         assert.ok((await visible.evaluateAll(items => items.map(e => e.dataset.city))).every(value => value === city));
       }
       await page.goBack(); assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Denver');
       await page.goForward(); assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Aurora');
       await page.locator('.event-filter-pill[data-city=""]').click();
       assert.equal(new URL(page.url()).searchParams.has('city'), false);
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 12);
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 11);
     });
     await check(`${label}: empty city and hyphen alias`, async () => {
       await page.goto(origin + '/events.html?city=highlands-ranch');
@@ -144,17 +144,21 @@ async function check(name, callback) {
       await page.locator('.home-events').scrollIntoViewIfNeeded();
       await page.screenshot({ path: path.join(output, `${engineName}-homepage-events-${label}.png`), fullPage: false });
     });
-    await check(`${label}: Parker has only the remaining RSVP listing after sold-out removal`, async () => {
+    await check(`${label}: Parker is empty after sold-out removal and unresolved RSVP hold`, async () => {
+      for (const url of ['/events.html?city=parker','/index.html?city=parker','/best-parks-parker.html']) {
+        await page.goto(origin + url);
+        for (const title of ['Trunk or Treat on Mainstreet','All Treats, No Tricks: Sensory-Friendly Trick or Treat']) {
+          assert.equal(await page.getByText(title, {exact:true}).count(), 0);
+        }
+        if (url.startsWith('/events.html')) {
+          assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
+          assert.ok(await page.locator('#empty-city').isVisible());
+          await page.screenshot({path:path.join(output,`${engineName}-parker-empty-${label}.png`),fullPage:false});
+        }
+        if (url.startsWith('/best-parks-')) assert.equal(await page.locator('.city-event-card:visible').count(), 0);
+      }
       await page.goto(origin + '/events.html?city=parker');
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 1);
-      assert.equal(await page.locator('[data-event-id="parker-trunk-or-treat-mainstreet-2026-10-24"]').count(), 0);
-      assert.equal(await page.getByText('Trunk or Treat on Mainstreet', {exact:true}).count(), 0);
-      const violet = page.locator('[data-event-id="parker-all-treats-no-tricks-2026-10-30"]');
-      assert.match(await violet.locator('.free-badge').textContent(), /required family RSVP has no usable signup link/);
-      assert.match(await violet.locator('.event-description').first().textContent(), /^Family RSVP required; signup link unavailable\. Do not assume walk-in entry/);
-      assert.equal(await violet.locator('a:has-text("Registration")').count(), 0);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      await violet.screenshot({ path:path.join(output, `${engineName}-rsvp-warning-${label}.png`) });
     });
     await check(`${label}: synthetic sold-out fixture has no registration or calendar CTA`, async () => {
       const rendered = await page.evaluate(() => {
@@ -171,6 +175,23 @@ async function check(name, callback) {
       assert.equal(rendered.links.some(a => /Registration|Add to Calendar/.test(a.text)), false);
       assert.equal(rendered.links.some(a => /calendar\.google|tickettailor/.test(a.href)), false);
       assert.equal(await page.locator('[data-event-id="synthetic-sold-out"]').count(), 0);
+    });
+    await check(`${label}: synthetic RSVP warning remains prominent without publishing held events`, async () => {
+      const rendered = await page.evaluate(() => {
+        const card = renderEventDetails({event:{
+          id:'synthetic-rsvp-warning', city:'parker', title:'Synthetic RSVP warning',
+          description:'Family RSVP required; signup link unavailable. Do not assume walk-in entry.',
+          costLabel:'Free; required family RSVP has no usable signup link', costType:'free',
+          registrationLabel:'Family RSVP required; no usable attendee signup link verified.',
+          dateStart:'2026-10-30T18:00:00-06:00', dateEnd:'2026-10-30T21:30:00-06:00'
+        }});
+        return {text:card.textContent, badge:card.querySelector('.free-badge').textContent,
+          links:Array.from(card.querySelectorAll('a')).map(a=>a.textContent)};
+      });
+      assert.match(rendered.badge,/required family RSVP has no usable signup link/);
+      assert.match(rendered.text,/Do not assume walk-in entry/);
+      assert.equal(rendered.links.includes('Registration'),false);
+      assert.equal(await page.locator('[data-event-id="synthetic-rsvp-warning"]').count(),0);
     });
     await check(`${label}: Centennial unknowns, Hoofin price/cutoff and organizer correction`, async () => {
       await page.goto(origin + '/events.html?city=centennial');
@@ -212,7 +233,6 @@ async function check(name, callback) {
     });
     await check(`${label}: short homepage and city previews retain material warnings`, async () => {
       for (const [city,title,warning] of [
-        ['parker','All Treats, No Tricks',/Family RSVP required; signup link unavailable\. Do not assume walk-in entry/],
         ['centennial','Trick-or-Treat Street at Goodson',/Fee and booking rules unverified/]
       ]) {
         for (const [url,prefix] of [['/index.html?city='+city,'home'],['/best-parks-'+city+'.html','city']]) {

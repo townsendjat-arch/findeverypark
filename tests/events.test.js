@@ -88,31 +88,36 @@ test('inline production JavaScript compiles', () => {
   }
 });
 
-test('candidate contains 12 reviewed records after requested sold-out removal and matches source audit', () => {
+test('candidate contains 11 reviewed records after requested removal and hold and matches source audit', () => {
   const verified = data.events.filter(e => e.verifiedAt === '2026-10-21');
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
-  assert.equal(verified.length, 12);
+  assert.equal(verified.length, 11);
   assert.deepEqual(JSON.parse(JSON.stringify(verified)), audit.events);
-  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, parker:1, centennial:3 });
+  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, centennial:3 });
 });
-test('removed sold-out Parker event survives only in source history', () => {
-  const id = 'parker-trunk-or-treat-mainstreet-2026-10-24';
-  assert.equal(data.events.some(e => e.id === id), false);
+test('removed sold-out and held RSVP events survive only in source history', () => {
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
-  assert.equal(audit.events.some(e => e.id === id), false);
-  const held = audit.heldBackEvents.find(item => item.event.id === id);
-  assert.ok(held);
-  assert.match(held.reason, /Owner requested removal/);
-  assert.match(held.event.availabilityLabel, /Attendee tickets SOLD OUT/);
-  assert.ok(held.event.sourceUrls.includes('https://www.tickettailor.com/events/downtownparker/2450038'));
+  for (const [id, reason] of [
+    ['parker-trunk-or-treat-mainstreet-2026-10-24', /Owner requested removal/],
+    ['parker-all-treats-no-tricks-2026-10-30', /Owner requested hold until a functioning family RSVP route/]
+  ]) {
+    assert.equal(data.events.some(e => e.id === id), false);
+    assert.equal(audit.events.some(e => e.id === id), false);
+    const held = audit.heldBackEvents.find(item => item.event.id === id);
+    assert.ok(held);
+    assert.match(held.reason, reason);
+    assert.ok(held.event.sourceUrls.length > 0);
+  }
+  assert.equal(audit.heldBackEvents.length, 2);
 });
-test('Goodson and Violet warnings survive existing 118-character preview truncation', () => {
+test('Goodson and historical RSVP warnings survive existing 118-character preview truncation', () => {
   const preview = e => e.description.length > 118 ? e.description.slice(0,115).replace(/\s+\S*$/, '') + '…' : e.description;
   const goodson = data.events.find(e => e.id === 'centennial-goodson-trick-or-treat-2026');
   assert.equal(goodson.costType, 'unknown');
   assert.match(preview(goodson), /Fee and booking rules unverified/);
   assert.match(preview(goodson), /Adult 18\+ must accompany children/);
-  const violet = data.events.find(e => e.id === 'parker-all-treats-no-tricks-2026-10-30');
+  const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
+  const violet = audit.heldBackEvents.find(item => item.event.id === 'parker-all-treats-no-tricks-2026-10-30').event;
   assert.match(preview(violet), /Family RSVP required; signup link unavailable/);
   assert.match(preview(violet), /Do not assume walk-in entry/);
   assert.equal(violet.registrationUrl, undefined);
