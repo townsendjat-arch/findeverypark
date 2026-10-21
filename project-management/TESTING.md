@@ -1,51 +1,43 @@
 # FindEveryPark: verification ledger
 
-Evidence checked: **2026-10-21 (UTC)**. Scope: the proposed events package, not a whole-site production-readiness certification.
+Updated: **2026-10-21 (UTC)**. Scope: existing 13-event correction package, not whole-site certification.
 
 ## Exact revision and results
 
 | Evidence | Exact target | Result |
 | --- | --- | --- |
-| Browser CI, [run 39636336535](https://github.com/townsendjat-arch/findeverypark/actions/runs/39636336535) | `7d9fcd5b52ae63b3987e829d09810527392f9b5f`, [PR #2](https://github.com/townsendjat-arch/findeverypark/pull/2) | PASS: 33/33 Chromium + 33/33 Playwright WebKit, 66 browser checks total |
-| Local Node regression suite, recorded in PR #2 | Same code-tested commit | PASS: 9 tests under each of UTC, America/Los_Angeles and Asia/Tokyo, 27 executions; not 27 distinct tests |
-| New tracking revision | Documentation-only descendant of `7d9fcd5b52ae63b3987e829d09810527392f9b5f` | Distinct SHA; earlier run does not prove its own CI. See [current commits](https://github.com/townsendjat-arch/findeverypark/pull/2/commits) and [current checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks) |
+| Corrected data/test CI, [run 39647133538](https://github.com/townsendjat-arch/findeverypark/actions/runs/39647133538) | `f8d14df84967f59d5dab8d06119485f000b8480a` | PASS: 48/48 Chromium + 48/48 Playwright WebKit, 96 browser checks; 14/14 Node in each job |
+| Local Node regression suite | Same corrected manifest/test content | PASS: 14 tests under UTC, America/Los_Angeles and Asia/Tokyo, 42 executions; zero failures/skips/cancellations |
+| Tracking/backlog-only descendant | Containing documentation revision, identified by [PR commits](https://github.com/townsendjat-arch/findeverypark/pull/2/commits) | Final exact SHA and terminal CI are recorded in [PR final validation](https://github.com/townsendjat-arch/findeverypark/pull/2) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks); do not infer a pass from the previous row |
+| Historical baseline | `4785a254a2dc54f6b45e8b3356dd2cc54c6d33f6`, [run 39639996775](https://github.com/townsendjat-arch/findeverypark/actions/runs/39639996775) | PASS before corrections: 33/33 Chromium + 33/33 WebKit; not evidence for the corrected content |
 
-## Passed scope
+## Correction and regression coverage
 
-- Node: exact ends, date-only expiry, future/multi-day events, repeated DST hour, nonexistent spring time, invalid/pending/cancelled records, source provenance, park IDs and syntax, independent of visitor time zone.
-- Chromium/WebKit at 1440x1000, 390x844 and 320x740: four-city selection, aliases/history, no horizontal overflow, hours/registration/park links, calendar output, expiry in an open tab, retained expanded schedules, homepage/city consistency, 44px filter targets, keyboard use and no uncaught JavaScript errors.
-- Scoped axe WCAG 2 A/AA and 2.1 AA checks on events-page main content in both engines at all three widths: no reported violations. Earlier contrast findings were corrected; WebKit checks wait for existing color transitions to finish. This is not whole-site WCAG certification.
-- The existing park-first homepage placement, three-card preview cap, map and hosting configuration were preserved.
+- Node: original expiry/date/DST/status/provenance/park-ID/syntax checks, plus exact 13-record count, city distribution and audit/manifest equality; sold-out/no-registration rules; warning preservation in existing 118-character previews; Hoofin price bands/qualified cutoff/date-only expiry; direct organizer provenance; zoo age/infant/availability qualifications and precise wristband copy.
+- Chromium/WebKit: original city selection/history/aliases, calendar behavior, in-tab expiry, expanded schedules, homepage/city consistency, keyboard targets, no overflow and JavaScript errors; corrected Parker/Goodson/Violet/Hoofin/Spooky/zoo content and CTA checks; warning-card screenshots and short homepage/city-preview assertions.
+- Viewports: 1440x1000, 390x844 and 320x740, with visitor time zones different from Colorado. Events-main-content axe WCAG 2 A/AA and 2.1 AA checks cover Aurora and the corrected Parker/Centennial warning cards. This is not whole-site accessibility certification.
+- No layout/runtime/park-data changes were required. Existing badges and description prefixes convey the warnings, including shortened previews. Original 13 listings and three-card homepage cap remain.
 
-Commands and maintenance procedure: [event-system.md](../docs/event-system.md#regression-checks). Detailed changes and test limitations: [events review](../docs/events-review-2026-10-21.md#tests-and-limits). Do not duplicate the complete research or test narrative here.
+Commands and procedures: [event-system.md](../docs/event-system.md#regression-checks), [package.json](../package.json). Exact final results must come from the matching CI run, not anticipated test counts.
 
-## Source verification is separate from software tests
+## Source verification is separate
 
-The [dated source report](../docs/events-review-2026-10-21.md) and [JSON audit](../docs/events-source-review-2026-10-21.json) record 13 proposed listings checked on 2026-10-21 for the October 21-November 1 window: Aurora 5, Centennial 3, Parker 2, Denver 3. Event times are America/Denver. This tracker does not represent a new independent source recheck.
+Fresh source review finished **October 21, 2026 at 17:21 UTC**. [Listing report](../docs/events-review-2026-10-21.md) and [JSON audit](../docs/events-source-review-2026-10-21.json) contain source URLs and precise limitations.
 
-Important unresolved qualifications:
+- Parker attendee tickets were sold out at 17:18 UTC; listing is informational. Registration/calendar links omitted.
+- Goodson fee/booking/capacity unresolved; adult 18+ accompaniment confirmed. Violet Bridge family RSVP required but practical signup link/capacity unresolved. No free/walk-in assumptions.
+- Hoofin has conflicting 5:30/5:35 p.m. cutoffs, unknown under-4 participant price and unknown end. Adult $22.45 and ages 4–14 $17.15 totals verified. Date-only expiry is policy, not a closing time.
+- Spooky Streets now has direct organizer confirmation; earlier community-only qualification is superseded.
+- Zoo selectors were sampled only for October 23 and 31 at 4:30 p.m.; quantity options are not guaranteed capacity. Organizer 4:30–9 p.m. schedule retained and conflicting 10 p.m. ticket heading disclosed.
+- No new inventory guarantee, reservation, organizer contact or cancellation/weather guarantee. Future source checks remain necessary near publication.
 
-- Goodson Halloween event admission/registration requirements remain unknown.
-- Hoofin's end time is unpublished; the date-only expiry is policy, not a claimed closing time. Calendar export is disabled. Child processing fee remains unspecified.
-- Spooky Streets has a dated community-calendar source and participating-gallery corroboration; the direct organizer page was inaccessible, so strict independent 2026 organizer verification was not achieved.
-- Registration links do not verify available tickets. Capacity, weather, cancellations, price changes and late organizer updates remain time-sensitive.
-- Held-back candidates in the source report are not verified current listings and must not be promoted merely because the code tests pass.
+## Screenshots and verification limits
 
-## Screenshots and evidence retention
+Corrected card and short-preview screenshots are generated by each browser job in the linked run, with seven-day artifact retention. Visual inspection of 320px full sold-out/RSVP/fee cards and shortened homepage/city cards confirmed readable wrapping and visible warnings. Final-head artifacts and validation are linked in the PR. A missing artifact is not a new pass.
 
-Desktop/mobile event headers/cards, homepage and preview screenshots are in the Chromium/WebKit artifacts attached to [run 39636336535](https://github.com/townsendjat-arch/findeverypark/actions/runs/39636336535), with seven-day retention, expected through 2026-10-28. Selected screenshots were delivered separately for review. Retain needed evidence through an authorized destination before expiry; a missing artifact is not a new pass.
+- **UNVERIFIED:** physical iOS/Android, actual Safari application, VoiceOver/TalkBack and whole-site accessibility.
+- **BLOCKED locally:** the earlier browser attempt hit process-socket/isolated-preview restrictions. No local browser pass is claimed; browser validation uses the exact-head GitHub Actions checkout.
+- **NOT CLAIMED:** general production build/lint/typecheck, a release, live post-deployment validation, organizer contact or integration activation.
+- Existing workflow rechecked: PR-only, named review branch, contents-read, exact-head checkout with no retained credentials, no deployment step. Browser tests block external action/analytics traffic. Main-only Pages history is not proof of hidden account/webhook configuration.
 
-## Unverified or blocked
-
-- Physical iOS/Android devices, VoiceOver/TalkBack, and live registration inventory are unverified. Playwright WebKit is not the Safari application or a physical Apple device.
-- Local browser startup was blocked by process-socket restrictions; the isolated local server was not reachable from the cloud preview browser. No local visual pass is claimed. Exact-head browser tests ran on GitHub Actions instead.
-- No general production build, lint, typecheck or whole-site audit is claimed. The configured commands are the Node and browser suites in [package.json](../package.json).
-- No release, live-site post-deployment verification, organizer contact or integration activation occurred.
-
-## Documentation revision and future verification
-
-Prepublication validation on 2026-10-21 (UTC) passed: exactly the four requested new Markdown paths, 43 valid relative-link targets, clean whitespace, and no edits to existing production/workflow/report files. The nine Node tests passed again under UTC, America/Los_Angeles and Asia/Tokyo with the docs present: 27 executions, no failures/skips/cancellations. These local checks are not a new browser run. Read current remote head before publishing to preserve concurrent work. Git history identifies the containing docs revision without confusing it with the earlier tested code.
-
-The existing [review workflow](../.github/workflows/events-review-tests.yml) is PR-only, restricted to the named review branch, contents-read, with no retained checkout credentials or deployment step. Browser tests block external actions/analytics. Observed Pages history is main-only; account-level settings/hidden webhooks were not audited. After publishing docs, wait for that exact head's triggered CI and report it separately. Future code/data changes or rebases require new exact-head tests; source `verifiedAt` changes require actual source rechecking.
-
-Use [TASKS.md](TASKS.md#open-blockers-and-approvals) for remaining approval/manual/source/release gates. Passing the scoped suite means ready for bounded review, not launched or generally production-ready.
+The final documentation update is separate from code/source verification and does not refresh `verifiedAt`. [TASKS](TASKS.md#open-blockers-and-approvals) remains authoritative for owner decisions, manual QA and release gates.

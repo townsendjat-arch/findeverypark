@@ -1,53 +1,55 @@
 # FindEveryPark: tasks and release gates
 
-Last verified: **2026-10-21 (UTC)**. Charles's flooring website remains Priority #1; this package is reviewed separately.
+Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
 
 ## Current status
 
-- **Ready for owner review: YES**, as a bounded events package with the documented source/manual-QA caveats. Final owner content approval is pending.
-- **Ready for launch: NO.** Review/disposition of remaining uncertainties, manual QA and explicit release approval are still needed.
-- **Released from this review package: NO.** [PR #2](https://github.com/townsendjat-arch/findeverypark/pull/2) remains draft and unmerged. Implemented changes are not live functionality.
-- Existing branch: `review/activate-events-october-2026`; code-tested commit: `7d9fcd5b52ae63b3987e829d09810527392f9b5f`.
-- Observed `main`: `4cc92478c04cd281dc8d0cd2eab4b9f5627f8579`, last deployed by [2026-07-10 Pages run 29118368222](https://github.com/townsendjat-arch/findeverypark/actions/runs/29118368222). That is not this events package.
-- The four-file tracking addition is documentation-only and creates a distinct head. [PR commits](https://github.com/townsendjat-arch/findeverypark/pull/2/commits) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks) identify the current exact revision and its own result, separately from the code-tested baseline above.
+- **Ready for owner review: YES**, subject to the exact-head test results in [TESTING](TESTING.md) and [PR #2](https://github.com/townsendjat-arch/findeverypark/pull/2). The correction pass retains 13 listings: Aurora 5, Centennial 3, Parker 2, Denver 3.
+- **Ready for launch: NO.** Content/visual approval, manual-QA disposition, near-publication source checks and explicit release authorization remain outstanding.
+- **Released: NO.** PR #2 remains draft and unmerged. Main remains `4cc92478c04cd281dc8d0cd2eab4b9f5627f8579`; this package is not the [July 10 Pages deployment](https://github.com/townsendjat-arch/findeverypark/actions/runs/29118368222).
+- Branch: `review/activate-events-october-2026`. Corrected data/test revision: `f8d14df84967f59d5dab8d06119485f000b8480a`. A following tracking/backlog-only revision has its own SHA and CI, recorded in the [PR's final validation](https://github.com/townsendjat-arch/findeverypark/pull/2) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks). Earlier runs do not establish later-head success.
 
 ## Status index
 
-- **Completed:** the events implementation, source review, scoped tests and tracking work listed below. None of this review package is marked released.
-- **In Progress:** no design or feature implementation. Current documentation-revision CI status is shown in [PR checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks).
-- **Pending:** near-publication source/inventory rechecks (F3), physical-device/assistive-technology QA (F4), and post-release verification after an authorized release (F6).
-- **Blocked:** launch remains blocked until the source/manual-QA gates and required approvals (F1-F5) are resolved or explicitly dispositioned; passing CI alone cannot clear them.
-- **Awaiting Approval:** final content/visual review (F1), source-uncertainty disposition (F2), and exact-candidate merge/deployment (F5). Gate details below remain authoritative.
+- **Completed:** the bounded corrections below, new regression coverage, dated source report/audit, and preservation of expansion research. No new event or discovery feature added.
+- **In Progress:** exact-head validation is recorded in the verification ledger and PR; no additional implementation is implied by this tracker.
+- **Pending:** publication-adjacent source/inventory checks, physical-device/assistive-technology QA and eventual post-release verification.
+- **Blocked:** launch until the gates below are completed or explicitly dispositioned and release is approved.
+- **Awaiting Approval:** final content/visual review, manual-QA risk disposition and exact-candidate merge/deployment. Sagebrush park-data correction and event expansion need separate approval. The four approved discovery improvements belong only in a separate draft PR.
 
-## Completed development and source review
+## Completed correction scope
 
-| Item | Development/review state | Release state | Evidence |
-| --- | --- | --- | --- |
-| October 21-November 1 event research | 13 source-checked proposed listings: Aurora 5, Centennial 3, Parker 2, Denver 3 | Not launched; caveats and content approval remain | [Listing/source report](../docs/events-review-2026-10-21.md), [structured audit](../docs/events-source-review-2026-10-21.json) |
-| City selection and mobile behavior | URL aliases/history, current-only counts, empty states, keyboard/pressed state and 44px targets fixed and tested | Not launched | [Testing ledger](TESTING.md) |
-| Expiry and calendar behavior | Shared America/Denver rules, exact/date-only expiry, DST, invalid-date handling and multi-session calendar behavior fixed and tested | Not launched | [Maintenance guide](../docs/event-system.md), tests |
-| Existing homepage preview | Three-card preview remains below park discovery; shares manifest/expiry with city and events pages | Proposed changes not launched; no homepage redesign | [Review recommendation](../docs/events-review-2026-10-21.md#homepage-recommendation) |
-| Browser/accessibility checks | 33/33 Chromium and 33/33 WebKit; scoped axe reported no violations | Not whole-site or real-device signoff | [Testing ledger](TESTING.md) |
-| Project tracking | Four requested files added on the existing review branch; detailed reports preserved | Documentation only | [Maintenance instructions](../LINK-INSTRUCTIONS.md) |
+| Item | Corrected state | Evidence / release limit |
+| --- | --- | --- |
+| Parker Trunk or Treat | Prominent SOLD OUT in existing badge and first description sentence; attendee status, not vendor status. Registration/calendar CTAs removed; informational organizer link retained | Ticket Tailor checked October 21 at 17:18 UTC. No ticket availability claim |
+| Hoofin' 5K | 5:30/5:35 p.m. cutoff conflict explicitly qualified; adult $22.45 and ages 4–14 $17.15 totals retained | Under-4 participant price and end unknown; date-only expiry and no calendar export preserved |
+| Goodson | Fee/booking uncertainty in badge and preview-leading copy; adult 18+ accompaniment stated | Registration access denied; fee/rules/capacity unresolved. Not labeled free or walk-in |
+| Violet Bridge | Required family RSVP and missing signup link in badge and preview-leading copy | Capacity unresolved; expressly no assumed walk-in admission |
+| Spooky Streets | Direct organizer URL/provenance now confirms October 23, 4:30–7:30 p.m., free, Commons Park along Commons Avenue | Prior organizer-source blocker resolved; no public-park classification inferred |
+| Zoo and Nick's | Youth ages 3–15, free infant timed-ticket requirement, narrowly sampled availability and ticket-heading conflict qualified; wristband is one use each of four named attractions | No inventory guarantee or unlimited-ride implication |
+| Scope preserved | Existing 13 records, legacy archive, city filters, expiry/DST behavior, park-first homepage and three-card cap | No layout/runtime, park-record, workflow, hosting, discovery or new-event changes |
+
+Full sources and qualifications: [existing listing report](../docs/events-review-2026-10-21.md), [structured audit](../docs/events-source-review-2026-10-21.json). Software evidence: [TESTING](TESTING.md). Retaining Goodson and Violet Bridge is recommended because the unresolved requirements are visible on both full and shortened cards, not hidden behind expansion or a booking CTA. These unknowns are not claimed resolved.
 
 ## Open blockers and approvals
 
 | ID | Gate and next action | Needed evidence/decision |
 | --- | --- | --- |
-| F1 | Owner review of the event content, presentation and existing PR package | Content/visual approval with the source qualifications below retained |
-| F2 | Resolve or explicitly accept honest labeling of Goodson admission/registration, Hoofin's unpublished end and child processing fee, and Spooky Streets' community-source basis | Do not invent price, closing time or organizer verification. Hoofin uses date-only expiry and no calendar export; Spooky Streets' direct organizer page was inaccessible |
-| F3 | Recheck time-sensitive sources near publication/event dates | Weather/cancellations, published prices, registration requirements and live inventory; a source link or successful test is not proof of available tickets |
-| F4 | Complete physical iOS/Android and VoiceOver/TalkBack review; record disposition of manual findings | Playwright WebKit and viewport emulation are not real Safari/device/assistive-technology verification |
-| F5 | Approve the exact release candidate and merge/deployment separately, with a rollback plan | New exact-head checks after any code/rebase change; no release authorized by the tracker |
-| F6 | After authorized deployment, verify the released commit and live event/city/homepage behavior | Actual release evidence before marking these fixes launched |
+| F1 | Review corrected content and presentation | Owner content/visual approval; keep sold-out and unresolved-requirement warnings |
+| F2 | Review remaining source limitations | Goodson fee/booking/capacity; Violet Bridge RSVP route/capacity; Hoofin cutoff, under-4 price and end; zoo ticket-heading conflict. Accept honest qualifications or request holds |
+| F3 | Recheck time-sensitive sources near publication/events | Cancellations, weather, prices, booking rules and inventory. Point-in-time checks are not future guarantees |
+| F4 | Complete physical iOS/Android and VoiceOver/TalkBack review, or explicitly accept residual risk | Automated browser engines and viewports do not establish real-device or assistive-technology signoff |
+| F5 | Approve exact release candidate, merge/deployment and rollback plan separately | New checks after later code/rebase changes. No release authorization supplied |
+| F6 | After authorized deployment, verify released commit and live events/city/homepage behavior | Actual release and live-verification evidence before marking launched |
+| F7 | High priority: Sagebrush playground accuracy | Approve a dated playground-unavailable warning based on Aurora's safety closure/removal notice. Do not mark the entire park closed. Recommendation only; no park record changed |
 
-For every listing's qualifications and the candidates held back for insufficient evidence, use the [existing source report](../docs/events-review-2026-10-21.md). The record's **13 source-checked listings** does not mean every field, live inventory or direct-organizer source is verified.
+## Preserved future work
 
-## Deferred and historical work
+- **October, November and December only:** event-content priorities. The [expansion backlog](../docs/events-review-2026-10-21.md#future-research-backlog-front-range-expansion) preserves October Front Range events and event-connected parks for separate consideration; it does not establish verified November/December coverage or authorize additions.
+- **Separate approved discovery draft PR:** correct the existing Friday–Sunday Colorado-time preview (maximum three matching events); wrap/stack existing narrow-screen homepage tiles; add the compact All upcoming / This weekend / October / November / December 2026 date control while preserving city/URL/history; distinguish actual park hosts from optional nearby stops and add one contextual city-events link on park profiles. No new listings, homepage section or unrelated features. None is implemented in PR #2; preserve park discovery first.
+- **Sagebrush and other park research:** recommendation/evidence in the same backlog; no park record or photo changes. Public-access, amenity, coordinate and photo-rights gaps remain explicit.
+- **Near-me, importers and future services:** deferred; no new service required for static manifest maintenance.
+- **Sponsor work:** retain the [existing CSV](../docs/aurora-sponsor-outreach-tracker.csv) as the single outreach tracker and [context](../docs/aurora-sponsor-outreach.md). No outside contact authorized.
+- **Historical April reports:** preserved as snapshots, not current release evidence. See [DECISIONS](DECISIONS.md#existing-documentation-and-history).
 
-- **Near-me functionality: deferred and out of scope.** No implementation is authorized by this tracking request.
-- **Sponsor work:** [the existing CSV](../docs/aurora-sponsor-outreach-tracker.csv) remains the single contact/status tracker, with [existing context](../docs/aurora-sponsor-outreach.md). Do not create a duplicate outreach list or contact anyone without approval.
-- **Older April reports:** preserved as historical research/reviews, not proof of current release status or current facts. See [DECISIONS.md](DECISIONS.md#existing-documentation-and-history).
-- **Future editor/importer/service work:** an option in the maintenance guide, not implemented or authorized here. No new provider is needed for the current static manifest workflow.
-
-No further design/features, integrations, purchases, outside contact, merge or deployment is authorized. Next owner decision: review this PR separately from Charles's package and decide the source/manual-QA dispositions before any release decision.
+Next decision: review the corrected PR and manual/source qualifications. Merge/deployment remains a separate exact-candidate approval. No purchases, integrations, outside contact or new events authorized. Discovery changes remain scoped to the separately approved draft PR, not PR #2.

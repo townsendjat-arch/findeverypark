@@ -1,6 +1,6 @@
 # FindEveryPark: decision log
 
-Updated: **2026-10-21 (UTC)**. Approval to create tracking documentation does not approve a release or additional features.
+Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize release or new events; discovery improvements have a separate bounded draft-PR approval.
 
 | Date | Decision and status | Consequence / evidence |
 | --- | --- | --- |
@@ -10,8 +10,13 @@ Updated: **2026-10-21 (UTC)**. Approval to create tracking documentation does no
 | 2026-10-21 | SOURCE REVIEW: 13 proposed listings with explicit uncertainty labels; insufficiently supported candidates held back | Source-checked does not mean ticket availability, complete fields or independent organizer confirmation for every listing. [Source report](../docs/events-review-2026-10-21.md), [JSON audit](../docs/events-source-review-2026-10-21.json) |
 | 2026-10-21 | DEFERRED: near-me work and any future spreadsheet/CSV importer | Not part of this PR or authorized tracking update |
 | 2026-10-21 | APPROVED: four-file tracking structure on the existing review branch | Reuse/link documentation; keep development, review approval and launch separate; keep exact evidence/date records current |
-| 2026-10-21 | PRIORITY / review sequencing: Charles remains Priority #1; review existing project PR packages separately | No coupled release decision |
+| 2026-10-21 | DATED EXCEPTION: FindEveryPark only today; Charles paused today | Broader priority order and separate project release approvals preserved |
 | 2026-10-21 | NOT APPROVED: further design/features, merge/deploy, integrations, purchases or outside contact | No organizer/sponsor contact or service activation under this task |
+| 2026-10-21 | APPROVED: narrow corrections to the existing 13 October listings, tests and tracker | Parker sold out; Hoofin cutoff/prices; prominent Goodson/Violet warnings; Spooky organizer provenance; zoo/Nick precision. [Source report](../docs/events-review-2026-10-21.md) |
+| 2026-10-21 | RETAIN FOR REVIEW: all 13 records; no additions/holds silently applied | Goodson and Violet retained with warnings visible in full and short cards; unresolved requirements stay explicit |
+| 2026-10-21 | RECOMMENDATION ONLY: Sagebrush playground warning and expansion park research | No park record/photo edits. [Preserved backlog](../docs/events-review-2026-10-21.md#future-research-backlog-front-range-expansion) |
+| 2026-10-21 | CONTENT PRIORITIES: October, November and December only | No new month/event content added by this correction pass |
+| 2026-10-21 | SEPARATELY APPROVED: four discovery improvements in a distinct draft PR | Correct weekend membership, wrap/stack existing mobile tiles, compact 2026 date control, and accurate park connections/contextual link. Preserve city/URL/history and park-first design. No new events/sections, merge or deploy; none implemented in PR #2 |
 
 ## Existing documentation and history
 

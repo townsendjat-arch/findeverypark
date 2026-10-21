@@ -254,3 +254,43 @@ Keep the existing three-card upcoming-events preview beneath park discovery. The
 This is a review branch only. Main, CNAME and hosting settings are unchanged. Repository history shows dynamic Pages deployments from main; no existing branch-push deployment workflow was found. The added workflow tests only the named review branch and cannot deploy. No merge or deployment is authorized.
 
 For weekly maintenance see [event-system.md](event-system.md).
+
+## Future research backlog: Front Range expansion
+
+Research snapshot: **October 21, 2026**. Research only, outside this 13-listing correction pass. The event-content priorities are October, November and December; this snapshot supplies October candidates, not verified November/December coverage. No new event, park record, city dataset, photo or discovery feature is implemented. Recheck source details, prices and capacity before a separate approval.
+
+### High-priority data accuracy: Sagebrush playground
+
+Aurora's [playground renovation notice](https://www.auroragov.org/things_to_do/parks__open_space___trails/sagebrush_park_playground_renovation) reports a safety closure/removal of the play structure, while the existing FEP record still advertises a playground without a warning. **Recommendation, not implemented:** add a prominent dated playground-unavailable notice with the official source, distinguish the amenity's temporary status from its existence, and verify reopening before removing the warning. Do not mark the whole park closed. A separate park-record change requires approval.
+
+### Additional event candidates
+
+All dates below are in 2026. These are research candidates, not available bookings or new manifest entries.
+
+- [Windsor Halloween Carnival](https://register.windsorgov.com/Calendar.aspx?EID=7754), October 24, Boardwalk Community Park. Free admission; vendor/activity extras need clarification. Separate downtown activities have their own hours.
+- [Halloween Hullabaloo](https://www.centerra.com/kinston/event/halloween-hullabaloo/), October 24, Marketplace at Centerra, Loveland. Free; costume contest registration before 2:45 p.m. Commercial venue, not a public park.
+- [Halloween Costume Parade and Trick-or-Treat Street](https://longmontcolorado.gov/event/halloween-costume-parade/), October 31, Longmont. Free; Roosevelt Park is the lineup, not the whole downtown route.
+- [Munchkin Masquerade](https://boulderdowntown.com/events/munchkin-masquerade), October 31, Downtown Boulder. Ages 12 and under; evolving treat-stop list. Pearl Street Mall overlaps only part of the route.
+- [Pumpkins on Parade](https://gardens.fortcollins.gov/Events/Public-Events/Pumpkins), October 22–25, Gardens on Spring Creek. Paid timed entry; fees/inventory and garden-catalog fit unresolved. Not trick-or-treating.
+- [Tiny Tot Halloween](https://downtownfortcollins.com/do/tiny-tot-halloween-2026), October 30, Downtown Fort Collins/Old Town Square. Preschool/kindergarten audience; price not explicitly verified. Free parking does not imply free admission.
+- [Fangtastic Festival](https://www.downtowncastlerock.com/fangtasticfestival), October 30, Festival Park, Castle Rock. Free admission; extras and parking conditions need clarification. Existing park, not a new record.
+- [Pumpkins in the Park](https://www.shopoldcoloradocity.com/events/pumpkins-in-the-park-1), October 24, Bancroft Park/Old Colorado City, Colorado Springs. Organizer confirms noon–6 p.m.; conflicting aggregator hours rejected. Contest availability and optional charges unresolved.
+- [Westside Community Center Trunk or Treat](https://www.visitcos.com/events/trunk-or-treat/), October 31, Colorado Springs. Free, 6–8 p.m.; distinct from the separate 4–6 p.m. Vegan Trunk-or-Treat at the same venue. Community center does not imply park.
+- [Boo Bash](https://www.outletsatcastlerock.com/event/44220-boo-bash), October 24, Outlets at Castle Rock. Free admission; concessions extra and contest arrival rules apply. Retail venue, not a park.
+- [Park 'til Dark: Hayrides and Treats](https://cpw.state.co.us/event/events-and-festivals/2026/10/park-til-dark-hayrides-and-treats), October 30, Chatfield/Kingery Nature Center. Registration fields conflict and activity price is unpublished. Event access is Discovery Pavilion parking off Waterton Road, not main park entrances.
+- [Downtown YMCA Fall Family Festival](https://ppymca.org/event/fall-family-festivals/), October 23, Colorado Springs. Free community alternative, not a public park. Do not reuse the source's inconsistent Tri-Lakes address.
+- [Treatsylvania](https://www.fortcollins.gov/Event-Folder/2026-Events/2026-Q4/Treatsylvania), October 23–25, The Farm at Lee Martinez Park: sold out at the checkpoint. Historical/event-connection research only, not available booking.
+
+### Event-connected park candidates and enrichment
+
+- [Boardwalk Community Park, Windsor](https://www.recreationliveshere.com/Facilities/Facility/Details/Boardwalk-Community-Park-4): priority new-coverage candidate. Verify parking/construction, playground condition, accessible routes and restroom seasonality.
+- [Roosevelt Community Park, Longmont](https://longmontcolorado.gov/facilities/roosevelt-community-park/): priority new-coverage candidate. Verify completed playground inventory/photos, route accessibility and winter facilities.
+- [Pearl Street Mall, Boulder](https://bouldercolorado.gov/locations/pearl-street-mall): municipal park; decide urban-park taxonomy fit. Verify play features, November restrooms and parking restrictions.
+- [Lee Martinez Park, Fort Collins](https://www.fortcollins.gov/Parks-and-Natural-Areas-Directory/Parks/Lee-Martinez-Park): ordinary-visit candidate, not a workaround for sold-out Treatsylvania. Separate Farm fees/access; recheck seasonal facilities and current park details.
+- [Festival Park, Castle Rock](https://www.crgov.com/2388/Festival-Park): existing-record enrichment only. Verify restroom/splash-pad seasonality, parking and photo rights.
+- [Bancroft Park, Colorado Springs](https://coloradosprings.gov/parks/page/bancroft-park): new geographic candidate. Reconcile shelter conflict and confirm current playground, restroom hours and accessibility.
+- [Chatfield State Park](https://cpw.state.co.us/state-parks/chatfield-state-park): decide state-park scope. Distinguish park-wide facilities from Kingery/event access; verify sublocation amenities, closures and fees. Do not reuse event artwork depicting another park.
+- [deKoevend Park, Centennial](https://sspr.maps.arcgis.com/apps/webappviewer/index.html?find=deKoevend+Park&id=27fb075d4a6346d598dc29b553c3c288): existing-record enrichment only. Resolve entrance coordinates, off-leash designation, accessibility and seasonal facilities. Goodson's parking-lot event and deKoevend's park-hosted race have different venue relationships.
+- SouthGlenn Commons Park: hold pending current public-access/management evidence. The [district annual report](https://www.southglennmetro.org/files/925b6ec9f/Southglenn%2B2024%2BAnnual%2BReport.pdf) does not settle those questions. Neither label definitively private nor confuse with Denver Commons Park.
+
+Northern cities and Colorado Springs require separately approved coverage work. Old Town Square and Gardens on Spring Creek do not automatically qualify for the park catalog. No park-photo republication rights are established; event hosting is not popularity evidence. Additional holdbacks: G.E.S. Fall Fest/Globeville Pocket Park lacks current [organizer confirmation](https://www.birdseedcollective.org/); PP Ward Halloween Trunk or Treat needs price/visitor-eligibility verification. Neither is publication-ready.
