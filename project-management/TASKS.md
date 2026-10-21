@@ -2,7 +2,21 @@
 
 Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
 
-## Current status
+## Current pumpkin draft status
+
+- **Implementation in progress:** six pumpkin decision cards in the existing Holiday & Seasonal Events experience; exactly 16 reviewed canonical records (the released 11 plus five new records, with Nick enriched in place).
+- Baseline verified **October 21, 2026 (UTC)**: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`, merged PR #2. New branch: `review/six-pumpkin-patches-2026`.
+- **Ready for launch: NO.** New draft PR, final-head CI, interactive preview/content review, manual-QA disposition, near-publication source checks and exact release approval are distinct gates. No merge/deploy authorized by implementation approval.
+- **PR #3 remains separate:** `ceb3f2873eb79aea8b92c1082687ea68c82218f7` was not imported or changed. Its date/weekend/discovery features remain deferred here. Category + existing city/history is the bounded navigation change.
+- Anderson's conflicting closed banner stays visible in Events but excludes it from homepage/city recommendations. Miller's actual season end remains unknown; October 31 is an editorial verified-date coverage boundary, not a published closing date. Every other pricing/booking/cutoff uncertainty stays visible.
+- Current six-listing sources and data snapshot: [pumpkin source review](../docs/pumpkin-source-review-2026-10-21.json). The original 11-record source audit remains historical and unchanged.
+- Test results for the containing revision are tracked in [TESTING](TESTING.md) and its exact PR checks. Browser viewports are not physical iPhone, Android or assistive-technology signoff.
+
+## Historical PR #2 status at the prior tracking update
+
+The entries below record the pre-release review state and are superseded by the verified main baseline above; they do not describe the current pumpkin draft.
+
+### Prior current status
 
 - **Ready for owner review: YES**, subject to the exact-head test results in [TESTING](TESTING.md) and [PR #2](https://github.com/townsendjat-arch/findeverypark/pull/2). The correction pass now contains 11 listings: Aurora 5, Centennial 3, Parker 0, Denver 3. Parker Trunk or Treat is removed and Violet Bridge held at the owner's request.
 - **Ready for launch: NO.** Content/visual approval, manual-QA disposition, near-publication source checks and explicit release authorization remain outstanding.

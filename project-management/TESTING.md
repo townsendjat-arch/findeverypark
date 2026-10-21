@@ -2,6 +2,17 @@
 
 Updated: **2026-10-21 (UTC)**. Scope: 11 active listings after the owner-requested sold-out removal and RSVP hold, not whole-site certification.
 
+## Pumpkin draft validation (current)
+
+- Baseline: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`; branch `review/six-pumpkin-patches-2026`. The new PR and terminal CI will identify the containing revision; never substitute a previous SHA's checks.
+- Focused Node coverage: released 11-ID preservation (ten records unchanged and deliberate Nick enrichment), six pumpkin records/16 total, source snapshot equality, explicit occurrence metadata, closed weekdays, individual sold-out/cancelled dates, gate versus activity cutoffs, final expiry, November 1 MST, unknown Miller end, pricing/booking warnings and safe official URLs.
+- Chromium/WebKit coverage: prior regression suite plus six unique pumpkin cards, visible picking/cost/warning fields outside disclosures, category/city query and Back/Forward/anchors, unsupported-city park-link absence, empty results, keyboard interaction, in-tab next-occurrence changes, 320/390/1440 widths, scoped axe, deterministic October 21 screenshots.
+- Local Node checks pass 18/18; final timezone repetitions and exact-head browser CI are pending. npm dependencies installed with a writable temporary cache; local browser execution could not start because the browser binary was absent, and a supported installer download returned invalid/truncated ZIP bytes. No local browser pass or production verification is claimed. Record exact results below after completion.
+- Existing GitHub Actions remains pull-request-only, contents-read, exact-head checkout, no retained credentials or deployment step. The only workflow change extends its branch condition with `review/six-pumpkin-patches-2026`.
+- No PR #3 code, date filter, homepage layout, park datasets, dependency versions, hosting settings, production branch or deployment configuration changed. Preview is a separate parent-coordinated approval, not release authorization.
+
+## Historical PR #2 evidence
+
 ## Exact revision and results
 
 The owner-requested removal and RSVP hold are a new code/data/test revision. Its exact SHA, terminal CI and screenshots are recorded in [PR final validation](https://github.com/townsendjat-arch/findeverypark/pull/2) and [checks](https://github.com/townsendjat-arch/findeverypark/pull/2/checks). Historical results below do not establish a pass for the removal/hold revision. A temporary shell disconnection affected preparation; it recovered and testing resumed. The PR records final-head local and CI results separately; no local browser pass is claimed.

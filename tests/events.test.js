@@ -88,12 +88,22 @@ test('inline production JavaScript compiles', () => {
   }
 });
 
-test('candidate contains 11 reviewed records after requested removal and hold and matches source audit', () => {
+test('candidate retains original 11 IDs and adds only five new pumpkin records', () => {
   const verified = data.events.filter(e => e.verifiedAt === '2026-10-21');
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
-  assert.equal(verified.length, 11);
-  assert.deepEqual(JSON.parse(JSON.stringify(verified)), audit.events);
-  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, centennial:3 });
+  assert.equal(verified.length, 16);
+  assert.equal(audit.events.length, 11, 'the released source audit remains immutable');
+  for (const original of audit.events) {
+    const current = verified.find(event => event.id === original.id);
+    assert.ok(current, original.id);
+    if (original.id !== 'aurora-nicks-fall-fest-2026') assert.deepEqual(JSON.parse(JSON.stringify(current)), original);
+    else {
+      for (const field of ['id', 'city', 'title', 'href', 'dateStart', 'dateEnd', 'costLabel', 'verifiedAt']) assert.equal(current[field], original[field], field);
+      assert.deepEqual(JSON.parse(JSON.stringify(current.nearbyParks)), original.nearbyParks);
+    }
+  }
+  assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}),
+    { aurora:5, denver:3, centennial:3, erie:1, thornton:1, platteville:1, kiowa:1, louisville:1 });
 });
 test('removed sold-out and held RSVP events survive only in source history', () => {
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
@@ -148,4 +158,75 @@ test('Spooky Streets uses verified organizer provenance and zoo ticket details s
     assert.match(event.availabilityLabel, /current availability is not guaranteed/);
   }
   assert.match(data.events.find(e => e.id === 'aurora-nicks-fall-fest-2026').costLabel, /one use each of train, tractor, pedal karts and inflatable course/);
+});
+
+
+test('six canonical pumpkin records expose decision fields and match their source snapshot', () => {
+  const pumpkins = data.events.filter(rules.isPumpkin);
+  assert.equal(pumpkins.length, 6);
+  assert.equal(pumpkins.filter(e => e.id === 'aurora-nicks-fall-fest-2026').length, 1);
+  assert.deepEqual(Array.from(pumpkins, e => e.city).sort(), ['aurora','erie','kiowa','louisville','platteville','thornton']);
+  const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/pumpkin-source-review-2026-10-21.json')));
+  assert.deepEqual(JSON.parse(JSON.stringify(pumpkins)), audit.events);
+  for (const event of pumpkins) {
+    for (const field of ['pickingType','goodFit','entryCost','pumpkinCost','activityCost']) assert.ok(event.pumpkin[field], event.id + ': ' + field);
+    assert.ok(event.pumpkin.warnings.length);
+    assert.ok(event.pumpkin.essentials.length);
+    assert.ok(event.schedule.length);
+    for (const item of event.schedule) {
+      assert.match(item.dateStart, /[+-]\d\d:\d\d$/);
+      assert.match(item.dateEnd, /[+-]\d\d:\d\d$/);
+      assert.ok(new Date(item.dateEnd) > new Date(item.dateStart));
+      assert.equal(item.availability, 'unknown', 'published schedule never claims live inventory');
+      assert.ok(item.time);
+      if (item.date === '2026-11-01') assert.match(item.dateStart, /-07:00$/);
+    }
+    assert.match(rules.pumpkinPreview(event), /Entry:.*Pumpkins:.*Activities:.*Before you go:/);
+    for (const url of [event.href, event.registrationUrl, ...event.sourceUrls].filter(Boolean)) {
+      const parsed = new URL(url); assert.equal(parsed.protocol, 'https:'); assert.equal(parsed.username, ''); assert.equal(parsed.password, '');
+    }
+  }
+});
+test('pumpkin occurrences preserve metadata and do not infer daily season dates or session availability', () => {
+  const sample = { status:'approved', category:'pumpkin-patches', pumpkin:{}, dateEnd:'2026-12-31', schedule:[
+    { date:'2026-10-24', dateStart:'2026-10-24T09:00:00-06:00', dateEnd:'2026-10-24T18:00:00-06:00', availability:'sold_out', note:'Sold out session only' },
+    { date:'2026-10-25', dateStart:'2026-10-25T09:00:00-06:00', dateEnd:'2026-10-25T18:00:00-06:00', availability:'unknown', lastEntry:'Last entry 5 p.m.', entryCutoff:'2026-10-25T17:00:00-06:00', note:'Check weather' }
+  ] };
+  const occurrences = rules.pumpkinOccurrences(sample, at('2026-10-21T16:00:00Z'));
+  assert.equal(occurrences.length, 1); assert.equal(occurrences[0].note, 'Check weather');
+  assert.equal(occurrences[0].entryCutoff, '2026-10-25T17:00:00-06:00');
+  assert.equal(occurrences[0].availability, 'unknown');
+  assert.equal(rules.isCurrent(sample, at('2026-10-25T23:30:00Z')), true, 'grounds closing is separate from last entry');
+  assert.equal(rules.nextPumpkinVisits(sample, at('2026-10-25T23:00:00Z')).length, 0);
+  assert.equal(rules.isRecommendable(sample, at('2026-10-25T23:30:00Z')), false);
+  assert.equal(rules.isCurrent(sample, at('2026-10-26T00:00:00Z')), false, 'broad season cannot extend last verified occurrence');
+  assert.equal(rules.isCurrent({...sample,schedule:[]}, at('2026-10-21T16:00:00Z')), false);
+});
+test('real pumpkin schedules retain closed weekdays, Sunday differences and November DST expiry', () => {
+  const get = city => data.events.find(e => rules.isPumpkin(e) && e.city === city);
+  const anderson = get('erie'), nick = get('aurora'), seventh = get('louisville'), patch = get('kiowa');
+  assert.equal(anderson.schedule.some(item => new Date(item.date + 'T12:00:00Z').getUTCDay() === 2), false);
+  assert.equal(patch.schedule.some(item => ['2026-10-24','2026-10-25','2026-10-31'].includes(item.date) === false), false);
+  assert.match(nick.schedule.find(item => item.date === '2026-10-25').dateEnd, /T17:00:00-06:00$/);
+  assert.equal(rules.nextPumpkinVisits(seventh, at('2026-10-26T16:00:00Z'))[0].date, '2026-10-29');
+  assert.equal(rules.isCurrent(seventh, at('2026-11-02T00:59:59Z')), true);
+  assert.equal(rules.isCurrent(seventh, at('2026-11-02T01:00:00Z')), false);
+  assert.equal(rules.nextPumpkinVisits(nick, at('2026-10-22T00:00:00Z'))[0].date, '2026-10-22');
+});
+test('closure, picking, fee and uncertain-season qualifications cannot become confirmed claims', () => {
+  const get = city => data.events.find(e => rules.isPumpkin(e) && e.city === city);
+  const anderson = get('erie'), miller = get('platteville'), seventh = get('louisville'), maize = get('thornton');
+  assert.equal(anderson.pumpkin.operatingStatus, 'conflicting');
+  assert.equal(rules.isCurrent(anderson, at('2026-10-21T16:00:00Z')), true, 'qualified research card stays visible');
+  assert.equal(rules.isRecommendable(anderson, at('2026-10-21T16:00:00Z')), false, 'do not promote conflicting operation');
+  assert.match(anderson.pumpkin.warnings.join(' '), /closed|closure|no activities are currently open/i);
+  assert.match(get('aurora').pumpkin.pickingType, /retail/i);
+  assert.match(maize.pumpkin.pickingType, /stocked|preharvested|pre-harvested/i);
+  assert.match(maize.pumpkin.warnings.join(' '), /conflict/i);
+  assert.match(seventh.pumpkin.pumpkinCost + seventh.pumpkin.warnings.join(' '), /undated|2026.*unconfirmed/i);
+  assert.match(seventh.pumpkin.entryCost + seventh.pumpkin.warnings.join(' '), /11\.37/);
+  assert.equal(miller.seasonEndUnknown, true);
+  assert.equal(miller.editorialReviewThrough, '2026-10-31');
+  assert.equal(miller.schedule.some(item => item.date.startsWith('2026-11')), false);
+  assert.match(miller.pumpkin.warnings.join(' '), /end.*(?:unknown|unconfirmed|not confirmed)|exact.*end/i);
 });

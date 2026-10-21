@@ -1040,7 +1040,7 @@
     }
 
     function isCurrentHomeEvent(event, today) {
-      return window.FEP_EVENTS.isCurrent(event, today);
+      return window.FEP_EVENTS.isRecommendable(event, today);
     }
 
     function eventCityLabel(event, cities) {
@@ -1051,6 +1051,7 @@
     }
 
     function oneLineHomeEventDescription(event) {
+      if (window.FEP_EVENTS.isPumpkin(event)) return window.FEP_EVENTS.pumpkinPreview(event);
       var text = (event.notes || event.dadNote || event.description || '').replace(/\s+/g, ' ').trim();
       return text.length > 118 ? text.slice(0, 115).replace(/\s+\S*$/, '') + '…' : text;
     }
@@ -1140,8 +1141,8 @@
       root.innerHTML = events.map(function(event) {
         var city = eventCityLabel(event, window.EVENTS_DATA.cities);
         var location = event.locationLabel || event.venue_name || event.park_name || city;
-        var date = event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
-        var href = event.href || event.link || './events.html';
+        var date = window.FEP_EVENTS.isPumpkin(event) ? window.FEP_EVENTS.pumpkinPreviewDate(event, today) : event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
+        var href = window.FEP_EVENTS.isPumpkin(event) ? './events.html?category=pumpkin-patches&city=' + encodeURIComponent(event.city) + '#' + encodeURIComponent(event.id) : event.href || event.link || './events.html';
         return [
           '<article class="home-event-card">',
             '<div class="home-event-date">' + escapeHomeEventText(date) + '</div>',

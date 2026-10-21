@@ -57,8 +57,49 @@
     var localInstant = localEndInstant(end.length === 16 ? end + ':00' : end);
     return !Number.isFinite(localInstant) || now.getTime() >= localInstant;
   }
+  function isPumpkin(event) {
+    return !!event && event.category === 'pumpkin-patches' && !!event.pumpkin;
+  }
+  function pumpkinOccurrences(event, now) {
+    if (!isPumpkin(event)) return [];
+    // Only explicit source-backed dates. Never expand the broad season range.
+    // Retain the complete record: cutoffs, warnings and per-session status matter.
+    return (event.schedule || []).filter(function (item) {
+      return item && validDate(item.dateStart) && validDate(item.dateEnd) &&
+        !['cancelled', 'closed', 'sold_out'].includes(item.availability) &&
+        !isExpired({ dateEnd: item.dateEnd }, now);
+    }).map(function (item) { return Object.assign({}, item); })
+      .sort(function (a, b) { return a.dateStart.localeCompare(b.dateStart); });
+  }
+  function nextPumpkinVisits(event, now) {
+    return pumpkinOccurrences(event, now).filter(function (item) {
+      // An attraction/wagon cutoff is NOT a grounds admission cutoff.
+      return !item.entryCutoff || !isExpired({ dateEnd: item.entryCutoff }, now);
+    });
+  }
   function isCurrent(event, now) {
-    return isPublishable(event) && event.status !== 'archived' && !isExpired(event, now);
+    return isPublishable(event) && event.status !== 'archived' &&
+      (isPumpkin(event) ? pumpkinOccurrences(event, now).length > 0 : !isExpired(event, now));
+  }
+  function isRecommendable(event, now) {
+    return isCurrent(event, now) && (!isPumpkin(event) ||
+      (event.pumpkin.operatingStatus !== 'conflicting' && nextPumpkinVisits(event, now).length > 0));
+  }
+  function pumpkinPreviewDate(event, now) {
+    var next = nextPumpkinVisits(event, now)[0];
+    if (!next) return 'No later verified admission dates';
+    return 'Next published: ' + new Date(next.dateStart).toLocaleDateString('en-US', {
+      timeZone: timeZone, month: 'short', day: 'numeric'
+    }) + ' · ' + next.time + (next.lastEntry ? ' · ' + next.lastEntry : '');
+  }
+  function pumpkinPreview(event) {
+    if (!isPumpkin(event)) return '';
+    var p = event.pumpkin, preview = p.preview || {};
+    // Material cost/booking qualifications are never clipped to 118 characters.
+    return p.pickingType + ' Entry: ' + (preview.entry || p.entryCost) +
+      ' Pumpkins: ' + (preview.pumpkins || p.pumpkinCost) +
+      ' Activities: ' + (preview.activities || p.activityCost) +
+      ' Before you go: ' + (preview.warning || (p.warnings || []).join(' '));
   }
   function normCity(value) {
     return String(value || '').trim().toLowerCase().replace(/[-\s]+/g, '_');
@@ -68,7 +109,9 @@
   }
   root.FEP_EVENTS = { timeZone: timeZone, localStamp: localStamp, validDate: validDate,
     endValue: endValue, startValue: startValue, isPublishable: isPublishable,
-    isExpired: isExpired, isCurrent: isCurrent, normCity: normCity };
+    isExpired: isExpired, isCurrent: isCurrent, normCity: normCity,
+    isPumpkin: isPumpkin, pumpkinOccurrences: pumpkinOccurrences, nextPumpkinVisits: nextPumpkinVisits,
+    isRecommendable: isRecommendable, pumpkinPreview: pumpkinPreview, pumpkinPreviewDate: pumpkinPreviewDate };
 })(typeof window === 'undefined' ? globalThis : window);
 
 /* city-events.js — injects live, city-specific events into the .events-callout
@@ -84,13 +127,14 @@
 
   var rules = window.FEP_EVENTS;
   var normCity = rules.normCity;
-  var isCurrent = rules.isCurrent;
+  var isCurrent = rules.isRecommendable;
 
   function startDate(event) {
     return rules.startValue(event);
   }
 
   function oneLine(event) {
+    if (rules.isPumpkin(event)) return rules.pumpkinPreview(event);
     var text = (event.notes || event.dadNote || event.description || '').replace(/\s+/g, ' ').trim();
     return text.length > 118 ? text.slice(0, 115).replace(/\s+\S*$/, '') + '\u2026' : text;
   }
@@ -125,8 +169,8 @@
 
   function cardHtml(event) {
     var location = event.locationLabel || event.venue_name || event.park_name || '';
-    var date = event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
-    var href = event.href || event.link || './events.html';
+    var date = rules.isPumpkin(event) ? rules.pumpkinPreviewDate(event, new Date()) : event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
+    var href = rules.isPumpkin(event) ? './events.html?category=pumpkin-patches&city=' + encodeURIComponent(event.city) + '#' + encodeURIComponent(event.id) : event.href || event.link || './events.html';
     return [
       '<article class="city-event-card">',
         '<div class="city-event-date">' + esc(date) + '</div>',

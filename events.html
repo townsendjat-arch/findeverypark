@@ -275,6 +275,29 @@
       font-weight: 600;
     }
 
+
+    /* Pumpkin decisions extend the existing seasonal cards, not the homepage. */
+    .pumpkin-card { border-left: 3px solid var(--sunset); scroll-margin-top: 24px; }
+    .pumpkin-card .event-title { font-size: 19px; line-height: 1.35; }
+    .pumpkin-picking { color: var(--grass); font-weight: 600; margin: 10px 0 6px; }
+    .pumpkin-next { background: var(--grass-light); padding: 10px 12px; border-radius: 4px; }
+    .pumpkin-costs { margin: 12px 0; font-size: 13px; line-height: 1.65; }
+    .pumpkin-costs > div { display: grid; grid-template-columns: 75px minmax(0,1fr); gap: 8px; margin: 5px 0; }
+    .pumpkin-costs dt { font-weight: 600; color: var(--ink); }
+    .pumpkin-costs dd { margin: 0; color: var(--ink-light); }
+    .pumpkin-warning { margin: 8px 0; padding: 8px 10px; border-left: 2px solid var(--sunset); background: var(--bg-warm); font-size: 13px; line-height: 1.65; color: var(--ink); }
+    .pumpkin-card, .pumpkin-card * { overflow-wrap: anywhere; min-width: 0; }
+    .pumpkin-card .event-actions a { min-height: 44px; display: inline-flex; align-items: center; white-space: normal; }
+    .pumpkin-card summary { min-height: 44px; display: list-item; align-content: center; font-size: 13px; }
+    .pumpkin-card :focus-visible { outline: 3px solid var(--grass); outline-offset: 3px; }
+    .pumpkin-subsection { scroll-margin-top: 24px; }
+    .pumpkin-subsection > h3 { font-size: 21px; margin: 22px 0 10px; }
+    .event-category-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+    .event-category-pill { font: inherit; font-size: 14px; font-weight: 600; min-height: 44px; padding: 9px 16px; border-radius: 100px; border: 1px solid var(--rule); background: var(--white); color: var(--ink); cursor: pointer; }
+    .event-category-pill[aria-pressed="true"] { background: var(--grass); border-color: var(--grass); color: white; }
+    .event-category-pill:focus-visible { outline: 3px solid var(--grass); outline-offset: 3px; }
+    @media (max-width: 400px) { .pumpkin-costs > div { grid-template-columns: 1fr; gap: 0; } }
+
     /* DATE GROUP */
     .date-group {
       margin-bottom: 28px;
@@ -974,10 +997,61 @@
     eventsRoot.appendChild(section);
   }
 
+  function pumpkinVisitLabel(item, fullDetails) {
+    return formatDisplayDate(item.date) + ' · ' + item.time +
+      (item.lastEntry ? ' · ' + item.lastEntry : '') +
+      (fullDetails && item.note ? ' · ' + item.note : '');
+  }
+
+  function renderPumpkinCard(event) {
+    const p = event.pumpkin;
+    const card = document.createElement('article');
+    card.className = 'event-card pumpkin-card';
+    card.id = event.id;
+    card.dataset.eventId = event.id;
+    card.dataset.city = eventRules.normCity(event.city);
+    card.dataset.category = 'pumpkin-patches';
+    card.dataset.current = 'true';
+    const visits = eventRules.nextPumpkinVisits(event, today);
+    const next = visits.slice(0, 2).map(function (item) { return pumpkinVisitLabel(item, false); });
+    const schedule = (event.schedule || []).filter(function (item) {
+      return !eventRules.isExpired({ dateEnd: item.dateEnd }, today);
+    });
+    const costRows = [['Entry', p.entryCost], ['Pumpkins', p.pumpkinCost], ['Activities', p.activityCost]];
+    const link = event.href || '';
+    card.innerHTML =
+      '<div class="event-card-header"><h4 class="event-title">' + escapeHtml(event.title) + '</h4>' +
+      '<p class="event-meta">' + escapeHtml(cityLabel(event)) + ' · ' + escapeHtml(event.audienceLabel) + '</p></div>' +
+      '<p class="pumpkin-picking">Pumpkin experience: ' + escapeHtml(p.pickingType) + '</p>' +
+      '<p class="event-description">Good fit: ' + escapeHtml(p.goodFit) + '</p>' +
+      '<p class="event-description">' + escapeHtml(event.dateLabel) + '</p>' +
+      '<p class="event-description pumpkin-next"><strong>' + (p.operatingStatus === 'conflicting' ? 'Published dates, operation unconfirmed: ' : 'Next published visits: ') +
+      '</strong>' + escapeHtml(next.length ? next.join(' • ') : 'Today’s entry cutoff has passed. No later verified admission dates.') +
+      ' Published schedule, not live availability.</p>' +
+      '<dl class="pumpkin-costs">' + costRows.map(function (row) { return '<div><dt>' + row[0] + '</dt><dd>' + escapeHtml(row[1]) + '</dd></div>'; }).join('') + '</dl>' +
+      '<div class="pumpkin-warning"><strong>Before you go</strong><ul class="event-detail-list">' + (p.warnings || []).map(function (warning) { return '<li>' + escapeHtml(warning) + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="event-actions">' +
+      (link ? '<a class="event-link" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">' + (p.operatingStatus === 'conflicting' ? 'Check official status' : 'Official information') + '</a>' : '') +
+      (event.registrationUrl && p.operatingStatus !== 'conflicting' ? '<a class="cal-link" href="' + escapeHtml(event.registrationUrl) + '" target="_blank" rel="noopener">Check ticket details</a>' : '') +
+      (event.nearbyParks && event.nearbyParks.length ? parkLinks(event) : '') + '</div>' +
+      '<details class="event-dates"><summary>Dates, costs &amp; practical details</summary>' +
+      '<p class="event-description">' + escapeHtml(event.locationLabel) + '</p>' +
+      '<p class="event-description">' + escapeHtml(event.timeLabel) + ' All times America/Denver.</p>' +
+      '<ul class="event-detail-list">' + schedule.map(function (item) { return '<li>' + escapeHtml(pumpkinVisitLabel(item, true)) +
+        (['sold_out', 'cancelled', 'closed'].includes(item.availability) ? ' · ' + escapeHtml(item.availability.replace('_', ' ')) : '') + '</li>'; }).join('') + '</ul>' +
+      '<ul class="event-detail-list">' + (p.essentials || []).map(function (line) { return '<li>' + escapeHtml(line) + '</li>'; }).join('') + '</ul>' +
+      '<p class="event-description">' + escapeHtml(event.registrationLabel || '') + '</p>' +
+      '<p class="event-description">' + escapeHtml(event.availabilityLabel || '') + '</p>' +
+      '<p class="event-description">Details checked ' + escapeHtml(formatDisplayDate(event.verifiedAt)) + '. Recheck weather, stock, prices and entry rules before travel.</p>' +
+      '<ul class="event-detail-list">' + (event.sourceUrls || []).map(function (url, index) { return '<li><a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">Official source ' + (index + 1) + '</a></li>'; }).join('') + '</ul></details>';
+    return card;
+  }
+
   function renderEventDetails(group) {
     var events = group.events || [];
     var event = group.event || events[0];
     if (!event) return null;
+    if (eventRules.isPumpkin(event)) return renderPumpkinCard(event);
 
     var card = document.createElement('div');
     card.className = 'event-card';
@@ -1224,7 +1298,8 @@
     emptyCityCopy.textContent = 'Events will appear here as coverage expands.';
   } else {
     const currentEvents = cityEvents.filter(function(event) { return isCurrentEvent(event, today); }).sort(sortEvents);
-    const pastEvents = cityEvents.filter(function(event) { return !isCurrentEvent(event, today); }).sort(sortEvents);
+    // A verification horizon is not evidence that an unknown-end season ended.
+    const pastEvents = cityEvents.filter(function(event) { return !isCurrentEvent(event, today) && !event.seasonEndUnknown; }).sort(sortEvents);
     if (!currentEvents.length && pastEvents.length) {
       emptyCity.style.display = '';
       emptyCityCopy.textContent = 'No current events are live right now. Past events are saved in the archive below.';
@@ -1250,7 +1325,16 @@
         'Celebrate the season with family-friendly activities across the Front Range.'
       );
       section.classList.add('holiday-section');
-      groupSingleEvents(holiday.sort(sortEvents)).forEach(function(group) {
+      const pumpkins = holiday.filter(eventRules.isPumpkin).sort(sortEvents);
+      if (pumpkins.length) {
+        const subsection = document.createElement('div');
+        subsection.id = 'pumpkin-patches';
+        subsection.className = 'pumpkin-subsection';
+        subsection.innerHTML = '<h3>Pumpkin Patches</h3><p class="section-copy">Compare picking styles, published visits and separate costs. A published date is not a promise of opening, tickets or pumpkin stock.</p>';
+        pumpkins.forEach(function (event) { subsection.appendChild(renderPumpkinCard(event)); });
+        section.appendChild(subsection);
+      }
+      groupSingleEvents(holiday.filter(function (event) { return !eventRules.isPumpkin(event); }).sort(sortEvents)).forEach(function(group) {
         var d = renderEventDetails(group);
         if (d) section.appendChild(d);
       });
@@ -1298,6 +1382,7 @@
     }
 
     var activeKey = '';
+    var activeCategory = '';
     function applyFilter(key, updateUrl) {
       activeKey = eventRules.normCity(key);
       Array.prototype.forEach.call(bar.children, function (pill) {
@@ -1306,17 +1391,23 @@
         pill.setAttribute('aria-pressed', String(selected));
       });
       Array.prototype.forEach.call(root.querySelectorAll('.event-card, .event-row'), function (el) {
-        el.style.display = (!activeKey || el.dataset.city === activeKey) ? '' : 'none';
+        el.style.display = ((!activeKey || el.dataset.city === activeKey) && (!activeCategory || el.dataset.category === activeCategory)) ? '' : 'none';
       });
+      const pumpkinSection = root.querySelector('.pumpkin-subsection');
+      if (pumpkinSection) pumpkinSection.style.display = Array.from(pumpkinSection.querySelectorAll('.event-card')).some(isVisible) ? '' : 'none';
+      Array.from(categoryBar.children).forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.category === activeCategory)); });
       sweepEmpties();
       var count = root.querySelectorAll('[data-current="true"]');
       var visibleCount = Array.prototype.filter.call(count, isVisible).length;
       var label = activeKey ? prettyCity(activeKey) : 'All Cities';
       document.getElementById('filter-status').textContent = visibleCount +
-        ' current or upcoming event' + (visibleCount === 1 ? '' : 's') + ' · ' + label + ' · All times Mountain Time';
+        ' current or upcoming ' + (activeCategory ? 'pumpkin listing' : 'event') + (visibleCount === 1 ? '' : 's') + ' · ' + label + ' · All times Mountain Time';
       emptyCity.style.display = visibleCount ? 'none' : '';
-      emptyCityCopy.textContent = 'No current listings for ' + (activeKey ? label : 'the Front Range') +
-        '. Check another city or browse parks while we verify more events.';
+      emptyCityCopy.textContent = 'No current ' + (activeCategory ? 'pumpkin listings' : 'listings') + ' for ' + (activeKey ? label : 'the Front Range') +
+        '. Try All events or another city while we verify more dates.';
+      if (!visibleCount && cityEvents.some(function (event) { return event.seasonEndUnknown && (!activeKey || eventRules.normCity(event.city) === activeKey) && !isCurrentEvent(event, today); })) {
+        emptyCityCopy.textContent += ' Additional November dates for Miller Farms have not been verified. October 31 is our checked-date coverage boundary, not a confirmed season closing date.';
+      }
       document.getElementById('page-title').textContent = activeKey ? label + ' Events' : 'Front Range Events';
       document.getElementById('submit-heading').textContent = activeKey ? 'Know an event in ' + label + '?' : 'Know an event?';
       var dataset = parkDataset(activeKey);
@@ -1326,6 +1417,8 @@
         var url = new URL(window.location.href);
         if (activeKey) url.searchParams.set('city', activeKey.replace(/_/g, '-'));
         else url.searchParams.delete('city');
+        if (activeCategory) url.searchParams.set('category', activeCategory);
+        else url.searchParams.delete('category');
         history.pushState(null, '', url);
       }
     }
@@ -1350,6 +1443,28 @@
     });
     var keys = Object.keys(seen).sort(function (a, b) { return seen[a].localeCompare(seen[b]); });
 
+    var categoryBar = document.createElement('div');
+    categoryBar.className = 'event-category-pills';
+    categoryBar.setAttribute('role', 'group');
+    categoryBar.setAttribute('aria-label', 'Filter events by category');
+    [['', 'All events'], ['pumpkin-patches', 'Pumpkin Patches']].forEach(function (item) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'event-category-pill';
+      button.dataset.category = item[0];
+      button.textContent = item[1];
+      button.setAttribute('aria-pressed', String(!item[0]));
+      button.addEventListener('click', function () {
+        activeCategory = item[0];
+        applyFilter(activeKey, true);
+        if (activeCategory) {
+          var target = document.getElementById('pumpkin-patches');
+          if (target && target.style.display !== 'none') target.scrollIntoView({ block: 'start' });
+        }
+      });
+      categoryBar.appendChild(button);
+    });
+    root.parentNode.insertBefore(categoryBar, document.getElementById('filter-status'));
     var bar = document.createElement('div');
     bar.className = 'event-filter-pills';
     bar.setAttribute('role', 'group');
@@ -1358,15 +1473,23 @@
     keys.forEach(function (k) { bar.appendChild(makePill(k, seen[k])); });
     root.parentNode.insertBefore(bar, document.getElementById('filter-status'));
     function filterFromUrl() {
-      var requested = eventRules.normCity(new URLSearchParams(location.search).get('city'));
+      var params = new URLSearchParams(location.search);
+      activeCategory = params.get('category') === 'pumpkin-patches' ? 'pumpkin-patches' : '';
+      var requested = eventRules.normCity(params.get('city'));
       applyFilter(requested, false);
     }
     filterFromUrl();
     window.addEventListener('popstate', filterFromUrl);
     // Refresh expiry in an open tab, not only after a page reload.
-    var expirySignature = cityEvents.filter(function (event) { return isCurrentEvent(event, new Date()); }).map(eventKey).join('|');
+    function currentSignature() {
+      var now = new Date();
+      return cityEvents.filter(function (event) { return isCurrentEvent(event, now); }).map(function (event) {
+        return eventKey(event) + (eventRules.isPumpkin(event) ? ':' + eventRules.nextPumpkinVisits(event, now).map(function (item) { return item.dateStart; }).join(',') : '');
+      }).join('|');
+    }
+    var expirySignature = currentSignature();
     function refreshEvents() {
-      var signature = cityEvents.filter(function (event) { return isCurrentEvent(event, new Date()); }).map(eventKey).join('|');
+      var signature = currentSignature();
       if (signature === expirySignature) return;
       expirySignature = signature;
       var openCards = Array.from(root.querySelectorAll('.event-card:has(details[open])')).map(function (card) { return card.dataset.eventId; });

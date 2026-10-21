@@ -2,6 +2,19 @@
 
 Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize release or new events; discovery improvements have a separate bounded draft-PR approval.
 
+## Pumpkin implementation decision, October 21, 2026
+
+The owner approved all six researched listings and the decision-first card structure in a new draft PR against current main. Nick must retain its canonical ID, material uncertainty must remain visible, and implementation does not authorize merge or deployment. The owner requires an interactive preview before final release approval.
+
+- Build directly from main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`; do not change/import PR #3 (`ceb3f2873eb79aea8b92c1082687ea68c82218f7`). Implement the smallest pumpkin-specific occurrence extension using main's Colorado expiry rules.
+- The date control in the proposal was conditional on adoption of PR #3. It remains absent here; category + existing city/history is implemented independently. A future integration needs explicit compatibility review, not silent duplication.
+- Add event geography only for Erie, Platteville, Kiowa and Louisville. Thornton/Aurora already exist. No extra candidate or park dataset is authorized.
+- Keep Anderson's published dates as qualified research, never confirmed opening/availability. Exclude it from promotional previews while the conflict remains.
+- Miller's October 31 coverage endpoint is editorial; the organizer's approximate mid-November season end is not converted into an invented date.
+- Extend only the existing test workflow's branch allowlist, with no permission or deployment changes. Browser network tests remain read-only.
+
+## Historical decisions before the pumpkin approval
+
 | Date | Decision and status | Consequence / evidence |
 | --- | --- | --- |
 | 2026-10-21 | IMPLEMENTED for review: use the existing shared events manifest and static workflow | No new backend/provider/service. [Event maintenance guide](../docs/event-system.md) |
