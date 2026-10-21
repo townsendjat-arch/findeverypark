@@ -5,7 +5,7 @@ Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles pa
 ## Current readability continuation
 
 - Owner requested shorter parent-friendly cards on October 21 after screenshot review, with the same design and six listings. Implemented one next day, concise fit copy, price-first rows and only critical visible warnings. Full source facts remain in expanded details.
-- **Validation in progress:** 20/20 local Node tests pass. Exact-head Chromium/WebKit, before/after mobile evidence and independent review are required before updating the existing owner-only preview.
+- **Ready for owner review: YES**, subject to the containing documentation revision’s exact-head checks. Readability code/test head `652f85da5c1d847ee98030b772e56f64d6460353` passed [run 39672476566](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566): 93/93 Chromium + 93/93 WebKit and 20/20 Node in each job. Independent visual review found no unresolved defect; all six collapsed cards are 38–54% shorter across the two mobile widths/engines. Update only the existing owner-only preview after the final checks. **Ready for production launch: NO.**
 - No new feature, park dataset, PR #3 change, production merge or deployment is authorized. The following completed first-pass evidence is retained, not substituted for this new revision’s checks.
 
 ## Completed first pumpkin draft status

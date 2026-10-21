@@ -4,7 +4,13 @@ Updated: **2026-10-21 (UTC)**. Current scope: six pumpkin cards and 16 reviewed 
 
 ## Readability continuation (current)
 
-The October 21 owner-requested copy pass uses first-pass head `57b28792ba1fea69bc8b6426a8f0ed8768b2c62b` as its immutable before/after baseline. Additive display fields shorten collapsed cards; every prior source field and all 47 records are regression-checked unchanged. Visible prices, visit-blocking warnings and cutoffs remain explicit; secondary explanations move to details. Local Node: 20/20 passing. Exact-head browser results, both-width height/word comparisons and updated screenshots are pending and must pass before the existing owner-only preview is updated.
+The October 21 owner-requested copy pass uses first-pass head `57b28792ba1fea69bc8b6426a8f0ed8768b2c62b` as its immutable before/after baseline. Additive display fields shorten collapsed cards; every prior source field and all 47 records are regression-checked unchanged. Visible prices, visit-blocking warnings and cutoffs remain explicit; secondary explanations move to details. **PASS**, October 21 at 20:43 UTC: code/test head `652f85da5c1d847ee98030b772e56f64d6460353`, [run 39672476566](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566), **93/93 Chromium + 93/93 WebKit**, **20/20 Node in each job**. Local Node also passed under UTC, America/Los_Angeles and Asia/Tokyo (60 executions). No skipped checks or failures.
+
+All six collapsed cards are shorter at each viewport. Chromium: 38.0–53.4% shorter at 390px and 41.6–54.1% at 320px. WebKit: 38.0–53.4% at 390px and 39.0–53.0% at 320px. Visible word counts fell from 167–289 to 67–132. The independent reviewer inspected all six at both mobile sizes; the author also checked critical-warning cards visually. Prices are bold, warnings unclipped, and full original facts/links remain reachable by keyboard. Collapsed **and expanded** Events-main-content axe scans report zero violations, not whole-site certification.
+
+[Chromium screenshots/metrics](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566/artifacts/12379463504) and [WebKit screenshots/metrics](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566/artifacts/12379918783) include individual collapsed/expanded cards, before/after height/word JSON and axe reports. Retention is seven days. The accepted pre-existing homepage overflow still matches exact main; no homepage, shared expiry/city runtime or workflow changed in this pass. Source facts/timestamps remain unchanged.
+
+This final tracking revision changes documentation only; its own [exact-head PR checks](https://github.com/townsendjat-arch/findeverypark/pull/4/checks) must also pass before the existing owner-only preview update. Production release, merge and real-device/assistive-technology signoff remain separate.
 
 ## Completed first pumpkin draft validation
 
