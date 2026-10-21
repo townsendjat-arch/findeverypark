@@ -1,6 +1,29 @@
 # FindEveryPark: decision log
 
-Updated: **2026-10-21 (UTC)**. The narrow correction approval does not authorize release or new events; discovery improvements have a separate bounded draft-PR approval.
+Updated: **2026-10-21 (UTC)**. The six-listing pumpkin draft and test-gated owner-only preview are approved; production release and the separate discovery PR remain distinct.
+
+## Pumpkin implementation decision, October 21, 2026
+
+The owner approved all six researched listings and the decision-first card structure in a new draft PR against current main. Nick must retain its canonical ID, material uncertainty must remain visible, and implementation does not authorize merge or deployment. The owner requires an interactive preview before final release approval.
+
+- Build directly from main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`; do not change/import PR #3 (`ceb3f2873eb79aea8b92c1082687ea68c82218f7`). Implement the smallest pumpkin-specific occurrence extension using main's Colorado expiry rules.
+- The date control in the proposal was conditional on adoption of PR #3. It remains absent here; category + existing city/history is implemented independently. A future integration needs explicit compatibility review, not silent duplication.
+- Add event geography only for Erie, Platteville, Kiowa and Louisville. Thornton/Aurora already exist. No extra candidate or park dataset is authorized.
+- Keep Anderson's published dates as qualified research, never confirmed opening/availability. Exclude it from promotional previews while the conflict remains.
+- Miller's October 31 coverage endpoint is editorial; the organizer's approximate mid-November season end is not converted into an invented date.
+- Extend only the existing test workflow's branch allowlist, with no permission or deployment changes. Browser network tests remain read-only.
+
+### Readability request after screenshot review
+
+The owner requested shorter comparison cards, bold/scannable Entry/Pumpkins/Activities prices and natural parent-facing language, with secondary explanations in existing details. Critical operating/booking warnings and all verified facts/qualifications/links/accessibility must survive. This authorizes a focused copy pass on PR #4 and an update to the existing private preview after tests, not a redesign, feature, PR #3 import or production release.
+
+### Follow-up review decisions
+
+- The owner approved updating only the existing owner-only preview after all release-related checks pass. No production deployment, merge, new preview host or wider access is authorized.
+- The owner accepted unchanged homepage tile overflow as a documented pre-existing main issue, still owned by PR #3. Compare the exact main baseline and preserve strict Events/preview-module mobile bounds; do not import the separate tile fix.
+- PR #4 is the six-listing review deliverable. Final content/visual approval, near-publication source checks, real-device/assistive-technology disposition and exact production release approval remain outstanding.
+
+## Historical decisions before the pumpkin approval
 
 | Date | Decision and status | Consequence / evidence |
 | --- | --- | --- |

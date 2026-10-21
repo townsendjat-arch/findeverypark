@@ -1,6 +1,40 @@
 # FindEveryPark: verification ledger
 
-Updated: **2026-10-21 (UTC)**. Scope: 11 active listings after the owner-requested sold-out removal and RSVP hold, not whole-site certification.
+Updated: **2026-10-21 (UTC)**. Current scope: six pumpkin cards and 16 reviewed canonical records; prior 11-listing release evidence is retained below. This is not whole-site certification.
+
+## Readability continuation (current)
+
+The October 21 owner-requested copy pass uses first-pass head `57b28792ba1fea69bc8b6426a8f0ed8768b2c62b` as its immutable before/after baseline. Additive display fields shorten collapsed cards; every prior source field and all 47 records are regression-checked unchanged. Visible prices, visit-blocking warnings and cutoffs remain explicit; secondary explanations move to details. **PASS**, October 21 at 20:43 UTC: code/test head `652f85da5c1d847ee98030b772e56f64d6460353`, [run 39672476566](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566), **93/93 Chromium + 93/93 WebKit**, **20/20 Node in each job**. Local Node also passed under UTC, America/Los_Angeles and Asia/Tokyo (60 executions). No skipped checks or failures.
+
+All six collapsed cards are shorter at each viewport. Chromium: 38.0–53.4% shorter at 390px and 41.6–54.1% at 320px. WebKit: 38.0–53.4% at 390px and 39.0–53.0% at 320px. Visible word counts fell from 167–289 to 67–132. The independent reviewer inspected all six at both mobile sizes; the author also checked critical-warning cards visually. Prices are bold, warnings unclipped, and full original facts/links remain reachable by keyboard. Collapsed **and expanded** Events-main-content axe scans report zero violations, not whole-site certification.
+
+[Chromium screenshots/metrics](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566/artifacts/12379463504) and [WebKit screenshots/metrics](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566/artifacts/12379918783) include individual collapsed/expanded cards, before/after height/word JSON and axe reports. Retention is seven days. The accepted pre-existing homepage overflow still matches exact main; no homepage, shared expiry/city runtime or workflow changed in this pass. Source facts/timestamps remain unchanged.
+
+This final tracking revision changes documentation only; its own [exact-head PR checks](https://github.com/townsendjat-arch/findeverypark/pull/4/checks) must also pass before the existing owner-only preview update. Production release, merge and real-device/assistive-technology signoff remain separate.
+
+## Completed first pumpkin draft validation
+
+- Baseline: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`; branch `review/six-pumpkin-patches-2026`. [Draft PR #4](https://github.com/townsendjat-arch/findeverypark/pull/4) and its exact-head checks identify the containing revision; never substitute a previous SHA's checks.
+- Focused Node coverage: released 11-ID preservation (ten records unchanged and deliberate Nick enrichment), six pumpkin records/16 total, source snapshot equality, explicit occurrence metadata, closed weekdays, individual sold-out/cancelled dates, gate versus activity cutoffs, final expiry, November 1 MST, unknown Miller end, pricing/booking warnings and safe official URLs.
+- Chromium/WebKit coverage: prior regression suite plus six unique pumpkin cards, visible picking/cost/warning fields outside disclosures, category/city query and Back/Forward/anchors, unsupported-city park-link absence, empty results, keyboard interaction, in-tab next-occurrence changes, 320/390/1440 widths, scoped axe, deterministic October 21 screenshots.
+- Local Node checks passed 18/18 under UTC, America/Los_Angeles and Asia/Tokyo (54 executions, zero failures/skips), repeated on `968a4f8411db372b0d7f2e5bb40aa1ea1cc0121c`. Code/test head browser CI passed as recorded below. npm dependencies installed with a writable temporary cache; local browser execution could not start because the browser binary was absent, and a supported installer download returned invalid/truncated ZIP bytes. No local browser pass or production verification is claimed. The documentation-only containing revision must also have green exact-head PR checks before preview handoff.
+- Existing GitHub Actions remains pull-request-only, contents-read, exact-head checkout, no retained credentials or deployment step. The only workflow change extends its branch condition with `review/six-pumpkin-patches-2026`.
+- No PR #3 code, date filter, homepage layout, park datasets, dependency versions, hosting settings, production branch or deployment configuration changed. Preview is a separate parent-coordinated approval, not release authorization.
+
+### Completed code/test validation
+
+- **PASS**, October 21, 2026 at 20:23 UTC: `968a4f8411db372b0d7f2e5bb40aa1ea1cc0121c`, [run 39669630609](https://github.com/townsendjat-arch/findeverypark/actions/runs/39669630609), **87/87 Chromium + 87/87 Playwright WebKit**, with **18/18 Node in each job**. No failures or skipped browser checks. Desktop 1440×1000, mobile 390×844 and narrow 320×740; deterministic October 21, 2026 baseline.
+- Screenshots and axe/baseline JSON: [Chromium artifact](https://github.com/townsendjat-arch/findeverypark/actions/runs/39669630609/artifacts/12379735957), [WebKit artifact](https://github.com/townsendjat-arch/findeverypark/actions/runs/39669630609/artifacts/12379606098). GitHub retains these for seven days. The entire six-card set, collapsed warnings, separate costs, filters and disclosures are exercised at every viewport. Scoped axe reports pass, not whole-site certification.
+- The last source research remains October 21 at 19:42–19:44:53 UTC, not the software-test time. Source coverage is the researched 2026 season; undated seventh-generation price examples remain explicitly unverified for 2026. Miller is enumerated only through October 31; additional November dates are **not yet verified**, not a confirmed season end. November 1 is verified/tested for Seventh Generation with MST offsets.
+- No runtime/data change follows this validated code/test head in the final tracking update. Nevertheless the documentation-only containing revision has its own [exact-head checks](https://github.com/townsendjat-arch/findeverypark/pull/4/checks), which must pass before the owner-only preview is updated. Release/merge remains unauthorized.
+
+### Initial pumpkin CI and scoped correction
+
+[Run 39667510771](https://github.com/townsendjat-arch/findeverypark/actions/runs/39667510771) on `6d999fb419a99fb4cb0ef233cab04a72b723dea2`: 18/18 Node in both jobs; Chromium 85/87 and WebKit 85/87. Both failures were the newly added whole-homepage overflow assertion at 390/320px on the Erie fallback route, not Anderson exclusion or pumpkin-card layout. All Events/category/price/warning/DST/accessibility checks passed in that run; this is not a final-head all-pass claim.
+
+The corrective test compares exact main `d178a64` homepage/data/shared rules with the candidate at identical dates, URLs and viewports, logs out-of-bounds elements, and requires no increased whole-page width. It separately requires the changed preview section/cards to fit the viewport and have no internal horizontal overflow. Existing city/intent-tile wrapping remains owned by PR #3, not silently imported here. [Comparison run 39669204708](https://github.com/townsendjat-arch/findeverypark/actions/runs/39669204708) on `2620be96bc05a61fba5fd2c507b2828867fade2a` measured identical candidate/main width at both 390px and 320px: **436px in Chromium, 434px in WebKit**. Candidate preview section bounds were 24–366px / 24–296px; preview-card bounds 43–347px / 43–277px, with scrollWidth equal to clientWidth. The inherited 390px offenders are intent tiles; 320px includes city and intent tiles. The first comparator incorrectly expected a city-tile culprit at both widths, producing one diagnostic-test failure in each engine (Chromium 86/87 and WebKit 86/87), not a new UI regression. That diagnostic now recognizes both inherited tile families without relaxing exact-main or preview bounds assertions. The owner explicitly accepted unchanged baseline overflow remaining separate in PR #3. The corrected code/test head passed the complete rerun below.
+
+## Historical PR #2 evidence
 
 ## Exact revision and results
 

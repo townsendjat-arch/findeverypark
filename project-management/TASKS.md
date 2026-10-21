@@ -2,7 +2,28 @@
 
 Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
 
-## Current status
+## Current readability continuation
+
+- Owner requested shorter parent-friendly cards on October 21 after screenshot review, with the same design and six listings. Implemented one next day, concise fit copy, price-first rows and only critical visible warnings. Full source facts remain in expanded details.
+- **Ready for owner review: YES**, subject to the containing documentation revision’s exact-head checks. Readability code/test head `652f85da5c1d847ee98030b772e56f64d6460353` passed [run 39672476566](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566): 93/93 Chromium + 93/93 WebKit and 20/20 Node in each job. Independent visual review found no unresolved defect; all six collapsed cards are 38–54% shorter across the two mobile widths/engines. Update only the existing owner-only preview after the final checks. **Ready for production launch: NO.**
+- No new feature, park dataset, PR #3 change, production merge or deployment is authorized. The following completed first-pass evidence is retained, not substituted for this new revision’s checks.
+
+## Completed first pumpkin draft status
+
+- **Implemented; ready for owner review: YES**, subject to the containing revision’s exact-head checks: six pumpkin decision cards in the existing Holiday & Seasonal Events experience; exactly 16 reviewed canonical records (the released 11 plus five new records, with Nick enriched in place).
+- Baseline verified **October 21, 2026 (UTC)**: main `d178a64ebb896ec1b1e9f66429c46796004a3fe9`, merged PR #2. New branch: `review/six-pumpkin-patches-2026`; [draft PR #4](https://github.com/townsendjat-arch/findeverypark/pull/4).
+- **Ready for launch: NO.** Code/test head `968a4f8411db372b0d7f2e5bb40aa1ea1cc0121c` passed [run 39669630609](https://github.com/townsendjat-arch/findeverypark/actions/runs/39669630609). The owner approved an existing owner-only preview after checks; preview/content approval, manual-QA disposition, near-publication source checks and exact production release approval remain distinct gates. PR #4 is draft and unmerged; no production deployment has occurred.
+- **PR #3 remains separate:** `ceb3f2873eb79aea8b92c1082687ea68c82218f7` was not imported or changed. Its date/weekend/discovery features remain deferred here. Category + existing city/history is the bounded navigation change.
+- Anderson's conflicting closed banner stays visible in Events but excludes it from homepage/city recommendations. Miller's actual season end remains unknown; October 31 is an editorial verified-date coverage boundary, not a published closing date. Every other pricing/booking/cutoff uncertainty stays visible.
+- Current six-listing sources and data snapshot: [pumpkin source review](../docs/pumpkin-source-review-2026-10-21.json). The original 11-record source audit remains historical and unchanged.
+- Existing homepage overflow is unchanged from exact main (Chromium 436px; WebKit 434px at 320/390px), explicitly accepted as a separate PR #3 issue. Pumpkin Events and preview-module bounds pass.
+- Test results for the containing revision are tracked in [TESTING](TESTING.md) and its exact PR checks. Browser viewports are not physical iPhone, Android or assistive-technology signoff.
+
+## Historical PR #2 status at the prior tracking update
+
+The entries below record the pre-release review state and are superseded by the verified main baseline above; they do not describe the current pumpkin draft.
+
+### Prior current status
 
 - **Ready for owner review: YES**, subject to the exact-head test results in [TESTING](TESTING.md) and [PR #2](https://github.com/townsendjat-arch/findeverypark/pull/2). The correction pass now contains 11 listings: Aurora 5, Centennial 3, Parker 0, Denver 3. Parker Trunk or Treat is removed and Violet Bridge held at the owner's request.
 - **Ready for launch: NO.** Content/visual approval, manual-QA disposition, near-publication source checks and explicit release authorization remain outstanding.

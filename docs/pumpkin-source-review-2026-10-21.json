@@ -1,0 +1,1893 @@
+{
+  "verifiedAt": "2026-10-21",
+  "windowStart": "2026-10-21",
+  "windowEnd": "2026-11-01",
+  "implementationScope": "Six approved pumpkin listings only: enrich canonical Nick’s Fall Fest and add Anderson Farms, Maize in the City, Miller Farms, The Patch in Kiowa and 7th Generation Farm. No merge or deployment authorization.",
+  "baselineCommit": "d178a64ebb896ec1b1e9f66429c46796004a3fe9",
+  "originalSourceCheckedAt": {
+    "requiredFive": "2026-10-21T19:44:53Z",
+    "seventhGeneration": "2026-10-21T19:42:00Z"
+  },
+  "verificationMethod": "Uses the supplied official-source research snapshots checked at the timestamps above. Implementing the records does not constitute a later source, ticket inventory or operating-status recheck.",
+  "editorialDecisions": [
+    "Every approved pumpkin record remains in holiday and adds category pumpkin-patches. Existing non-pumpkin records and archive entries are unchanged.",
+    "Only event-geography labels Erie, Kiowa, Platteville and Louisville are added; no park datasets, park records or city guide pages are created.",
+    "Explicit remaining-date schedules use America/Denver offsets: -06:00 through October 31 and -07:00 on November 1. No generic season-to-daily recurrence expansion is used.",
+    "Anderson’s conflicting homepage closure banner is prominent and pumpkin.operatingStatus is conflicting. Occurrences preserve published hours only and availability remains unknown; the listing must not be treated as a confirmed operating recommendation.",
+    "Miller’s daily 9 a.m.–6 p.m. schedule is independently supported by the rendered homepage and the Labor Day-to-mid-November festival page. October 21–31 is conservatively within that published season. The exact November end is unknown, so series_end is null, seasonEndUnknown is true and editorialReviewThrough is October 31. dateEnd is the last enumerated October 31 closing time for expiry, not an assertion of the actual season end. No November occurrence is invented.",
+    "Nick is retail pumpkin selection; Maize is a stocked field with brought-in pumpkins. Neither claims vine picking.",
+    "The Patch checkout HTTP 403 is recorded as a research-access limitation, not proof the public checkout is broken. Official ticket landing URL is retained.",
+    "7th Generation pumpkin prices remain visibly undated. Its October 24 $11.37 single-ticket quote and sampled add-on totals are not generalized to all dates or carts.",
+    "Separate entry, pumpkin and activity costs and material warnings are provided in pumpkin.preview for short previews. costLabel never describes the whole paid-pumpkin outing as simply free.",
+    "Readable lastEntry labels identify gate, wagon, hayride and maze cutoffs separately from closing time; conflicting or unpublished last entry is not invented.",
+    "All occurrence availability values remain unknown. Booking links, price samples and a quantity dropdown are not evidence of live capacity or remaining tickets.",
+    "Readability pass adds pumpkin.fitLabel, costSummary, criticalWarnings and optional cutoffSummary for compact parent-facing cards. All prior full cost, warning, fitting, schedule, booking and source fields remain unchanged for expanded details. This is an editorial presentation change, not a source recheck; original verification timestamps remain unchanged."
+  ],
+  "events": [
+    {
+      "section": "holiday",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-nicks-fall-fest-2026",
+      "city": "aurora",
+      "title": "Nick’s Fall Fest",
+      "description": "Free entry; retail pumpkins extra, prices unpublished. Most rides $6. Garden-center selection, not verified vine picking.",
+      "href": "https://nicksgardencenter.com/fallfest-2026/",
+      "locationLabel": "Nick’s Garden Center, 2001 S. Chambers Road, Aurora, CO 80014",
+      "dateStart": "2026-09-26T08:00:00-06:00",
+      "dateEnd": "2026-10-31T18:00:00-06:00",
+      "dateLabel": "Daily through October 31, 2026",
+      "timeLabel": "Mon–Sat 8 a.m.–6 p.m.; Sun 9 a.m.–5 p.m. MDT",
+      "costLabel": "Free entry; most rides $6; $22 wristband: one use each of train, tractor, pedal karts and inflatable course; pumpkins extra",
+      "costType": "free",
+      "audienceLabel": "Families and children",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://nicksgardencenter.com/fallfest-2026/",
+        "https://nicksgardencenter.com/"
+      ],
+      "series_start": "2026-09-26",
+      "series_end": "2026-10-31",
+      "recurrence_label": "Daily through October 31, 2026 · Daily; Sunday hours differ",
+      "schedule": [
+        {
+          "date": "2026-10-21",
+          "dateStart": "2026-10-21T08:00:00-06:00",
+          "dateEnd": "2026-10-21T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-22",
+          "dateStart": "2026-10-22T08:00:00-06:00",
+          "dateEnd": "2026-10-22T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-23",
+          "dateStart": "2026-10-23T08:00:00-06:00",
+          "dateEnd": "2026-10-23T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-24",
+          "dateStart": "2026-10-24T08:00:00-06:00",
+          "dateEnd": "2026-10-24T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-25",
+          "dateStart": "2026-10-25T09:00:00-06:00",
+          "dateEnd": "2026-10-25T17:00:00-06:00",
+          "time": "9 a.m.–5 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-26",
+          "dateStart": "2026-10-26T08:00:00-06:00",
+          "dateEnd": "2026-10-26T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-27",
+          "dateStart": "2026-10-27T08:00:00-06:00",
+          "dateEnd": "2026-10-27T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-28",
+          "dateStart": "2026-10-28T08:00:00-06:00",
+          "dateEnd": "2026-10-28T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-29",
+          "dateStart": "2026-10-29T08:00:00-06:00",
+          "dateEnd": "2026-10-29T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-30",
+          "dateStart": "2026-10-30T08:00:00-06:00",
+          "dateEnd": "2026-10-30T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-31",
+          "dateStart": "2026-10-31T08:00:00-06:00",
+          "dateEnd": "2026-10-31T18:00:00-06:00",
+          "time": "8 a.m.–6 p.m. MDT",
+          "note": "Published Fall Fest hours; individual ride hours and capacity are not separately verified.",
+          "availability": "unknown"
+        }
+      ],
+      "registrationLabel": "Walk-in; activity tokens purchased in the greenhouse.",
+      "availabilityLabel": "Published daily Fall Fest schedule; walk-in activity tokens are sold in the greenhouse. Ride availability is not verified.",
+      "uncertaintyNotes": [
+        "Year is explicit in page title, navigation and canonical URL.",
+        "Schedule enumerates only the remaining requested-window dates, October 21–31.",
+        "Published hours are for the Fall Fest; no separate ride-specific hours verified.",
+        "Pumpkin prices, activity taxes/fees and ride age/height limits are not published.",
+        "No official evidence establishes field-grown or vine picking; this is garden-center pumpkin selection.",
+        "Parking, restrooms and accessibility details are not verified."
+      ],
+      "nearbyParks": [
+        {
+          "id": "co-aurora-jewell-wetlands",
+          "name": "Jewell Wetlands"
+        }
+      ],
+      "category": "pumpkin-patches",
+      "pumpkin": {
+        "pickingType": "Retail pumpkin selection",
+        "goodFit": "A young-family outing with a kiddie play area and story time; this is an editorial fit assessment, not a ride-age guarantee.",
+        "entryCost": "Free grounds entry for all ages.",
+        "pumpkinCost": "Pumpkins, gourds and fall decorations cost extra; pumpkin prices are not published.",
+        "activityCost": "$6 for most paid activities; duck race with duck $3. The $22 wristband is one turn each on train, tractor, pedal karts and inflatable course, not unlimited and not mini golf.",
+        "warnings": [
+          "Pumpkin prices and activity taxes/fees are not published.",
+          "Garden-center pumpkin selection; field-grown or vine picking is not verified.",
+          "Individual ride hours and age/height restrictions are not published.",
+          "Parking, restroom and accessibility details are not verified."
+        ],
+        "essentials": [
+          "Walk in and buy activity tokens in the greenhouse; no advance booking requirement is stated.",
+          "Wall ball, straw maze, Professor Pumpkin story time, kiddie play area and games are included. Kettle corn and shopping cost extra.",
+          "Published hours: Monday–Saturday 8 a.m.–6 p.m.; Sunday 9 a.m.–5 p.m. MDT.",
+          "Group pricing is by inquiry; no inquiry or reservation has been made.",
+          "Detailed activities and prices: $6 per person for each train ride, tractor/Tunnel of Terror ride, pedal karts, 10-minute inflatable obstacle course or 9-hole mini golf. Duck race with duck $3. The $22 wristband gives one use each of train, tractor, pedal karts and inflatable course; not unlimited and excludes golf."
+        ],
+        "preview": {
+          "entry": "Free entry.",
+          "pumpkins": "Retail pumpkins extra; price unpublished.",
+          "activities": "Most rides $6; $22 wristband is one turn each on four rides, not unlimited.",
+          "warning": "Vine picking is not verified. Pumpkin prices, activity taxes/fees, ride-specific hours and age/height limits are unpublished; parking, restrooms and accessibility are unverified."
+        },
+        "fitLabel": "Playtime and a quick garden-center pumpkin stop.",
+        "costSummary": {
+          "entry": "Free entry for all ages.",
+          "pumpkins": "Extra; prices aren’t listed online.",
+          "activities": "$6 for most rides; $22 wristband for one turn each on four rides, not unlimited. Wristband excludes mini golf."
+        },
+        "criticalWarnings": []
+      }
+    },
+    {
+      "section": "holiday",
+      "category": "pumpkin-patches",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "erie-anderson-farms-fall-festival-2026",
+      "city": "erie",
+      "title": "Anderson Farms Fall Festival",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://tickets.andersonfarms.com/p/fall-festival",
+        "https://andersonfarms.com/pricing-and-hours/",
+        "https://andersonfarms.com/pumpkin-patch/",
+        "https://andersonfarms.com/wp-content/uploads/2026/06/Pumpking-Size-Chart.jpg",
+        "https://andersonfarms.com/attractions-and-activities/",
+        "https://andersonfarms.com/corn-maze/",
+        "https://andersonfarms.com/pumpkin-express-and-ada/",
+        "https://andersonfarms.com/faqs/",
+        "https://tickets.andersonfarms.com/purchase-policy",
+        "https://tickets.andersonfarms.com/p/tickets",
+        "https://andersonfarms.com/private-campfire-sites/",
+        "https://andersonfarms.com/pavilion-rentals/",
+        "https://andersonfarms.com/"
+      ],
+      "description": "Operating status conflicts. Field picking; paid entry and pumpkins extra. Confirm the farm is operating before visiting.",
+      "href": "https://andersonfarms.com/pricing-and-hours/",
+      "locationLabel": "Anderson Farms, 6728 County Road 3-1/4, Erie, CO 80516",
+      "dateStart": "2026-09-23T10:00:00-06:00",
+      "dateEnd": "2026-10-31T23:00:00-06:00",
+      "dateLabel": "Published season: September 23–October 31, 2026; operating status unresolved",
+      "timeLabel": "Published hours: Mon/Wed 10 a.m.–6 p.m.; October Thu 10 a.m.–10 p.m.; Fri 10 a.m.–11 p.m.; Sat 9 a.m.–11 p.m.; Sun 9 a.m.–10 p.m. MDT. Closed Tuesdays.",
+      "costLabel": "Ages 4+ remaining-date admission $13.50–$42 by date and entry type; ages 0–3 free; pumpkins extra ($3–$20 chart, conflicting FAQ); final taxes/fees unresolved",
+      "costType": "paid",
+      "audienceLabel": "Families; small maze trail designed for ages 2–8; play yard designed for children under 48 inches",
+      "series_start": "2026-09-23",
+      "series_end": "2026-10-31",
+      "recurrence_label": "Published dates through October 31, 2026; closed Tuesdays; current operation not confirmed",
+      "registrationUrl": "https://tickets.andersonfarms.com/p/fall-festival",
+      "registrationLabel": "Confirm the operating-status conflict before booking. Online purchase strongly recommended; limited date-specific tickets and 30-minute timed-entry windows. Sold out online also means sold out at the gate.",
+      "availabilityLabel": "Operating status unresolved: the homepage says no activities are currently open while the 2026 festival calendar remains published. No date below confirms current operation or ticket availability.",
+      "schedule": [
+        {
+          "date": "2026-10-21",
+          "dateStart": "2026-10-21T10:00:00-06:00",
+          "dateEnd": "2026-10-21T18:00:00-06:00",
+          "time": "10 a.m.–6 p.m. MDT",
+          "lastEntry": "Gate: 4:30 p.m. MDT. Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-21T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days.",
+          "entryCutoff": "2026-10-21T16:30:00-06:00"
+        },
+        {
+          "date": "2026-10-22",
+          "dateStart": "2026-10-22T10:00:00-06:00",
+          "dateEnd": "2026-10-22T22:00:00-06:00",
+          "time": "10 a.m.–10 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-22T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        },
+        {
+          "date": "2026-10-23",
+          "dateStart": "2026-10-23T10:00:00-06:00",
+          "dateEnd": "2026-10-23T23:00:00-06:00",
+          "time": "10 a.m.–11 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-23T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        },
+        {
+          "date": "2026-10-24",
+          "dateStart": "2026-10-24T09:00:00-06:00",
+          "dateEnd": "2026-10-24T23:00:00-06:00",
+          "time": "9 a.m.–11 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-24T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        },
+        {
+          "date": "2026-10-25",
+          "dateStart": "2026-10-25T09:00:00-06:00",
+          "dateEnd": "2026-10-25T22:00:00-06:00",
+          "time": "9 a.m.–10 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-25T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        },
+        {
+          "date": "2026-10-26",
+          "dateStart": "2026-10-26T10:00:00-06:00",
+          "dateEnd": "2026-10-26T18:00:00-06:00",
+          "time": "10 a.m.–6 p.m. MDT",
+          "lastEntry": "Gate: 4:30 p.m. MDT. Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-26T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days.",
+          "entryCutoff": "2026-10-26T16:30:00-06:00"
+        },
+        {
+          "date": "2026-10-28",
+          "dateStart": "2026-10-28T10:00:00-06:00",
+          "dateEnd": "2026-10-28T18:00:00-06:00",
+          "time": "10 a.m.–6 p.m. MDT",
+          "lastEntry": "Gate: 4:30 p.m. MDT. Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-28T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days.",
+          "entryCutoff": "2026-10-28T16:30:00-06:00"
+        },
+        {
+          "date": "2026-10-29",
+          "dateStart": "2026-10-29T10:00:00-06:00",
+          "dateEnd": "2026-10-29T22:00:00-06:00",
+          "time": "10 a.m.–10 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-29T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        },
+        {
+          "date": "2026-10-30",
+          "dateStart": "2026-10-30T10:00:00-06:00",
+          "dateEnd": "2026-10-30T23:00:00-06:00",
+          "time": "10 a.m.–11 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-30T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        },
+        {
+          "date": "2026-10-31",
+          "dateStart": "2026-10-31T09:00:00-06:00",
+          "dateEnd": "2026-10-31T23:00:00-06:00",
+          "time": "9 a.m.–11 p.m. MDT",
+          "lastEntry": "Pumpkin wagon: 5:30 p.m. MDT; line may close earlier.",
+          "note": "Published schedule only, not current operating confirmation. Homepage closure banner conflicts with this calendar; confirm before travel. Pumpkin field is unlit after dark.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-31T17:30:00-06:00",
+          "activityCutoffLabel": "Pumpkin wagon cutoff; line can close earlier on busy days."
+        }
+      ],
+      "uncertaintyNotes": [
+        "The homepage says no activities are currently open while advertising active 2026 festival dates; same-day operation is unresolved.",
+        "Linked 2026 pumpkin size chart lists $3–$20, but the FAQ instead says $2–$12.",
+        "Indexed all-in ticket-fee wording was not visible on the current live ticket page; checkout totals, fees and taxes were not confirmed.",
+        "Parking charge and per-day optional-attraction availability are not verified.",
+        "All listed occurrences are published dates, not claims that the farm is currently operating or has tickets available."
+      ],
+      "pumpkin": {
+        "pickingType": "Field picking with pumpkin wagon",
+        "goodFit": "A larger farm outing with a nonhaunted corn maze and included family activities, if the farm confirms it is operating.",
+        "entryCost": "Ages 4+ $13.50–$42 for remaining dates, depending on date and entry type; ages 0–3 free. Final taxes/fees are unresolved.",
+        "pumpkinCost": "Pumpkins extra: current size chart $3–$20, conflicting with FAQ $2–$12. Field stock and varieties are not guaranteed.",
+        "activityCost": "Core festival activities and the pumpkin wagon are included. Optional petting zoo, mining, painting, pony rides, other attractions and food cost extra; daily availability varies.",
+        "warnings": [
+          "Operating status conflicts: homepage says no activities are currently open, despite published 2026 festival dates. Confirm directly before booking or travel.",
+          "Pumpkin prices conflict: linked current chart $3–$20 versus FAQ $2–$12.",
+          "Final ticket taxes/fees and parking charges are unresolved; do not treat indexed all-in fee language as a verified checkout total.",
+          "Published hours are not current operating confirmation. Weather/mud can close activities; pumpkin stock and daily optional attractions are not guaranteed."
+        ],
+        "essentials": [
+          "Pumpkin wagon stops at 5:30 p.m.; its line can close earlier on busy days. The field is unlit after dark. Monday/Wednesday gate entry ends at 4:30 p.m.",
+          "Online purchase is strongly recommended. Timed tickets allow a 30-minute entry window, then staying until closing; same-day reentry requires a wristband. If tickets sell out online they are also sold out at the gate.",
+          "Separate retail-only pumpkin sales need no festival admission, 10 a.m.–6 p.m. except Tuesdays; that route does not include field access.",
+          "Small maze trail is designed for ages 2–8; Mookie’s Play Yard is designed for children under 48 inches. Terror in the Corn is a separate haunted offering, not ordinary pumpkin admission.",
+          "Accessible wagon available on request at loading; regular festival access needs no special reservation. Accessible indoor stalls and portable toilets are available, but none are inside the maze. Wellness room has an adult changing table.",
+          "Dirt, gravel and uneven or muddy terrain; all-terrain stroller advised. Outside food allowed, no alcohol; no pets except ADA service animals.",
+          "Painting runs weekends; pony rides and mini-launch Friday–Sunday; paintball and escape room Thursday evening–Sunday. Confirm the day’s lineup. Face painting, escape room and food prices are variable or unpublished.",
+          "Campfire rentals are $150 small/$300 large for four hours; pavilions $100–$400. Reservations required and festival admission extra.",
+          "Tickets are generally final sale, including weather and personal-plan changes; remedies when the farm cancels are discretionary under its July 6, 2026 purchase policy.",
+          "Detailed admission pricing: Ages 4+: October 21–25 Mon/Wed/Thu $18 timed or $23 gate; Friday $25 timed or $35 anytime/gate; Saturday/Sunday $32 timed or $42 anytime/gate. October 26–30 Mon/Wed/Thu $13.50 timed/gate; Friday $18.75 timed or $26.25 anytime/gate. October 31 $16 timed or $21 anytime/gate. Closed Tuesdays. Ages 0–3 free, no ticket needed. Final taxes/fees unresolved.",
+          "Detailed pumpkin pricing and selection: Extra: current linked size chart lists itty bitty $3, small $5, medium $7, large $10, extra large $15 and jumbo $20. FAQ conflicts at $2–$12. The 30-acre field advertises 70+ varieties, without stock guarantees.",
+          "Detailed activities and prices: Included: nonhaunted 25-acre corn maze, pumpkin wagon, barrel train, trike track, jump pad, combine slide, low ropes, playgrounds/games, animal viewing and scheduled entertainment. Petting zoo $5; gem mining $8.50–$60; duck $2; paintball $8 one/$14 both; bear factory from $29.99; pony $10 or $14 with photo; pumpkin painting $10; mini-pumpkin launch $5 per bucket. Food and other extras cost more."
+        ],
+        "preview": {
+          "entry": "Paid admission varies by date; ages 0–3 free.",
+          "pumpkins": "Extra: $3–$20 chart conflicts with $2–$12 FAQ.",
+          "activities": "Core festival activities included; optional attractions cost extra.",
+          "warning": "Current operation is unresolved: the homepage says activities are closed despite published festival dates. Confirm before travel or booking. Pumpkin prices conflict; final taxes/fees, parking charge, stock and daily optional-attraction availability remain unconfirmed."
+        },
+        "operatingStatus": "conflicting",
+        "fitLabel": "A big farm day with field picking and a corn maze.",
+        "costSummary": {
+          "entry": "$13.50–$42 ages 4+, by date and ticket; ages 0–3 free. Final fees/taxes aren’t confirmed.",
+          "pumpkins": "$3–$20 on the size chart, but $2–$12 in the FAQ. Confirm the price.",
+          "activities": "Included: wagon, maze and family play. Some attractions and food cost extra."
+        },
+        "criticalWarnings": [
+          "Confirm before going: the farm advertises festival dates but says activities are closed. Opening is not confirmed.",
+          "If open, online tickets are recommended; sold out online means no tickets at the gate."
+        ]
+      }
+    },
+    {
+      "section": "holiday",
+      "category": "pumpkin-patches",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "thornton-maize-in-the-city-2026",
+      "city": "thornton",
+      "title": "Maize in the City",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.maizeinthecity.com/schedule",
+        "https://www.maizeinthecity.com/attractions",
+        "https://www.maizeinthecity.com/pumpkins",
+        "https://www.maizeinthecity.com/faqs",
+        "https://mitc2026.fearticket.com/",
+        "https://www.maizeinthecity.com/calendar/oct262026",
+        "https://www.maizeinthecity.com/calendar/sept19"
+      ],
+      "description": "Free entry; stocked-field pumpkins extra. Attractions priced separately. Booking and maze cutoffs conflict; confirm before going.",
+      "href": "https://www.maizeinthecity.com/",
+      "locationLabel": "Maize in the City, 10451 McKay Road, Thornton, CO 80233",
+      "dateStart": "2026-09-19T09:00:00-06:00",
+      "dateEnd": "2026-10-31T19:00:00-06:00",
+      "dateLabel": "Selected dates September 19–October 31, 2026; see exact remaining dates",
+      "timeLabel": "Oct 22/26–29 noon–6 p.m.; Oct 23/30 10 a.m.–7 p.m.; Oct 24/25/31 9 a.m.–7 p.m. MDT",
+      "costLabel": "Free entry; stocked-field pumpkins extra at onsite prices; paid attractions separately priced; taxes/fees undisclosed",
+      "costType": "free",
+      "audienceLabel": "Families; attraction-specific age, height and weight restrictions apply",
+      "series_start": "2026-09-19",
+      "series_end": "2026-10-31",
+      "recurrence_label": "Remaining published dates: October 22–31, 2026; hours vary by date",
+      "registrationUrl": "https://mitc2026.fearticket.com/",
+      "registrationLabel": "Official pages conflict: schedule/FAQ say buy at each attraction with no online tickets, but the attractions page links 2026 maze pre-purchase. An online requirement is not established; confirm the intended route.",
+      "availabilityLabel": "Published calendar dates only. Maze checkout, capacity and remaining inventory are unverified; weather and field conditions may close attractions or grounds.",
+      "schedule": [
+        {
+          "date": "2026-10-22",
+          "dateStart": "2026-10-22T12:00:00-06:00",
+          "dateEnd": "2026-10-22T18:00:00-06:00",
+          "time": "Noon–6 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-23",
+          "dateStart": "2026-10-23T10:00:00-06:00",
+          "dateEnd": "2026-10-23T19:00:00-06:00",
+          "time": "10 a.m.–7 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-24",
+          "dateStart": "2026-10-24T09:00:00-06:00",
+          "dateEnd": "2026-10-24T19:00:00-06:00",
+          "time": "9 a.m.–7 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-25",
+          "dateStart": "2026-10-25T09:00:00-06:00",
+          "dateEnd": "2026-10-25T19:00:00-06:00",
+          "time": "9 a.m.–7 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-26",
+          "dateStart": "2026-10-26T12:00:00-06:00",
+          "dateEnd": "2026-10-26T18:00:00-06:00",
+          "time": "Noon–6 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-27",
+          "dateStart": "2026-10-27T12:00:00-06:00",
+          "dateEnd": "2026-10-27T18:00:00-06:00",
+          "time": "Noon–6 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-28",
+          "dateStart": "2026-10-28T12:00:00-06:00",
+          "dateEnd": "2026-10-28T18:00:00-06:00",
+          "time": "Noon–6 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-29",
+          "dateStart": "2026-10-29T12:00:00-06:00",
+          "dateEnd": "2026-10-29T18:00:00-06:00",
+          "time": "Noon–6 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-30",
+          "dateStart": "2026-10-30T10:00:00-06:00",
+          "dateEnd": "2026-10-30T19:00:00-06:00",
+          "time": "10 a.m.–7 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-31",
+          "dateStart": "2026-10-31T09:00:00-06:00",
+          "dateEnd": "2026-10-31T19:00:00-06:00",
+          "time": "9 a.m.–7 p.m. MDT",
+          "lastEntry": "Large maze: conflicting 90-minute versus 2-hour pre-closing cutoff; other attraction lines generally close 1 hour before closing.",
+          "note": "Confirm booking and maze-entry cutoff. Weather or field conditions can close attractions or grounds.",
+          "availability": "unknown"
+        }
+      ],
+      "uncertaintyNotes": [
+        "Pumpkins are brought into an open field; this is stocked-field selection, not verified vine-grown U-pick.",
+        "Pumpkin prices are by size/variety on the onsite chart; online numeric prices are not published.",
+        "Large-maze entry cutoff conflicts: schedule says 1.5 hours before closing; FAQ says 2 hours. Other attraction lines generally close 1 hour early.",
+        "Schedule/FAQ say no online tickets, while the attractions page links 2026 maze pre-purchase; an advance purchase requirement and live checkout are unverified.",
+        "Adult/child paid-price age boundaries beyond the published free-age bands, taxes/fees, parking charge, restrooms and formal accessibility are not verified.",
+        "Calendar dates are enumerated, not extrapolated from a weekly rule: no October 21 session is listed. October 15 had a closure notice; October 1 and 8 had no events. November calendar showed no events.",
+        "Generic pages say attractions up to $20, but detailed current face-painting prices reach $22."
+      ],
+      "pumpkin": {
+        "pickingType": "Stocked-field pumpkin selection",
+        "goodFit": "A flexible outing where families can choose pumpkins and individual activities without buying festival admission.",
+        "entryCost": "Free grounds entry for all ages; no all-inclusive activity pass.",
+        "pumpkinCost": "Stocked-field pumpkins cost extra by size/variety on the onsite chart; numeric online prices are unpublished. Pumpkins are brought in, not verified vine-grown U-pick.",
+        "activityCost": "Large maze: adult $15, child $10, ages 0–4 free; other attractions are individually priced, with different free-age bands. Paid adult/child boundaries and taxes/fees are unpublished. Slides, games and play areas are included.",
+        "warnings": [
+          "Official booking instructions conflict: no-online-ticket wording versus a linked 2026 maze pre-purchase site. Advance booking requirement and live checkout are unverified.",
+          "Large-maze cutoff conflicts at 90 minutes versus 2 hours before closing; other attraction lines generally close 1 hour early. Confirm before choosing an arrival time.",
+          "Pumpkin prices are only charted onsite. Taxes/fees and adult/child paid-price age boundaries beyond free-age bands are not disclosed.",
+          "Weather/field conditions may close grounds or attractions. Parking charge, restrooms and formal accessible routes are unverified.",
+          "These are brought-in pumpkins in a stocked field, not verified vine-grown U-pick; variety and stock can change."
+        ],
+        "essentials": [
+          "Slides, photo areas, corn-kernel play box, games and spring riders are included. Food, market purchases and carving goods cost extra.",
+          "Attractions are cashless; exchange cash for a gift card at the information booth. Pumpkins, food and market purchases accept cash or card. FAQ states no refunds.",
+          "Large maze takes about 40 minutes; mini maze about 20 minutes. Bouncers are for ages 13 and under. Pony limit: 65 lb and 48 inches. Barrel train: children only, at least 32 inches and no more than 120 lb. Face paint ages 2+.",
+          "Use onsite parking and enter southbound on McKay Road; no left turn or street parking. Uneven dirt terrain may affect stroller and footwear choices.",
+          "First-come picnic tables; coolers allowed, no alcohol, pop-up tents or umbrellas. Leashed dogs allowed.",
+          "Current detailed face-painting prices reach $22, despite generic wording that attractions cost up to $20.",
+          "Detailed pumpkin pricing and selection: Pumpkins cost extra by size and variety, using the onsite price chart; stock varies through the season. Pumpkins are brought into the field, not verified grown-on-vine U-pick.",
+          "Detailed activities and prices: Large maze: adult $15, child $10, ages 0–4 free. Mini maze: adult $6, child $5, ages 0–1 free. Wagon: adult $10, child $5, ages 0–4 free. Petting zoo $6, ages 0–2 free with paid adult. Pony rides/photos $10–$15; bounce pass $14 or $7 ages 0–4; barrel train $6; duck $2.99; corn launcher $6/7 ears; escape room $8 single/$14 double; sand art $6–$10; face paint $15–$22. Taxes/fees undisclosed."
+        ],
+        "preview": {
+          "entry": "Free entry.",
+          "pumpkins": "Stocked-field pumpkins extra; prices charted onsite.",
+          "activities": "Pay separately for attractions; large maze adult $15/child $10.",
+          "warning": "Booking instructions conflict, and large-maze entry closes either 90 minutes or 2 hours early according to different official pages. Confirm both. Pumpkin prices are onsite only; adult/child price boundaries, taxes/fees, live capacity and formal accessibility are unverified."
+        },
+        "fitLabel": "Choose a few paid rides or enjoy the free play areas.",
+        "costSummary": {
+          "entry": "Free entry for all ages.",
+          "pumpkins": "Extra; prices posted onsite. Pumpkins are brought into the field, not picked from vines.",
+          "activities": "Large maze: $15 adult/$10 child (age cutoffs not posted); ages 0–4 free. Other attractions extra."
+        },
+        "cutoffSummary": "Large-maze entry ends 90 minutes or 2 hours before closing; confirm with the farm.",
+        "criticalWarnings": [
+          "Check how to buy maze tickets: the official pages disagree about online booking."
+        ]
+      }
+    },
+    {
+      "section": "holiday",
+      "category": "pumpkin-patches",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "platteville-miller-farms-fall-harvest-2026",
+      "city": "platteville",
+      "title": "Miller Farms Fall Harvest Festival",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.millerfarms.net/fall-harvest-festival",
+        "https://www.millerfarms.net/",
+        "https://www.millerfarms.net/uploads/b/8d517ea0-99e1-11ea-8a9e-05f193e0cf18/Miller%20Farms%20LLC%20Release%202026.pdf"
+      ],
+      "description": "Free grounds; field-harvest packages extra. Pumpkin inclusion varies. Season end unknown; listed dates verified through Oct 31.",
+      "href": "https://www.millerfarms.net/fall-harvest-festival",
+      "locationLabel": "Miller Farms, 13912 County Road 19, Platteville, CO 80651",
+      "dateStart": "2026-09-07T09:00:00-06:00",
+      "dateEnd": "2026-10-31T18:00:00-06:00",
+      "dateLabel": "September 7 to “mid-November” 2026; exact end unknown. This listing covers verified dates through October 31 only.",
+      "timeLabel": "Daily 9 a.m.–6 p.m. MDT; last hayride 4:30 p.m. Listed dates stop October 31 for editorial review, not a confirmed season end.",
+      "costLabel": "Free grounds; adult harvest/ride packages $18/$28/$40; ages 4–10 $10 ride or $18 one-bag harvest; individual pumpkins, under-4 charges and fees unverified",
+      "costType": "free",
+      "audienceLabel": "Hands-on family harvest; published child package prices cover ages 4–10",
+      "series_start": "2026-09-07",
+      "series_end": null,
+      "seasonEndUnknown": true,
+      "editorialReviewThrough": "2026-10-31",
+      "recurrence_label": "Daily; verified-date coverage October 21–31, 2026 only. Actual final date unknown.",
+      "registrationLabel": "A waiver is required for every visitor. The organizer links a 2026 waiver; advance reservations, timed entry and capacity rules are not stated.",
+      "availabilityLabel": "Published daily schedule and harvest packages; pumpkin supply is not guaranteed. Exact final season date and live capacity are unverified. No November visits are asserted by this listing.",
+      "schedule": [
+        {
+          "date": "2026-10-21",
+          "dateStart": "2026-10-21T09:00:00-06:00",
+          "dateEnd": "2026-10-21T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-21T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-22",
+          "dateStart": "2026-10-22T09:00:00-06:00",
+          "dateEnd": "2026-10-22T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-22T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-23",
+          "dateStart": "2026-10-23T09:00:00-06:00",
+          "dateEnd": "2026-10-23T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-23T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-24",
+          "dateStart": "2026-10-24T09:00:00-06:00",
+          "dateEnd": "2026-10-24T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-24T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-25",
+          "dateStart": "2026-10-25T09:00:00-06:00",
+          "dateEnd": "2026-10-25T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-25T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-26",
+          "dateStart": "2026-10-26T09:00:00-06:00",
+          "dateEnd": "2026-10-26T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-26T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-27",
+          "dateStart": "2026-10-27T09:00:00-06:00",
+          "dateEnd": "2026-10-27T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-27T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-28",
+          "dateStart": "2026-10-28T09:00:00-06:00",
+          "dateEnd": "2026-10-28T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-28T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-29",
+          "dateStart": "2026-10-29T09:00:00-06:00",
+          "dateEnd": "2026-10-29T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-29T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-30",
+          "dateStart": "2026-10-30T09:00:00-06:00",
+          "dateEnd": "2026-10-30T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-30T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        },
+        {
+          "date": "2026-10-31",
+          "dateStart": "2026-10-31T09:00:00-06:00",
+          "dateEnd": "2026-10-31T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "lastEntry": "Last hayride: 4:30 p.m. MDT.",
+          "note": "Published daily hours, with pumpkins only when available. October 31 is the editorial coverage boundary, not a confirmed season closing date.",
+          "availability": "unknown",
+          "activityCutoff": "2026-10-31T16:30:00-06:00",
+          "activityCutoffLabel": "Last harvest hayride; grounds remain scheduled until 6 p.m."
+        }
+      ],
+      "uncertaintyNotes": [
+        "Organizer says Labor Day to mid-November; exact final date is not published. September 7 is the 2026 Labor Day calendar translation.",
+        "October 31 at 6 p.m. is the last enumerated verified occurrence and editorial expiry boundary only, not the actual season end. No November dates are invented; recheck before extending coverage.",
+        "The $28 adult one-bag harvest package explicitly includes a pumpkin only when available; child and other packages do not explicitly promise a pumpkin.",
+        "Individual pumpkin price, under-4 ride charge, adult age boundary and taxes/fees are not specified.",
+        "Reservation requirements, accessible routes and parking details are not verified."
+      ],
+      "pumpkin": {
+        "pickingType": "Field harvest and roadside pumpkin selection",
+        "goodFit": "A hands-on produce-harvesting outing for families; this is an editorial fit assessment based on the harvest activities and ages 4–10 child prices.",
+        "entryCost": "Free grounds entry. Under-4 ride charges, adult price-age boundary and taxes/fees are unspecified.",
+        "pumpkinCost": "Only the $28 adult one-bag package explicitly includes a pumpkin, when available. Other package inclusion and individual pumpkin prices are unverified.",
+        "activityCost": "Adult ride/harvest packages $18/$28/$40; ages 4–10 $10 ride or $18 one-bag harvest. Maze, play areas and grounds activities are included; produce, snacks and drinks cost extra.",
+        "warnings": [
+          "A waiver is required for every visitor; complete the organizer’s 2026 waiver. Advance reservation requirements are not stated.",
+          "Exact season end is unknown: the organizer says “mid-November.” Listed occurrences stop October 31 as an editorial review boundary, not a confirmed season closing date.",
+          "Pumpkin supply is conditional; inclusion is explicitly promised only with the $28 adult one-bag package when available.",
+          "Individual pumpkin prices, under-4 charges, adult price-age boundary and taxes/fees are unspecified.",
+          "Advance reservation rules, capacity, parking and accessible routes are unverified."
+        ],
+        "essentials": [
+          "Daily published grounds hours are 9 a.m.–6 p.m.; last hayride 4:30 p.m. Do not treat grounds closing as a hayride boarding deadline.",
+          "Every visitor needs the linked 2026 waiver. Outside harvesting bags are prohibited.",
+          "Covered picnic tables, portable restrooms and handwashing are listed. Service dogs only.",
+          "The published season starts on Labor Day, September 7 in 2026. No exceptions were found, but dates beyond the editorial October 31 boundary require rechecking.",
+          "Detailed admission pricing: Grounds entry is free. Adult packages: $18 hayride only; $28 hayride plus one bag and a pumpkin when available; $40 hayride plus four bags. Ages 4–10: $10 hayride only or $18 hayride plus one bag. Under-4 prices, adult age boundary and taxes/fees are unspecified.",
+          "Detailed pumpkin pricing and selection: A pumpkin is explicitly included only in the $28 adult package, when available. Other packages do not explicitly promise a pumpkin. Individual pumpkin and roadside pumpkin prices are not published.",
+          "Detailed activities and prices: Corn maze, kids’ play areas, antique tractors, dirt hills and hay pyramid are included with grounds entry. Harvest hayride/produce packages, roadside produce, snacks and drinks cost extra. Stack-a-wagon produce sale $55; homeschool Mondays in September/October except Labor Day advertise 25% off regular harvest rates."
+        ],
+        "preview": {
+          "entry": "Free grounds; harvest/ride packages cost extra.",
+          "pumpkins": "$28 adult package includes one only when available; other inclusion/prices unverified.",
+          "activities": "Adult packages $18/$28/$40; ages 4–10 $10 ride or $18 one bag.",
+          "warning": "Exact season end is unknown; October 31 is an editorial coverage boundary, not a confirmed closing date. Pumpkin supply is conditional. Individual pumpkin prices, under-4 charges, adult price-age boundary, fees, reservations and accessible routes remain unverified. Every visitor needs a waiver."
+        },
+        "fitLabel": "A hands-on harvest trip for the family.",
+        "costSummary": {
+          "entry": "Free grounds entry; rides and harvesting cost extra.",
+          "pumpkins": "$28 adult one-bag package includes a pumpkin only when available. Other pumpkin prices aren’t confirmed.",
+          "activities": "$18–$40 adult ride/harvest packages; ages 4–10 pay $10 for a ride or $18 for one-bag harvesting."
+        },
+        "criticalWarnings": [
+          "Every visitor needs a waiver. Under-4 ride prices aren’t confirmed; check before paying."
+        ]
+      }
+    },
+    {
+      "section": "holiday",
+      "category": "pumpkin-patches",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "kiowa-the-patch-fall-festival-2026",
+      "city": "kiowa",
+      "title": "The Patch Fall Festival",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://thepatch.farm/seasons/fall-festival",
+        "https://thepatch.farm/tickets",
+        "https://thepatch.farm/activities",
+        "https://thepatch.farm/faq"
+      ],
+      "description": "Field picking; ages 3+ $27.95, pumpkins extra. Numeric pumpkin prices unknown; ticket checkout and availability unverified.",
+      "href": "https://thepatch.farm/seasons/fall-festival",
+      "locationLabel": "The Patch, 7400 SH-86, Kiowa, CO 80117",
+      "dateStart": "2026-09-19T10:00:00-06:00",
+      "dateEnd": "2026-10-31T18:00:00-06:00",
+      "dateLabel": "Weekends September 19–October 31, 2026, plus October 15–16; remaining dates October 24, 25 and 31",
+      "timeLabel": "10 a.m.–6 p.m. MDT; last entry not published",
+      "costLabel": "Ages 3+ $27.95; ages 0–2 free without a perk; pumpkins extra; operator says no ticket fees; tax breakdown and checkout unverified",
+      "costType": "paid",
+      "audienceLabel": "Young children through grandparents; no haunted attractions or jump scares",
+      "series_start": "2026-09-19",
+      "series_end": "2026-10-31",
+      "recurrence_label": "Remaining dates: October 24, 25 and 31, 2026, 10 a.m.–6 p.m. MDT",
+      "registrationUrl": "https://thepatch.farm/tickets",
+      "registrationLabel": "Online ticket and mandatory waiver; purchase on a phone at the gate is allowed, so advance purchase is recommended rather than mandatory before arrival. Cow-cuddle sessions require a date/time reservation.",
+      "availabilityLabel": "Official 2026 program is published. The linked checkout returned HTTP 403 to read-only inspection; purchase flow, capacity and remaining tickets could not be verified. That response does not establish that checkout is broken.",
+      "schedule": [
+        {
+          "date": "2026-10-24",
+          "dateStart": "2026-10-24T10:00:00-06:00",
+          "dateEnd": "2026-10-24T18:00:00-06:00",
+          "time": "10 a.m.–6 p.m. MDT",
+          "note": "Choice-of-perk weekend for paid admission; free toddler admission has no perk. Perk selection and ammunition quantities must be confirmed; last entry is unpublished.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-25",
+          "dateStart": "2026-10-25T10:00:00-06:00",
+          "dateEnd": "2026-10-25T18:00:00-06:00",
+          "time": "10 a.m.–6 p.m. MDT",
+          "note": "Choice-of-perk weekend for paid admission; free toddler admission has no perk. Perk selection and ammunition quantities must be confirmed; last entry is unpublished.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-31",
+          "dateStart": "2026-10-31T10:00:00-06:00",
+          "dateEnd": "2026-10-31T18:00:00-06:00",
+          "time": "10 a.m.–6 p.m. MDT",
+          "note": "Choice-of-perk weekend for paid admission; free toddler admission has no perk. Perk selection and ammunition quantities must be confirmed; last entry is unpublished.",
+          "availability": "unknown"
+        }
+      ],
+      "uncertaintyNotes": [
+        "Pumpkins are sold by size; numeric pumpkin prices are not published. Other unspecified extras include individual ammunition and Euro Bungy prices.",
+        "The linked ticket endpoint returned HTTP 403 during read-only inspection; this is an access limitation, not proof that public checkout is broken. Ticket availability and the complete checkout/waiver flow are unverified.",
+        "Operator says no ticket fees and that advertised price is payable price; tax is not separately itemized and checkout was not verified.",
+        "Paintball perk quantities conflict at 20 versus 25 shots; no guaranteed shot count is promised for choice weekends.",
+        "Timed-entry rules, general capacity, refund policy, last entry, accessible routes and numeric Euro Bungy limits are not published or verified.",
+        "This is the Smith-family venue in Kiowa, not an Elizabeth venue or the Oklahoma venues at seeyouatthepatch.com."
+      ],
+      "pumpkin": {
+        "pickingType": "Field picking with wagon access",
+        "goodFit": "A nonhaunted, activity-rich outing for young children through grandparents, with optional extras clearly separate from entry.",
+        "entryCost": "Ages 3+ $27.95; ages 0–2 free without a perk. Operator says no ticket fees and advertised price is payable price; tax breakdown and checkout are unverified.",
+        "pumpkinCost": "Field-picked pumpkins cost extra by size; numeric prices are unpublished. Paid admission on October 24–25/31 may offer a mini-pumpkin perk, not an included full-size pumpkin.",
+        "activityCost": "Core farm activities included. Patch Plus $39.95 includes admission and ammunition; Family Blast Pack $39.95 is extra ammunition and excludes admission. Cow cuddling $45; food and other extras cost more.",
+        "warnings": [
+          "An online ticket and mandatory waiver are required. Tickets may be bought on a phone at the gate; advance purchase before arrival is recommended, not stated as mandatory.",
+          "Numeric pumpkin prices, some add-on prices and tax breakdown are unverified; no full-size pumpkin is included in ordinary admission.",
+          "Read-only ticket checkout returned HTTP 403. Checkout and current ticket availability could not be verified; this is not proof the public checkout is broken.",
+          "Choice-of-perk paintball quantities conflict at 20 versus 25 shots; confirm the selected perk rather than assuming a quantity. Free toddler entry has no perk.",
+          "Last entry, timed-admission rules, general capacity, refunds, accessible routes and numeric Euro Bungy restrictions are unverified."
+        ],
+        "essentials": [
+          "Online ticket and mandatory waiver; tickets may be purchased on a phone at the gate. Buy ahead if possible, but advance purchase before arrival is not stated as mandatory.",
+          "Remaining published visits are October 24, 25 and 31, 10 a.m.–6 p.m. MDT. October 15–16 were additional dates already past.",
+          "No haunted attractions or jump scares. Euro Bungy has height/weight limits; check the tower before purchase.",
+          "Free pasture parking at the south end; restrooms, handwashing, picnic/shade areas, concessions and Walter’s Kitchen are listed. No pets; service animals welcome.",
+          "Weather closures are posted on the official site/Facebook; the venue closes between seasonal programs.",
+          "Detailed admission pricing: Ages 3+ $27.95; ages 0–2 free without a Patch Perk. Operator says no ticket fees and advertised price is payable price; tax breakdown and checkout are unverified. Fall season pass $49.95; fall/Christmas passport $64.95.",
+          "Detailed pumpkin pricing and selection: Choose a pumpkin in field rows after a wagon ride, then pay at the barn by size; numeric prices are not published. October 24–25 and 31 offer a choice of perk for paid admission that may include a mini pumpkin; do not assume a full-size pumpkin is included.",
+          "Detailed activities and prices: Included: all-day access, a featured Patch Perk per paid admission, corn and mini mazes, hay wagon, barrel train, jumping pillows, giant slide, low ropes, straw mountain, corn cribs, mini golf/games, farm animals and synthetic ice skating with rentals. Patch Plus $39.95 includes admission, 10 apple-cannon shots and 100 paintballs. Family Blast Pack $39.95 is separate shared ammunition (50 apple shots and 250 paintballs for up to 6) and excludes admission. Cow cuddling $45 for 15 minutes, up to 4 guests; reserve online. Food, extra ammunition and Euro Bungy cost extra."
+        ],
+        "preview": {
+          "entry": "Ages 3+ $27.95; ages 0–2 free without a perk.",
+          "pumpkins": "Field-picked pumpkins extra; numeric prices unpublished.",
+          "activities": "Core activities included; ammunition, cow cuddling, food and other extras cost more.",
+          "warning": "Online ticket and waiver required; phone purchase at the gate allowed. Operator says no ticket fees, but tax breakdown and checkout are unverified. HTTP 403 inspection is not proof checkout is broken. Pumpkin/add-on prices, capacity, last entry, refunds and access remain uncertain; paintball-perk quantities conflict."
+        },
+        "fitLabel": "A full day of farm play without spooky scares.",
+        "costSummary": {
+          "entry": "$27.95 ages 3+; ages 0–2 free without a perk. No ticket fees advertised.",
+          "pumpkins": "Extra; size-based prices aren’t listed online. A mini pumpkin may be a paid-ticket perk.",
+          "activities": "Included: mazes, wagon rides and farm play. Food, ammunition and cow cuddling cost extra."
+        },
+        "criticalWarnings": [
+          "Online ticket and waiver required; phone purchase at the gate is allowed. We couldn’t confirm ticket availability."
+        ]
+      }
+    },
+    {
+      "section": "holiday",
+      "category": "pumpkin-patches",
+      "recurring": true,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "louisville-7th-generation-farm-pumpkin-patch-2026",
+      "city": "louisville",
+      "title": "7th Generation Farm Pumpkin Patch",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.7thgenerationfarm.com/",
+        "https://7thgenerationfarm.ticketspice.com/7th-generation-farms-pumpkin-patch-2026",
+        "https://www.7thgenerationfarm.com/products"
+      ],
+      "description": "U-pick or pre-picked pumpkins extra; ages 3+ $10 base plus online fee. Pumpkin prices undated; booking requirements unverified.",
+      "href": "https://www.7thgenerationfarm.com/",
+      "locationLabel": "7th Generation Farm, 100 S. 96th Street, Louisville, CO 80027",
+      "dateStart": "2026-09-18T09:00:00-06:00",
+      "dateEnd": "2026-11-01T18:00:00-07:00",
+      "dateLabel": "Opening weekend September 18–20; continuing season September 25–November 1, 2026, Thursday–Sunday",
+      "timeLabel": "9 a.m.–6 p.m.; MDT through October 31, MST November 1. Last entry not published.",
+      "costLabel": "Ages 3+ $10 base plus online fees; under-3s free; pumpkins extra. One October 24 ticket sampled at $11.37 total, not every date’s price.",
+      "costType": "paid",
+      "audienceLabel": "Preschool, elementary and mixed-age families; a parent must accompany under-3s on the barrel train",
+      "series_start": "2026-09-18",
+      "series_end": "2026-11-01",
+      "recurrence_label": "Remaining dates: October 22–25 and October 29–November 1, 2026, 9 a.m.–6 p.m. local time",
+      "registrationUrl": "https://7thgenerationfarm.ticketspice.com/7th-generation-farms-pumpkin-patch-2026",
+      "registrationLabel": "Online tickets are valid only for the selected date; no time-slot selector was shown. Whether advance purchase is mandatory or walk-up entry is available is unverified.",
+      "availabilityLabel": "An October 24 single-admission quote was inspected on October 21, 2026; it does not establish remaining capacity, availability on other dates or a guaranteed final price.",
+      "schedule": [
+        {
+          "date": "2026-10-22",
+          "dateStart": "2026-10-22T09:00:00-06:00",
+          "dateEnd": "2026-10-22T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-23",
+          "dateStart": "2026-10-23T09:00:00-06:00",
+          "dateEnd": "2026-10-23T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-24",
+          "dateStart": "2026-10-24T09:00:00-06:00",
+          "dateEnd": "2026-10-24T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified. One single-admission quote totaled $11.37, with $0 sales tax, checked October 21; not a price or availability guarantee.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-25",
+          "dateStart": "2026-10-25T09:00:00-06:00",
+          "dateEnd": "2026-10-25T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-29",
+          "dateStart": "2026-10-29T09:00:00-06:00",
+          "dateEnd": "2026-10-29T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-30",
+          "dateStart": "2026-10-30T09:00:00-06:00",
+          "dateEnd": "2026-10-30T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-10-31",
+          "dateStart": "2026-10-31T09:00:00-06:00",
+          "dateEnd": "2026-10-31T18:00:00-06:00",
+          "time": "9 a.m.–6 p.m. MDT",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        },
+        {
+          "date": "2026-11-01",
+          "dateStart": "2026-11-01T09:00:00-07:00",
+          "dateEnd": "2026-11-01T18:00:00-07:00",
+          "time": "9 a.m.–6 p.m. MST",
+          "note": "Date-specific ticket; advance-purchase requirement, walk-up availability, remaining capacity and last entry are unverified.",
+          "availability": "unknown"
+        }
+      ],
+      "uncertaintyNotes": [
+        "Official pumpkin product prices are undated; explicit 2026 pumpkin-price verification remains incomplete.",
+        "The $11.37 admission total ($10 base plus $1.37 online fee; $0 tax) was one single-ticket quote for October 24, checked October 21, 2026. Do not generalize it to every date, cart or future checkout.",
+        "Sampled online add-ons were $3.11 for $3 feed/duck/barrel train options and $7.25 for a $7 mining kit; merchandise tax was not separately inspected.",
+        "Advance-purchase requirement, walk-up availability, last entry, remaining capacity, refund policy, parking, restrooms and accessibility are unverified. A quantity selector reaching 200 is not evidence of capacity.",
+        "Use the prominent Thursday–Sunday festival schedule rather than the older Tuesday–Sunday hayride paragraph. September 24 is ambiguous and is not enumerated. Monday October 12 was an additional date already past."
+      ],
+      "pumpkin": {
+        "pickingType": "U-pick field and pre-picked pumpkin selection",
+        "goodFit": "A preschool/elementary or mixed-age farm outing with hayrides, children’s mazes and farm games; this is an editorial fit assessment.",
+        "entryCost": "Ages 3+ $10 base plus online fees; under-3s free. One October 24 single-ticket quote was $11.37 including fee and $0 tax, not every date’s final price.",
+        "pumpkinCost": "U-pick and pre-picked pumpkins cost extra. Undated product list: mini $1, orange $3–$25, specialty $0.75/lb; not explicitly verified 2026 prices.",
+        "activityCost": "Hayrides, children’s mazes and core farm activities included. Feed, duck and barrel train $3 base each; mining kit $7 base, plus online fees. Merchandise tax and season-pass fees remain unverified.",
+        "warnings": [
+          "Pumpkin price list is undated; the $1 mini, $3–$25 orange and $0.75/lb specialty amounts are not explicit 2026 price confirmation.",
+          "The $11.37 admission quote is a single October 24 ticket sample checked October 21, not every date’s final price or a guarantee of inventory. Season-pass fees and add-on merchandise tax remain unverified.",
+          "Advance-purchase requirement, walk-up availability, last entry, live capacity and refund policy are unverified.",
+          "Older Tuesday–Sunday hayride wording conflicts with prominent Thursday–Sunday festival hours; this listing follows the prominent festival schedule and linked 2026 ticket page.",
+          "Parking fee/access, restrooms, accessible routes and prepared-food options are unverified."
+        ],
+        "essentials": [
+          "Remaining dates are October 22–25 and October 29–November 1, 9 a.m.–6 p.m. local time. November 1 uses Mountain Standard Time after the clock change.",
+          "Online tickets are date-specific, with no time-slot selector shown. A quantity dropdown reaching 200 does not establish capacity. Optional purchase protection is not a general refund promise.",
+          "A parent must accompany children under 3 on the barrel train. Service animals only.",
+          "Farm photo backdrops are listed. Farm-stand purchases of meat, eggs, honey and chilies need no admission.",
+          "The season opened September 18–20, with a September 25 resumption headline. September 24 is ambiguous and is not included; October 12 was an extra Monday already past.",
+          "Detailed admission pricing: Ages 3+ $10 base plus online fees; under-3s free. One October 24 single-ticket quote checked October 21 totaled $11.37 ($1.37 fee, $0 sales tax); it is not a universal date or cart total. Advertised season passes: individual $35, family of four $100, additional child $15; pass checkout fees unverified.",
+          "Detailed pumpkin pricing and selection: Pumpkins cost extra. The undated official product list says mini $1, orange $3–$25 by size and specialty $0.75/lb; those amounts are not explicitly verified for 2026. U-pick and pre-picked displays are both offered.",
+          "Detailed activities and prices: Hayrides, children’s mazes, hay mountain, animal viewing and farm games included. Animal feed, rubber duck and barrel train each $3 base; gem-mining kit $7 base. Sampled online totals were $3.11 and $7.25 respectively, but merchandise tax was not separately inspected."
+        ],
+        "preview": {
+          "entry": "Ages 3+ $10 base plus online fees; under-3s free.",
+          "pumpkins": "U-pick or pre-picked pumpkins extra; price list undated.",
+          "activities": "Hayrides, children’s mazes and games included; feed/duck/train $3 base and mining $7 base.",
+          "warning": "The $11.37 total was one October 24 ticket quote only, not every date’s price. Pumpkin prices lack a 2026 date. Add-on tax, pass fees, advance-purchase versus walk-up rules, capacity, last entry, refunds, parking, restrooms and accessibility remain unverified."
+        },
+        "fitLabel": "Hayrides and children’s mazes, with field or display pumpkins.",
+        "costSummary": {
+          "entry": "$10 + online fees ages 3+; under-3s free.",
+          "pumpkins": "Extra; the listed pumpkin prices aren’t dated for 2026.",
+          "activities": "Included: hayrides, mazes and games. Feed, duck and train $3 each; mining $7, plus online fees."
+        },
+        "criticalWarnings": [
+          "Online tickets are for one selected date. Check whether advance booking is needed; walk-up entry isn’t confirmed."
+        ]
+      },
+      "priceSample": {
+        "checkedAt": "2026-10-21T19:42:00Z",
+        "date": "2026-10-24",
+        "quantity": 1,
+        "currency": "USD",
+        "base": 10,
+        "fee": 1.37,
+        "salesTax": 0,
+        "total": 11.37,
+        "note": "Single quoted admission only; not a live inventory guarantee or a general price for other dates or carts."
+      }
+    }
+  ],
+  "sourceResearch": [
+    {
+      "eventId": "aurora-nicks-fall-fest-2026",
+      "sourceCheckedAt": "2026-10-21T19:44:53Z",
+      "research": {
+        "id": "nicks-garden-center-aurora",
+        "name": "Nick’s Garden Center: Fall Fest",
+        "required": true,
+        "city": "Aurora",
+        "state": "CO",
+        "address": "2001 S Chambers Rd, Aurora, CO 80014",
+        "verification_status": "2026 core details verified; pumpkin harvesting not established",
+        "checked_at": "2026-10-21T19:44:53Z",
+        "season": {
+          "year": 2026,
+          "start": "2026-09-26",
+          "end": "2026-10-31",
+          "timezone": "America/Denver",
+          "hours": {
+            "Monday–Saturday": "08:00–18:00",
+            "Sunday": "09:00–17:00"
+          },
+          "exceptions": "None published on season page; individual ride hours not separately confirmed"
+        },
+        "admission": {
+          "currency": "USD",
+          "grounds": "Free, all ages",
+          "paid_activities": "$6/person: train, tractor/Tunnel of Terror, pedal karts, inflatable obstacle course (10 minutes), mini golf (9 holes). Duck race including duck $3.",
+          "wristband": "$22; one turn EACH on train, tractor, pedal karts and inflatable. Not unlimited and excludes golf.",
+          "tax_mandatory_fees": "Not disclosed"
+        },
+        "pumpkins": {
+          "experience_type": "garden_center_pumpkin_selection",
+          "description": "Pumpkins and gourds sold separately. No official evidence of field-grown or vine picking.",
+          "included": false,
+          "price": "Not published"
+        },
+        "booking": {
+          "method": "Walk-in; buy activity tokens in greenhouse",
+          "advance_requirement": "None stated",
+          "timed_entry_or_capacity": "Not published",
+          "groups": "Group pricing by inquiry; no inquiry made"
+        },
+        "included_activities": [
+          "Wall ball",
+          "Straw maze",
+          "Professor Pumpkin story time",
+          "Kiddie play area and games"
+        ],
+        "extras": [
+          "Pumpkins",
+          "Gourds/fall decorations",
+          "Kettle corn",
+          "Paid activities"
+        ],
+        "age_fit": {
+          "assessment": "Young-family option, based on kiddie area and story time",
+          "assessment_type": "Research inference, not a minimum-age promise",
+          "ride_restrictions": "Not published"
+        },
+        "amenities": {
+          "parking": null,
+          "restrooms": null,
+          "accessibility": null
+        },
+        "unknowns": [
+          "Pumpkin prices",
+          "Activity tax/fees",
+          "Ride age/height limits",
+          "Accessibility, parking and restroom details"
+        ],
+        "links": {
+          "official": "https://nicksgardencenter.com/",
+          "season": "https://nicksgardencenter.com/fallfest-2026/"
+        },
+        "sources": [
+          {
+            "url": "https://nicksgardencenter.com/fallfest-2026/",
+            "supports": "2026 season, hours, prices, walk-in, pumpkin sales, address"
+          },
+          {
+            "url": "https://nicksgardencenter.com/",
+            "supports": "Family-focused garden-center identity and activities"
+          }
+        ],
+        "critical_evidence": [
+          {
+            "url": "https://nicksgardencenter.com/fallfest-2026/",
+            "quote": "Free Entry Every Day!"
+          }
+        ]
+      }
+    },
+    {
+      "eventId": "erie-anderson-farms-fall-festival-2026",
+      "sourceCheckedAt": "2026-10-21T19:44:53Z",
+      "research": {
+        "id": "anderson-farms-erie",
+        "name": "Anderson Farms: Fall Festival",
+        "required": true,
+        "city": "Erie",
+        "state": "CO",
+        "address": "6728 County Road 3-1/4, Erie, CO 80516",
+        "verification_status": "2026 season and pricing verified; same-day operating banner conflicts; live fee total unconfirmed",
+        "checked_at": "2026-10-21T19:44:53Z",
+        "season": {
+          "year": 2026,
+          "start": "2026-09-23",
+          "end": "2026-10-31",
+          "timezone": "America/Denver",
+          "hours": {
+            "Monday": "10:00–18:00",
+            "Tuesday": "Closed",
+            "Wednesday": "10:00–18:00",
+            "Thursday": "10:00–22:00 in October; September 24 10:00–18:00",
+            "Friday": "10:00–23:00",
+            "Saturday": "09:00–23:00",
+            "Sunday": "09:00–22:00"
+          },
+          "last_entry": "Monday/Wednesday 16:30",
+          "pumpkin_wagon_cutoff": "17:30; line can close earlier on peak days; field unlit after dark",
+          "weather": "Weather/mud may close activities"
+        },
+        "admission": {
+          "currency": "USD",
+          "age_0_3": "Free; no ticket needed",
+          "age_4_plus": {
+            "early_2026_09_23_to_10_02": {
+              "Mon_Wed_Thu": "$13.50 timed or gate",
+              "Fri": "$18.75 timed; $26.25 anytime/gate",
+              "Sat_Sun": "$24 timed; $31.50 anytime/gate"
+            },
+            "peak_2026_10_03_to_10_25": {
+              "Mon_Wed_Thu": "$18 timed; $23 gate",
+              "Fri": "$25 timed; $35 anytime/gate",
+              "Sat_Sun": "$32 timed; $42 anytime/gate"
+            },
+            "finale_2026_10_26_to_10_30": {
+              "Mon_Wed_Thu": "$13.50 timed or gate",
+              "Fri": "$18.75 timed; $26.25 anytime/gate"
+            },
+            "halloween_2026_10_31": "$16 timed; $21 anytime/gate"
+          },
+          "tax_mandatory_fees": "Indexed official ticket page says all-in including fees, but current live page no longer exposed statement. No checkout verified; total fees/taxes unresolved."
+        },
+        "pumpkins": {
+          "experience_type": "field_picking_with_included_wagon",
+          "description": "30-acre field, 70+ varieties; availability not guaranteed",
+          "included": false,
+          "size_prices_usd": {
+            "itty_bitty": 3,
+            "small": 5,
+            "medium": 7,
+            "large": 10,
+            "extra_large": 15,
+            "jumbo": 20
+          },
+          "pricing_evidence": "Linked 2026/06 image visually verified; FAQ instead says $2–$12, so retain discrepancy.",
+          "retail_only_alternative": "Separate pumpkin-sales entry needs no festival admission, 10:00–18:00 except Tuesdays; not field access"
+        },
+        "booking": {
+          "method": "Buy online strongly recommended; limited date-specific inventory",
+          "timed_entry": "30-minute entry window; remain until closing; same-day reentry with wristband",
+          "sellout": "Sold out online means sold out at gate",
+          "refunds": "Generally final sale, including weather/personal plans; farm-cancelled event remedies discretionary under July 6, 2026 purchase policy"
+        },
+        "included_activities": [
+          "Nonhaunted 25-acre corn maze",
+          "Pumpkin wagon",
+          "Barrel train",
+          "Trike track",
+          "Jump pad",
+          "Combine slide",
+          "Low ropes",
+          "Playgrounds/games",
+          "Animal viewing; petting zoo extra",
+          "Scheduled entertainment"
+        ],
+        "extras": {
+          "pumpkins": "$3–$20 chart",
+          "petting_zoo": "$5",
+          "gem_mining": "$8.50–$60",
+          "duck_race": "$2 duck",
+          "paintball": "$8 one/$14 both",
+          "bear_factory": "From $29.99",
+          "pony": "$10 or $14 with photo",
+          "pumpkin_painting": "$10",
+          "mini_pumpkin_launch": "$5 bucket",
+          "other": "Escape room, face painting, food; variable/unpublished amounts",
+          "rental": "Campfire $150 small/$300 large per four hours; pavilions $100–$400; admission extra, reservations required",
+          "availability": "Painting weekends; pony/mini-launch Fri–Sun; paintball/escape Thu evening–Sun; check daily lineup"
+        },
+        "age_fit": {
+          "small_maze_trail": "Designed for ages 2–8",
+          "mookies_play_yard": "Designed for children under 48 inches",
+          "haunt": "Terror in the Corn separate; do not treat haunted experience as ordinary pumpkin admission"
+        },
+        "amenities": {
+          "accessible_wagon": "Available by request at loading zone; regular festival needs no special reservation",
+          "restrooms": "Accessible indoor stalls and portable toilets; none inside maze",
+          "wellness_room": "Adult changing table",
+          "terrain": "Dirt/gravel/uneven/muddy; all-terrain stroller advised",
+          "parking_fee": null,
+          "outside_food": "Allowed; no alcohol",
+          "dogs": "No pets, ADA service animals excepted"
+        },
+        "conflicts": [
+          "Homepage says currently not open for any activities while advertising active 2026 dates. Same-day operation unresolved.",
+          "FAQ pumpkin-price range conflicts with linked current size chart.",
+          "Indexed all-in-fee wording not visible in current rendered ticket page."
+        ],
+        "unknowns": [
+          "Same-day closure banner resolution",
+          "Live final taxes/fees",
+          "Parking charge",
+          "Per-day optional-attraction availability"
+        ],
+        "links": {
+          "official": "https://andersonfarms.com/",
+          "season_and_booking": "https://tickets.andersonfarms.com/p/fall-festival",
+          "prices": "https://andersonfarms.com/pricing-and-hours/",
+          "pumpkins": "https://andersonfarms.com/pumpkin-patch/",
+          "pumpkin_chart": "https://andersonfarms.com/wp-content/uploads/2026/06/Pumpking-Size-Chart.jpg",
+          "faq": "https://andersonfarms.com/faqs/"
+        },
+        "sources": [
+          {
+            "url": "https://tickets.andersonfarms.com/p/fall-festival",
+            "supports": "2026 dates/calendar, ages, booking/capacity"
+          },
+          {
+            "url": "https://andersonfarms.com/pricing-and-hours/",
+            "supports": "All price periods, entry rules"
+          },
+          {
+            "url": "https://andersonfarms.com/pumpkin-patch/",
+            "supports": "Field picking and wagon cutoff"
+          },
+          {
+            "url": "https://andersonfarms.com/wp-content/uploads/2026/06/Pumpking-Size-Chart.jpg",
+            "supports": "Visually checked size prices"
+          },
+          {
+            "url": "https://andersonfarms.com/attractions-and-activities/",
+            "supports": "Included and extra attractions/prices/age fit"
+          },
+          {
+            "url": "https://andersonfarms.com/corn-maze/",
+            "supports": "Maze age fit and terrain"
+          },
+          {
+            "url": "https://andersonfarms.com/pumpkin-express-and-ada/",
+            "supports": "Accessible wagon and facilities"
+          },
+          {
+            "url": "https://andersonfarms.com/faqs/",
+            "supports": "Retail-only pumpkins, policies, older conflicting prices"
+          },
+          {
+            "url": "https://tickets.andersonfarms.com/purchase-policy",
+            "supports": "Refund terms updated July 6, 2026"
+          },
+          {
+            "url": "https://tickets.andersonfarms.com/p/tickets",
+            "supports": "Indexed all-in pricing, not live-rendered confirmed"
+          },
+          {
+            "url": "https://andersonfarms.com/private-campfire-sites/",
+            "supports": "Campfire rental"
+          },
+          {
+            "url": "https://andersonfarms.com/pavilion-rentals/",
+            "supports": "Pavilion rental"
+          },
+          {
+            "url": "https://andersonfarms.com/",
+            "supports": "Contradictory closed banner"
+          }
+        ],
+        "critical_evidence": [
+          {
+            "url": "https://tickets.andersonfarms.com/p/fall-festival",
+            "quote": "IF SOLD OUT ONLINE, WE ARE SOLD OUT AT THE DOOR."
+          }
+        ]
+      }
+    },
+    {
+      "eventId": "thornton-maize-in-the-city-2026",
+      "sourceCheckedAt": "2026-10-21T19:44:53Z",
+      "research": {
+        "id": "maize-in-the-city-thornton",
+        "name": "Maize in the City",
+        "required": true,
+        "city": "Thornton",
+        "state": "CO",
+        "address": "10451 McKay Road, Thornton, CO 80233",
+        "verification_status": "2026 season verified; official booking and closing-cutoff conflicts need disclosure",
+        "checked_at": "2026-10-21T19:44:53Z",
+        "season": {
+          "year": 2026,
+          "start": "2026-09-19",
+          "end": "2026-10-31",
+          "timezone": "America/Denver",
+          "hours": "See exact date groups below; do not reduce to a recurring weekly rule",
+          "exceptions": [
+            "Weather/field conditions can close attractions or grounds",
+            "Official closure notice for October 15, 2026 reported by calendar inspection",
+            "October 1 and 8 have no events in official calendar; do not extrapolate weekly opening"
+          ],
+          "end_basis": "Last open event in official rendered calendar; November shows no events, not a guarantee of permanent closure",
+          "date_groups": [
+            {
+              "dates": [
+                "2026-09-19",
+                "2026-09-20"
+              ],
+              "hours": "09:00–18:00"
+            },
+            {
+              "dates": [
+                "2026-09-26",
+                "2026-09-27"
+              ],
+              "hours": "09:00–19:00"
+            },
+            {
+              "dates": [
+                "2026-10-02",
+                "2026-10-09",
+                "2026-10-16",
+                "2026-10-23",
+                "2026-10-30"
+              ],
+              "hours": "10:00–19:00"
+            },
+            {
+              "dates": [
+                "2026-10-03",
+                "2026-10-04",
+                "2026-10-10",
+                "2026-10-11",
+                "2026-10-17",
+                "2026-10-18",
+                "2026-10-24",
+                "2026-10-25",
+                "2026-10-31"
+              ],
+              "hours": "09:00–19:00"
+            },
+            {
+              "dates": [
+                "2026-10-22",
+                "2026-10-26",
+                "2026-10-27",
+                "2026-10-28",
+                "2026-10-29"
+              ],
+              "hours": "12:00–18:00"
+            }
+          ]
+        },
+        "admission": {
+          "currency": "USD",
+          "grounds": "Free, all ages",
+          "paid_activities": {
+            "large_maze": "Adult $15; child $10; ages 0–4 free",
+            "mini_maze": "Adult $6; child $5; ages 0–1 free",
+            "wagon_ride": "Adult $10; child $5; ages 0–4 free",
+            "petting_zoo": "$6; ages 0–2 free with paid adult",
+            "pony_rides_or_photos": "$10–15",
+            "bounce_pass": "$14; ages 0–4 $7",
+            "barrel_train": "$6",
+            "duck_race": "$2.99 duck purchase",
+            "corn_launcher": "$6/7 ears",
+            "escape_rooms": "$8 single/$14 double",
+            "sand_art": "$6–10",
+            "face_paint": "$15–22"
+          },
+          "adult_child_boundary": "Not defined beyond listed free-age bands",
+          "tax_mandatory_fees": "Not disclosed; no all-inclusive pass"
+        },
+        "pumpkins": {
+          "experience_type": "stocked_pumpkin_field_selection",
+          "description": "Operator brings pumpkins into an open field. Do not label vine-grown U-pick.",
+          "included": false,
+          "price": "By size/variety; chart onsite only",
+          "availability": "Varies through season"
+        },
+        "booking": {
+          "method": "Schedule/FAQ say buy attractions at each line, no online tickets; attractions page links 2026 maze pre-purchase site.",
+          "status": "Conflicting official information; online requirement not established",
+          "official_ticket_link": "https://mitc2026.fearticket.com/",
+          "payment": "Attractions cashless; cash can be exchanged for gift card at info booth. Pumpkin/food/market accept cash or card.",
+          "refunds": "No refunds per FAQ",
+          "capacity": "Not published"
+        },
+        "included_activities": [
+          "Slides",
+          "Photo areas",
+          "Corn-kernel play box",
+          "Games",
+          "Spring riders"
+        ],
+        "extras": [
+          "Attractions individually priced",
+          "Pumpkins/decor",
+          "Food/market/carving goods"
+        ],
+        "age_fit": {
+          "large_maze_duration_minutes": 40,
+          "mini_maze_duration_minutes": 20,
+          "bouncers": "Ages 13 and under",
+          "pony_limits": "At most 65 lb and 48 inches",
+          "barrel_train": "Children only; at least 32 inches and at most 120 lb",
+          "face_paint": "Ages 2+"
+        },
+        "amenities": {
+          "terrain": "Uneven dirt; consider stroller and footwear needs",
+          "parking": "Onsite only; enter southbound McKay Road; no left turn or street parking; price unspecified",
+          "picnic": "First-come tables; coolers allowed, no alcohol; no pop-up tents/umbrellas",
+          "dogs": "Leashed dogs allowed",
+          "restrooms": null,
+          "formal_accessibility": null
+        },
+        "conflicts": [
+          "Large-maze cutoff: schedule 1.5 hours before closing; FAQ 2 hours. Other attraction lines generally close 1 hour early.",
+          "Homepage/schedule say paid attractions up to $20; current FAQ/details include $22 face painting.",
+          "No-online-ticket statement conflicts with official maze pre-purchase link."
+        ],
+        "unknowns": [
+          "Exact adult/child age boundary",
+          "Tax/fees",
+          "Restrooms and formal accessibility",
+          "Online maze checkout availability and requirements"
+        ],
+        "links": {
+          "official": "https://www.maizeinthecity.com/",
+          "schedule": "https://www.maizeinthecity.com/schedule",
+          "activities": "https://www.maizeinthecity.com/attractions",
+          "pumpkins": "https://www.maizeinthecity.com/pumpkins",
+          "faq": "https://www.maizeinthecity.com/faqs"
+        },
+        "sources": [
+          {
+            "url": "https://www.maizeinthecity.com/schedule",
+            "supports": "2026 opening, payment, cutoff, weather limitations"
+          },
+          {
+            "url": "https://www.maizeinthecity.com/attractions",
+            "supports": "Attraction pricing/restrictions, brought-in pumpkins, online-ticket link"
+          },
+          {
+            "url": "https://www.maizeinthecity.com/pumpkins",
+            "supports": "Pumpkin availability and onsite sizing"
+          },
+          {
+            "url": "https://www.maizeinthecity.com/faqs",
+            "supports": "Policies, amenities and conflicts"
+          },
+          {
+            "url": "https://mitc2026.fearticket.com/",
+            "supports": "Linked official 2026 ticket destination; text fetch only returned Loading"
+          },
+          {
+            "url": "https://www.maizeinthecity.com/schedule",
+            "supports": "Cloud-browser rendered September/October/November calendar, individual hover schedules, October 15 weather closure notice"
+          },
+          {
+            "url": "https://www.maizeinthecity.com/calendar/oct262026",
+            "supports": "October 26 noon–6 event, verified in browser; text-fetch unavailable"
+          },
+          {
+            "url": "https://www.maizeinthecity.com/calendar/sept19",
+            "supports": "September 19 9–6 event, verified in browser; text-fetch unavailable"
+          }
+        ],
+        "critical_evidence": [
+          {
+            "url": "https://www.maizeinthecity.com/attractions",
+            "quote": "Our open field where we bring in several variety of pumpkins, gourds & fall decor."
+          }
+        ]
+      }
+    },
+    {
+      "eventId": "platteville-miller-farms-fall-harvest-2026",
+      "sourceCheckedAt": "2026-10-21T19:44:53Z",
+      "research": {
+        "id": "miller-farms-platteville",
+        "name": "Miller Farms: Fall Harvest Festival",
+        "required": true,
+        "city": "Platteville",
+        "state": "CO",
+        "address": "13912 County Road 19, Platteville, CO 80651",
+        "verification_status": "2026 pricing, activities and waiver verified in rendered official page; exact season end and several costs unspecified",
+        "checked_at": "2026-10-21T19:44:53Z",
+        "season": {
+          "year": 2026,
+          "start": "2026-09-07",
+          "start_basis": "Season says Labor Day; September 7 is the 2026 calendar translation",
+          "end": null,
+          "end_text": "Mid-November; exact final date unspecified",
+          "timezone": "America/Denver",
+          "hours": "Daily 09:00–18:00 on homepage",
+          "last_hayride": "16:30 daily",
+          "exceptions": "No published exceptions found"
+        },
+        "admission": {
+          "currency": "USD",
+          "grounds": "Free",
+          "adults": {
+            "hayride_only": 18,
+            "hayride_one_bag_plus_pumpkin_when_available": 28,
+            "hayride_four_bags": 40
+          },
+          "children_age_4_10": {
+            "hayride_only": 10,
+            "hayride_one_bag": 18
+          },
+          "under_4": "Unspecified",
+          "adult_age_boundary": "Label says adults; not explicitly defined",
+          "tax_mandatory_fees": "Unspecified",
+          "other_prices": "Stack-a-wagon produce sale $55; homeschool Mondays Sep/Oct except Labor Day 25% off regular harvest rates"
+        },
+        "pumpkins": {
+          "experience_type": "farm_field_harvest_and_roadside_selection",
+          "description": "Field harvest by tractor ride; pumpkin subject to availability. Roadside produce also available.",
+          "included": "$28 adult package explicitly includes pumpkin when available; not explicitly promised in child/other packages",
+          "individual_price": null
+        },
+        "booking": {
+          "waiver": "Required for every visitor; 2026 form linked",
+          "reservation_requirement": "Not stated",
+          "timed_entry_or_capacity": "Not stated",
+          "bags": "Outside bags prohibited"
+        },
+        "included_activities": [
+          "Corn maze",
+          "Kids play areas",
+          "Antique tractors",
+          "Dirt hills",
+          "Hay pyramid"
+        ],
+        "extras": [
+          "Harvest hayride/produce",
+          "Snacks/drinks",
+          "Roadside produce"
+        ],
+        "age_fit": {
+          "assessment": "Hands-on harvest for families; child pricing 4–10",
+          "assessment_type": "Research inference"
+        },
+        "amenities": {
+          "picnic": "Covered tables",
+          "restrooms": "Portable restrooms",
+          "handwashing": true,
+          "dogs": "Service dogs only",
+          "parking": null,
+          "accessibility": null
+        },
+        "unknowns": [
+          "Exact season end",
+          "Under-4 ride charge",
+          "Adult age cutoff",
+          "Tax/fees",
+          "Individual pumpkin price",
+          "Whether reservations ever required",
+          "Accessible routes/parking details"
+        ],
+        "links": {
+          "official": "https://www.millerfarms.net/",
+          "season": "https://www.millerfarms.net/fall-harvest-festival",
+          "waiver": "https://www.millerfarms.net/uploads/b/8d517ea0-99e1-11ea-8a9e-05f193e0cf18/Miller%20Farms%20LLC%20Release%202026.pdf"
+        },
+        "sources": [
+          {
+            "url": "https://www.millerfarms.net/fall-harvest-festival",
+            "supports": "Explicit 2026 rates, Labor Day–mid-November, harvest/waiver/amenities; active rendered page independently confirmed in cloud browser"
+          },
+          {
+            "url": "https://www.millerfarms.net/",
+            "supports": "Rendered homepage Location & Hours panel beside Platteville address confirms every weekday 9am–6pm; banner repeats 4:30 last hayride; dog policy also published"
+          }
+        ],
+        "critical_evidence": [
+          {
+            "url": "https://www.millerfarms.net/fall-harvest-festival",
+            "quote": "2026 Pricing:"
+          },
+          {
+            "url": "https://www.millerfarms.net/fall-harvest-festival",
+            "quote": "a pumpkin(When available)"
+          }
+        ]
+      }
+    },
+    {
+      "eventId": "kiowa-the-patch-fall-festival-2026",
+      "sourceCheckedAt": "2026-10-21T19:44:53Z",
+      "research": {
+        "id": "the-patch-kiowa",
+        "name": "The Patch: Fall Festival",
+        "required": true,
+        "city": "Kiowa",
+        "state": "CO",
+        "address": "7400 SH-86, Kiowa, CO 80117",
+        "verification_status": "Official 2026 core details verified; checkout unavailable for read-only confirmation",
+        "checked_at": "2026-10-21T19:44:53Z",
+        "identity_note": "Kiowa venue operated by Smith family. Do not substitute Elizabeth venues or seeyouatthepatch.com, which lists Oklahoma locations.",
+        "season": {
+          "year": 2026,
+          "start": "2026-09-19",
+          "end": "2026-10-31",
+          "timezone": "America/Denver",
+          "hours": "Saturdays and Sundays 10:00–18:00",
+          "additional_dates": [
+            "2026-10-15",
+            "2026-10-16"
+          ],
+          "exceptions": "Weather closures posted on official site/Facebook; closed between seasonal programs"
+        },
+        "admission": {
+          "currency": "USD",
+          "age_3_plus": 27.95,
+          "age_0_2": 0,
+          "patch_plus": 39.95,
+          "patch_plus_includes": "Admission, 10 apple-cannon shots and 100 paintballs",
+          "fall_season_pass": 49.95,
+          "fall_christmas_passport": 64.95,
+          "fees": "Operator explicitly states no ticket fees; advertised price is payable price. Tax not separately itemized; checkout not verified.",
+          "inclusions": "All-day access and featured Patch Perk for each paid admission"
+        },
+        "pumpkins": {
+          "experience_type": "field_picking",
+          "description": "Wagon to field; walk rows and choose pumpkin; pay at barn to take home.",
+          "included": false,
+          "price": "By size; numeric prices not yet published on ticket page",
+          "perk_exception": "Mini pumpkin featured Oct 17–18; choice-of-perk Oct 24–25 and Oct 31 may allow mini pumpkin. Free toddler admission has no perk."
+        },
+        "booking": {
+          "method": "Online ticket with mandatory waiver; can buy on phone at gate, so advance purchase recommended rather than strictly before arrival",
+          "timed_admission": "Not specified",
+          "capacity": "No general-admission limit published; cow-cuddle sessions limited",
+          "ticket_landing": "https://thepatch.farm/tickets",
+          "checkout_observation": "Linked ticket endpoint returned HTTP 403; no waiver, registration or purchase completed",
+          "refunds": "Not established"
+        },
+        "included_activities": [
+          "Corn maze and mini maze",
+          "Hay wagon",
+          "Barrel train",
+          "Jumping pillows",
+          "Giant slide",
+          "Low ropes",
+          "Straw mountain",
+          "Corn cribs",
+          "Mini golf/games",
+          "Farm animals",
+          "Synthetic ice skating with rentals"
+        ],
+        "extras": {
+          "pumpkins": "Size-priced, amount unpublished",
+          "paintball_and_apple_ammo": "Separate amounts unpublished",
+          "family_blast_pack": "$39.95, 50 apple shots + 250 paintballs, up to 6 sharing; excludes admission",
+          "cow_cuddling": "$45/15 minutes/up to 4; reserve date/time online",
+          "euro_bungy": "Price and numeric height/weight limits not published",
+          "food": "Extra"
+        },
+        "age_fit": {
+          "official_positioning": "Young children through grandparents; no haunted attractions/jump scares",
+          "euro_bungy": "Height and weight limits apply; check tower"
+        },
+        "amenities": {
+          "parking": "Free pasture parking, south end",
+          "restrooms": true,
+          "handwashing": true,
+          "picnic_and_shade": true,
+          "food": "Concessions and Walter’s Kitchen",
+          "dogs": "No pets; service animals welcome",
+          "accessibility": "Formal accessible-route information not published"
+        },
+        "unknowns": [
+          "Numeric pumpkin/add-on prices",
+          "Tax breakdown",
+          "Timed-admission/capacity/refund policy",
+          "Accessible routes",
+          "Euro Bungy restrictions"
+        ],
+        "conflicts": [
+          "Paintball perk described as 20 shots in dated schedule but 25 in ticket add-on description; avoid quoting a guaranteed shot count for choice weekends."
+        ],
+        "links": {
+          "official": "https://thepatch.farm/",
+          "season": "https://thepatch.farm/seasons/fall-festival",
+          "tickets": "https://thepatch.farm/tickets",
+          "activities": "https://thepatch.farm/activities",
+          "faq": "https://thepatch.farm/faq"
+        },
+        "sources": [
+          {
+            "url": "https://thepatch.farm/seasons/fall-festival",
+            "supports": "2026 schedule, free age band, perk dates, location"
+          },
+          {
+            "url": "https://thepatch.farm/tickets",
+            "supports": "Prices, extras and unpublished pumpkin price"
+          },
+          {
+            "url": "https://thepatch.farm/activities",
+            "supports": "Field picking, included/extras, amenities, restrictions"
+          },
+          {
+            "url": "https://thepatch.farm/faq",
+            "supports": "Booking/waiver, fees, no-haunt positioning, policies"
+          },
+          {
+            "url": "https://www.seeyouatthepatch.com/",
+            "supports": "Identity exclusion only: Oklahoma, not Kiowa"
+          }
+        ],
+        "critical_evidence": [
+          {
+            "url": "https://thepatch.farm/seasons/fall-festival",
+            "quote": "Pick your pumpkin in the field"
+          },
+          {
+            "url": "https://thepatch.farm/tickets",
+            "quote": "No ticket fees. Ever."
+          }
+        ]
+      }
+    },
+    {
+      "eventId": "louisville-7th-generation-farm-pumpkin-patch-2026",
+      "sourceCheckedAt": "2026-10-21T19:42:00Z",
+      "research": {
+        "id": "7th_generation_farm",
+        "name": "7th Generation Farm",
+        "locality": "Louisville",
+        "address": "100 S 96th St, Louisville, CO 80027",
+        "verification_status": "2026 verified; not weekends-only",
+        "year_evidence": "Official navigation labels Pumpkin Patch 2026; linked booking page explicitly 2026 and Oct. 24, 2026 selectable.",
+        "season": {
+          "opening_weekend": [
+            "2026-09-18",
+            "2026-09-19",
+            "2026-09-20"
+          ],
+          "continuing_season": "2026-09-25–2026-11-01 per headline",
+          "weekdays": [
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "hours": "09:00–18:00",
+          "exception": "Open Monday Oct. 12, 09:00–18:00",
+          "remaining_dates": [
+            "2026-10-22",
+            "2026-10-23",
+            "2026-10-24",
+            "2026-10-25",
+            "2026-10-29",
+            "2026-10-30",
+            "2026-10-31",
+            "2026-11-01"
+          ],
+          "last_entry": "Not published"
+        },
+        "admission": {
+          "age_3_plus": {
+            "base": 10,
+            "online_fee": 1.37,
+            "online_total": 11.37,
+            "sampled_date": "2026-10-24",
+            "sample_sales_tax": 0
+          },
+          "age_under_3": 0,
+          "season_pass_advertised": {
+            "individual": 35,
+            "family_of_4": 100,
+            "additional_child": 15
+          },
+          "fees_and_tax": "Single-admission quote confirmed $11.37 total/$0 tax. Season-pass checkout fees unverified."
+        },
+        "pumpkins": {
+          "experience": "Explicit U-pick patch and pre-picked display alternatives.",
+          "included": "Not listed among admission inclusions; separately priced on product page.",
+          "price": "Current official product list: mini $1, orange $3–$25 by size, specialty $0.75/lb. Price list is undated, so explicit 2026 pumpkin-price verification remains incomplete."
+        },
+        "activities": {
+          "included": "Hayrides, children’s mazes, hay mountain, animal viewing, farm games.",
+          "extra_costs": "Feed, rubber duck, barrel train each $3 base/$3.11 online; gem-mining kit $7 base/$7.25 online. Merchandise sales tax beyond base admission not inspected."
+        },
+        "amenities": {
+          "food": "Farm stand; no admission needed to buy meat/eggs/honey/chilies. Prepared-food options not verified.",
+          "photos": "Farm photo backdrops",
+          "pets": "Service animals only",
+          "restrooms": "Not verified",
+          "parking": "Fee/access not verified",
+          "accessibility": "Not verified"
+        },
+        "age_fit": {
+          "editorial": "Strong preschool/elementary and mixed-age farm outing.",
+          "official_constraints": "Under-3s free; parent must accompany under-3 on barrel train."
+        },
+        "booking": {
+          "required": "Online ticket valid only for chosen date; no time-slot selector shown. Whether advance purchase is mandatory or walk-up purchase available is not established.",
+          "capacity": "Actual cap/remaining inventory unknown; a quantity dropdown up to 200 does not establish capacity.",
+          "official_url": "https://7thgenerationfarm.ticketspice.com/7th-generation-farms-pumpkin-patch-2026",
+          "refund_policy": "Not established; optional purchase protection is separate, not a general refund promise."
+        },
+        "conflicts": [
+          "Older hayride paragraph says Tuesday–Sunday, contradicting prominent festival hours and 2026 ticket page Thu–Sun. Use Thu–Sun.",
+          "Sept. 25 resumption headline and Thursday schedule leave Sept. 24 ambiguous; do not invent its operating status."
+        ],
+        "unknowns": [
+          "Explicitly dated 2026 pumpkin prices",
+          "Advance-purchase requirement versus walk-up",
+          "Last entry",
+          "ADA/restroom/parking provisions",
+          "Live remaining capacity"
+        ],
+        "sources": [
+          {
+            "id": "SG1",
+            "url": "https://www.7thgenerationfarm.com/",
+            "supports": "2026 navigation; seasonal schedule, inclusion, U-pick/pre-picked, policies"
+          },
+          {
+            "id": "SG2",
+            "url": "https://7thgenerationfarm.ticketspice.com/7th-generation-farms-pumpkin-patch-2026",
+            "supports": "Explicit 2026; dated admission, fee/tax quote, add-on fees; cloud browser"
+          },
+          {
+            "id": "SG3",
+            "url": "https://www.7thgenerationfarm.com/products",
+            "supports": "Live but undated pumpkin-price list"
+          }
+        ],
+        "implementation_recommendation": "Include as sixth requested candidate: Thu–Sun seasonal event in Louisville, with field-selection and pre-picked options; explicit fee-inclusive price and add-ons."
+      }
+    }
+  ]
+}
