@@ -407,3 +407,28 @@ test('concert unknown end disables calendar, expires only after its Colorado dat
     assert.equal(rules.isCurrent(event,end),false,event.id);
   }
 });
+
+
+test('the shared Before You Go notice preserves approved copy and safe existing source fallbacks', () => {
+  const html = fs.readFileSync(path.join(root,'events.html'),'utf8');
+  const start = html.indexOf('  function officialEventSource(event) {');
+  const end = html.indexOf('  function renderEventRow(event, options) {',start);
+  assert.ok(start > 0 && end > start);
+  const helpers = {};
+  vm.createContext(helpers);
+  helpers.URL = URL;
+  helpers.escapeHtml = value => String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  vm.runInContext(html.slice(start,end),helpers);
+  for (const event of data.events) assert.equal(helpers.officialEventSource(event),event.href || event.link || event.sourceUrls[0]);
+  assert.equal(helpers.officialEventSource({href:'javascript:alert(1)',link:'data:text/html,bad',sourceUrls:['','/relative']}),'');
+  assert.equal(helpers.officialEventSource({href:'bad',sourceUrls:['https://example.org/event']}),'https://example.org/event');
+  assert.equal(helpers.officialEventSource({link:' https://example.org/linked '}),'https://example.org/linked');
+  const missing = helpers.renderBeforeYouGo({title:'No source'});
+  assert.match(missing,/Official source not provided/);
+  assert.doesNotMatch(missing,/<a |href=/);
+  const approved = '⚠️ Before You Go: Event dates, times, prices, registration requirements, and weather or cancellation policies may change. Please check the official event website before attending.';
+  const rendered = helpers.renderBeforeYouGo({title:'Test',href:'https://example.org/'});
+  assert.ok(rendered.replace(/<[^>]*>/g,'').includes(approved));
+  assert.match(rendered,/Official event source/);
+  assert.equal((html.match(/renderBeforeYouGo\(event\) \+/g)||[]).length,3,'shared notice on regular, pumpkin and row renderers');
+});

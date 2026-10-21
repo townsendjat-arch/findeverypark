@@ -533,6 +533,7 @@ async function check(name, callback) {
         id:card.dataset.eventId, height:card.getBoundingClientRect().height,
         width:card.getBoundingClientRect().width,
         visibleWords:card.innerText.trim().split(/\s+/).length,
+        noticeHeight:card.querySelector('.before-you-go')?.getBoundingClientRect().height || 0,
         detailsOpen:card.querySelector('details').open
       }));
       const capture = async url => {
@@ -705,6 +706,75 @@ async function check(name, callback) {
         await page.goForward(); assert.equal(await page.locator('[data-current="true"]:visible').count(),1);
         await page.screenshot({path:path.join(output,`${engineName}-priority-one-city-${key}-${label}.png`),fullPage:false});
       }
+    });
+    await check(`${label}: approved Before You Go copy and official sources are visible on every current and archived listing`, async () => {
+      await page.clock.setFixedTime(new Date('2026-10-22T16:00:00Z'));
+      await page.goto(origin + '/events.html');
+      const approved = '⚠️ Before You Go: Event dates, times, prices, registration requirements, and weather or cancellation policies may change. Please check the official event website before attending.';
+      assert.equal(await page.locator('[data-current="true"]:visible .before-you-go').count(),currentCount);
+      assert.equal(await page.locator('.pumpkin-card details[open]').count(),0);
+      // Preserve the archive as a whole disclosure. Its revealed rows need no further expansion.
+      await page.locator('summary.section-summary').click();
+      assert.equal(await page.locator('[data-current="false"]:visible').count(),30);
+      const listings = page.locator('[data-current]:visible');
+      assert.equal(await listings.count(),currentCount+30);
+      const events = await page.evaluate(() => window.EVENTS_DATA.events);
+      const metrics = [];
+      for (const listing of await listings.all()) {
+        const id = await listing.getAttribute('data-event-id');
+        const event = events.find(item => item.id === id);
+        assert.ok(event,id+': canonical record');
+        const notice = listing.locator('.before-you-go');
+        assert.equal(await notice.count(),1);
+        assert.ok(await notice.isVisible(),id+': always visible with the listing');
+        assert.equal(await notice.locator('.before-you-go-copy').textContent(),approved);
+        assert.equal(await notice.evaluate(el => !!el.closest('details:not([open])')),false);
+        const link = notice.getByRole('link',{name:'Official event source for '+event.title,exact:true});
+        assert.equal(await link.getAttribute('href'),event.href || event.link || event.sourceUrls[0]);
+        assert.equal(await link.getAttribute('target'),'_blank');
+        assert.match(await link.getAttribute('rel'),/noopener/);
+        await link.focus(); assert.equal(await link.evaluate(el => el === document.activeElement),true);
+        const box = await notice.evaluate(el => {
+          const rect=el.getBoundingClientRect(), style=getComputedStyle(el), a=el.querySelector('a').getBoundingClientRect();
+          return {left:rect.left,right:rect.right,height:rect.height,fontSize:parseFloat(style.fontSize),lineHeight:parseFloat(style.lineHeight),linkHeight:a.height};
+        });
+        assert.ok(box.left >= 0 && box.right <= viewport.width+1,id+': notice fits viewport');
+        assert.ok(box.fontSize >= 13 && box.lineHeight >= 20 && box.linkHeight >= 44,id+': readable type and touch target');
+        metrics.push({id,...box});
+      }
+      for (const [name,selector] of [
+        ['existing','.event-card[data-event-id="aurora-trick-or-treat-nature-trail-2026"]'],
+        ['pumpkin','.pumpkin-card[data-city="erie"]'],
+        ['archive','[data-current="false"]']
+      ]) {
+        const listing=page.locator(selector).first();
+        // A renamed existing ID should fail rather than silently skip screenshot coverage.
+        assert.equal(await listing.count(),1);
+        await listing.screenshot({path:path.join(output,`${engineName}-before-you-go-${name}-${label}.png`)});
+      }
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false);
+      const audit = await new AxeBuilder({page}).include('main').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
+      fs.writeFileSync(path.join(output,`${engineName}-axe-before-you-go-all-${label}.json`),JSON.stringify(audit.violations,null,2));
+      fs.writeFileSync(path.join(output,`${engineName}-before-you-go-metrics-${label}.json`),JSON.stringify(metrics,null,2));
+      assert.deepEqual(audit.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),[]);
+    });
+    await check(`${label}: missing or unsafe official source is explicit without an empty or fabricated notice link`, async () => {
+      const manifest=await page.evaluate(() => window.EVENTS_DATA);
+      const template=manifest.events.find(event => event.id === 'aurora-midterm-monster-mash-2026');
+      manifest.events=[
+        {...template,id:'notice-missing-source-fixture',title:'Missing source fixture',href:'',link:'',sourceUrls:[]},
+        {...template,id:'notice-unsafe-source-fixture',title:'Unsafe source fixture',href:'javascript:alert(1)',link:'data:text/html,unsafe',sourceUrls:['/relative']}
+      ];
+      await page.route('**/data/events/events-manifest.js',route=>route.fulfill({contentType:'application/javascript',body:'window.EVENTS_DATA = '+JSON.stringify(manifest)+';'}));
+      try {
+        await page.goto(origin+'/events.html');
+        assert.equal(await page.locator('.before-you-go').count(),2);
+        for (const notice of await page.locator('.before-you-go').all()) {
+          assert.ok(await notice.isVisible());
+          assert.equal(await notice.locator('a').count(),0);
+          assert.equal(await notice.locator('.source-unavailable').textContent(),'Official source not provided.');
+        }
+      } finally { await page.unroute('**/data/events/events-manifest.js'); }
     });
     await check(`${label}: actual short-preview renderer preserves each new record's front-loaded warning`, async () => {
       // Isolate one real approved record per page solely to exercise the existing

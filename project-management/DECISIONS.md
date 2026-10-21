@@ -6,11 +6,19 @@ Updated: **2026-10-21 (UTC)**. The revised Priority 1 event batch is approved fo
 
 The owner explicitly approved the revised 12-event shortlist and implementation order, fresh official verification, a new branch from latest main, preservation of existing functionality and a draft PR with tests/screenshots. This supersedes earlier plan-only wording for the shortlist, not any launch gate. A later owner decision leaves Kiddie Academy out after a blocked current-booking recheck and retains Hallelujah with visibly unconfirmed optional-RSVP availability: 11 additions, no substitutes.
 
-- Use merged pumpkin main `3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be`; preserve every original event object. Add only the three missing event-city metadata entries. No PR #3 code, extra records, park datasets or layout/runtime changes.
+- Use merged pumpkin main `3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be`; preserve every original event object. Add only the three missing event-city metadata entries. No PR #3 code, extra records, park datasets or unrelated layout/runtime changes.
 - Include NAPA only while its October 22 at 5 p.m. MDT publication target remains feasible. It remains conditional in the draft; if missed, omit it and retest the remaining 10-event candidate without automatic substitution. This is an editorial gate, not an organizer booking deadline.
 - Keep registration/costume/access restrictions in visible existing labels and descriptions, including short previews. The concert’s unknown end uses existing date-only expiry and `calendarDisabled`; no new duration or feature.
 - The Castle Pines kit deadline concerns optional paid race participation, not free festival admission; the chili cancellation does not cancel the festival.
 - Publication, including an interactive preview, requires separate authorization. Current work stops at a draft PR and verified review evidence. Recommend the requested small October 30–31 second release afterward, without implementing it.
+
+### Before You Go addition, October 21 at 23:25 UTC
+
+The owner approved this exact copy for every full event listing in draft PR #5:
+
+> ⚠️ Before You Go: Event dates, times, prices, registration requirements, and weather or cancellation policies may change. Please check the official event website before attending.
+
+A shared renderer places it directly on ordinary cards, pumpkin cards and archive/legacy rows, outside per-event disclosures. The existing whole-archive toggle is preserved; once a listing is shown, its notice needs no extra expansion. Each notice has a clearly labeled existing official-source URL. No URL is invented when a future record lacks a valid HTTP(S) source. Homepage/city miniature teasers remain unchanged. All specific booking, cost, costume, operating and safety warnings remain intact; the generic notice does not replace them. This narrow runtime change does not authorize a redesign, PR #3 import, merge or deployment.
 
 ## Pumpkin implementation decision, October 21, 2026
 
