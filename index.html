@@ -547,10 +547,14 @@
       background: var(--green-dark);
     }
 
+    .home-event-cost, .home-event-availability { font-size: 13px; line-height: 1.5; color: var(--ink-muted); }
+    .home-event-cost { font-weight: 600; color: var(--ink); }
+    .home-event-cta { display: inline-flex; align-items: center; min-height: 44px; }
+    .home-event-cta:focus-visible, .intent-card:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
     /* ── INTENT LINKS ── */
     .intent-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
     }
 
@@ -588,7 +592,7 @@
       font-weight: 600;
       color: var(--ink);
       line-height: 1.2;
-      white-space: nowrap;
+      overflow-wrap: anywhere;
     }
 
     .intent-sub {
@@ -596,7 +600,7 @@
       color: var(--ink-muted);
       font-weight: 400;
       margin-top: 2px;
-      white-space: nowrap;
+      overflow-wrap: anywhere;
     }
     /* ── FOOTER ── */
     footer {
@@ -657,7 +661,9 @@
 
     @media (max-width: 560px) {
       .city-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .intent-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .intent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .intent-card { min-width: 0; flex-wrap: wrap; gap: 8px; }
+      .intent-card > div { min-width: 0; }
       .home-stat-bar { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
       .home-stat { text-align: left; padding: 2px 4px; }
       .home-events { padding: 24px 18px; }
@@ -739,6 +745,7 @@
       color: #085041;
     }
     @media (max-width: 360px) {
+      .city-grid { grid-template-columns: minmax(0, 1fr); }
       .hero-intent-row {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -948,8 +955,8 @@
       <div class="home-events-header">
         <div>
           <span class="home-events-kicker">Events and meetups</span>
-          <h2 class="home-events-title" id="home-events-heading">What’s Happening Nearby</h2>
-          <p class="home-events-sub">Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.</p>
+          <h2 class="home-events-title" id="home-events-heading">This Weekend</h2>
+          <p class="home-events-sub">Verified Friday–Sunday listings in Colorado local time. Confirm details with organizers.</p>
         </div>
       </div>
       <div class="home-events-grid" id="home-featured-events" aria-live="polite"></div>
@@ -989,7 +996,7 @@
             <div class="intent-sub">Walks &amp; hikes</div>
           </div>
         </a>
-        <a href="/events.html?city=aurora" class="intent-card">
+        <a href="/events.html?date=weekend" class="intent-card" id="weekend-intent">
           <span class="intent-icon">📅</span>
           <div>
             <div class="intent-label">This Weekend</div>
@@ -1101,53 +1108,42 @@
       // Only personalize when it's a city we actually map; otherwise use the curated fallback.
       if (userCity && !fepCentroid(userCity)) userCity = '';
 
+      var rules = window.FEP_EVENTS;
+      var weekend = rules.weekendWindow(today);
+      var subEl = document.querySelector('.home-events-sub');
+      subEl.textContent = weekend.label + '. Published sessions, not live ticket availability.';
       var current = window.EVENTS_DATA.events.filter(function(event) {
-        return isCurrentHomeEvent(event, today);
+        return event.status === 'approved' && event.verifiedAt && !rules.isSoldOut(event) &&
+          rules.matchingOccurrences(event, 'weekend', today).length;
       });
-
-      var events;
-      if (userCity) {
-        // Closest city first (0 = exact match), then featured, then soonest.
-        events = current.slice().sort(function(a, b) {
-          var da = fepCityDistanceSq(userCity, a.city);
-          var db = fepCityDistanceSq(userCity, b.city);
-          if (da !== db) return da - db;
-          if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
-          return eventStartDate(a).localeCompare(eventStartDate(b));
-        }).slice(0, 3);
-      } else {
-        // No location signal: featured first, then soonest (original behavior).
-        events = current.slice().sort(function(a, b) {
-          if (Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
-          return eventStartDate(a).localeCompare(eventStartDate(b));
-        }).slice(0, 3);
-      }
-
-      if (!events.length) {
-        root.closest('.home-events').style.display = 'none';
-        return;
-      }
-
-      // Make "Nearby" truthful when we know the city.
-      if (userCity) {
-        var subEl = document.querySelector('.home-events-sub');
-        var cityName = eventCityLabel({ city: userCity }, window.EVENTS_DATA.cities);
-        if (subEl && cityName) {
-          subEl.textContent = 'Family-friendly events near ' + cityName + ' and around the Denver metro.';
+      var events = current.sort(function(a, b) {
+        if (userCity) {
+          var distance = fepCityDistanceSq(userCity, a.city) - fepCityDistanceSq(userCity, b.city);
+          if (Number.isFinite(distance) && distance) return distance;
         }
+        return rules.matchingOccurrences(a, 'weekend', today)[0].startAt -
+          rules.matchingOccurrences(b, 'weekend', today)[0].startAt;
+      }).slice(0, 3);
+      var weekendUrl = './events.html?date=weekend' + (userCity ? '&city=' + encodeURIComponent(userCity) : '');
+      document.getElementById('weekend-intent').href = weekendUrl;
+      if (!events.length) {
+        root.innerHTML = '<p class="home-event-desc">No verified listings yet for this weekend. Browse all upcoming events or explore parks.</p>';
+        return;
       }
 
       root.innerHTML = events.map(function(event) {
         var city = eventCityLabel(event, window.EVENTS_DATA.cities);
         var location = event.locationLabel || event.venue_name || event.park_name || city;
-        var date = event.recurrence_label || event.dateLabel || event.timeLabel || 'Upcoming';
-        var href = event.href || event.link || './events.html';
+        var date = rules.occurrenceLabel(event, 'weekend', today);
+        var href = rules.eventUrl(event, 'weekend');
         return [
-          '<article class="home-event-card">',
+          '<article class="home-event-card" data-event-id="' + escapeHomeEventText(event.id) + '">',
             '<div class="home-event-date">' + escapeHomeEventText(date) + '</div>',
             '<h3 class="home-event-title">' + escapeHomeEventText(event.title) + '</h3>',
             '<div class="home-event-location">' + escapeHomeEventText(city + ' · ' + location) + '</div>',
             '<p class="home-event-desc">' + escapeHomeEventText(oneLineHomeEventDescription(event)) + '</p>',
+            '<p class="home-event-cost">' + escapeHomeEventText(event.costLabel) + '</p>',
+            '<p class="home-event-availability">' + escapeHomeEventText(event.availabilityLabel || 'Confirm requirements and availability with the organizer.') + '</p>',
             '<a class="home-event-cta" href="' + escapeHomeEventText(href) + '">View Event</a>',
           '</article>'
         ].join('');

@@ -6,7 +6,7 @@ permissions:
   contents: read
 jobs:
   browser:
-    if: github.head_ref == 'review/activate-events-october-2026'
+    if: github.head_ref == 'review/activate-events-october-2026' || github.head_ref == 'review/improve-event-discovery-2026'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -23,7 +23,10 @@ jobs:
           node-version: '24'
           package-manager-cache: false
       - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm test
+      - run: |
+          for zone in UTC America/Los_Angeles Asia/Tokyo; do
+            TZ="$zone" npm test || exit 1
+          done
       - run: npx --no-install playwright install --with-deps ${{ matrix.browser }}
       - run: npm run test:browser
         env:

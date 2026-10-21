@@ -921,7 +921,10 @@ body{
 
     const links = [
       { href: "city.html?dataset=" + encodeURIComponent(DATASET_KEY), label: DATASET_META.city + " city guide" },
-      { href: "parks.html?dataset=" + encodeURIComponent(DATASET_KEY), label: "All " + DATASET_META.city + " parks map" }
+      { href: "parks.html?dataset=" + encodeURIComponent(DATASET_KEY), label: "All " + DATASET_META.city + " parks map" },
+      { href: "events.html?city=" + encodeURIComponent(DATASET_KEY) +
+          (["weekend", "2026-10", "2026-11", "2026-12"].includes(new URLSearchParams(location.search).get("date")) ? "&date=" + encodeURIComponent(new URLSearchParams(location.search).get("date")) : ""),
+        label: "Family events in " + DATASET_META.city }
     ];
 
     if (bestGuidePages[DATASET_KEY]) {

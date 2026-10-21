@@ -666,7 +666,7 @@
     </ul>
   </div>
   <div class="empty-city" id="empty-city" style="display:none;">
-    <h2>No current events</h2>
+    <h2>No verified listings yet</h2>
     <p id="empty-city-copy">This city will get its own event stream as coverage expands.</p>
   </div>
 
@@ -884,20 +884,17 @@
       '&details=' + encodeURIComponent((event.description || event.dadNote || event.notes || '') + (event.href ? '\n\nMore info: ' + event.href : ''));
   }
 
-  function parkDataset(city) {
-    const key = eventRules.normCity(city).replace(/_/g, '-');
-    const supported = ['aurora', 'centennial', 'parker', 'englewood', 'highlands-ranch', 'littleton', 'castle-rock', 'westminster', 'arvada', 'lakewood', 'broomfield', 'thornton', 'commerce-city', 'greenwood-village', 'brighton', 'golden', 'lone-tree', 'denver'];
-    return supported.includes(key) ? key : '';
-  }
+  function parkDataset(city) { return eventRules.parkDataset(city); }
 
   function parkLinks(event) {
-    if (!event.nearbyParks || !event.nearbyParks.length) {
-      const dataset = parkDataset(event.city);
-      return '<a class="cal-link" href="./parks.html' + (dataset ? '?dataset=' + encodeURIComponent(dataset) : '') + '">Browse ' + (dataset ? escapeHtml(cityLabel(event)) + ' ' : '') + 'parks</a>';
-    }
-    return event.nearbyParks.map(function(park) {
-      return '<a class="cal-link" href="./park.html?dataset=' + encodeURIComponent(parkDataset(park.city || event.city)) +
-        '&amp;id=' + encodeURIComponent(park.id) + '">Park stop: ' + escapeHtml(park.name) + '</a>';
+    var view = eventRules.normalizeDateView(new URLSearchParams(location.search).get('date'));
+    var context = view === 'all' ? '' : '&amp;date=' + encodeURIComponent(view);
+    return (event.nearbyParks || []).filter(function (park) {
+      return parkDataset(park.city || event.city) && park.id;
+    }).map(function(park) {
+      return '<a class="cal-link event-park-link" href="./park.html?dataset=' + encodeURIComponent(parkDataset(park.city || event.city)) +
+        '&amp;id=' + encodeURIComponent(park.id) + context + '">' +
+        (park.relationship === 'host' ? 'At this park: ' : 'Explore nearby: ') + escapeHtml(park.name) + '</a>';
     }).join('');
   }
 
@@ -911,6 +908,8 @@
     row.className = 'event-row' + (options.past ? ' past-event' : '');
     row.dataset.city = eventRules.normCity(event.city);
     row.dataset.current = options.past ? 'false' : 'true';
+    row.id = 'event-' + event.id;
+    row.tabIndex = -1;
     const badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
     const metaParts = [
       cityLabel(event),
@@ -984,6 +983,8 @@
     card.dataset.city = eventRules.normCity(event.city);
     card.dataset.current = 'true';
     card.dataset.eventId = event.id || '';
+    card.id = 'event-' + event.id;
+    card.tabIndex = -1;
     var badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
     var title = group.title || event.title;
     var isRecurring = isRecurringEvent(event);
@@ -1011,6 +1012,7 @@
           }).join('') +
         '</div>' +
       '</div>' +
+      '<p class="event-window-sessions" hidden></p>' +
       (description ? '<p class="event-description">' + escapeHtml(description) + '</p>' : '') +
       (event.registrationLabel ? '<p class="event-description">' + escapeHtml(event.registrationLabel) + '</p>' : '') +
       (event.availabilityLabel ? '<p class="event-description">' + escapeHtml(event.availabilityLabel) + '</p>' : '') +
@@ -1018,7 +1020,7 @@
       (isRecurring ? renderRecurringDates(event) : '') +
       (event.dadNote && event.dadNote !== description ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote) + '</p>' : '') +
       '<div class="event-actions">' +
-        (href ? '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">More Info</a>' : '') +
+        (href ? '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">Organizer details</a>' : '') +
         (calUrl ? '<a class="cal-link" href="' + escapeHtml(calUrl) + '" target="_blank" rel="noopener">+ Add to Calendar</a>' : '') +
         (event.registrationUrl ? '<a class="cal-link" href="' + escapeHtml(event.registrationUrl) + '" target="_blank" rel="noopener">Registration</a>' : '') +
         parkLinks(event) +
@@ -1298,25 +1300,44 @@
     }
 
     var activeKey = '';
+    var activeDate = 'all';
+    var eventById = {};
+    cityEvents.forEach(function (event) { eventById[event.id] = event; });
     function applyFilter(key, updateUrl) {
       activeKey = eventRules.normCity(key);
+      dateControl.value = activeDate;
+      var range = eventRules.dateWindow(activeDate, new Date());
       Array.prototype.forEach.call(bar.children, function (pill) {
         var selected = pill.dataset.city === activeKey;
         pill.classList.toggle('active', selected);
         pill.setAttribute('aria-pressed', String(selected));
       });
       Array.prototype.forEach.call(root.querySelectorAll('.event-card, .event-row'), function (el) {
-        el.style.display = (!activeKey || el.dataset.city === activeKey) ? '' : 'none';
+        var event = eventById[el.dataset.eventId || el.id.slice(6)];
+        var matches = event && eventRules.matchingOccurrences(event, activeDate, new Date()).length > 0;
+        var dateMatches = el.dataset.current === 'true' ? matches : activeDate === 'all';
+        el.style.display = (!activeKey || el.dataset.city === activeKey) && dateMatches ? '' : 'none';
+        var sessions = el.querySelector('.event-window-sessions');
+        if (sessions) {
+          sessions.hidden = activeDate === 'all';
+          sessions.textContent = matches && range ? 'In this view: ' + eventRules.occurrenceLabel(event, activeDate, new Date()) : '';
+        }
+        el.querySelectorAll('.event-park-link').forEach(function (link) {
+          var destination = new URL(link.href);
+          if (activeDate === 'all') destination.searchParams.delete('date');
+          else destination.searchParams.set('date', activeDate);
+          link.href = destination.href;
+        });
       });
       sweepEmpties();
       var count = root.querySelectorAll('[data-current="true"]');
       var visibleCount = Array.prototype.filter.call(count, isVisible).length;
       var label = activeKey ? prettyCity(activeKey) : 'All Cities';
       document.getElementById('filter-status').textContent = visibleCount +
-        ' current or upcoming event' + (visibleCount === 1 ? '' : 's') + ' · ' + label + ' · All times Mountain Time';
+        ' current or upcoming listing' + (visibleCount === 1 ? '' : 's') + ' · ' + label + ' · ' + (range ? range.label : 'All upcoming · Colorado time') + '. Availability is not guaranteed.';
       emptyCity.style.display = visibleCount ? 'none' : '';
-      emptyCityCopy.textContent = 'No current listings for ' + (activeKey ? label : 'the Front Range') +
-        '. Check another city or browse parks while we verify more events.';
+      emptyCityCopy.textContent = 'No verified listings yet for ' + (activeKey ? label : 'the Front Range') +
+        (range ? ' · ' + range.label : '') + '. Try another date or city, or explore parks.';
       document.getElementById('page-title').textContent = activeKey ? label + ' Events' : 'Front Range Events';
       document.getElementById('submit-heading').textContent = activeKey ? 'Know an event in ' + label + '?' : 'Know an event?';
       var dataset = parkDataset(activeKey);
@@ -1326,7 +1347,9 @@
         var url = new URL(window.location.href);
         if (activeKey) url.searchParams.set('city', activeKey.replace(/_/g, '-'));
         else url.searchParams.delete('city');
-        history.pushState(null, '', url);
+        if (activeDate === 'all') url.searchParams.delete('date');
+        else url.searchParams.set('date', activeDate);
+        if (url.href !== window.location.href) history.pushState(null, '', url);
       }
     }
 
@@ -1357,16 +1380,54 @@
     bar.appendChild(makePill('', 'All Cities'));
     keys.forEach(function (k) { bar.appendChild(makePill(k, seen[k])); });
     root.parentNode.insertBefore(bar, document.getElementById('filter-status'));
+    var dateRow = document.createElement('div');
+    dateRow.className = 'event-date-control';
+    dateRow.innerHTML = '<label for="event-date-filter">Event dates</label>' +
+      '<select id="event-date-filter"><option value="all">All upcoming</option>' +
+      '<option value="weekend">This weekend</option><option value="2026-10">October 2026</option>' +
+      '<option value="2026-11">November 2026</option><option value="2026-12">December 2026</option></select>';
+    root.parentNode.insertBefore(dateRow, bar);
+    var dateControl = document.getElementById('event-date-filter');
+    dateControl.addEventListener('change', function () {
+      activeDate = eventRules.normalizeDateView(dateControl.value);
+      applyFilter(activeKey, true);
+    });
+    function revealAnchor() {
+      var id;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch (error) { return; }
+      var target = id && document.getElementById(id);
+      if (!target || !target.matches('.event-card, .event-row') || target.style.display === 'none') return;
+      for (var parent = target.parentElement; parent; parent = parent.parentElement) {
+        if (parent.tagName === 'DETAILS') parent.open = true;
+      }
+      target.querySelectorAll('details').forEach(function (details) { details.open = true; });
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: 'start' });
+    }
     function filterFromUrl() {
-      var requested = eventRules.normCity(new URLSearchParams(location.search).get('city'));
+      var params = new URLSearchParams(location.search);
+      var requested = eventRules.normCity(params.get('city'));
+      activeDate = eventRules.normalizeDateView(params.get('date'));
+      if (requested && !seen[requested] && parkDataset(requested)) {
+        seen[requested] = prettyCity(requested);
+        bar.appendChild(makePill(requested, seen[requested]));
+      }
       applyFilter(requested, false);
+      revealAnchor();
     }
     filterFromUrl();
     window.addEventListener('popstate', filterFromUrl);
+    window.addEventListener('hashchange', revealAnchor);
     // Refresh expiry in an open tab, not only after a page reload.
-    var expirySignature = cityEvents.filter(function (event) { return isCurrentEvent(event, new Date()); }).map(eventKey).join('|');
+    function currentSignature() {
+      var now = new Date();
+      return eventRules.localStamp(now).slice(0, 10) + '|' + cityEvents.map(function (event) {
+        return eventKey(event) + ':' + eventRules.occurrences(event, now).map(function (item) { return item.start; }).join(',');
+      }).join('|');
+    }
+    var expirySignature = currentSignature();
     function refreshEvents() {
-      var signature = cityEvents.filter(function (event) { return isCurrentEvent(event, new Date()); }).map(eventKey).join('|');
+      var signature = currentSignature();
       if (signature === expirySignature) return;
       expirySignature = signature;
       var openCards = Array.from(root.querySelectorAll('.event-card:has(details[open])')).map(function (card) { return card.dataset.eventId; });
@@ -1384,6 +1445,10 @@
     document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshEvents(); });
 
     var css = ''
+      + '.event-window-sessions{font-size:14px;line-height:1.6;color:var(--ink-light);margin:8px 0;}'
+      + '.event-date-control{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px;}'
+      + '.event-date-control label{font-weight:600;}.event-date-control select{font:inherit;max-width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--rule);border-radius:12px;background:var(--white);color:var(--ink);}'
+      + '.event-date-control select:focus-visible,.event-card:focus,.event-row:focus{outline:3px solid var(--grass);outline-offset:3px;}.event-card,.event-row{scroll-margin-top:24px;}'
       + '.event-filter-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px;}'
       + ".event-filter-pill{font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;min-height:44px;padding:9px 15px;border-radius:100px;border:1px solid var(--rule);background:var(--white);color:var(--ink-light);cursor:pointer;transition:all .15s;}"
       + '.event-filter-pill:focus-visible{outline:3px solid var(--grass);outline-offset:3px;}'

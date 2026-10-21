@@ -1,5 +1,20 @@
 # FindEveryPark: verification ledger
 
+Updated: **2026-10-21 (UTC)**. Discovery evidence is separate from the corrected PR #2 baseline below.
+
+## Separate discovery draft validation
+
+- Base: `4247d0be71d913239a4a8cf42c8743218b1465b8`; branch `review/improve-event-discovery-2026`. Prior PR #2 checks do not establish discovery success.
+- Local focused verification after the 11-listing rebase: original 14 + new 15 Node tests pass under UTC, America/Los_Angeles and Asia/Tokyo (87 executions). Further final commands, exact remote revision, terminal CI and inspected screenshots will be recorded here/the draft PR before review-ready status.
+- Initial discovery head `e6318a619042119da5ba90ce8d07210a6de66054`, [run 39648941125](https://github.com/townsendjat-arch/findeverypark/actions/runs/39648941125): each engine passed 48/48 baseline checks and 36/52 discovery checks. Found real 320px city-tile overflow (354–356px page width), now addressed by stacking that existing grid below 360px. Other discovery failures were a navigation wait race and a test date regex accidentally matching the time 4:30, which left the test clock changed and caused cascading failures. Harness now waits for internal navigation, matches exact date tokens and resets time per check. Final rerun remains required; initial failure is not a pass.
+- Browser suites cover date/city combinations, real recurring sessions, sold-out preview exclusion, October 30–November 1 DST/month boundary, empty November/December, keyboard select/action controls, URL/history/hash anchors, event→park→city-events→Back and narrow homepage overflow.
+- Browser automation uses Chromium and Playwright WebKit in emulated 1440, 390, 320 and 400 CSS-pixel viewports. A 320px view is also a reflow proxy, not an actual 400% browser-zoom test. Physical iOS/Android, actual Safari, VoiceOver/TalkBack and live external booking inventory remain **NOT TESTED**.
+- Local Chromium launch is blocked by `process_singleton_posix.cc socket() failed: Operation not permitted`; no local browser pass is claimed. Test-only PR workflow permits this one additional named draft branch with contents-read permissions, exact-head checkout and no deployment step; Node checks now run under UTC, Los Angeles and Tokyo in each job; permissions/triggers/deployment scope are unchanged.
+
+## Corrected PR #2 baseline (not discovery evidence)
+
+The following records describe the separate correction package only; they do not establish the discovery draft’s readiness.
+
 Updated: **2026-10-21 (UTC)**. Scope: 11 active listings after the owner-requested sold-out removal and RSVP hold, not whole-site certification.
 
 ## Exact revision and results

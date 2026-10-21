@@ -92,7 +92,14 @@ test('candidate contains 11 reviewed records after requested removal and hold an
   const verified = data.events.filter(e => e.verifiedAt === '2026-10-21');
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
   assert.equal(verified.length, 11);
-  assert.deepEqual(JSON.parse(JSON.stringify(verified)), audit.events);
+  const editorialFields = JSON.parse(JSON.stringify(verified));
+  // Discovery adds machine-readable session/relationship/status metadata only.
+  for (const event of editorialFields) {
+    delete event.availabilityStatus;
+    for (const park of event.nearbyParks || []) delete park.relationship;
+    for (const session of event.schedule || []) { delete session.dateStart; delete session.dateEnd; }
+  }
+  assert.deepEqual(editorialFields, audit.events);
   assert.deepEqual(verified.reduce((counts, event) => { counts[event.city] = (counts[event.city] || 0) + 1; return counts; }, {}), { aurora:5, denver:3, centennial:3 });
 });
 test('removed sold-out and held RSVP events survive only in source history', () => {
