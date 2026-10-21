@@ -3,13 +3,27 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
+const { execFileSync } = require('node:child_process');
 const { chromium, webkit } = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const root = path.join(__dirname, '..');
 const output = path.join(root, 'test-results');
 fs.mkdirSync(output, { recursive: true });
+// Compare inherited homepage overflow with the exact released main baseline.
+// Fetch only the public commit object if CI's shallow checkout does not contain it.
+// This changes no remote state, branch, workflow or deployment configuration.
+const baselineRef = 'd178a64ebb896ec1b1e9f66429c46796004a3fe9';
+try { execFileSync('git', ['cat-file', '-e', baselineRef + '^{commit}'], { cwd:root, stdio:'pipe' }); }
+catch (_) { execFileSync('git', ['fetch', '--no-tags', '--depth=1', 'origin', baselineRef], { cwd:root, stdio:'pipe' }); }
+const baselineFiles = new Map(['index.html','data/events/events-manifest.js','city-events.js'].map(file =>
+  [file, execFileSync('git', ['show', baselineRef + ':' + file], { cwd:root })]));
 const server = http.createServer((req, res) => {
-  const requested = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+  let requested = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+  if (requested.startsWith('/__baseline__/')) {
+    requested = requested.slice('/__baseline__'.length);
+    const snapshot = baselineFiles.get(requested.slice(1));
+    if (snapshot) { res.setHeader('Content-Type', requested.endsWith('.html') ? 'text/html' : 'text/javascript'); res.end(snapshot); return; }
+  }
   const target = path.resolve(root, '.' + (requested === '/' ? '/index.html' : requested));
   if (!target.startsWith(root + path.sep) || !fs.existsSync(target) || !fs.statSync(target).isFile()) { res.writeHead(404).end(); return; }
   const ext = path.extname(target);
@@ -472,7 +486,33 @@ async function check(name, callback) {
       await page.goto(origin + '/index.html?city=erie');
       assert.equal(await page.locator('.home-event-card').filter({ hasText:/Anderson/ }).count(), 0);
       assert.ok(await page.locator('#geoBtn').count(), 'homepage remains park-first');
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      await page.evaluate(() => document.fonts.ready);
+      const measure = () => ({
+        viewport:innerWidth, scrollWidth:document.documentElement.scrollWidth,
+        offenders:Array.from(document.querySelectorAll('body *')).filter(el => {
+          const rect=el.getBoundingClientRect(); return rect.width && (rect.right > innerWidth + 1 || rect.left < -1);
+        }).map(el => ({tag:el.tagName,classes:el.className,left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right})),
+        preview:Array.from(document.querySelectorAll('.home-events, .home-event-card')).map(el => ({
+          classes:el.className,left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,
+          scrollWidth:el.scrollWidth,clientWidth:el.clientWidth
+        }))
+      });
+      const candidate = await page.evaluate(measure);
+      for (const box of candidate.preview) {
+        assert.ok(box.left >= -1 && box.right <= viewport.width + 1, JSON.stringify(box));
+        assert.ok(box.scrollWidth <= box.clientWidth + 1, JSON.stringify(box));
+      }
+      assert.ok(candidate.preview.length >= 2, 'test includes existing preview and its cards');
+      await page.screenshot({path:path.join(output, `${engineName}-pumpkin-home-erie-${label}.png`),fullPage:true});
+      await page.goto(origin + '/__baseline__/index.html?city=erie');
+      await page.evaluate(() => document.fonts.ready);
+      const baseline = await page.evaluate(measure);
+      const evidence = {baselineRef, candidate, baseline};
+      fs.writeFileSync(path.join(output, `${engineName}-home-overflow-baseline-${label}.json`),JSON.stringify(evidence,null,2));
+      console.log('HOMEPAGE BASELINE', label, JSON.stringify(evidence));
+      assert.ok(candidate.scrollWidth <= baseline.scrollWidth, 'pumpkin content must not worsen inherited whole-homepage overflow');
+      // PR #3, not this feature, owns the pre-existing city-tile wrap correction.
+      if (baseline.scrollWidth > viewport.width) assert.ok(baseline.offenders.some(el => /city-card|city-grid/.test(el.classes)), 'identify inherited city-grid overflow');
     });
     await check(`${label}: Miller verification horizon never becomes a false Past Event claim`, async () => {
       await page.clock.setFixedTime(new Date('2026-11-01T17:00:00Z'));

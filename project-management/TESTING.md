@@ -11,6 +11,12 @@ Updated: **2026-10-21 (UTC)**. Scope: 11 active listings after the owner-request
 - Existing GitHub Actions remains pull-request-only, contents-read, exact-head checkout, no retained credentials or deployment step. The only workflow change extends its branch condition with `review/six-pumpkin-patches-2026`.
 - No PR #3 code, date filter, homepage layout, park datasets, dependency versions, hosting settings, production branch or deployment configuration changed. Preview is a separate parent-coordinated approval, not release authorization.
 
+### Initial pumpkin CI and scoped correction
+
+[Run 39667510771](https://github.com/townsendjat-arch/findeverypark/actions/runs/39667510771) on `6d999fb419a99fb4cb0ef233cab04a72b723dea2`: 18/18 Node in both jobs; Chromium 85/87 and WebKit 85/87. Both failures were the newly added whole-homepage overflow assertion at 390/320px on the Erie fallback route, not Anderson exclusion or pumpkin-card layout. All Events/category/price/warning/DST/accessibility checks passed in that run; this is not a final-head all-pass claim.
+
+The corrective test compares exact main `d178a64` homepage/data/shared rules with the candidate at identical dates, URLs and viewports, logs out-of-bounds elements, and requires no increased whole-page width. It separately requires the changed preview section/cards to fit the viewport and have no internal horizontal overflow. Existing city-tile wrapping remains owned by PR #3, not silently imported here. Final exact-head results remain pending.
+
 ## Historical PR #2 evidence
 
 ## Exact revision and results
