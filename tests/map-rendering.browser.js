@@ -207,6 +207,22 @@ async function testPage(viewport, options, callback) {
   } catch (error) {
     try {
       const detail = {case: currentCase, error: error.stack, errors, routeErrors, consoleMessages, requests, state: await privacySnapshot(page)};
+      detail.mapSnapshot = await page.evaluate(() => {
+        const main = typeof map === 'undefined' ? null : map;
+        const rect = node => { const box = node.getBoundingClientRect(); return {left: box.left, top: box.top, right: box.right, bottom: box.bottom, width: box.width, height: box.height}; };
+        const node = document.getElementById('map');
+        return {viewport: {width: innerWidth, height: innerHeight, scrollY}, mapRect: node ? rect(node) : null,
+          initialized: !!main, size: main?.getSize(), center: main?.getCenter(), zoom: main?.getZoom(),
+          zoomAnimating: main?._animatingZoom, panAnimating: main?._panAnim?._inProgress, stability: window.__mapTestStable,
+          layers: main ? Object.values(main._layers).filter(layer => layer instanceof L.TileLayer).map(layer => ({
+            tileZoom: layer._tileZoom, loading: layer._loading, noPrune: layer._noPrune,
+            tiles: Object.values(layer._tiles).map(tile => ({current: tile.current, active: tile.active, loaded: tile.loaded, retain: tile.retain,
+              coordinates: tile.coords, src: tile.el.src, complete: tile.el.complete, naturalWidth: tile.el.naturalWidth, naturalHeight: tile.el.naturalHeight,
+              opacity: getComputedStyle(tile.el).opacity, connected: tile.el.isConnected, classes: tile.el.className, rect: rect(tile.el)}))
+          })) : [],
+          domTiles: node ? Array.from(node.querySelectorAll('.leaflet-tile')).map(tile => ({src: tile.src, complete: tile.complete,
+            naturalWidth: tile.naturalWidth, naturalHeight: tile.naturalHeight, opacity: getComputedStyle(tile).opacity, rect: rect(tile)})) : []};
+      });
       fs.writeFileSync(path.join(output, 'map-rendering-' + engineName + '-failure-' + safeName(currentCase) + '.json'), redact(detail));
       await annotateFixtures(page);
       await page.screenshot({path: path.join(output, 'map-rendering-' + engineName + '-failure-' + safeName(currentCase) + '.png'), animations: 'disabled', timeout: 5000});
@@ -232,6 +248,11 @@ async function awaitingCity(page) {
   assert.equal(new URL(page.url()).searchParams.get('dataset'), null, 'No implied dataset confirmation');
 }
 async function mapReady(page) {
+  // Every call starts a fresh observation. Leaflet schedules zoom in a later
+  // animation frame, so cached stability from the previous action is not readiness.
+  await page.evaluate(() => { window.__mapTestStable = null; });
+  // View the real map as a user would; this does not invoke a Leaflet repair API.
+  await page.locator('#map').scrollIntoViewIfNeeded();
   await page.waitForFunction(() => {
     if (!window.L || L.version !== '1.9.4' || typeof map === 'undefined' || !map || map._animatingZoom || map._panAnim?._inProgress) return false;
     const node = document.getElementById('map'), box = node.getBoundingClientRect(), size = map.getSize();
@@ -245,8 +266,14 @@ async function mapReady(page) {
   // Observe genuine settled geometry/image pruning, never trigger test-side map repair.
   await page.waitForFunction(() => {
     if (map._animatingZoom || map._panAnim?._inProgress) return false;
-    const tiles = Array.from(document.querySelectorAll('#map .leaflet-tile'));
-    if (!tiles.length || tiles.some(tile => !tile.complete || tile.naturalWidth !== 256 || Number(getComputedStyle(tile).opacity) < .99)) return false;
+    // Leaflet deliberately retains old-level/offscreen tiles, but _updateOpacity
+    // skips !tile.current. Read its current tiles rather than requiring obsolete
+    // retained images to finish a fade that Leaflet no longer advances.
+    const records = Object.values(map._layers).filter(layer => layer instanceof L.TileLayer)
+      .flatMap(layer => Object.values(layer._tiles)).filter(tile => tile.current);
+    const tiles = records.map(tile => tile.el);
+    if (!tiles.length || records.some(tile => !tile.active) || tiles.some(tile => !tile.isConnected || !tile.complete ||
+      tile.naturalWidth !== 256 || tile.naturalHeight !== 256 || Number(getComputedStyle(tile).opacity) < .99)) return false;
     const key = JSON.stringify({size: map.getSize(), center: map.getCenter(), zoom: map.getZoom(), tiles: tiles.map(tile => tile.src).sort()});
     if (!window.__mapTestStable || window.__mapTestStable.key !== key) window.__mapTestStable = {key, since: performance.now()};
     return performance.now() - window.__mapTestStable.since >= 350;
@@ -258,7 +285,10 @@ async function assertMap(page, label) {
     const node = document.getElementById('map'), box = node.getBoundingClientRect();
     const svg = node.querySelector('.leaflet-overlay-pane svg'), svgBox = svg.getBoundingClientRect();
     const paths = Array.from(node.querySelectorAll('.leaflet-overlay-pane path'));
-    const tiles = Array.from(node.querySelectorAll('.leaflet-tile-loaded')).filter(tile => tile.complete && tile.naturalWidth === 256 && Number(getComputedStyle(tile).opacity) > .9);
+    const tileRecords = Object.values(map._layers).filter(layer => layer instanceof L.TileLayer).flatMap(layer => Object.values(layer._tiles));
+    const currentTiles = tileRecords.filter(tile => tile.current);
+    const tiles = currentTiles.map(tile => tile.el).filter(tile => tile.isConnected && tile.complete && tile.naturalWidth === 256 &&
+      tile.naturalHeight === 256 && Number(getComputedStyle(tile).opacity) >= .99);
     const visiblePaths = paths.filter(path => { const b = path.getBoundingClientRect(); return b.width > 1 && b.height > 1 && b.right > box.left && b.left < box.right && b.bottom > box.top && b.top < box.bottom; });
     const tileBoxes = tiles.map(tile => tile.getBoundingClientRect()), tileSamples = [];
     for (const x of [.03, .25, .5, .75, .97]) for (const y of [.03, .25, .5, .75, .97]) {
@@ -269,7 +299,8 @@ async function assertMap(page, label) {
     return {leafletVersion: L.version, mapSize: map.getSize(), mapRect: {width: box.width, height: box.height, left: box.left, right: box.right},
       svgSize: {width: svgBox.width, height: svgBox.height}, markerCount: paths.length, visibleMarkerCount: visiblePaths.length,
       validPathCount: paths.filter(path => path.getBBox().width > 1 && path.getBBox().height > 1 && !/NaN|Infinity/.test(path.getAttribute('d') || '')).length,
-      examplePath: paths[0]?.getAttribute('d'), loadedOpaqueFixtureTiles: tiles.length, tileSamples,
+      examplePath: paths[0]?.getAttribute('d'), currentTileCount: currentTiles.length, retainedNoncurrentTileCount: tileRecords.length - currentTiles.length,
+      loadedOpaqueFixtureTiles: tiles.length, tileSamples,
       attributionVisibleInsideMap: attributionBox.width > 0 && attributionBox.height > 0 && getComputedStyle(attributionNode).visibility !== 'hidden' &&
         attributionBox.left >= box.left - 1 && attributionBox.right <= box.right + 1 && attributionBox.top >= box.top - 1 && attributionBox.bottom <= box.bottom + 1,
       viewportWidth: innerWidth, documentWidth: document.documentElement.scrollWidth,
@@ -283,6 +314,7 @@ async function assertMap(page, label) {
   // Leaflet clips offscreen paths to M0 0; require meaningful geometry for every visible marker, not every offscreen one.
   assert.ok(detail.validPathCount >= detail.visibleMarkerCount, 'Visible marker paths have nonzero SVG geometry');
   assert.ok(detail.loadedOpaqueFixtureTiles > 0, 'Opaque locally generated RGB tiles decode and are rendered');
+  assert.equal(detail.loadedOpaqueFixtureTiles, detail.currentTileCount, 'Every current Leaflet tile is decoded and fully opaque');
   assert.equal(detail.tileSamples.filter(point => point.covered).length, 25, 'Loaded opaque tiles cover all 25 samples across the map, not just one corner');
   assert.equal(detail.attributionVisibleInsideMap, true, 'OSM attribution has visible dimensions entirely inside the map');
   assert.ok(detail.mapRect.left >= -1 && detail.mapRect.right <= detail.viewportWidth + 1, 'Map remains inside viewport horizontally');
@@ -318,6 +350,7 @@ async function focusAbbott(page) {
   const target = await card.count() ? card : page.locator('#grid .card[data-park-id]').filter({hasText: 'Abbott Park'}).first();
   await target.locator('.map-pin-btn').click();
   await page.waitForFunction(() => document.querySelector('#map .leaflet-popup-content b')?.textContent === 'Abbott Park');
+  await page.waitForFunction(() => map.getZoom() === 15 && !map._animatingZoom && !map._panAnim?._inProgress);
   await mapReady(page);
   assert.equal(await page.locator('#map .leaflet-popup-content b').textContent(), 'Abbott Park');
   const href = await page.locator('#map .leaflet-popup-content a').getAttribute('href');
@@ -454,8 +487,21 @@ async function fixLocation(page) {
       const requestStart = requests.length;
       await fixLocation(page); await page.waitForFunction(() => document.getElementById('sort').value === 'nearest');
       const after = await assertMap(page, 'after-gps'); await assertMarkerCorrespondence(page, 'centennial');
-      assert.deepEqual(after.center, before.center, 'Private location does not recenter the public-park map');
-      assert.equal(after.zoom, before.zoom); assert.deepEqual(after.bounds, before.bounds);
+      assert.equal(after.zoom, before.zoom);
+      // invalidateSize clears Leaflet's cached lat/lng centre even without a size
+      // change; getCenter can then expose the same rounded pixel-origin centre.
+      // Independently project both representations, while requiring exact bounds
+      // and tile coverage below. This allows subpixel rounding, not a GPS recenter.
+      const project = center => {
+        const scale = 256 * 2 ** before.zoom, sin = Math.sin(center.lat * Math.PI / 180);
+        return {x: scale * (center.lng + 180) / 360, y: scale * (.5 - Math.log((1 + sin) / (1 - sin)) / (4 * Math.PI))};
+      };
+      const beforePoint = project(before.center), afterPoint = project(after.center);
+      const centerDisplacement = {xPixels: afterPoint.x - beforePoint.x, yPixels: afterPoint.y - beforePoint.y};
+      centerDisplacement.distancePixels = Math.hypot(centerDisplacement.xPixels, centerDisplacement.yPixels);
+      metrics.push({case: currentCase, label: 'gps-public-map-center-rounding', zoom: before.zoom, centerDisplacement, maximumPermittedPixelsPerAxis: .500001});
+      assert.ok(Math.abs(centerDisplacement.xPixels) <= .500001 && Math.abs(centerDisplacement.yPixels) <= .500001, 'Private location does not move either public map axis beyond half a CSS pixel of Leaflet rounding');
+      assert.deepEqual(after.bounds, before.bounds);
       assert.deepEqual(after.tileURLs, before.tileURLs, 'Displayed canonical OSM tile coverage is independent of GPS');
       const laterTiles = requests.slice(requestStart).filter(request => canonicalTile(request.url));
       assert.ok(laterTiles.every(request => baselineRequests.has(request.url)), 'GPS causes no new canonical OSM geographic tile coverage');
