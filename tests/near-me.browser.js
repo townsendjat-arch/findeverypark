@@ -70,8 +70,46 @@ const fixtureParks=[
   {id:'synthetic-other',n:'F No Playground',a:'Synthetic',lat:0,lng:0.001,ac:20,f:{trails:true}}
 ];
 function fixtureSource(city,parks=fixtureParks){return 'window.registerParkDataset('+JSON.stringify(city)+','+JSON.stringify(parks)+');';}
-let browser,origin;
-async function check(name,callback){try{await callback();results.push({name,passed:true});console.log('PASS',name);}catch(error){failures.push({name,message:error.stack});console.error('FAIL',name,error.stack);}}
+let browser,origin,currentCaseName='suite';
+async function check(name,callback){currentCaseName=name;console.log('START',name);try{await callback();results.push({name,passed:true});console.log('PASS',name);}catch(error){failures.push({name,message:error.stack});console.error('FAIL',name,error.stack);}}
+async function deadline(promise,milliseconds,label){let timer;try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error(label+' exceeded '+milliseconds+' ms')),milliseconds);})]);}finally{clearTimeout(timer);}}
+function sentinelFields(value,prefix='snapshot',paths=[]) {
+  if(value&&typeof value==='object'){for(const [key,item] of Object.entries(value))sentinelFields(item,prefix+'.'+key,paths);}
+  else if(value!==undefined&&value!==null){try{assertNoSentinel(value,prefix);}catch(_){paths.push(prefix);}}
+  return paths;
+}
+function redactSynthetic(value){
+  if(Array.isArray(value))return value.map(redactSynthetic);
+  if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,item])=>[key,redactSynthetic(item)]));
+  if(value===undefined||value===null)return value;
+  if(typeof value==='number'){try{assertNoSentinel(value,'Diagnostic number');return value;}catch(_){return '[synthetic-coordinate-redacted]';}}
+  if(typeof value!=='string')return value;
+  let text=decoded(value);
+  for(const number of sentinel)for(let places=3;places<=9;places++){
+    const variant=number.toFixed(places).replace(/0+$/,'').replace(/\.$/,'');
+    text=text.split(variant).join('[synthetic-coordinate-redacted]');
+  }
+  return text;
+}
+async function failureDiagnostics(page,requests,consoleMessages,pageErrors,error) {
+  const filename=engineName+'-near-me-failure-'+currentCaseName.replace(/[^a-z0-9]+/gi,'-').toLowerCase().slice(0,160);
+  const details={name:currentCaseName,error:error.stack,pageErrors,consoleMessages,requestCount:requests.length};
+  try{Object.assign(details,await deadline(page.evaluate(()=>({
+    url:location.href,history:history.state,activeDataset:window.ACTIVE_DATASET_KEY,
+    title:document.querySelector('#page-intro-title')?.textContent,
+    status:document.querySelector('#location-status')?.textContent,
+    sort:document.querySelector('#sort')?.value,search:document.querySelector('#search')?.value,
+    ids:Array.from(document.querySelectorAll('#grid .card[data-park-id]'),card=>card.dataset.parkId),
+    selectedFilters:Array.from(document.querySelectorAll('.pill[aria-pressed="true"]'),node=>node.dataset.k),
+    viewport:{width:innerWidth,scrollWidth:document.documentElement.scrollWidth},
+    overflow:Array.from(document.querySelectorAll('body *')).map(node=>{const box=node.getBoundingClientRect();return {element:node.tagName.toLowerCase()+(node.id?'#'+node.id:'')+(typeof node.className==='string'?'.'+node.className.trim().replace(/\s+/g,'.'):''),left:box.left,right:box.right,width:box.width,scrollWidth:node.scrollWidth};}).filter(box=>box.width>0&&(box.left<-.5||box.right>innerWidth+.5)).slice(0,80),
+    privacySnapshot:{url:location.href,state:history.state,local:Object.fromEntries(Object.entries(localStorage)),session:Object.fromEntries(Object.entries(sessionStorage)),cookies:document.cookie,dataLayer:Array.from(window.dataLayer||[],args=>Array.from(args)),historyWrites:window.__historyWrites,resources:window.__resourceSnapshots,links:Array.from(document.querySelectorAll('a[href]'),a=>a.getAttribute('href').startsWith('#')?a.getAttribute('href'):a.href)}
+  })),4000,'Failure diagnostic snapshot'));
+  details.syntheticCoordinateFields=sentinelFields(details.privacySnapshot);delete details.privacySnapshot;
+  }catch(diagnosticError){details.diagnosticError=diagnosticError.message;}
+  fs.writeFileSync(path.join(output,filename+'.json'),JSON.stringify(redactSynthetic(details),null,2));
+  try{await page.screenshot({path:path.join(output,filename+'.png'),fullPage:false,animations:'disabled',timeout:5000});}catch(_){}
+}
 async function testPage(viewport,options,callback) {
   const context=await browser.newContext({viewport,timezoneId:'America/Denver',javaScriptEnabled:options.javascript!==false});
   const page=await context.newPage(),requests=[],consoleMessages=[],pageErrors=[];
@@ -85,7 +123,7 @@ async function testPage(viewport,options,callback) {
     history.pushState=function(state,title,url){window.__historyWrites.push({state,url});return originalPush(state,title,url);};
     Object.defineProperty(navigator,'geolocation',{configurable:true,value:unsupported?undefined:{getCurrentPosition(success,error,options){window.__geoRequests.push({success,error,options});}}});
     const append=Node.prototype.appendChild;
-    Node.prototype.appendChild=function(node){if(node.tagName==='SCRIPT'&&/^https?:/.test(node.src)){window.__resourceSnapshots.push({url:location.href,src:node.src,dataLayer:Array.from(window.dataLayer||[],args=>Array.from(args))});}return append.call(this,node);};
+    Node.prototype.appendChild=function(node){if(node.tagName==='SCRIPT'&&/^https?:/.test(node.src)&&new URL(node.src).origin!==location.origin){window.__resourceSnapshots.push({url:location.href,src:node.src,dataLayer:Array.from(window.dataLayer||[],args=>Array.from(args))});}return append.call(this,node);};
   },{failCleanup:!!options.failCleanup,unsupported:!!options.unsupported});
   await context.route('**/*',async route=>{
     const request=route.request();
@@ -101,7 +139,7 @@ async function testPage(viewport,options,callback) {
     await route.continue();
   });
   try {
-    await callback({page,context,requests,consoleMessages,pageErrors});
+    await deadline(callback({page,context,requests,consoleMessages,pageErrors}),60000,'Browser case callback');
     if(options.javascript!==false){
       const snapshot=await page.evaluate(()=>({url:location.href,state:history.state,local:Object.fromEntries(Object.entries(localStorage)),session:Object.fromEntries(Object.entries(sessionStorage)),cookies:document.cookie,dataLayer:Array.from(window.dataLayer||[],args=>Array.from(args)),historyWrites:window.__historyWrites,resources:window.__resourceSnapshots,links:Array.from(document.querySelectorAll('a[href]'),a=>a.getAttribute('href').startsWith('#')?a.getAttribute('href'):a.href)}));
       if(!options.failCleanup)assertNoSentinel(snapshot,'URL/history/storage/analytics/outbound links');
@@ -115,7 +153,8 @@ async function testPage(viewport,options,callback) {
       }
       assert.deepEqual(pageErrors,[],'No uncaught runtime errors');
     }
-  } finally {await context.close();}
+  } catch(error) {try{await failureDiagnostics(page,requests,consoleMessages,pageErrors,error);}catch(diagnosticError){console.error('Failure diagnostics unavailable:',diagnosticError.message);}throw error;}
+  finally {await context.close();}
 }
 const cards=page=>page.locator('#grid .card[data-park-id]');
 const cityLink=(page,city)=>page.locator('.dataset-link[data-dataset="'+city+'"]');
@@ -248,7 +287,7 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
         await cityLink(page,'parker').focus();await page.keyboard.press('Enter');await ready(page,'parker');
         for(const box of await page.locator('#location-panel button:visible,.dataset-link:visible').evaluateAll(nodes=>nodes.map(node=>({w:node.getBoundingClientRect().width,h:node.getBoundingClientRect().height}))))assert.ok(box.w>=44&&box.h>=44,'Location and city touch targets ≥44px');
         assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'No page-wide horizontal overflow');
-        await page.evaluate(async()=>{await document.fonts.ready;await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));});
+        await deadline(page.evaluate(async()=>{await document.fonts.ready;await Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})));}),5000,'Fonts and finite animations settling before axe');
         const audit=await new AxeBuilder({page}).include('#location-panel').include('.top-controls').include('.dataset-link').include('#filter-bar').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
         fs.writeFileSync(path.join(output,engineName+'-near-me-axe-'+label+'.json'),JSON.stringify(audit.violations,null,2));
         assert.deepEqual(audit.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),[]);
@@ -260,9 +299,9 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
       for(const entry of ['index.html','parks.html']){
         await run(entry+' legacy URL privacy cleanup precedes analytics and resource requests',{},async({page,requests})=>{
           await page.goto(origin+'/'+entry+'?dataset=parker&near=1&lat='+sentinel[0]+'&lng='+sentinel[1]+'&unknown='+encodeURIComponent(sentinel.join(','))+'#'+encodeURIComponent(sentinel.join(',')),{referer:'https://example.test/source?lat='+sentinel[0]+'&lng='+sentinel[1]});
-          assert.equal(await requestCount(page),0);assert.equal(new URL(page.url()).search,'?dataset=parker&near=1');assert.equal(new URL(page.url()).hash,'');
+          assert.equal(await requestCount(page),0);assert.equal(new URL(page.url()).search,entry==='parks.html'?'?dataset=parker':'?dataset=parker&near=1');assert.equal(new URL(page.url()).hash,'');
           const info=await page.evaluate(()=>({privacy:window.FEP_PRIVACY,config:Array.from(window.dataLayer||[],args=>Array.from(args)).find(args=>args[0]==='config'),resources:window.__resourceSnapshots}));
-          assert.equal(info.privacy.ok,true);assert.equal(info.config[2].page_referrer,'https://example.test/source');assert.equal(info.config[2].page_location,page.url());
+          assert.equal(info.privacy.ok,true);assert.equal(info.config[2].page_referrer,'https://example.test/source');const safeInitial=origin+'/'+entry+'?dataset=parker&near=1';assert.equal(info.privacy.pageLocation,safeInitial);assert.equal(info.config[2].page_location,safeInitial);
           for(const resource of info.resources)assertNoSentinel(resource,'Resource insertion snapshot');
           for(const request of requests.filter(r=>!r.navigation))assert.equal(request.headers.referer,undefined,'Early no-referrer applies to subresources');
         });
@@ -311,7 +350,7 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
       let release;const gate=new Promise(resolve=>release=resolve);let intercepted;
       const seen=new Promise(resolve=>intercepted=resolve);
       return testPage(desktop,{route:async(route,url)=>{if(url.pathname==='/denver-parks-data.js'){intercepted();await gate;await route.continue();return true;}return false;}},async({page})=>{
-        try{await gotoCity(page);await requestLocation(page);await respond(page);await cityLink(page,'denver').click();await seen;await chooseCity(page,'parker');await assertNearest(page,'parker');release();await page.waitForFunction(()=>Array.isArray(window.getParkDataset('denver')));assert.equal(new URL(page.url()).searchParams.get('dataset'),'parker');await assertNearest(page,'parker');}finally{release();}
+        try{await gotoCity(page);await requestLocation(page);await respond(page);await cityLink(page,'denver').click();await deadline(seen,12000,'Delayed Denver dataset request starting');await chooseCity(page,'parker');await assertNearest(page,'parker');release();await page.waitForFunction(()=>Array.isArray(window.getParkDataset('denver')));assert.equal(new URL(page.url()).searchParams.get('dataset'),'parker');await assertNearest(page,'parker');}finally{release();}
       });
     });
     await check('failed city load preserves usable manual browsing and reports failure',()=>testPage(desktop,{route:async(route,url)=>{if(url.pathname==='/denver-parks-data.js'){await route.abort();return true;}return false;}},async({page})=>{
@@ -323,6 +362,19 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
     }},async({page})=>{
       await gotoCity(page);await requestLocation(page);await respond(page);await filterClick(page,'playground');await chooseCity(page,'parker');
       assert.match(await page.locator('#location-status').textContent(),/filter.*removed|removed.*filter|not available|not supported/i);await assertNearest(page,'parker');assert.equal(await page.locator('.pill[data-k="playground"]').count(),0);
+    }));
+    await check('late history failure clears the fix and centroid suggestion, disables location, and preserves manual browsing',()=>testPage(desktop,{},async({page})=>{
+      await page.goto(origin+'/parks.html?near=1');await requestLocation(page);await respond(page);
+      await page.waitForFunction(()=>document.querySelector('#city-suggestion').textContent.includes('Closest covered city'));
+      assert.ok(await page.locator('#city-suggestion').isVisible());assert.equal(await requestCount(page),1);
+      await page.evaluate(()=>{history.pushState=function(){throw new Error('Synthetic late history failure');};history.replaceState=function(){throw new Error('Synthetic late history failure');};});
+      await cityLink(page,'parker').click();await page.waitForFunction(()=>window.FEP_PRIVACY.ok===false);
+      assert.equal(await page.locator('#btn-locate').isDisabled(),true);assert.equal(await page.locator('#city-suggestion').isVisible(),false);
+      assert.equal((await page.locator('#city-suggestion').textContent()).trim(),'');assert.equal(await page.locator('#grid .park-distance').count(),0);
+      assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(await page.evaluate(()=>window['ga-disable-G-9GWTHQXZNY']),true);
+      await page.locator('#btn-locate').evaluate(button=>button.click());assert.equal(await requestCount(page),1,'Disabled explicit control never creates another GPS request');
+      await cityLink(page,'denver').click();await page.waitForFunction(()=>window.ACTIVE_DATASET_KEY==='denver'&&document.querySelector('#page-intro-title').textContent.includes('Denver'));
+      assert.ok(await cards(page).count());assert.equal(await page.locator('#grid .park-distance').count(),0);assert.equal(await requestCount(page),1);
     }));
     await check('geolocation unsupported retains manual city browsing',()=>testPage(desktop,{unsupported:true},async({page})=>{
       await gotoCity(page);await page.locator('#btn-locate').click();assert.match(await page.locator('#location-status').textContent(),/not supported|unavailable|manual/i);await chooseCity(page,'parker');assert.equal(await requestCount(page),0);

@@ -261,7 +261,7 @@
 
     /* CARDS */
     .meta { font-size: 12px; color: #788379; margin-bottom: 16px; padding: 10px 14px; background: rgba(255,255,255,0.76); border: 1px solid rgba(228,221,212,0.92); border-radius: 12px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 20px; }
     .card { background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(251,249,246,0.98)); border-radius: 20px; box-shadow: 0 18px 34px rgba(20,31,23,0.08); display: flex; flex-direction: column; transition: box-shadow 0.18s, transform 0.18s; animation: up 0.28s ease both; overflow: hidden; border: 1px solid rgba(228,221,212,0.88); }
     .card:hover { box-shadow: 0 26px 44px rgba(20,31,23,0.12); transform: translateY(-4px); }
     @keyframes up { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
@@ -1035,7 +1035,9 @@ function applyDatasetContext() {
   pageIntroTitleEl.textContent = 'Parks in ' + CITY;
   pageIntroSubtitleEl.textContent = 'Browse playgrounds, trails, dog parks, splash pads, and family-friendly outdoor spaces in ' + CITY + '.';
   pageIntroCopyEl.textContent = 'Use the full ' + CITY + ' parks map to compare park cards fast, then jump into the best parks list or best playgrounds page when you want a tighter shortlist.';
-  document.getElementById('hero-city').textContent = CITY;
+  // updateHeroIntentContent replaces this heading's children after first render.
+  const heroCityLabel = document.getElementById('hero-city');
+  if (heroCityLabel) heroCityLabel.textContent = CITY;
   document.getElementById('hero-city-stat').textContent = CITY;
   document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
   document.getElementById('hero-best-for-stat').hidden = DATASET_KEY === 'lone-tree';
@@ -1652,10 +1654,7 @@ function saveBrowseHistory(replace) {
   } catch (_) {
     window.FEP_PRIVACY.ok = false;
     window['ga-disable-G-9GWTHQXZNY'] = true;
-    locationRequest.cancel(); origin = null; sortEl.value = 'alpha';
-    syncLocationControls();
-    locationStatus('Location is disabled because browser history could not be safely updated. Manual city browsing is still available.');
-    render();
+    clearLocation('Location is disabled because browser history could not be safely updated. Manual city browsing is still available.');
   }
 }
 async function chooseCity(key, options) {
