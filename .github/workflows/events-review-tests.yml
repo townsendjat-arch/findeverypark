@@ -6,7 +6,7 @@ permissions:
   contents: read
 jobs:
   browser:
-    if: github.head_ref == 'review/activate-events-october-2026' || github.head_ref == 'review/six-pumpkin-patches-2026' || github.head_ref == 'review/priority-one-halloween-2026'
+    if: github.head_ref == 'review/activate-events-october-2026' || github.head_ref == 'review/six-pumpkin-patches-2026' || github.head_ref == 'review/priority-one-halloween-2026' || github.head_ref == 'fix/all-events-reset-2026'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -26,6 +26,10 @@ jobs:
       - run: npm test
       - run: npx --no-install playwright install --with-deps ${{ matrix.browser }}
       - run: npm run test:browser
+        env:
+          BROWSER: ${{ matrix.browser }}
+      - run: node tests/all-events.browser.js
+        if: github.head_ref == 'fix/all-events-reset-2026'
         env:
           BROWSER: ${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
