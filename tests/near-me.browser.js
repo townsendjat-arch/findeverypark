@@ -58,7 +58,7 @@ function assertNoSentinel(value,label) {
 const leafletSpy=`(function(){
   window.__mapCalls=[];
   function record(method,value){window.__mapCalls.push({method:method,value:value});}
-  function marker(coords){record('marker',coords);return {bindPopup:function(){return this;},addTo:function(layer){if(layer.layers)layer.layers.push(this);return this;},getLatLng:function(){return {lat:coords[0],lng:coords[1]};},openPopup:function(){return this;},setStyle:function(){return this;},bringToFront:function(){return this;}};}
+  function marker(coords){record('marker',coords);return {bindPopup:function(){return this;},on:function(){return this;},getElement:function(){return null;},addTo:function(layer){if(layer.layers)layer.layers.push(this);return this;},getLatLng:function(){return {lat:coords[0],lng:coords[1]};},openPopup:function(){return this;},setStyle:function(){return this;},bringToFront:function(){return this;}};}
   window.L={map:function(){return {setView:function(coords){record('setView',coords);return this;},fitBounds:function(bounds){record('fitBounds',bounds.coords);return this;},invalidateSize:function(){},removeLayer:function(){}};},tileLayer:function(url){record('tileLayer',url);return {addTo:function(){return this;}};},layerGroup:function(){return {layers:[],addTo:function(){return this;},clearLayers:function(){this.layers=[];},eachLayer:function(callback){this.layers.forEach(callback);}};},circleMarker:marker,latLng:function(lat,lng){return [lat,lng];},latLngBounds:function(coords){return {coords:coords,pad:function(){return this;}};}};
 })();`;
 const fixtureParks=[

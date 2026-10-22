@@ -349,7 +349,13 @@
     /* POPUP */
     .leaflet-popup-content { font-family: 'Outfit', sans-serif; font-size: 13px; line-height: 1.5; min-width: 160px; }
     .leaflet-popup-content b { font-family: 'Fraunces', serif; font-size: 14px; display: block; margin-bottom: 3px; }
-    .popup-acres { font-size: 11px; color: #aaa; }
+    .popup-acres, .popup-place { font-size: 12px; color: #595959; }
+    .popup-place { margin-top: 2px; }
+    .leaflet-popup-content { overflow-wrap: anywhere; }
+    .leaflet-popup-content a { color: #075e49; }
+    .park-chooser { display: grid; gap: 6px; margin-top: 8px; }
+    .park-chooser button { font: inherit; text-align: left; color: #075e49; background: #fff; border: 1px solid #6b7973; border-radius: 4px; padding: 8px; min-height: 44px; cursor: pointer; }
+    #map :focus-visible { outline: 3px solid #075e49; outline-offset: 3px; }
     .popup-visited { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 600; background: rgba(15,110,86,0.13); color: var(--grass); padding: 2px 8px; border-radius: 100px; }
     @media (max-width: 980px) {
       .page-hero { grid-template-columns: 1fr; }
@@ -690,7 +696,8 @@ function writeStored(key, value) { try { localStorage.setItem(key, JSON.stringif
 let visited = new Set(readStored(VISITED_KEY, []));
 let mapMode = 'all';
 let map, markersLayer;
-let parkMarkers = {};
+let parkMarkers = Object.create(null);
+let popupOpener = null;
 let currentFiltered = [];
 let activeFilters = {
   mapMode: 'all'
@@ -716,7 +723,7 @@ function initMap() {
     maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
-  parkMarkers = {};
+  parkMarkers = Object.create(null);
 }
 
 function formatPlace(address) {
@@ -854,55 +861,137 @@ function updateMapViewport(filteredList, options) {
   map.fitBounds(bounds.pad(0.18), { animate: true, maxZoom: (options && options.maxZoom) || 13 });
 }
 
+// IDs identify parks; coordinate equality only decides whether a map pin needs a chooser.
+function parkPopupContent(park, group, marker) {
+  const content = document.createElement('div');
+  content.dataset.parkId = park.id;
+  content.setAttribute('role', 'group');
+  content.setAttribute('aria-label', parkName(park));
+  const acres = parkAcreage(park);
+  content.innerHTML = '<b>' + escapeHtml(parkName(park)) + '</b>' +
+    '<div class="popup-acres">' + (acres > 0 ? acres.toLocaleString() + ' acres' : 'Open space') + '</div>' +
+    '<div class="popup-place">' + escapeHtml(formatPlace(parkAddress(park))) + '</div>' +
+    '<div style="margin-top:8px"><a href="' + escapeHtml(parkGuideUrl(park)) + '">Open mini guide</a></div>' +
+    (visited.has(parkName(park)) ? '<div class="popup-visited">&#x2713; Visited</div>' : '');
+  if (group.length > 1) {
+    const choices = document.createElement('div');
+    choices.className = 'park-chooser';
+    const back = document.createElement('button');
+    back.type = 'button'; back.textContent = 'Other parks at this location';
+    back.onclick = () => { marker.setPopupContent(parkChooserContent(group, marker)); focusPopup(marker); };
+    choices.appendChild(back); content.appendChild(choices);
+  }
+  return content;
+}
+
+function parkChooserContent(group, marker) {
+  const content = document.createElement('div');
+  content.setAttribute('role', 'group');
+  content.setAttribute('aria-label', 'Parks at this location');
+  const title = document.createElement('b'); title.textContent = 'Parks at this location';
+  content.appendChild(title);
+  const choices = document.createElement('div'); choices.className = 'park-chooser';
+  group.forEach(park => {
+    const button = document.createElement('button');
+    button.type = 'button'; button.textContent = parkName(park); button.dataset.parkId = park.id;
+    button.onclick = () => { marker.setPopupContent(parkPopupContent(park, group, marker)); focusPopup(marker); };
+    choices.appendChild(button);
+  });
+  content.appendChild(choices);
+  return content;
+}
+
+function focusPopup(marker) {
+  const element = marker.getPopup().getElement();
+  const target = element && element.querySelector('.park-chooser button, .leaflet-popup-content a');
+  if (target) target.focus({preventScroll: true});
+}
+
+function createParkMarker(group, matchIds) {
+  const p = group[0], c = parkCoords(p);
+  const isVisited = group.some(park => visited.has(parkName(park)));
+  const isMatch = group.some(park => matchIds.has(park.id));
+  const marker = L.circleMarker(c, {
+    radius: isVisited || isMatch ? 8 : 6,
+    fillColor: isVisited ? '#e8703a' : isMatch ? '#c8a000' : '#0f6e56',
+    color: 'white', weight: 2, fillOpacity: 0.88
+  });
+  marker.bindPopup(group.length > 1 ? parkChooserContent(group, marker) : parkPopupContent(p, group, marker),
+    {maxWidth: 230});
+  marker.on('popupopen', () => {
+    const element = marker.getPopup().getElement();
+    element.onkeydown = event => {
+      if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); map.closePopup(); }
+    };
+  });
+  marker.on('popupclose', () => {
+    const opener = popupOpener; popupOpener = null;
+    if (opener && opener.isConnected) opener.focus({preventScroll: true});
+  });
+  marker.addTo(markersLayer);
+  const element = marker.getElement();
+  if (element) {
+    element.setAttribute('tabindex', '0'); element.setAttribute('role', 'button');
+    element.setAttribute('aria-label', group.length > 1
+      ? 'Choose from ' + group.length + ' parks at this location: ' + group.map(parkName).join(', ')
+      : 'Show ' + parkName(p) + ' on map');
+    const open = () => {
+      map.closePopup(); popupOpener = element;
+      marker.setPopupContent(group.length > 1 ? parkChooserContent(group, marker) : parkPopupContent(p, group, marker));
+      marker.openPopup(); focusPopup(marker);
+    };
+    marker.on('click', open);
+    element.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); open(); }
+    });
+  }
+  group.forEach(park => { parkMarkers[park.id] = marker; });
+  marker.parkGroup = group;
+  marker.restingRadius = isVisited || isMatch ? 8 : 6;
+  return marker;
+}
+
 function renderMarkers(filteredList) {
   if (!markersLayer) return;
-  parkMarkers = {};
+  popupOpener = null;
+  parkMarkers = Object.create(null);
   markersLayer.clearLayers();
   const hasFilters = window._activeSet && window._activeSet.size > 0;
-  const matchNames = hasFilters
-    ? new Set((filteredList || []).map((park) => parkName(park)))
-    : new Set();
-
-  getVisibleMarkerParks(filteredList).forEach(p => {
-    const c = parkCoords(p);
-    const name = parkName(p);
-    const isVisited = visited.has(name);
-    const isMatch = matchNames.has(name);
-    const acres = parkAcreage(p);
-    const color = isVisited ? '#e8703a' : isMatch ? '#c8a000' : '#0f6e56';
-   const marker = L.circleMarker([c[0], c[1]], {
-  radius: isVisited || isMatch ? 8 : 6, fillColor: color, color: 'white', weight: 2, fillOpacity: 0.88
-}).bindPopup(
- '<b>' + name + '</b>' +
-'<div class="popup-acres">' + (acres > 0 ? acres.toLocaleString() + ' acres' : 'Open space') + '</div>' +
-'<div style="font-size:11px;color:#999;margin-top:2px">' + formatPlace(parkAddress(p)) + '</div>' +
-( '<div style="margin-top:8px"><a href="' + parkGuideUrl(p) + '">Open mini guide</a></div>' ) +
-(isVisited ? '<div class="popup-visited">&#x2713; Visited</div>' : '')
-).addTo(markersLayer);
-
-parkMarkers[name] = marker;
+  const matchIds = new Set(hasFilters ? (filteredList || []).map(park => park.id) : []);
+  const groups = new Map();
+  getVisibleMarkerParks(filteredList).forEach(park => {
+    const key = JSON.stringify(parkCoords(park));
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(park);
   });
-
+  groups.forEach(group => createParkMarker(group, matchIds));
   if (!Object.keys(parkMarkers).length && (filteredList || []).length && mapMode !== 'all') {
-    mapMode = 'all';
-    activeFilters.mapMode = 'all';
-    writeStored(FILTERS_KEY, activeFilters);
-    renderMarkers(filteredList);
+    mapMode = 'all'; activeFilters.mapMode = 'all';
+    writeStored(FILTERS_KEY, activeFilters); renderMarkers(filteredList);
   }
 }
 
-function focusMapOnPark(name) {
-  const park = allParks.find((item) => parkName(item) === name);
-  const c = park ? parkCoords(park) : COORDS[name];
+function focusMapOnPark(id, opener) {
+  const park = allParks.find(item => item.id === id);
+  const c = park && parkCoords(park);
   if (!c || !ensureMap()) return;
-  map.setView([c[0], c[1]], 15, { animate: true });
+  // A card may be outside the Visited-only map. Select it without changing filters.
+  map.closePopup();
+  let marker = parkMarkers[id];
+  if (!marker) {
+    const key = JSON.stringify(c);
+    const peer = Object.values(parkMarkers).find(item => JSON.stringify(parkCoords(item.parkGroup[0])) === key);
+    const group = peer ? peer.parkGroup.concat(park) : [park];
+    if (peer) markersLayer.removeLayer(peer);
+    const matchIds = new Set(window._activeSet && window._activeSet.size > 0
+      ? currentFiltered.map(item => item.id) : []);
+    marker = createParkMarker(group, matchIds);
+  }
+  popupOpener = opener || null;
+  marker.setPopupContent(parkPopupContent(park, marker.parkGroup, marker));
+  map.setView(c, 15, { animate: true });
   document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  markersLayer.eachLayer(layer => {
-    if (layer.getLatLng) {
-      const ll = layer.getLatLng();
-      if (Math.abs(ll.lat - c[0]) < 0.0002 && Math.abs(ll.lng - c[1]) < 0.0002) layer.openPopup();
-    }
-  });
+  marker.openPopup(); focusPopup(marker);
 }
 
 function setMapMode(mode) {
@@ -1281,7 +1370,7 @@ function renderTopPicksForCurrentCity() {
       ? './parks.html?dataset=' + encodeURIComponent(DATASET_KEY) + '&search=' + encodeURIComponent(name)
       : topPicksGuideHref;
     return '' +
-      '<article class="top-pick-row' + (item.park ? ' clickable' : '') + '"' + (item.park ? ' data-park-name="' + escapeHtml(name) + '"' : '') + '>' +
+      '<article class="top-pick-row' + (item.park ? ' clickable' : '') + '"' + (item.park ? ' data-park-id="' + escapeHtml(item.park.id) + '"' : '') + '>' +
         '<div class="top-pick-top">' +
           '<div class="top-pick-name">' + escapeHtml(name) + '</div>' +
           '<div class="top-pick-badge">' + escapeHtml(item.editorial.label || '') + '</div>' +
@@ -1298,8 +1387,8 @@ function renderTopPicksForCurrentCity() {
   topPicksListEl.querySelectorAll('.top-pick-row.clickable').forEach((row) => {
     row.addEventListener('click', function (event) {
       if (event.target.closest('a')) return;
-      const parkName = row.getAttribute('data-park-name');
-      if (parkName) focusMapOnPark(parkName);
+      const id = row.getAttribute('data-park-id');
+      if (id) focusMapOnPark(id, row.querySelector('a'));
     });
   });
 }
@@ -1382,7 +1471,8 @@ function createGallery(park, idx) {
     const mapBtn = document.createElement('button');
     mapBtn.className = 'map-pin-btn';
     mapBtn.innerHTML = '\u{1F4CD} Map';
-    mapBtn.onclick = e => { e.preventDefault(); focusMapOnPark(name); };
+    mapBtn.setAttribute('aria-label', 'Show ' + name + ' on map');
+    mapBtn.onclick = e => { e.preventDefault(); e.stopPropagation(); focusMapOnPark(park.id, mapBtn); };
     div.appendChild(mapBtn);
   }
 
@@ -1555,20 +1645,18 @@ let list = allParks.map((p, origIdx) => {
     card.className = 'card' + (isNone ? ' dimmed' : '');
     card.dataset.parkId = p.id;
     card.onclick = () => {
-      if (coords && map) focusMapOnPark(name);
+      if (coords && map) focusMapOnPark(p.id, card.querySelector('.map-pin-btn'));
       else window.location.href = parkGuideUrl(p);
     };
     card.onmouseenter = () => {
-    const m = parkMarkers[name];
+    const m = parkMarkers[p.id];
   if (m) m.setStyle({ radius: 12, weight: 3 });
 };
 
 card.onmouseleave = () => {
-  const m = parkMarkers[name];
+  const m = parkMarkers[p.id];
   if (m) {
-    const isVisited = visited.has(name);
-    const isMatch = active.size > 0 && p.score === active.size;
-    m.setStyle({ radius: isVisited || isMatch ? 8 : 6, weight: 2 });
+    m.setStyle({ radius: m.restingRadius, weight: 2 });
   }
 };
     card.style.animationDelay = Math.min(i, 25) * 16 + 'ms';

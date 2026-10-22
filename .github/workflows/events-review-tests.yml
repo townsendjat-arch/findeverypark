@@ -6,7 +6,7 @@ permissions:
   contents: read
 jobs:
   browser:
-    if: github.head_ref == 'review/activate-events-october-2026' || github.head_ref == 'review/six-pumpkin-patches-2026' || github.head_ref == 'review/priority-one-halloween-2026' || github.head_ref == 'fix/all-events-reset-2026' || (github.head_ref == 'review/near-me-phase-one' || github.head_ref == 'fix/near-me-map-rendering')
+    if: github.head_ref == 'review/activate-events-october-2026' || github.head_ref == 'review/six-pumpkin-patches-2026' || github.head_ref == 'review/priority-one-halloween-2026' || github.head_ref == 'fix/all-events-reset-2026' || (github.head_ref == 'review/near-me-phase-one' || (github.head_ref == 'fix/near-me-map-rendering' || github.head_ref == 'fix/park-selection-accessibility'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -25,21 +25,29 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm test
       - run: npm run test:near-me
-        if: (github.head_ref == 'review/near-me-phase-one' || github.head_ref == 'fix/near-me-map-rendering')
+        if: (github.head_ref == 'review/near-me-phase-one' || (github.head_ref == 'fix/near-me-map-rendering' || github.head_ref == 'fix/park-selection-accessibility'))
       - run: npx --no-install playwright install --with-deps ${{ matrix.browser }}
       - run: npm run test:browser
         env:
           BROWSER: ${{ matrix.browser }}
       - run: node tests/all-events.browser.js
-        if: (success() && github.head_ref == 'fix/all-events-reset-2026') || (!cancelled() && (github.head_ref == 'review/near-me-phase-one' || github.head_ref == 'fix/near-me-map-rendering'))
+        if: (success() && github.head_ref == 'fix/all-events-reset-2026') || (!cancelled() && (github.head_ref == 'review/near-me-phase-one' || (github.head_ref == 'fix/near-me-map-rendering' || github.head_ref == 'fix/park-selection-accessibility')))
         env:
           BROWSER: ${{ matrix.browser }}
       - run: npm run test:near-me:browser
-        if: ${{ !cancelled() && (github.head_ref == 'review/near-me-phase-one' || github.head_ref == 'fix/near-me-map-rendering') }}
+        if: ${{ !cancelled() && (github.head_ref == 'review/near-me-phase-one' || (github.head_ref == 'fix/near-me-map-rendering' || github.head_ref == 'fix/park-selection-accessibility')) }}
         env:
           BROWSER: ${{ matrix.browser }}
       - run: npm run test:maps:browser
-        if: ${{ !cancelled() && github.head_ref == 'fix/near-me-map-rendering' }}
+        if: ${{ !cancelled() && (github.head_ref == 'fix/near-me-map-rendering' || github.head_ref == 'fix/park-selection-accessibility') }}
+        env:
+          BROWSER: ${{ matrix.browser }}
+      - run: node --test tests/map-selection.test.js && node tests/map-selection.browser.js
+        if: ${{ !cancelled() && github.head_ref == 'fix/park-selection-accessibility' }}
+        env:
+          BROWSER: ${{ matrix.browser }}
+      - run: node tests/mobile-map-gestures.browser.js
+        if: ${{ !cancelled() && github.head_ref == 'fix/park-selection-accessibility' }}
         env:
           BROWSER: ${{ matrix.browser }}
       - uses: actions/upload-artifact@v4

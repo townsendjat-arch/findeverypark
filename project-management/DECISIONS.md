@@ -1,5 +1,9 @@
 # FindEveryPark: decision log
 
+## Map-usability decision, October 22
+
+Use unique IDs for selection and exact numeric coordinate equality only for a shared-location chooser. No clustering, new amenities, data changes, interaction-mode changes or PR #3 import. Focused draft PR only; merge/deploy need explicit approval. [Details](MAP_SELECTION_ACCESSIBILITY.md).
+
 Updated: **2026-10-21 (UTC)**. The revised Priority 1 event batch is approved for a new draft PR only. No merge, deployment or preview publication is authorized.
 
 ## Priority 1 implementation decision, October 21, 2026
