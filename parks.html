@@ -707,14 +707,14 @@ if (mapMode === 'visited' && !visited.size) {
 function initMap() {
   const initialCenter = Object.values(COORDS)[0] || [39.710, -104.800];
   map = L.map("map").setView(initialCenter, 11);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19, attribution: "&copy; OpenStreetMap contributors"
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    // Identify this site to OSM, never its path, query or in-memory visitor location.
+    // Keep the document-wide no-referrer policy for every other resource.
+    referrerPolicy: "origin",
+    maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
   parkMarkers = {};
-  window.setTimeout(() => {
-    if (map) map.invalidateSize();
-  }, 0);
 }
 
 function formatPlace(address) {
@@ -831,7 +831,8 @@ function getVisibleMarkerParks(filteredList) {
 }
 
 function updateMapViewport(filteredList, options) {
-  if (!map) return;
+  // A city reveal must be measured before Leaflet computes bounds or zoom.
+  if (!ensureMap()) return;
 
   const visibleParks = getVisibleMarkerParks(filteredList);
   const coordsList = visibleParks
@@ -891,7 +892,7 @@ parkMarkers[name] = marker;
 function focusMapOnPark(name) {
   const park = allParks.find((item) => parkName(item) === name);
   const c = park ? parkCoords(park) : COORDS[name];
-  if (!c || !map) return;
+  if (!c || !ensureMap()) return;
   map.setView([c[0], c[1]], 15, { animate: true });
   document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   markersLayer.eachLayer(layer => {
@@ -1514,6 +1515,7 @@ let list = allParks.map((p, origIdx) => {
       : partial ? 'No perfect matches \u2014 ' + partial + ' partial' : 'No parks match your filters';
   }
 
+  ensureMap();
   renderMarkers(list);
   if (map) {
     updateMapViewport(list, { singleZoom: 14, maxZoom: 13 });
@@ -1726,7 +1728,25 @@ window.addEventListener('pageshow', event => { if (event.persisted) clearLocatio
 document.addEventListener('visibilitychange', () => locationRequest.setHidden(document.hidden));
 locationRequest.setHidden(document.hidden);
 function ensureMap() {
-  if (!map && typeof L !== 'undefined') { initMap(); render(); }
+  const element = document.getElementById('map');
+  // The Near Me waiting state hides browse-shell. Never initialize or measure
+  // Leaflet against that zero-sized container, including history restoration.
+  if (awaitingCity || !allParks.length || !element.clientWidth || !element.clientHeight || typeof L === 'undefined') return false;
+  if (!map) {
+    element.textContent = '';
+    initMap();
+  }
+  map.invalidateSize({ animate: false });
+  return true;
+}
+// Layout changes need not fire a window resize (for example, a restored page).
+// Preserve the visitor's current public-park view instead of refitting on resize.
+if (typeof ResizeObserver !== 'undefined') {
+  const mapResizeObserver = new ResizeObserver(() => {
+    const wasInitialized = !!map;
+    if (ensureMap() && !wasInitialized) render();
+  });
+  mapResizeObserver.observe(document.getElementById('map'));
 }
 active = new Set(requestedFilters);
 sortEl.value = ['alpha','big','small','visited'].includes(urlParams.get('sort')) ? urlParams.get('sort') : 'alpha';
@@ -1742,8 +1762,8 @@ datasetReadyPromise.then(() => {
   if (cityRequest === 0) saveBrowseHistory(true);
 }).catch(() => { if (cityRequest === 0) { viewReady = true; locationStatus('Park data could not be loaded. Choose another city or try again.'); syncLocationControls(); } });
 window.addEventListener('load', () => {
-  ensureMap();
-  if (!map) document.getElementById('map').textContent = 'Map unavailable. Park list and sorting still work.';
+  if (ensureMap()) render();
+  if (typeof L === 'undefined') document.getElementById('map').textContent = 'Map unavailable. Park list and sorting still work.';
 }, { once: true });
 
 // MOBILE FILTER TOGGLE

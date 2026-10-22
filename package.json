@@ -5,10 +5,12 @@
     "test": "node --test tests/events.test.js",
     "test:browser": "node tests/events.browser.js",
     "test:near-me": "node --test tests/near-me.test.js",
-    "test:near-me:browser": "node tests/near-me.browser.js"
+    "test:near-me:browser": "node tests/near-me.browser.js",
+    "test:maps:browser": "node tests/map-rendering.browser.js"
   },
   "devDependencies": {
     "playwright": "1.62.1",
-    "@axe-core/playwright": "4.10.2"
+    "@axe-core/playwright": "4.10.2",
+    "leaflet": "1.9.4"
   }
 }
