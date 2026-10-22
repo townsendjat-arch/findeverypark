@@ -329,6 +329,39 @@ const fixtures = [
         assert.equal(await marker.evaluate(node => node === document.activeElement), true, 'Escape after choice restores original marker');
         assert.equal(await popup(page).count(), 0);
       }
+      // The existing desktop sticky controls can cover the sticky sidebar.
+      // Use ordinary document scrolling to put the map below those controls;
+      // do not force-click, change styles, or repair Leaflet geometry. The grid
+      // sidebar starts at browse-shell's natural top, before sticky clamping.
+      const pointerScroll = await page.evaluate(async () => {
+        const mapNode = document.getElementById('map'), sidebar = document.querySelector('.browse-sidebar');
+        const sticky = document.querySelector('.sticky'), stickyBox = sticky.getBoundingClientRect();
+        const stickyPosition = getComputedStyle(sticky).position;
+        const stickyBottom = ['sticky', 'fixed'].includes(stickyPosition) && stickyBox.bottom > 0 && stickyBox.top < innerHeight
+          ? Math.min(innerHeight, stickyBox.bottom) : 0;
+        const mapBox = mapNode.getBoundingClientRect(), sidebarBox = sidebar.getBoundingClientRect();
+        const naturalMapTop = getComputedStyle(sidebar).position === 'sticky'
+          ? document.querySelector('.browse-shell').getBoundingClientRect().top + scrollY + mapBox.top - sidebarBox.top
+          : mapBox.top + scrollY;
+        const before = {scrollY, mapTop: mapBox.top, stickyBottom, stickyPosition};
+        const requestedScrollY = Math.max(0, naturalMapTop - stickyBottom - 24);
+        window.scrollTo({top: requestedScrollY, left: scrollX, behavior: 'instant'});
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        const afterBox = mapNode.getBoundingClientRect(), afterSticky = sticky.getBoundingClientRect();
+        const afterStickyBottom = ['sticky', 'fixed'].includes(getComputedStyle(sticky).position) && afterSticky.bottom > 0 && afterSticky.top < innerHeight
+          ? Math.min(innerHeight, afterSticky.bottom) : 0;
+        return {before, requestedScrollY, after: {scrollY, mapTop: afterBox.top, stickyBottom: afterStickyBottom},
+          method: 'Ordinary page scroll only; no forced click, CSS changes, or Leaflet geometry calls.'};
+      });
+      assert.ok(pointerScroll.after.mapTop >= pointerScroll.after.stickyBottom + 23, 'Map is below visible sticky controls after ordinary scrolling: ' + JSON.stringify(pointerScroll));
+      const pointerTarget = await marker.evaluate(node => {
+        const box = node.getBoundingClientRect(), x = box.left + box.width / 2, y = box.top + box.height / 2;
+        const hit = document.elementFromPoint(x, y);
+        return {center: {x, y}, visible: x >= 0 && x < innerWidth && y >= 0 && y < innerHeight,
+          hitMarker: hit === node || node.contains(hit), hitTag: hit?.tagName, hitClass: hit?.getAttribute('class'), hitLabel: hit?.getAttribute('aria-label')};
+      });
+      assert.equal(pointerTarget.visible, true, 'Marker center is inside the viewport');
+      assert.equal(pointerTarget.hitMarker, true, 'Native marker click must hit the real marker, not sticky controls: ' + JSON.stringify(pointerTarget));
       // Real pointer clicks must survive replacing the clicked popup DOM: the
       // original click must not reach Leaflet's map-level popup-close handler.
       await marker.click();
@@ -345,7 +378,7 @@ const fixtures = [
       await page.keyboard.press('Escape');
       assert.equal(await marker.evaluate(node => node === document.activeElement), true);
       assert.equal(await popup(page).count(), 0);
-      metrics.push({case: currentCase, label: 'pointer-selection-and-chooser-return', selectedIds: ids, returnedToChooser: true, escapeRestoredMarker: true});
+      metrics.push({case: currentCase, label: 'pointer-selection-and-chooser-return', scrollAdjustment: pointerScroll, hitTarget: pointerTarget, selectedIds: ids, returnedToChooser: true, escapeRestoredMarker: true});
     }));
 
     await check('filter/search changes rebuild shared groups without excluded chooser members', () => testPage(viewports[1], async page => {
@@ -440,7 +473,7 @@ const fixtures = [
     fs.writeFileSync(path.join(output, 'map-selection-' + engineName + '-results.json'), JSON.stringify({engine: engineName, leaflet: '1.9.4',
       passed: results.length, failed: failures.length, results, failures, metrics, network,
       method: 'Real Leaflet; every external request locally fulfilled or aborted. All-city card/Map handler sweep uses DOM click events; focused chooser tests use Playwright pointer and keyboard input.',
-      limitations: ['Synthetic tiles do not test live providers or cartography.', 'Scoped popup axe/contrast and Chromium/WebKit viewport evidence do not certify screen readers or physical iOS/Android devices.', 'No production data or runtime patches are used; the explicit synthetic identity fixture substitutes one dataset response in that scenario only.']}, null, 2) + '\n');
+      limitations: ['Synthetic tiles do not test live providers or cartography.', 'Scoped popup axe/contrast and Chromium/WebKit viewport evidence do not certify screen readers or physical iOS/Android devices.', 'Known pre-existing desktop sticky controls can overlap the sticky map sidebar. Pointer scenarios use recorded ordinary document scrolling to expose the actual marker and assert its hit target; they do not certify or fix that baseline overlap.', 'No production data or runtime patches are used; the explicit synthetic identity fixture substitutes one dataset response in that scenario only.']}, null, 2) + '\n');
     console.log('Map selection tests:', results.length, 'passed;', failures.length, 'failed');
     process.exitCode = failures.length ? 1 : 0;
   }
