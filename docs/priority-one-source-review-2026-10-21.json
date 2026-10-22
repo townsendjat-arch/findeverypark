@@ -1,0 +1,627 @@
+{
+  "title": "Priority 1 Halloween content: source review and approved disposition",
+  "reviewDate": "2026-10-21",
+  "eventTimezone": "America/Denver",
+  "baselineRef": "3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be",
+  "approvedShortlistCount": 12,
+  "activeAdditions": 11,
+  "publicationStatus": "Draft for review only. No merge, deployment or preview publication authorized.",
+  "method": "Official organizer pages and linked ticket/RSVP controls inspected read-only on October 21. An offer/control is not remaining inventory, a reservation or a guarantee. No attendee information entered and no registration or purchase submitted.",
+  "sourceWindowUtc": {
+    "start": "2026-10-21T22:47:00Z",
+    "end": "2026-10-21T22:53:40Z"
+  },
+  "publicationGates": [
+    {
+      "id": "centennial-napa-trunk-treat-2026",
+      "publishBy": "2026-10-22T17:00:00-06:00",
+      "type": "Editorial lead-time target, not an attendee deadline",
+      "handling": "Target remains achievable during October 21 preparation. Obtain owner review and separate exact-release approval, then recheck sources; omit and retest if the target cannot be met. No substitute."
+    }
+  ],
+  "events": [
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "centennial-napa-trunk-treat-2026",
+      "city": "centennial",
+      "title": "Denver Trunk or Treat – NAPA Center",
+      "description": "Tickets not required; optional RSVP. Free family trunk-or-treat at NAPA Center in Centennial.",
+      "href": "https://www.eventbrite.com/e/denver-trunk-or-treat-tickets-2002173064533",
+      "locationLabel": "NAPA Center Denver, 11211 E. Arapahoe Road, Unit 118, Centennial, CO 80112",
+      "dateStart": "2026-10-23T17:00:00-06:00",
+      "dateEnd": "2026-10-23T19:00:00-06:00",
+      "dateLabel": "Friday, October 23, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.eventbrite.com/e/denver-trunk-or-treat-tickets-2002173064533"
+      ],
+      "registrationLabel": "No attendee tickets required. Optional free RSVP helps with headcount; the separate Trunk Host signup is not an attendance requirement.",
+      "costLabel": "Free admission",
+      "audienceLabel": "Families; public welcome",
+      "timeLabel": "5–7 p.m. MDT",
+      "registrationUrl": "https://www.eventbrite.com/e/denver-trunk-or-treat-tickets-2002173064533",
+      "availabilityLabel": "Optional free RSVP offer checked October 21; no remaining-capacity count shown. Tickets are not required for attendance."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "castle-pines-fall-festival",
+      "city": "castle_pines",
+      "title": "Fall Festival, Trick-or-Treat Street, and Pumpkin Race",
+      "description": "Chili cookoff canceled, not the festival. Free family activities; optional race kits and food cost extra.",
+      "href": "https://www.castlepinesco.gov/events/10-24-2026/fall-festival-trick-or-treat-street-and-pumpkin-race/",
+      "locationLabel": "Village Square Shopping Area, 7437 Village Square Drive, Castle Pines, CO 80108",
+      "dateStart": "2026-10-24T10:00:00-06:00",
+      "dateEnd": "2026-10-24T14:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "costType": "free",
+      "sourceType": "city_source",
+      "sourceUrls": [
+        "https://www.castlepinesco.gov/events/10-24-2026/fall-festival-trick-or-treat-street-and-pumpkin-race/",
+        "https://www.parks.castlepinesco.gov/castlepines/programs",
+        "https://forms.castlepinesco.gov/262514704680961"
+      ],
+      "registrationLabel": "Festival attendance is unticketed. Optional $25 race kits: buy by October 22 at 5 p.m. MDT; pick up by October 23 at noon. These are not general-attendance deadlines. Racers register separately; see the city page for with-kit and without-kit options.",
+      "costLabel": "Free festival; optional $25 race kit; food/vendor purchases extra",
+      "audienceLabel": "Families and all ages",
+      "timeLabel": "10 a.m.–2 p.m. MDT; pumpkin race 1 p.m.",
+      "availabilityLabel": "City race portal showed Open and a $25 offer on October 21; kit stock and race capacity are unconfirmed. Festival admission is separate."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-midterm-monster-mash-2026",
+      "city": "aurora",
+      "title": "Midterm Mayhem Monster Mash",
+      "description": "Free registration required. No real or simulated weapon props. Family costumes, activities and music; food extra.",
+      "href": "https://www.rmpbs.org/events/rmpbs-midterm-mayhem-monster-mash",
+      "locationLabel": "Aurora Central Library, 14949 E. Alameda Pkwy., Aurora, CO 80012",
+      "dateStart": "2026-10-24T10:00:00-06:00",
+      "dateEnd": "2026-10-24T14:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.rmpbs.org/events/rmpbs-midterm-mayhem-monster-mash",
+        "https://www.zeffy.com/en-US/ticketing/midterm-mayhem-monster-mash-presented-by-rocky-mountain-pbs-the-drop--1047"
+      ],
+      "registrationLabel": "Reserve free General Admission through the organizer. No real or simulated weapon props are allowed inside the library or on the costume-contest stage.",
+      "costLabel": "Free admission and parking; food-truck purchases extra",
+      "audienceLabel": "Children and families",
+      "timeLabel": "10 a.m.–2 p.m. MDT",
+      "registrationUrl": "https://www.zeffy.com/en-US/ticketing/midterm-mayhem-monster-mash-presented-by-rocky-mountain-pbs-the-drop--1047",
+      "availabilityLabel": "Free General Admission offer visible on Zeffy on October 21; remaining seats are not shown. Confirm a reservation before going."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "centennial-sos-spooktacular-2026",
+      "city": "centennial",
+      "title": "SOS Spooktacular Fall Family Fun Fest",
+      "description": "Free RSVP offered; no diagnosis required. Neurodivergent children, siblings, friends and the community welcome.",
+      "href": "https://www.eventbrite.com/e/free-autism-event-spooktacular-fall-family-fun-fest-tickets-1999558569508",
+      "locationLabel": "Success On The Spectrum, 7562 S. University Blvd., Suite FF, Centennial, CO 80122",
+      "dateStart": "2026-10-24T14:00:00-06:00",
+      "dateEnd": "2026-10-24T17:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.eventbrite.com/e/free-autism-event-spooktacular-fall-family-fun-fest-tickets-1999558569508"
+      ],
+      "registrationLabel": "Free advance RSVP is offered/requested; the organizer does not explicitly make it an attendance condition. No diagnosis required.",
+      "costLabel": "Free admission",
+      "audienceLabel": "Neurodivergent children, siblings, friends and the community",
+      "timeLabel": "2–5 p.m. MDT",
+      "registrationUrl": "https://www.eventbrite.com/e/free-autism-event-spooktacular-fall-family-fun-fest-tickets-1999558569508",
+      "availabilityLabel": "Free RSVP offer visible on October 21; no remaining-capacity count shown. An offer does not reserve a place."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "centennial-gracepoint-carnival-costumes-2026",
+      "city": "centennial",
+      "title": "GracePoint Carnival of Costumes – Trunk or Treat",
+      "description": "No tickets needed; RSVP optional. Non-scary costumes requested at this church-hosted event; everyone welcome.",
+      "href": "https://gracepointcc.org/featured-event/carnival-of-costumes/",
+      "locationLabel": "GracePoint Community Church, 90 E. Orchard Road, Centennial, CO 80121 (Littleton mailing address)",
+      "dateStart": "2026-10-24T15:00:00-06:00",
+      "dateEnd": "2026-10-24T17:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://gracepointcc.org/featured-event/carnival-of-costumes/",
+        "https://www.eventbrite.com/e/carnival-of-costumes-trunk-or-treat-tickets-1998816889122"
+      ],
+      "registrationLabel": "No tickets needed; the Eventbrite RSVP is optional. Non-scary costumes requested. Rain or snow moves the event indoors.",
+      "costLabel": "Free admission, activities and food",
+      "audienceLabel": "All ages; public welcome",
+      "timeLabel": "3–5 p.m. MDT",
+      "registrationUrl": "https://www.eventbrite.com/e/carnival-of-costumes-trunk-or-treat-tickets-1998816889122",
+      "availabilityLabel": "Public drop-in invitation checked October 21. Optional RSVP inventory was not checked; tickets are explicitly not needed."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-stanley-monster-mash-2026",
+      "city": "aurora",
+      "title": "Stanley Halloween Monster Mash & Coat Drive",
+      "description": "Free entry; food and drink purchases extra. New winter-clothing donations optional. Family costumes, music and treats.",
+      "href": "https://www.stanleymarketplace.com/all-events/halloween-monster-mash",
+      "locationLabel": "Stanley Marketplace common area, 2501 N. Dallas St., Aurora, CO 80010",
+      "dateStart": "2026-10-24T16:00:00-06:00",
+      "dateEnd": "2026-10-24T19:00:00-06:00",
+      "dateLabel": "Saturday, October 24, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.stanleymarketplace.com/all-events/halloween-monster-mash"
+      ],
+      "registrationLabel": "No attendee preregistration is stated on the organizer page; this is not an explicit no-registration guarantee. Only new winter clothing is accepted; donations are optional.",
+      "costLabel": "Free admission; food/drink purchases extra; donations optional",
+      "audienceLabel": "Children and adults",
+      "timeLabel": "4–7 p.m. MDT",
+      "availabilityLabel": "Organizer listing checked October 21; no attendee ticket mechanism or capacity count published."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "littleton-goblin",
+      "city": "littleton",
+      "title": "Goblin Giveout",
+      "description": "Free trick-or-treating at participating downtown merchants; optional purchases extra. Bring children in costume.",
+      "href": "https://littletondda.org/event/goblin-giveout-2026/",
+      "locationLabel": "Participating Downtown Littleton merchants; official route reference 2516 Main Street, Littleton, CO 80120",
+      "dateStart": "2026-10-25T12:00:00-06:00",
+      "dateEnd": "2026-10-25T16:00:00-06:00",
+      "dateLabel": "Sunday, October 25, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://littletondda.org/event/goblin-giveout-2026/",
+        "https://visitlittleton.org/halloween-in-littleton/"
+      ],
+      "registrationLabel": "No attendee tickets or registration requirement is published. Visit participating Historic Downtown Littleton merchants; 2516 Main Street is a route reference, not a single enclosed venue.",
+      "costLabel": "Free; optional merchant purchases extra",
+      "audienceLabel": "Children in costume and their families",
+      "timeLabel": "Noon–4 p.m. MDT",
+      "availabilityLabel": "DDA listing and official city guide checked October 21; no attendee booking mechanism or capacity count published."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "greenwood-music-darkened-theater-2026",
+      "city": "greenwood_village",
+      "title": "Music for a Darkened Theater – Highlands Ranch Concert Band",
+      "description": "Free community concert at 3 p.m.; end time not published. Costumes and children’s treats at Aspen Academy.",
+      "href": "https://www.hrconcertband.org/",
+      "locationLabel": "Aspen Academy, 5859 S University Blvd, Greenwood Village",
+      "dateStart": "2026-10-25T15:00:00-06:00",
+      "dateEnd": "2026-10-25",
+      "dateLabel": "Sunday, October 25, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.hrconcertband.org/events",
+        "https://www.hrconcertband.org/"
+      ],
+      "registrationLabel": "Concerts are free and open to the community; no ticket or preregistration requirement is stated. The band is named for Highlands Ranch, but this venue is in Greenwood Village.",
+      "costLabel": "Free admission",
+      "audienceLabel": "Children and adults; costumes welcome",
+      "timeLabel": "3 p.m. MDT; end time not published",
+      "calendarDisabled": true,
+      "availabilityLabel": "Organizer calendar and homepage checked October 21; no ticket inventory or capacity cap published."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "parker-primrose-trunk-treat-2026",
+      "city": "parker",
+      "title": "Primrose School of Parker Trunk or Treat",
+      "description": "Free and open to the public, not just enrolled families. Food-truck purchases extra; costumes welcome.",
+      "href": "https://www.primroseschools.com/schools/parker/news-item/trunk-or-treat-at-primrose-school-of-parker",
+      "locationLabel": "Primrose School of Parker, 18692 Pony Express Dr., Parker, CO 80134",
+      "dateStart": "2026-10-31T10:00:00-06:00",
+      "dateEnd": "2026-10-31T12:00:00-06:00",
+      "dateLabel": "Saturday, October 31, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.primroseschools.com/schools/parker/news-item/trunk-or-treat-at-primrose-school-of-parker",
+        "https://www.primroseschools.com/schools/parker"
+      ],
+      "registrationLabel": "The school invites the public. No attendee preregistration or numerical age limit is stated.",
+      "costLabel": "Free admission; food-truck purchases extra",
+      "audienceLabel": "Families; public welcome",
+      "timeLabel": "10 a.m.–noon MDT",
+      "availabilityLabel": "Official public invitation checked October 21; no attendee ticket mechanism or capacity count published."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "castle-rock-sos-trunk-or-treat-2026",
+      "city": "castle_rock",
+      "title": "Sensory-Friendly Trunk or Treat at SOS Castle Rock",
+      "description": "Sensory-friendly fun; free RSVP. No loud music, flashing lights or jump scares. Quiet zones; costumes optional.",
+      "href": "https://www.eventbrite.com/e/free-autism-event-trunk-or-treat-tickets-2000487602270",
+      "locationLabel": "831 S. Perry Street, Castle Rock, CO 80104",
+      "dateStart": "2026-10-31T11:00:00-06:00",
+      "dateEnd": "2026-10-31T13:00:00-06:00",
+      "dateLabel": "Saturday, October 31, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.eventbrite.com/e/free-autism-event-trunk-or-treat-tickets-2000487602270"
+      ],
+      "registrationLabel": "Use the organizer’s free RSVP/ticket page before attending. Mandatory advance booking is not explicitly stated; costumes are optional. Quiet zones and support staff are planned.",
+      "costLabel": "Free admission; no fundraiser or attendance fees",
+      "audienceLabel": "All ages; neurodiverse families and the public welcome",
+      "timeLabel": "11 a.m.–1 p.m. MDT",
+      "registrationUrl": "https://www.eventbrite.com/e/free-autism-event-trunk-or-treat-tickets-2000487602270",
+      "availabilityLabel": "Free General Admission offer and Register control visible October 21; remaining capacity is unknown. No place is reserved by viewing the offer."
+    },
+    {
+      "section": "holiday",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-10-21",
+      "timezone": "America/Denver",
+      "id": "aurora-hallelujah-night-2026",
+      "city": "aurora",
+      "title": "Community Wide Trunk & Treat – Hallelujah Night",
+      "description": "Church-hosted; all welcome. No scary/gory, demon/witch costumes. Optional RSVP availability unconfirmed.",
+      "href": "https://www.eventbrite.com/e/community-wide-trunk-treat-hallelujah-night-tickets-2002678113147",
+      "locationLabel": "Moorhead Memorial Park, 2390 Havana St, Aurora, CO 80010",
+      "dateStart": "2026-10-31T13:00:00-06:00",
+      "dateEnd": "2026-10-31T16:00:00-06:00",
+      "dateLabel": "Saturday, October 31, 2026",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.eventbrite.com/e/community-wide-trunk-treat-hallelujah-night-tickets-2002678113147"
+      ],
+      "registrationLabel": "Free RSVP is offered, but current registration availability is unconfirmed; mandatory advance booking is not stated. The LIFE Church prohibits scary/gory, demon and witch costumes. Doors open at 12:45 p.m.",
+      "costLabel": "Free admission; optional $3 meal deal",
+      "audienceLabel": "All ages; public welcome",
+      "timeLabel": "1–4 p.m. MDT; doors 12:45 p.m.",
+      "registrationUrl": "https://www.eventbrite.com/e/community-wide-trunk-treat-hallelujah-night-tickets-2002678113147",
+      "availabilityLabel": "Optional RSVP availability unconfirmed: the October 21 ticket-page recheck was blocked. Official event details still confirm free public attendance; no cancellation or sold-out notice was seen."
+    }
+  ],
+  "verification": [
+    {
+      "id": "centennial-napa-trunk-treat-2026",
+      "checkedAtUtc": "2026-10-21T22:47:01Z",
+      "sources": [
+        {
+          "url": "https://www.eventbrite.com/e/denver-trunk-or-treat-tickets-2002173064533",
+          "checkedAtUtc": "2026-10-21T22:47:01Z",
+          "supports": "2026 confirmed by ticket panel sales-end date; listing says free and tickets not required, exact venue and 5–7 p.m. MDT."
+        }
+      ],
+      "registrationEvidence": "Tickets explicitly not required. Optional free RSVP helps estimate headcount. Trunk-host registration is separate.",
+      "availabilityEvidence": "Actual optional RSVP panel displayed General Admission Free, quantity choices 0–10, sales ending Oct 23, 2026, and Register. No quantity selected or registration submitted.",
+      "cancellationObservation": "No cancellation or sold-out notice observed.",
+      "remainingUnknowns": [
+        "Remaining capacity.",
+        "Numeric age limits."
+      ],
+      "disposition": "Included with source qualifications; NAPA also subject to editorial publication gate."
+    },
+    {
+      "id": "castle-pines-fall-festival",
+      "checkedAtUtc": "2026-10-21T22:48:53Z",
+      "sources": [
+        {
+          "url": "https://www.castlepinesco.gov/events/10-24-2026/fall-festival-trick-or-treat-street-and-pumpkin-race/",
+          "checkedAtUtc": "2026-10-21T22:47:01Z",
+          "supports": "Explicit Oct 24 2026 10 a.m.–2 p.m.; 1 p.m. race; exact venue/address; free family activities; chili cookoff canceled; kit deadlines."
+        },
+        {
+          "url": "https://www.parks.castlepinesco.gov/castlepines/programs",
+          "checkedAtUtc": "2026-10-21T22:48:53Z",
+          "supports": "Annual Pumpkin Race 2026 modal: Open, $25.00 per activity, Next; kit ordering and pickup deadlines."
+        },
+        {
+          "url": "https://forms.castlepinesco.gov/262514704680961",
+          "checkedAtUtc": "2026-10-21T22:48:04Z",
+          "supports": "Form states registration is for race participation without kit; separate entry per participant; blank name/email fields and Register."
+        }
+      ],
+      "registrationEvidence": "General festival attendance unticketed on the organizer page. Race participants register separately with or without buying the optional city kit.",
+      "availabilityEvidence": "City recreation portal now readable: Annual Pumpkin Race 2026, Open, $25.00 per activity, Next control. Read-only details also confirm kit ordering and pickup deadlines. Separate without-kit registration form loads blank Name/Email fields and Register.",
+      "cancellationObservation": "Chili cookoff cancellation remains explicit; no broader cancellation.",
+      "remainingUnknowns": [
+        "Remaining race-kit stock and competition capacity.",
+        "No guaranteed general-attendance capacity."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "aurora-midterm-monster-mash-2026",
+      "checkedAtUtc": "2026-10-21T22:48:53Z",
+      "sources": [
+        {
+          "url": "https://www.rmpbs.org/events/rmpbs-midterm-mayhem-monster-mash",
+          "checkedAtUtc": "2026-10-21T22:48:23Z",
+          "supports": "Explicit Oct 24 2026 10–2, price Free - Registration required, library address, free parking, family invitation and real/simulated weapon restriction."
+        },
+        {
+          "url": "https://www.zeffy.com/en-US/ticketing/midterm-mayhem-monster-mash-presented-by-rocky-mountain-pbs-the-drop--1047",
+          "checkedAtUtc": "2026-10-21T22:48:53Z",
+          "supports": "General Admission Free, Add control; no remaining count."
+        }
+      ],
+      "registrationEvidence": "Free advance registration required.",
+      "availabilityEvidence": "Official-linked Zeffy form displayed General Admission Free with enabled Add control. Continue disabled until a selection. No Add, selection, checkout or registration performed.",
+      "cancellationObservation": "No cancellation or sold-out notice observed.",
+      "remainingUnknowns": [
+        "Remaining ticket inventory.",
+        "Numeric age cutoff."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "centennial-sos-spooktacular-2026",
+      "checkedAtUtc": "2026-10-21T22:52:38Z",
+      "sources": [
+        {
+          "url": "https://www.eventbrite.com/e/free-autism-event-spooktacular-fall-family-fun-fest-tickets-1999558569508",
+          "checkedAtUtc": "2026-10-21T22:52:38Z",
+          "supports": "Explicit 2026 date/time/address, no diagnosis required, entire community invited; free General Admission selector and Register."
+        }
+      ],
+      "registrationEvidence": "Free RSVP offered/requested; mandatory attendance condition not explicit.",
+      "availabilityEvidence": "Actual live panel showed General Admission Free, quantity options 1–10 with default 1, sales ending Oct 24 2026, Register, and $0 total. No quantity changed, personal data entered or registration submitted.",
+      "cancellationObservation": "No cancellation or sold-out notice observed.",
+      "remainingUnknowns": [
+        "Remaining capacity.",
+        "Whether advance RSVP is mandatory; organizer does not say."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "centennial-gracepoint-carnival-costumes-2026",
+      "checkedAtUtc": "2026-10-21T22:53:40Z",
+      "sources": [
+        {
+          "url": "https://gracepointcc.org/featured-event/carnival-of-costumes/",
+          "checkedAtUtc": "2026-10-21T22:51:15Z",
+          "supports": "Sep 19 2026 post states Saturday Oct 24 3–5 p.m., rain or shine, and links official Eventbrite."
+        },
+        {
+          "url": "https://www.eventbrite.com/e/carnival-of-costumes-trunk-or-treat-tickets-1998816889122",
+          "checkedAtUtc": "2026-10-21T22:53:40Z",
+          "supports": "Centennial address, all ages, free activities/food/parking; no tickets, everyone welcome, non-scary costumes, indoor weather fallback."
+        }
+      ],
+      "registrationEvidence": "No tickets needed, explicitly confirmed in expanded organizer FAQ. Optional Eventbrite RSVP is not attendance prerequisite.",
+      "availabilityEvidence": "Organizer page shows Free and Reserve a spot; no ticket prerequisite per expanded FAQ. Optional panel not opened after separate Kiddie rate limit. No registration performed.",
+      "cancellationObservation": "No cancellation observed. FAQ explicitly gives indoor weather fallback.",
+      "remainingUnknowns": [
+        "Remaining general-event capacity.",
+        "Optional RSVP panel inventory, not required for attendance."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "aurora-stanley-monster-mash-2026",
+      "checkedAtUtc": "2026-10-21T22:50:00Z",
+      "sources": [
+        {
+          "url": "https://www.stanleymarketplace.com/all-events/halloween-monster-mash",
+          "checkedAtUtc": "2026-10-21T22:50:00Z",
+          "supports": "Oct 24, 2026, 4–7 p.m.; Stanley Marketplace common area, Aurora; free public family invitation; costumes, music, dancing and treats; new winter-clothing donations only."
+        }
+      ],
+      "registrationEvidence": "No attendee preregistration stated.",
+      "availabilityEvidence": "Current organizer page still publishes a free family event. No attendee ticket mechanism or registration prerequisite stated; do not turn this into an explicit no-registration guarantee.",
+      "cancellationObservation": "No cancellation, postponement or sold-out notice seen on the current official sources inspected. This is a dated observation, not an attendance guarantee.",
+      "remainingUnknowns": [
+        "No numeric event age bounds or attendee-capacity count published.",
+        "Food and drink pricing is not published; do not describe purchases as included."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "littleton-goblin",
+      "checkedAtUtc": "2026-10-21T22:51:00Z",
+      "sources": [
+        {
+          "url": "https://littletondda.org/event/goblin-giveout-2026/",
+          "checkedAtUtc": "2026-10-21T22:48:00Z",
+          "supports": "2026 title, Oct 25 noon–4 p.m.; children and families at participating local shops/restaurants; organizer Littleton Merchants Association; Downtown Littleton reference address 2516 Main St."
+        },
+        {
+          "url": "https://visitlittleton.org/halloween-in-littleton/",
+          "checkedAtUtc": "2026-10-21T22:51:00Z",
+          "supports": "Official 2026 city guide explicitly labels Goblin Give Out free, Oct 25 noon–4 p.m., Historic Downtown Littleton."
+        }
+      ],
+      "registrationEvidence": "No attendee ticket or registration requirement is published on the DDA event listing or city guide. Public downtown walk-up route.",
+      "availabilityEvidence": "Current DDA listing and official City of Littleton guide both still advertise the October 25 route. No attendee booking mechanism is offered.",
+      "cancellationObservation": "No cancellation, postponement or sold-out notice seen on the current official sources inspected. This is a dated observation, not an attendance guarantee.",
+      "remainingUnknowns": [
+        "No complete participating-merchant list, fixed enclosed venue or numeric age bounds published on inspected pages.",
+        "No explicit universal no-registration policy: use the narrower no requirement published wording."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "greenwood-music-darkened-theater-2026",
+      "checkedAtUtc": "2026-10-21T22:51:00Z",
+      "sources": [
+        {
+          "url": "https://www.hrconcertband.org/events",
+          "checkedAtUtc": "2026-10-21T22:48:00Z",
+          "supports": "2026–2027 calendar confirms Sunday Oct 25 at 3 p.m., Aspen Academy, 5859 S University Blvd, Greenwood Village."
+        },
+        {
+          "url": "https://www.hrconcertband.org/",
+          "checkedAtUtc": "2026-10-21T22:51:00Z",
+          "supports": "Event explicitly dated Oct 25, 2026 at 3 p.m.; free; public/community family invitation, costumes and treats for children."
+        }
+      ],
+      "registrationEvidence": "No ticket or preregistration requirement stated; organizer says concerts are free/open to the community.",
+      "availabilityEvidence": "Current organizer 2026–2027 calendar and homepage still advertise the free public family concert. No ticket inventory, reservation mechanism or capacity cap stated.",
+      "cancellationObservation": "No cancellation, postponement or sold-out notice seen on the current official sources inspected. This is a dated observation, not an attendance guarantee.",
+      "remainingUnknowns": [
+        "End time and duration remain unpublished.",
+        "No numeric age bounds, ticket availability count or mandatory booking rule published."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "parker-primrose-trunk-treat-2026",
+      "checkedAtUtc": "2026-10-21T22:52:00Z",
+      "sources": [
+        {
+          "url": "https://www.primroseschools.com/schools/parker/news-item/trunk-or-treat-at-primrose-school-of-parker",
+          "checkedAtUtc": "2026-10-21T22:48:00Z",
+          "supports": "Full rendered August 20, 2026 announcement explicitly says Saturday Oct 31, 10 a.m.–noon, free and open to the public, family-friendly; food truck and local vendors."
+        },
+        {
+          "url": "https://www.primroseschools.com/schools/parker",
+          "checkedAtUtc": "2026-10-21T22:52:00Z",
+          "supports": "Current school homepage confirms 18692 Pony Express Dr., Parker, CO 80134."
+        }
+      ],
+      "registrationEvidence": "No attendee preregistration stated.",
+      "availabilityEvidence": "Current official announcement still invites public attendance at the free event. No ticket/capacity mechanism or attendee RSVP condition is published.",
+      "cancellationObservation": "No cancellation, postponement or sold-out notice seen on the current official sources inspected. This is a dated observation, not an attendance guarantee.",
+      "remainingUnknowns": [
+        "No numeric event age limits or capacity published.",
+        "Food truck is mentioned, but menu and prices are not given; do not imply food purchases are included in free admission."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "castle-rock-sos-trunk-or-treat-2026",
+      "checkedAtUtc": "2026-10-21T22:47:00Z",
+      "sources": [
+        {
+          "url": "https://www.eventbrite.com/e/free-autism-event-trunk-or-treat-tickets-2000487602270",
+          "checkedAtUtc": "2026-10-21T22:47:00Z",
+          "supports": "Current organizer page and live free ticket-selection panel. Oct 31, 2026 11 a.m.–1 p.m. MDT; 831 S Perry St; all ages/public; no attendance fee/fundraiser; sensory environment, quiet zones/support staff, costumes optional."
+        }
+      ],
+      "registrationEvidence": "Free advance Eventbrite RSVP is offered. Use the official RSVP/ticket page before attending; an explicit mandatory advance-booking condition is not stated.",
+      "availabilityEvidence": "Fresh live General Admission panel displayed Free, an enabled Register control and sales ending Oct 31, 2026. This verifies a current offer, not remaining capacity or completed booking. No quantity change, Register click, attendee data entry or reservation occurred.",
+      "cancellationObservation": "No cancellation, postponement or sold-out notice seen on the current official sources inspected. This is a dated observation, not an attendance guarantee.",
+      "remainingUnknowns": [
+        "Remaining capacity and guaranteed admission are not established.",
+        "No explicit mandatory booking policy stated."
+      ],
+      "disposition": "Included with source qualifications."
+    },
+    {
+      "id": "aurora-hallelujah-night-2026",
+      "checkedAtUtc": "2026-10-21T22:53:00Z",
+      "sources": [
+        {
+          "url": "https://www.eventbrite.com/e/community-wide-trunk-treat-hallelujah-night-tickets-2002678113147",
+          "checkedAtUtc": "2026-10-21T22:48:00Z",
+          "supports": "Live page and expanded FAQ verify Oct 31, 2026 1–4 p.m. MDT, doors 12:45, Moorhead Memorial Park 2390 Havana St, all ages/everyone welcome, sponsor The LIFE Church, free admission, optional $3 meal, no scary/gory/demon/witch costumes."
+        },
+        {
+          "url": "https://www.eventbrite.com/e/community-wide-trunk-treat-hallelujah-night-tickets-2002678113147",
+          "checkedAtUtc": "2026-10-21T22:53:00Z",
+          "supports": "Fresh public page again shows Free and Reserve a spot; opening only that booking panel leads to visible 429 Too Many Requests – WAF error. No registration attempt or user data entry."
+        }
+      ],
+      "registrationEvidence": "Free Eventbrite RSVP offered; mandatory advance booking not stated.",
+      "availabilityEvidence": "Current public event page displays Free and Reserve a spot. Current ticket-selection availability could not be reverified: initial modal/tab capture timed out; a fresh-tab read-only retry produced an Eventbrite unavailable page, visually confirmed as response code 429 Too Many Requests – WAF. Do not carry forward the prior live ticket-selector availability claim. This is an access/rate-limit blocker, not proof of cancellation, sellout or event unpublishability.",
+      "cancellationObservation": "No cancellation, postponement or sold-out notice seen on the current official sources inspected. This is a dated observation, not an attendance guarantee.",
+      "remainingUnknowns": [
+        "Current registration availability is unverified due to the official ticket modal returning 429 WAF.",
+        "No remaining-capacity count or guarantee.",
+        "Mandatory advance registration is not stated."
+      ],
+      "disposition": "Included with owner-approved unconfirmed optional-RSVP availability qualification."
+    }
+  ],
+  "heldBackEvents": [
+    {
+      "id": "parker-kiddie-academy-trunk-treat-2026",
+      "reason": "Booking recheck blocked by explicit Eventbrite 429 WAF after a timeout. Owner agreed to leave Kiddie Academy out for now. This is not evidence of a sold-out or canceled event. No substitute added.",
+      "event": {
+        "section": "holiday",
+        "recurring": false,
+        "status": "needs_review",
+        "verifiedAt": "2026-10-21",
+        "timezone": "America/Denver",
+        "id": "parker-kiddie-academy-trunk-treat-2026",
+        "city": "parker",
+        "title": "Halloween at Kiddie Academy: Free Family Trunk or Treat",
+        "description": "Reserve a free spot; food extra. Goodie bags for the first 300 only. Family trunk-or-treat starts at 10 a.m.",
+        "href": "https://www.eventbrite.com/e/halloween-at-kiddie-academy-free-family-trunk-or-treat-in-parker-tickets-1994903010606",
+        "locationLabel": "Kiddie Academy, 11740 Murrelet St., Parker, CO 80134",
+        "dateStart": "2026-10-24T10:00:00-06:00",
+        "dateEnd": "2026-10-24T14:00:00-06:00",
+        "dateLabel": "Saturday, October 24, 2026",
+        "costType": "free",
+        "sourceType": "organizer",
+        "sourceUrls": [
+          "https://www.eventbrite.com/e/halloween-at-kiddie-academy-free-family-trunk-or-treat-in-parker-tickets-1994903010606"
+        ],
+        "registrationLabel": "The organizer asks families to reserve a free spot using its event page. A reservation does not guarantee a first-300 goodie bag.",
+        "costLabel": "Free admission; food extra; goodie bags for first 300 only",
+        "audienceLabel": "All ages",
+        "timeLabel": "10 a.m.–2 p.m. MDT",
+        "registrationUrl": "https://www.eventbrite.com/e/halloween-at-kiddie-academy-free-family-trunk-or-treat-in-parker-tickets-1994903010606",
+        "availabilityLabel": "Current booking availability unconfirmed; the October 21 recheck was blocked."
+      },
+      "coreDetailsCheckedAtUtc": "2026-10-21T22:49:54Z",
+      "bookingAttemptAtUtc": "2026-10-21T22:52:58Z",
+      "lastSuccessfulBookingObservationUtc": "2026-10-21T21:13:53Z",
+      "lastObservationScope": "Historical pre-implementation ticket panel only, not current availability.",
+      "sources": [
+        {
+          "url": "https://www.eventbrite.com/e/halloween-at-kiddie-academy-free-family-trunk-or-treat-in-parker-tickets-1994903010606",
+          "checked_at_utc": "2026-10-21T22:49:54Z",
+          "type": "Organizer listing",
+          "evidence": "Explicit Oct 24 2026 10–2, exact address, 100% free admission, all ages, first 300 goodie bags, reserve free spot."
+        },
+        {
+          "url": "https://www.eventbrite.com/e/halloween-at-kiddie-academy-free-family-trunk-or-treat-in-parker-tickets-1994903010606",
+          "checked_at_utc": "2026-10-21T22:52:58Z",
+          "type": "Current booking verification blocker",
+          "evidence": "Page unavailable; explicit 429 Too Many Requests - WAF. Inspection stopped; exact source and reason reported to parent and implementer."
+        }
+      ]
+    }
+  ]
+}

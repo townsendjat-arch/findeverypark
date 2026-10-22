@@ -276,6 +276,14 @@
     }
 
 
+    /* Shared, always-visible notice for every full event listing. */
+    .before-you-go { margin: 12px 0; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); color: var(--ink-light); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; min-width: 0; }
+    .before-you-go p { margin: 0; }
+    .before-you-go strong { color: var(--ink); }
+    .before-you-go a { display: inline-flex; align-items: center; min-height: 44px; color: var(--grass); text-decoration: underline; text-underline-offset: 2px; }
+    .before-you-go a:focus-visible { outline: 3px solid var(--grass); outline-offset: 3px; }
+    .before-you-go .source-unavailable { display: block; margin-top: 6px; }
+
     /* Pumpkin decisions extend the existing seasonal cards, not the homepage. */
     .pumpkin-card { border-left: 3px solid var(--sunset); scroll-margin-top: 24px; }
     .pumpkin-card .event-title { font-size: 19px; line-height: 1.35; }
@@ -931,11 +939,32 @@
     return event.id || event.title || JSON.stringify(event);
   }
 
+  function officialEventSource(event) {
+    const candidates = [event.href, event.link].concat(event.sourceUrls || []);
+    for (const value of candidates) {
+      if (typeof value !== 'string' || !value.trim()) continue;
+      try {
+        const url = new URL(value.trim());
+        if (url.protocol === 'https:' || url.protocol === 'http:') return value.trim();
+      } catch (_) { /* A missing or invalid source must not become an invented link. */ }
+    }
+    return '';
+  }
+
+  function renderBeforeYouGo(event) {
+    const source = officialEventSource(event);
+    return '<div class="before-you-go">' +
+      '<p class="before-you-go-copy"><strong>⚠️ Before You Go:</strong> Event dates, times, prices, registration requirements, and weather or cancellation policies may change. Please check the official event website before attending.</p>' +
+      (source ? '<a href="' + escapeHtml(source) + '" target="_blank" rel="noopener" aria-label="' + escapeHtml('Official event source for ' + event.title) + '">Official event source</a>' :
+        '<span class="source-unavailable">Official source not provided.</span>') + '</div>';
+  }
+
   function renderEventRow(event, options) {
     options = options || {};
     const row = document.createElement('div');
     row.className = 'event-row' + (options.past ? ' past-event' : '');
     row.dataset.city = eventRules.normCity(event.city);
+    row.dataset.eventId = event.id || '';
     row.dataset.current = options.past ? 'false' : 'true';
     const badgeClass = event.costType === 'free' || event.free === true ? 'free-badge' : 'cost-badge';
     const metaParts = [
@@ -961,6 +990,7 @@
           }).join('') +
         '</div>' +
         (event.dadNote || event.notes ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote || event.notes) + '</p>' : '') +
+        renderBeforeYouGo(event) +
       '</div>' +
       '<div class="event-actions">' +
         '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' + escapeHtml(cta) + '</a>' +
@@ -1047,6 +1077,7 @@
       '</strong>' + escapeHtml(next) + '</p>' +
       '<dl class="pumpkin-costs">' + costRows.map(function (row) { return '<div><dt>' + row[0] + '</dt><dd>' + emphasizePumpkinCost(row[1]) + '</dd></div>'; }).join('') + '</dl>' +
       (criticalWarnings.length ? '<div class="pumpkin-warning"><strong>Before you go</strong><ul class="event-detail-list">' + criticalWarnings.map(function (warning) { return '<li>' + escapeHtml(warning) + '</li>'; }).join('') + '</ul></div>' : '') +
+      renderBeforeYouGo(event) +
       '<div class="event-actions">' +
       (link ? '<a class="event-link" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">' + (p.operatingStatus === 'conflicting' ? 'Check official status' : 'Official information') + '</a>' : '') +
       (event.registrationUrl && p.operatingStatus !== 'conflicting' ? '<a class="cal-link" href="' + escapeHtml(event.registrationUrl) + '" target="_blank" rel="noopener">Check ticket details</a>' : '') +
@@ -1113,6 +1144,7 @@
       (event.verifiedAt ? '<p class="event-description">Details checked ' + escapeHtml(formatDisplayDate(event.verifiedAt)) + '. Confirm availability with the organizer before going.</p>' : '') +
       (isRecurring ? renderRecurringDates(event) : '') +
       (event.dadNote && event.dadNote !== description ? '<p class="dad-note"><strong>Dad Note:</strong> ' + escapeHtml(event.dadNote) + '</p>' : '') +
+      renderBeforeYouGo(event) +
       '<div class="event-actions">' +
         (href ? '<a class="event-link" href="' + escapeHtml(href) + '" target="_blank" rel="noopener">More Info</a>' : '') +
         (calUrl ? '<a class="cal-link" href="' + escapeHtml(calUrl) + '" target="_blank" rel="noopener">+ Add to Calendar</a>' : '') +

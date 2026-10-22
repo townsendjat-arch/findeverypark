@@ -2,7 +2,19 @@
 
 Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
 
-## Current readability continuation
+## Current Priority 1 draft, October 21
+
+- The owner approved the revised 12-event first release in its explicit implementation order, with NAPA conditional. The candidate is based on main `3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be`, including merged PR #4; prior pumpkin-draft states below are historical, not the current release state.
+- Scope: 11 event additions from the approved 12, plus only `castle_rock`, `greenwood_village` and `littleton` event-city metadata. All original 47 objects, 30 archived records, one excluded record, six pumpkins and Nick’s single identity are preserved. Parker gains Primrose only. Kiddie Academy is held after its fresh booking check hit an explicit 429 rate limit; the owner agreed to leave it out. Mainstreet/Violet Bridge remain held. Hallelujah is retained with owner-approved, visible unconfirmed optional-RSVP availability. PR #3 remains separate and unmodified.
+- The owner-approved “Before You Go” notice and official-source link are implemented on every full event listing, including existing and revealed archive rows, outside per-event disclosures. Specific warnings and miniature previews are unchanged. Exact-head automated and mobile evidence is required before review handoff.
+- Deliverable: [draft PR #5](https://github.com/townsendjat-arch/findeverypark/pull/5) on `review/priority-one-halloween-2026`; exact revision, CI run and screenshots are recorded in that PR’s validation section and checks. Review the [source snapshot](../docs/priority-one-source-review-2026-10-21.json) and [verification scope](TESTING.md#priority-1-content-batch).
+- **Not released; merge, deployment and preview publication are not authorized.** Content/visual approval, source recheck, manual-QA disposition and exact-candidate release permission remain gates. Read-only research or CI success does not grant release approval.
+- **NAPA deadline:** publication by October 22 at 5 p.m. MDT (23:00 UTC). Recommended owner review by noon MDT that day leaves time for final source checks and any separately approved release; this is a planning recommendation, not a promised user deadline. If the publication gate cannot be met, remove NAPA, rerun exact-head checks and proceed with the other 10 without substitution.
+- Castle Pines’s October 22 at 5 p.m. deadline is for optional $25 race kits only, with pickup by October 23 at noon. The free October 24 festival is not canceled; only the chili cookoff is. After the kit cutoff, recheck and label kit sales closed unless the organizer explicitly changes it. Do not transform it into a festival attendance deadline.
+- Later-release recommendation only: Fellowship, Pumpkin Palooza and Fangtastic for October 30–31; no second-batch records are added here.
+
+## Historical PR #4 readability continuation
+
 
 - Owner requested shorter parent-friendly cards on October 21 after screenshot review, with the same design and six listings. Implemented one next day, concise fit copy, price-first rows and only critical visible warnings. Full source facts remain in expanded details.
 - **Ready for owner review: YES**, subject to the containing documentation revision’s exact-head checks. Readability code/test head `652f85da5c1d847ee98030b772e56f64d6460353` passed [run 39672476566](https://github.com/townsendjat-arch/findeverypark/actions/runs/39672476566): 93/93 Chromium + 93/93 WebKit and 20/20 Node in each job. Independent visual review found no unresolved defect; all six collapsed cards are 38–54% shorter across the two mobile widths/engines. Update only the existing owner-only preview after the final checks. **Ready for production launch: NO.**

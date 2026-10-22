@@ -11,6 +11,21 @@ vm.runInContext(fs.readFileSync(path.join(root, 'data/events/events-manifest.js'
 const rules = context.window.FEP_EVENTS;
 const data = context.window.EVENTS_DATA;
 const at = value => new Date(value);
+const { execFileSync } = require('node:child_process');
+const mainBaselineRef = '3a12e7b6bffad111c3a44a5ac25f7bf0c4aa73be';
+try { execFileSync('git', ['cat-file','-e',mainBaselineRef + '^{commit}'], {cwd:root,stdio:'pipe'}); }
+catch (_) { execFileSync('git', ['fetch','--no-tags','--depth=1','origin',mainBaselineRef], {cwd:root,stdio:'pipe'}); }
+const baselineContext = {window:{}};
+vm.runInNewContext(execFileSync('git', ['show',mainBaselineRef + ':data/events/events-manifest.js'], {cwd:root,encoding:'utf8'}), baselineContext);
+const originalEvents = JSON.parse(JSON.stringify(baselineContext.window.EVENTS_DATA.events));
+const originalIds = new Set(originalEvents.map(event => event.id));
+const priorityAudit = JSON.parse(fs.readFileSync(path.join(root,'docs/priority-one-source-review-2026-10-21.json'),'utf8'));
+const priorityIds = priorityAudit.events.map(event => event.id);
+const hasNapa = priorityIds.includes('centennial-napa-trunk-treat-2026');
+// Required-reservation freshness could not be confirmed after the source returned 429.
+const heldPriorityIds = ['parker-kiddie-academy-trunk-treat-2026'];
+
+
 
 test('expiry uses Colorado date, not UTC or the visitor timezone', () => {
   const event = { dateEnd: '2026-10-21' };
@@ -88,8 +103,8 @@ test('inline production JavaScript compiles', () => {
   }
 });
 
-test('candidate retains original 11 IDs and adds only five new pumpkin records', () => {
-  const verified = data.events.filter(e => e.verifiedAt === '2026-10-21');
+test('prior released 11 IDs and five added pumpkin records remain intact', () => {
+  const verified = data.events.filter(e => originalIds.has(e.id) && e.verifiedAt === '2026-10-21');
   const audit = JSON.parse(fs.readFileSync(path.join(root, 'docs/events-source-review-2026-10-21.json')));
   assert.equal(verified.length, 16);
   assert.equal(audit.events.length, 11, 'the released source audit remains immutable');
@@ -241,7 +256,7 @@ test('readability pass preserves all historical records and 16 reviewed canonica
   vm.createContext(baseline);
   vm.runInContext(execFileSync('git', ['show', beforeRef + ':data/events/events-manifest.js'], {cwd:root,encoding:'utf8'}), baseline);
   const original = JSON.parse(JSON.stringify(baseline.window.EVENTS_DATA.events));
-  const current = JSON.parse(JSON.stringify(data.events));
+  const current = JSON.parse(JSON.stringify(data.events.filter(event => originalIds.has(event.id))));
   assert.equal(original.length, 47);
   assert.equal(current.length, original.length);
   assert.equal(current.filter(event => event.verifiedAt === '2026-10-21').length, 16);
@@ -290,4 +305,130 @@ test('concise pumpkin comparison fields remain complete and preserve visit-block
   assert.match(critical('kiowa'), /ticket/i);
   assert.match(critical('kiowa'), /waiver/i);
   assert.match(critical('kiowa'), /required|need|must/i);
+});
+
+// Priority 1 is an additive content-only release from merged pumpkin main.
+test('Priority 1 preserves all 47 original objects and adds exactly the approved canonical IDs', () => {
+  assert.equal(originalEvents.length, 47);
+  const currentOriginal = data.events.filter(event => originalIds.has(event.id));
+  assert.deepEqual(JSON.parse(JSON.stringify(currentOriginal)), originalEvents);
+  const approvedIds = [
+    'centennial-napa-trunk-treat-2026','castle-pines-fall-festival','aurora-midterm-monster-mash-2026',
+    'parker-kiddie-academy-trunk-treat-2026','centennial-sos-spooktacular-2026',
+    'centennial-gracepoint-carnival-costumes-2026','aurora-stanley-monster-mash-2026',
+    'littleton-goblin','greenwood-music-darkened-theater-2026','parker-primrose-trunk-treat-2026',
+    'castle-rock-sos-trunk-or-treat-2026','aurora-hallelujah-night-2026'
+  ].filter(id => !heldPriorityIds.includes(id) && (hasNapa || id !== 'centennial-napa-trunk-treat-2026'));
+  const additions = data.events.filter(event => !originalIds.has(event.id));
+  assert.deepEqual(Array.from(additions, event => event.id), approvedIds);
+  assert.deepEqual(JSON.parse(JSON.stringify(additions)), priorityAudit.events);
+  assert.equal(data.events.length, hasNapa ? 58 : 57);
+  assert.deepEqual(priorityAudit.heldBackEvents.map(item => item.id), heldPriorityIds);
+  for (const id of heldPriorityIds) assert.equal(data.events.some(event => event.id === id), false);
+  assert.equal(data.events.filter(rules.isPumpkin).length, 6);
+  assert.equal(data.events.filter(e => e.id === 'aurora-nicks-fall-fest-2026').length, 1);
+  for (const id of ['centennial-fellowship-trunk-treat-2026','greenwood-pumpkin-palooza-2026','aurora-fangtastic-festival-2026',
+    'parker-trunk-or-treat-mainstreet-2026-10-24','parker-all-treats-no-tricks-2026-10-30']) {
+    assert.equal(data.events.some(event => event.id === id), false, id);
+  }
+  const oldCities = baselineContext.window.EVENTS_DATA.cities;
+  for (const [key, value] of Object.entries(oldCities)) assert.deepEqual(JSON.parse(JSON.stringify(data.cities[key])), JSON.parse(JSON.stringify(value)));
+  assert.deepEqual(Object.keys(data.cities).filter(city => !oldCities[city]).sort(), ['castle_rock','greenwood_village','littleton']);
+});
+test('fixed October 22 release counts retain 30 archived and one excluded record, including NAPA fallback', () => {
+  const now = at('2026-10-22T16:00:00Z');
+  const counts = events => ({total:events.length, active:events.filter(e => rules.isCurrent(e,now)).length,
+    archived:events.filter(e => rules.isPublishable(e) && !rules.isCurrent(e,now)).length,
+    excluded:events.filter(e => !rules.isPublishable(e)).length});
+  assert.deepEqual(counts(data.events), {total:hasNapa ? 58 : 57,active:hasNapa ? 27 : 26,archived:30,excluded:1});
+  assert.deepEqual(counts(data.events.filter(event => event.id !== 'centennial-napa-trunk-treat-2026')), {total:57,active:26,archived:30,excluded:1});
+  const cities = {};
+  for (const event of data.events.filter(event => rules.isCurrent(event, now))) cities[event.city] = (cities[event.city] || 0) + 1;
+  assert.deepEqual(cities, {aurora:8,denver:3,centennial:hasNapa ? 6 : 5,erie:1,thornton:1,platteville:1,kiowa:1,louisville:1,
+    castle_pines:1,parker:1,littleton:1,greenwood_village:1,castle_rock:1});
+});
+test('Priority 1 source snapshot has fresh official checks, free-entry qualifications and no invented availability', () => {
+  for (const event of priorityAudit.events) {
+    assert.equal(event.verifiedAt, '2026-10-21');
+    assert.equal(event.status,'approved'); assert.equal(event.costType,'free');
+    assert.equal(event.recurring,false); assert.equal(event.timezone,'America/Denver');
+    assert.match(event.dateStart, /T\d\d:\d\d:00-06:00$/);
+    assert.ok(event.description && event.registrationLabel && event.availabilityLabel, event.id);
+    const evidence = priorityAudit.verification.find(item => item.id === event.id);
+    assert.ok(evidence && evidence.checkedAtUtc && evidence.sources.length, event.id + ': source evidence');
+    assert.ok(new Date(evidence.checkedAtUtc) >= new Date('2026-10-21T22:43:00Z'), event.id + ': fresh after approval');
+    for (const url of [event.href,event.registrationUrl,...event.sourceUrls].filter(Boolean)) {
+      const parsed = new URL(url); assert.equal(parsed.protocol,'https:'); assert.equal(parsed.username,''); assert.equal(parsed.password,'');
+    }
+    assert.doesNotMatch(event.availabilityLabel, /guaranteed entry|guaranteed tickets|reserved for you|tickets available now/i);
+    assert.equal(event.nearbyParks, undefined, 'no unverified park relationship introduced');
+  }
+});
+test('Priority 1 booking, costume, cost and cancellation qualifications survive 118-character previews', () => {
+  const get = id => data.events.find(event => event.id === id);
+  const preview = event => event.description.length > 118 ? event.description.slice(0,115).replace(/\s+\S*$/, '') + '…' : event.description;
+  const checks = {
+    'castle-pines-fall-festival': [/chili.*cancel/i,/festival/i],
+    'aurora-midterm-monster-mash-2026': [/registration required/i,/weapon/i],
+    'parker-kiddie-academy-trunk-treat-2026': [/reserve|RSVP/i,/food.*extra/i],
+    'centennial-sos-spooktacular-2026': [/RSVP/i,/no diagnosis/i],
+    'centennial-gracepoint-carnival-costumes-2026': [/RSVP/i,/non-scary/i],
+    'aurora-stanley-monster-mash-2026': [/free/i,/purchases|food|shops/i,/new winter-clothing/i],
+    'littleton-goblin': [/free/i],
+    'greenwood-music-darkened-theater-2026': [/end time.*not published/i],
+    'parker-primrose-trunk-treat-2026': [/public|community/i,/free/i,/food.*extra/i],
+    'castle-rock-sos-trunk-or-treat-2026': [/RSVP/i,/sensory/i,/costumes optional/i],
+    'aurora-hallelujah-night-2026': [/church/i,/scary|gory/i,/demon/i,/witch/i,/RSVP availability unconfirmed/i]
+  };
+  if (hasNapa) checks['centennial-napa-trunk-treat-2026'] = [/tickets not required/i,/optional RSVP/i];
+  for (const [id,patterns] of Object.entries(checks).filter(([id]) => !heldPriorityIds.includes(id))) for (const pattern of patterns) assert.match(preview(get(id)),pattern,id);
+  const castle = get('castle-pines-fall-festival');
+  assert.match(castle.costLabel,/\$25/); assert.match(castle.costLabel,/food.*extra|purchases.*extra/i);
+  assert.match(castle.registrationLabel,/Oct(?:ober)? 22.*5 p\.m\./);
+  assert.match(castle.registrationLabel,/Oct(?:ober)? 23.*noon/);
+  assert.match(castle.registrationLabel,/not.*(?:attendance|admission)|attendance.*(?:no|unticketed)/i);
+  const heldKiddie = priorityAudit.heldBackEvents.find(item => item.id === 'parker-kiddie-academy-trunk-treat-2026');
+  assert.match(heldKiddie.reason,/429|blocked/);
+  assert.match(heldKiddie.reason,/not.*sold.out|no.*sold.out/i);
+  assert.match(heldKiddie.event.costLabel,/first 300/i);
+  assert.match(get('aurora-hallelujah-night-2026').costLabel,/optional \$3/i);
+});
+test('concert unknown end disables calendar, expires only after its Colorado date and never invents duration', () => {
+  const music = data.events.find(event => event.id === 'greenwood-music-darkened-theater-2026');
+  assert.equal(music.dateStart,'2026-10-25T15:00:00-06:00');
+  assert.equal(music.dateEnd,'2026-10-25'); assert.equal(music.calendarDisabled,true);
+  assert.match(music.timeLabel,/end time not published/);
+  assert.equal(rules.isCurrent(music,at('2026-10-26T05:59:59Z')),true);
+  assert.equal(rules.isCurrent(music,at('2026-10-26T06:00:00Z')),false);
+  for (const event of priorityAudit.events.filter(event => event.id !== music.id)) {
+    assert.match(event.dateEnd,/-06:00$/);
+    const end = new Date(event.dateEnd);
+    assert.equal(rules.isCurrent(event,new Date(end.getTime()-1)),true,event.id);
+    assert.equal(rules.isCurrent(event,end),false,event.id);
+  }
+});
+
+
+test('the shared Before You Go notice preserves approved copy and safe existing source fallbacks', () => {
+  const html = fs.readFileSync(path.join(root,'events.html'),'utf8');
+  const start = html.indexOf('  function officialEventSource(event) {');
+  const end = html.indexOf('  function renderEventRow(event, options) {',start);
+  assert.ok(start > 0 && end > start);
+  const helpers = {};
+  vm.createContext(helpers);
+  helpers.URL = URL;
+  helpers.escapeHtml = value => String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  vm.runInContext(html.slice(start,end),helpers);
+  for (const event of data.events) assert.equal(helpers.officialEventSource(event),event.href || event.link || event.sourceUrls[0]);
+  assert.equal(helpers.officialEventSource({href:'javascript:alert(1)',link:'data:text/html,bad',sourceUrls:['','/relative']}),'');
+  assert.equal(helpers.officialEventSource({href:'bad',sourceUrls:['https://example.org/event']}),'https://example.org/event');
+  assert.equal(helpers.officialEventSource({link:' https://example.org/linked '}),'https://example.org/linked');
+  const missing = helpers.renderBeforeYouGo({title:'No source'});
+  assert.match(missing,/Official source not provided/);
+  assert.doesNotMatch(missing,/<a |href=/);
+  const approved = '⚠️ Before You Go: Event dates, times, prices, registration requirements, and weather or cancellation policies may change. Please check the official event website before attending.';
+  const rendered = helpers.renderBeforeYouGo({title:'Test',href:'https://example.org/'});
+  assert.ok(rendered.replace(/<[^>]*>/g,'').includes(approved));
+  assert.match(rendered,/Official event source/);
+  assert.equal((html.match(/renderBeforeYouGo\(event\) \+/g)||[]).length,3,'shared notice on regular, pumpkin and row renderers');
 });
