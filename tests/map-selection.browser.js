@@ -9,6 +9,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const zlib = require('node:zlib');
+const vm = require('node:vm');
 const {chromium, webkit} = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const root = path.resolve(__dirname, '..');
@@ -19,7 +20,17 @@ assert.equal(require('leaflet/package.json').version, '1.9.4');
 const leafletDirectory = path.join(path.dirname(require.resolve('leaflet/package.json')), 'dist');
 const leafletJS = fs.readFileSync(path.join(leafletDirectory, 'leaflet.js'));
 const leafletCSS = fs.readFileSync(path.join(leafletDirectory, 'leaflet.css'));
-const cities = fs.readdirSync(root).filter(name => name.endsWith('-parks-data.js')).map(name => name.replace('-parks-data.js', '')).sort();
+function registeredCities() {
+  // A filename glob also finds best-parks-data.js, which is editorial metadata,
+  // not a city. Derive the sweep from actual production registrations instead.
+  const window = {dispatchEvent() {}};
+  const context = vm.createContext({window, CustomEvent: class {constructor(type, options) {this.type = type; this.detail = options.detail;}}});
+  const sources = ['site-config.js', 'park-data-registry.js', ...fs.readdirSync(root).filter(name => name.endsWith('-parks-data.js')).sort()];
+  for (const file of sources) vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, {filename: file});
+  return Object.keys(window.PARK_DATASETS).sort();
+}
+const cities = registeredCities();
+assert.equal(cities.length, 18, 'Sweep every registered city, not editorial aggregate filenames');
 const viewports = [{width: 320, height: 740}, {width: 390, height: 844}, {width: 1440, height: 1000}];
 const results = [], failures = [], metrics = [], network = [];
 let browser, origin, currentCase = 'setup';
@@ -235,7 +246,6 @@ const fixtures = [
     const launch = {headless: true};
     if (engineName === 'chromium' && process.env.CHROMIUM_EXECUTABLE_PATH) launch.executablePath = process.env.CHROMIUM_EXECUTABLE_PATH;
     browser = await ({chromium, webkit})[engineName].launch(launch);
-    assert.equal(cities.length, 18);
     for (const city of cities) await check(city + ': every ID, card and Map action selects the exact park', () => testPage(viewports[2], async page => {
       await gotoCity(page, city); await loadEveryCard(page);
       const detail = await page.evaluate(city => {
@@ -353,6 +363,39 @@ const fixtures = [
         await assertSelected(page, park.id, park.n);
         await page.keyboard.press('Escape');
       }
+      // Set up the existing visited-only mode directly, then use the real card
+      // button for selection. shared-b has a unique name: visited state is
+      // intentionally still name-based, outside this exact-ID selection fix.
+      const visitedBefore = await page.evaluate(() => {
+        visited.clear(); visited.add('Other shared-coordinate park');
+        mapMode = 'visited'; activeFilters.mapMode = 'visited';
+        renderMarkers(currentFiltered);
+        return {mode: mapMode, filters: JSON.parse(JSON.stringify(activeFilters)),
+          active: [...window._activeSet], visited: [...visited],
+          markerIds: Object.keys(parkMarkers), groups: markersLayer.getLayers().length};
+      });
+      assert.deepEqual(visitedBefore.markerIds, ['fixture-shared-b']);
+      assert.equal(visitedBefore.groups, 1, 'Visited setup contains only the uniquely named shared-b park');
+      await card(page, 'fixture-shared-a').locator('.map-pin-btn').click();
+      await assertSelected(page, 'fixture-shared-a', 'Identical display name');
+      const transient = await page.evaluate(() => ({mode: mapMode, filters: JSON.parse(JSON.stringify(activeFilters)),
+        active: [...window._activeSet], visited: [...visited], groups: markersLayer.getLayers().length,
+        markerIds: Object.keys(parkMarkers).sort(),
+        sameMarker: parkMarkers['fixture-shared-a'] === parkMarkers['fixture-shared-b'],
+        group: parkMarkers['fixture-shared-a'].parkGroup.map(park => park.id).sort()}));
+      assert.equal(transient.groups, 1, 'Selecting an excluded shared park does not stack a second marker');
+      assert.equal(transient.sameMarker, true);
+      assert.deepEqual(transient.markerIds, ['fixture-shared-a', 'fixture-shared-b']);
+      assert.deepEqual(transient.group, ['fixture-shared-a', 'fixture-shared-b']);
+      for (const key of ['mode', 'filters', 'active', 'visited']) assert.deepEqual(transient[key], visitedBefore[key], 'Transient selection preserves ' + key);
+      const reset = await page.evaluate(() => {
+        renderMarkers(currentFiltered);
+        return {mode: mapMode, filters: JSON.parse(JSON.stringify(activeFilters)),
+          active: [...window._activeSet], visited: [...visited],
+          markerIds: Object.keys(parkMarkers), groups: markersLayer.getLayers().length};
+      });
+      assert.deepEqual(reset, visitedBefore, 'Next render clears the temporary member and restores the original visited-only marker');
+      metrics.push({case: currentCase, label: 'visited-only-transient-shared-selection', before: visitedBefore, transient, reset});
       const noCoordinates = card(page, 'fixture-no-coordinates');
       assert.equal(await noCoordinates.locator('.map-pin-btn').count(), 0);
       assert.equal(await page.evaluate(() => Object.hasOwn(parkMarkers, 'fixture-no-coordinates')), false);

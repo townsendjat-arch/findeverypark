@@ -31,9 +31,18 @@ async function snapshot(page) {
 }
 async function measure(page, name, action) {
   const before = await snapshot(page);
-  await action(); await settle(page);
+  try { await action(); }
+  catch (error) {
+    // Preserve a capability gap, not a product failure or a fabricated gesture result.
+    // Do not replace mobile WebKit with desktop mode and call it mobile evidence.
+    if (engine === 'webkit' && name.startsWith('mouse wheel') && error.message.includes('Mouse wheel is not supported in mobile WebKit')) {
+      return {name, supported:false, reason:'Playwright mouse.wheel is unsupported in mobile WebKit; no wheel or finger-scroll conclusion.', before};
+    }
+    throw error;
+  }
+  await settle(page);
   const after = await snapshot(page);
-  return {name,before,after,scrollDelta:after.scrollY-before.scrollY,zoomDelta:after.zoom-before.zoom,
+  return {name,supported:true,before,after,scrollDelta:after.scrollY-before.scrollY,zoomDelta:after.zoom-before.zoom,
     centerChanged:Math.abs(after.center.lat-before.center.lat)>0.000001 || Math.abs(after.center.lng-before.center.lng)>0.000001};
 }
 async function alignMap(page) {

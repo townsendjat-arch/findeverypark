@@ -31,4 +31,14 @@ Do not recommend a cooperative/gesture-gated interaction mode based solely on wh
 
 ## Status
 
-Harness syntax checked. Browser execution and findings are pending CI artifact review. No physical-device verification has been performed.
+Initial browser evidence from CI run [39813890141](https://github.com/townsendjat-arch/findeverypark/actions/runs/39813890141), Chromium at both 320px and 390px:
+
+- Wheel before the map scrolled the page 300px without zooming or panning the map.
+- Wheel over the map left page scroll unchanged and zoomed the map out two levels. This establishes wheel capture, not finger-scroll capture.
+- Mouse drag panned the map without scrolling the page. Touch-tapping the zoom-in control increased zoom by one level.
+- Focused ArrowRight panned the map. Shift+Tab exited immediately. Forward Tab reached the footer after 91 stops through marker and map controls. This is substantial traversal effort, but not a keyboard trap; it is recorded for review, not changed by priority 3.
+- Computed map touch-action was `none`. This configuration observation is not an empirical finger-swipe result.
+
+Mobile WebKit rejected `mouse.wheel` as unsupported. The revised harness records that exact capability gap and continues supported measurements; no desktop-mode substitution is presented as mobile evidence. Revised WebKit results are pending.
+
+No interaction-mode change is recommended from these observations alone. A wheel-capture result does not establish that a cooperative touch mode is necessary or beneficial. No physical-device verification has been performed.
