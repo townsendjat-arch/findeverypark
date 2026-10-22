@@ -1447,6 +1447,9 @@ function createGallery(park, idx) {
 function render() {
   syncFilterButtons();
   document.getElementById('load-more-wrap').innerHTML = '';
+  // A loaded fallback dataset is not a confirmed city while Near Me awaits a choice.
+  pageIntroTitleEl.textContent = awaitingCity ? 'Choose a city to see parks' : 'Parks in ' + CITY;
+  [pageIntroSubtitleEl, pageIntroCopyEl, document.getElementById('dataset-note')].forEach(element => { element.hidden = awaitingCity; });
   document.querySelector('.browse-shell').hidden = awaitingCity;
   if (awaitingCity) { currentFiltered = []; visibleParks = []; grid.innerHTML = ''; badge.textContent = 'Choose a city'; if (markersLayer) markersLayer.clearLayers(); return; }
   const q = searchEl.value.trim().toLowerCase();

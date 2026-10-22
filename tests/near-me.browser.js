@@ -163,6 +163,28 @@ async function ready(page,city='aurora'){
 }
 async function gotoCity(page,city='aurora',extra=''){await page.goto(origin+'/parks.html?dataset='+city+extra);await ready(page,city);}
 async function requestLocation(page){await page.locator('#btn-locate').click();await page.waitForFunction(()=>window.__geoRequests.length>0);}
+async function assertAwaitingCity(page){
+  await page.waitForFunction(()=>document.querySelector('#page-intro-title').textContent==='Choose a city to see parks'&&history.state?.awaitingCity===true);
+  assert.equal(await page.locator('.page-intro').innerText(),'Choose a city to see parks','Waiting intro contains only neutral city-confirmation copy');
+  for(const selector of ['#page-intro-subtitle','#page-intro-copy','#dataset-note','.browse-shell','#map'])assert.equal(await page.locator(selector).isVisible(),false,selector+' is hidden before confirmation');
+  assert.equal(await cards(page).count(),0,'Waiting state exposes no park cards');
+  assert.equal(await page.locator('.dataset-link.active,.dataset-link[aria-current]').count(),0,'Suggested or cached cities are not confirmed cities');
+  assert.equal(new URL(page.url()).searchParams.get('dataset'),null,'No city is selected in the URL');
+  assert.equal(new URL(page.url()).searchParams.get('near'),'1');
+  assert.equal(await page.evaluate(()=>history.state.explicitCity),false);
+}
+async function assertConfirmedCity(page,key){
+  const name=(await cityLink(page,key).textContent()).trim();
+  assert.equal(await page.locator('#page-intro-title').textContent(),'Parks in '+name);
+  for(const selector of ['#page-intro-subtitle','#page-intro-copy','#dataset-note','.browse-shell','#map'])assert.equal(await page.locator(selector).isVisible(),true,selector+' is restored after confirmation');
+  assert.ok((await page.locator('#page-intro-subtitle').textContent()).includes(name));
+  assert.ok((await page.locator('#page-intro-copy').textContent()).includes(name));
+  assert.equal(await page.locator('.dataset-link.active').count(),1);
+  assert.equal(await cityLink(page,key).getAttribute('aria-current'),'true');
+  assert.equal(new URL(page.url()).searchParams.get('dataset'),key);
+  assert.ok(await cards(page).count());
+}
+
 async function respond(page,coords=sentinel,index=-1){await page.evaluate(({coords,index})=>{const list=window.__geoRequests;list[index<0?list.length-1:index].success({coords:{latitude:coords[0],longitude:coords[1]}});},{coords,index});}
 async function requestCount(page){return page.evaluate(()=>window.__geoRequests.length);}
 async function state(page){return page.evaluate(()=>({url:location.href,history:history.state,sort:document.querySelector('#sort').value,status:document.querySelector('#location-status').textContent,ids:Array.from(document.querySelectorAll('#grid .card[data-park-id]'),c=>c.dataset.parkId),distances:Array.from(document.querySelectorAll('#grid .park-distance'),d=>d.textContent)}));}
@@ -211,7 +233,7 @@ async function screenshotNearestCards(page,label){
         await page.goto(origin+'/index.html');assert.equal(await requestCount(page),0);
         await page.locator('#geoBtn').click();await page.waitForURL('**/parks.html?near=1');
         assert.equal(await requestCount(page),0);assert.equal(new URL(page.url()).search,'?near=1');
-        assert.ok(await page.locator('#location-panel').isVisible());
+        assert.ok(await page.locator('#location-panel').isVisible());await assertAwaitingCity(page);
         await screenshot(page,label+'-entry');
       });
       await run('nearest without a fix focuses explicit action without requesting GPS',{},async({page})=>{
@@ -231,7 +253,7 @@ async function screenshotNearestCards(page,label){
         await screenshot(page,label+'-nearest-filtered');await screenshotNearestCards(page,label);
       });
       await run('unselected city requires simple centroid confirmation, including a far-away fix',{},async({page})=>{
-        await page.goto(origin+'/parks.html?near=1');await page.locator('#btn-locate').waitFor();await requestLocation(page);await respond(page);
+        await page.goto(origin+'/parks.html?near=1');await assertAwaitingCity(page);await requestLocation(page);await respond(page);await assertAwaitingCity(page);
         const closest=cities.map((c,index)=>({...c,index,dist:oracle(sentinel,[c.lat,c.lng])})).sort((a,b)=>a.dist-b.dist||a.index-b.index)[0];
         await page.waitForFunction(()=>document.querySelector('#city-suggestion').textContent.includes('Closest covered city'));
         const text=await page.locator('#city-suggestion').textContent();
@@ -242,7 +264,30 @@ async function screenshotNearestCards(page,label){
         await page.waitForFunction(key=>{const node=document.querySelector('.dataset-link[data-dataset="'+key+'"]');const box=node.getBoundingClientRect();return box.left>=-.5&&box.right<=innerWidth+.5;},closest.key);
         assert.equal(await suggested.evaluate(node=>{const box=node.getBoundingClientRect();return box.left>=-.5&&box.right<=innerWidth+.5;}),true,'Suggested city chip is horizontally visible without swiping');
         await screenshot(page,label+'-confirm-city');
-        await chooseCity(page,closest.key);await assertNearest(page,closest.key);assert.equal(await requestCount(page),1);
+        await page.screenshot({path:path.join(output,engineName+'-near-me-'+label+'-confirm-city-full.png'),fullPage:true});
+        await chooseCity(page,closest.key);await assertConfirmedCity(page,closest.key);await assertNearest(page,closest.key);assert.equal(await requestCount(page),1);
+      });
+      await run('waiting city remains neutral after denial, clear and Back/Forward while plain manual browsing stays visible',{},async({page})=>{
+        await page.goto(origin+'/parks.html');await ready(page);
+        assert.equal(await page.locator('#page-intro-title').textContent(),'Parks in Aurora');assert.equal(await page.locator('.browse-shell').isVisible(),true);assert.ok(await cards(page).count());
+        assert.equal(await requestCount(page),0);
+        await page.goto(origin+'/parks.html?near=1');await assertAwaitingCity(page);
+        await requestLocation(page);await page.evaluate(()=>window.__geoRequests[0].error({code:1}));await assertAwaitingCity(page);
+        assert.match(await page.locator('#location-status').textContent(),/denied/i);
+        await requestLocation(page);await respond(page);await assertAwaitingCity(page);
+        await page.locator('#clear-location').click();await assertAwaitingCity(page);
+        assert.equal(await page.locator('#city-suggestion').isVisible(),false);assert.equal((await page.locator('#city-suggestion').textContent()).trim(),'');assert.equal(await page.locator('#sort').inputValue(),'alpha');
+        await requestLocation(page);await respond(page);await assertAwaitingCity(page);
+        await chooseCity(page,'parker');await assertConfirmedCity(page,'parker');await assertNearest(page,'parker');
+        await page.goBack();await assertAwaitingCity(page);assert.equal(await requestCount(page),3);
+        await page.goForward();await settleCity(page,'parker');await assertConfirmedCity(page,'parker');await assertNearest(page,'parker');assert.equal(await requestCount(page),3);
+      });
+      await run('cached Parker does not implicitly confirm a city after Home Near Me or a suggested location',{},async({page})=>{
+        await gotoCity(page,'parker');assert.equal(await page.evaluate(()=>localStorage.getItem('activeDataset')),'parker');
+        await page.goto(origin+'/index.html');await page.locator('#geoBtn').click();await page.waitForURL('**/parks.html?near=1');
+        await page.waitForFunction(()=>window.ACTIVE_DATASET_KEY==='parker'&&Array.isArray(window.getParkDataset('parker')));await assertAwaitingCity(page);assert.equal(await requestCount(page),0);
+        await requestLocation(page);await respond(page);await assertAwaitingCity(page);assert.ok(await page.locator('#city-suggestion').isVisible());
+        await chooseCity(page,'denver');await assertConfirmedCity(page,'denver');await assertNearest(page,'denver');assert.equal(await requestCount(page),1);
       });
       await run('synthetic zero/ties/unknown and equal rounded distances remain ordered after amenity filter',{fixture:true},async({page})=>{
         await gotoCity(page);await requestLocation(page);await respond(page,[0,0]);await filterClick(page,'playground');
