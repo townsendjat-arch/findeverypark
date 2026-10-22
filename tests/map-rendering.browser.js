@@ -304,12 +304,13 @@ async function assertMap(page, label) {
       attributionVisibleInsideMap: attributionBox.width > 0 && attributionBox.height > 0 && getComputedStyle(attributionNode).visibility !== 'hidden' &&
         attributionBox.left >= box.left - 1 && attributionBox.right <= box.right + 1 && attributionBox.top >= box.top - 1 && attributionBox.bottom <= box.bottom + 1,
       viewportWidth: innerWidth, documentWidth: document.documentElement.scrollWidth,
-      center: map.getCenter(), zoom: map.getZoom(), bounds: map.getBounds(),
+      center: map.getCenter(), zoom: map.getZoom(), bounds: map.getBounds(), tileFadeAnimated: map._fadeAnimated,
       tilePolicies: Array.from(new Set(tiles.map(tile => tile.referrerPolicy))),
       tileURLs: tiles.map(tile => tile.src).sort(),
       attribution: node.querySelector('.leaflet-control-attribution')?.textContent};
   });
   assert.equal(detail.leafletVersion, '1.9.4');
+  assert.equal(detail.tileFadeAnimated, false, 'Decoded current tiles never depend on an interruptible fade');
   assert.ok(detail.visibleMarkerCount > 0, 'At least one meaningful marker is actually inside the visible map');
   // Leaflet clips offscreen paths to M0 0; require meaningful geometry for every visible marker, not every offscreen one.
   assert.ok(detail.validPathCount >= detail.visibleMarkerCount, 'Visible marker paths have nonzero SVG geometry');
@@ -418,6 +419,26 @@ async function fixLocation(page) {
         await focusAbbott(page); await capture(page, label + '-repeated-history-reveal');
       }));
     }
+    await check('1440px: repeated Playground returns keep every current zoom tile opaque', () => testPage(viewports[2][1], {}, async ({page}) => {
+      await gotoCity(page, 'centennial');
+      const initial = await assertMap(page, 'repeat-all-parks');
+      assert.equal(initial.zoom, 10, 'Full Centennial dataset establishes the parent zoom');
+      for (let repeat = 0; repeat < 6; repeat++) {
+        await filterClick(page, 'playground');
+        await assertMarkerCorrespondence(page, 'centennial', 'playground');
+        const filtered = await assertMap(page, 'repeat-playgrounds-' + repeat);
+        assert.equal(filtered.zoom, 11, 'Playground filter returns to the retained child zoom');
+        await filterClick(page, 'playground');
+        await assertMarkerCorrespondence(page, 'centennial');
+        const cleared = await assertMap(page, 'repeat-cleared-' + repeat);
+        assert.equal(cleared.zoom, 10, 'Clearing the filter returns to the parent zoom');
+      }
+      await filterClick(page, 'playground'); await assertMarkerCorrespondence(page, 'centennial', 'playground');
+      await assertMap(page, 'repeat-final-playgrounds'); await capture(page, '1440px-repeated-playgrounds');
+      await page.locator('#search').fill('Abbott');
+      await assertMarkerCorrespondence(page, 'centennial', 'playground', 'Abbott');
+      await focusAbbott(page); await assertMap(page, 'repeat-final-abbott-popup');
+    }));
     await check('delayed initial dataset cannot override a confirmed city', () => {
       const datasetGate = gate();
       return testPage(viewports[1][1], {datasetGate}, async ({page}) => {

@@ -706,7 +706,9 @@ if (mapMode === 'visited' && !visited.size) {
 
 function initMap() {
   const initialCenter = Object.values(COORDS)[0] || [39.710, -104.800];
-  map = L.map("map").setView(initialCenter, 11);
+  // Leaflet 1.9.4 can reuse a retained tile whose interrupted fade never resumes.
+  // Render decoded tiles immediately; keep normal zooming and native tile caching.
+  map = L.map("map", { fadeAnimation: false }).setView(initialCenter, 11);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     // Identify this site to OSM, never its path, query or in-memory visitor location.
     // Keep the document-wide no-referrer policy for every other resource.
