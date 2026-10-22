@@ -148,8 +148,17 @@ async function testPage(viewport, callback, fixture) {
 }
 async function gotoCity(page, city) {
   await page.goto(origin + '/parks.html?dataset=' + city);
-  await page.waitForFunction(city => window.ACTIVE_DATASET_KEY === city && window.getParkDataset && Array.isArray(window.getParkDataset(city)) &&
-    document.querySelector('#grid .card[data-park-id]') && document.querySelector('.dataset-link[data-dataset="' + city + '"]').getAttribute('aria-current') === 'true', city);
+  await page.waitForFunction(city => {
+    const parks = window.getParkDataset && window.getParkDataset(city);
+    const card = document.querySelector('#grid .card[data-park-id]');
+    const chip = document.querySelector('.dataset-link[data-dataset="' + city + '"]');
+    // Greenwood Village is registered and directly routable, but has no city
+    // chip. Actual selected dataset/card/marker state remains required for it.
+    return window.ACTIVE_DATASET_KEY === city && typeof DATASET_KEY !== 'undefined' && DATASET_KEY === city &&
+      Array.isArray(parks) && parks.length > 0 && card && parks.some(park => park.id === card.dataset.parkId && park.datasetKey === city) &&
+      typeof markersLayer !== 'undefined' && markersLayer && markersLayer.getLayers().length > 0 &&
+      (!chip || chip.getAttribute('aria-current') === 'true');
+  }, city);
   await mapReady(page);
 }
 async function mapReady(page) {
@@ -320,11 +329,23 @@ const fixtures = [
         assert.equal(await marker.evaluate(node => node === document.activeElement), true, 'Escape after choice restores original marker');
         assert.equal(await popup(page).count(), 0);
       }
-      // Pointer activation also exposes all records, rather than selecting the last duplicate.
+      // Real pointer clicks must survive replacing the clicked popup DOM: the
+      // original click must not reach Leaflet's map-level popup-close handler.
       await marker.click();
-      assert.equal(await popup(page).locator('.park-chooser button[data-park-id]').count(), 2);
+      assert.deepEqual(await popup(page).locator('.park-chooser button[data-park-id]').evaluateAll(nodes => nodes.map(node => node.dataset.parkId)), ids);
+      for (const park of cottonwood) {
+        await popup(page).getByRole('button', {name: park.name, exact: true}).click();
+        await assertSelected(page, park.id, park.name);
+        assert.equal(await popup(page).count(), 1, 'Pointer choice leaves the selected popup open');
+        await popup(page).getByRole('button', {name: 'Other parks at this location', exact: true}).click();
+        const restored = popup(page).locator('.park-chooser button[data-park-id]');
+        assert.deepEqual(await restored.evaluateAll(nodes => nodes.map(node => node.dataset.parkId)), ids, 'Pointer return leaves the chooser open with both exact IDs');
+        assert.equal(await restored.first().evaluate(node => node === document.activeElement), true, 'Pointer return restores first-choice keyboard focus');
+      }
       await page.keyboard.press('Escape');
       assert.equal(await marker.evaluate(node => node === document.activeElement), true);
+      assert.equal(await popup(page).count(), 0);
+      metrics.push({case: currentCase, label: 'pointer-selection-and-chooser-return', selectedIds: ids, returnedToChooser: true, escapeRestoredMarker: true});
     }));
 
     await check('filter/search changes rebuild shared groups without excluded chooser members', () => testPage(viewports[1], async page => {

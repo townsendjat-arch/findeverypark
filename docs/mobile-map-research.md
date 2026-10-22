@@ -31,7 +31,7 @@ Do not recommend a cooperative/gesture-gated interaction mode based solely on wh
 
 ## Status
 
-Initial browser evidence from CI run [39813890141](https://github.com/townsendjat-arch/findeverypark/actions/runs/39813890141), Chromium at both 320px and 390px:
+Browser evidence from CI run [39815337204](https://github.com/townsendjat-arch/findeverypark/actions/runs/39815337204) on `8bbd20656fe4902fef8d2d3a9cbab36243ccfeef`, at both 320px and 390px. Research completed without measurement failures in both engines; subsequent PR revisions must rerun this harness. Chromium observations:
 
 - Wheel before the map scrolled the page 300px without zooming or panning the map.
 - Wheel over the map left page scroll unchanged and zoomed the map out two levels. This establishes wheel capture, not finger-scroll capture.
@@ -39,6 +39,6 @@ Initial browser evidence from CI run [39813890141](https://github.com/townsendja
 - Focused ArrowRight panned the map. Shift+Tab exited immediately. Forward Tab reached the footer after 91 stops through marker and map controls. This is substantial traversal effort, but not a keyboard trap; it is recorded for review, not changed by priority 3.
 - Computed map touch-action was `none`. This configuration observation is not an empirical finger-swipe result.
 
-Mobile WebKit rejected `mouse.wheel` as unsupported. The revised harness records that exact capability gap and continues supported measurements; no desktop-mode substitution is presented as mobile evidence. Revised WebKit results are pending.
+Mobile WebKit rejected `mouse.wheel` as unsupported. The revised harness records that exact capability gap and continues supported measurements; no desktop-mode substitution is presented as mobile evidence. WebKit completed the supported mouse-drag, ArrowRight, Shift+Tab/forward-Tab, and touch-tap measurements at both widths: drag and ArrowRight panned, tap zoomed one level, Shift+Tab exited immediately, and forward exit required 91 Tab stops. Wheel is explicitly not tested in mobile WebKit.
 
 No interaction-mode change is recommended from these observations alone. A wheel-capture result does not establish that a cooperative touch mode is necessary or beneficial. No physical-device verification has been performed.

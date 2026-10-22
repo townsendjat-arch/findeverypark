@@ -878,7 +878,8 @@ function parkPopupContent(park, group, marker) {
     choices.className = 'park-chooser';
     const back = document.createElement('button');
     back.type = 'button'; back.textContent = 'Other parks at this location';
-    back.onclick = () => { marker.setPopupContent(parkChooserContent(group, marker)); focusPopup(marker); };
+    // Replacement detaches the click target; stop before Leaflet treats it as a map click.
+    back.onclick = event => { event.stopPropagation(); marker.setPopupContent(parkChooserContent(group, marker)); focusPopup(marker); };
     choices.appendChild(back); content.appendChild(choices);
   }
   return content;
@@ -894,7 +895,7 @@ function parkChooserContent(group, marker) {
   group.forEach(park => {
     const button = document.createElement('button');
     button.type = 'button'; button.textContent = parkName(park); button.dataset.parkId = park.id;
-    button.onclick = () => { marker.setPopupContent(parkPopupContent(park, group, marker)); focusPopup(marker); };
+    button.onclick = event => { event.stopPropagation(); marker.setPopupContent(parkPopupContent(park, group, marker)); focusPopup(marker); };
     choices.appendChild(button);
   });
   content.appendChild(choices);
