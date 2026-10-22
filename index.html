@@ -15,6 +15,10 @@
         var clean = new URL(url.origin + url.pathname);
         var dataset = url.searchParams.get('dataset');
         if (cities.indexOf(dataset) !== -1) clean.searchParams.set('dataset', dataset);
+        var city = (url.searchParams.get('city') || '').trim().toLowerCase();
+        var cityKey = city.replace(/_/g, '-');
+        var eventCities = ['erie','kiowa','platteville','louisville','castle-pines','wheat-ridge'];
+        if (cities.indexOf(cityKey) !== -1 || eventCities.indexOf(cityKey) !== -1) clean.searchParams.set('city', city);
         if (url.searchParams.get('near') === '1') clean.searchParams.set('near', '1');
         var selected = (url.searchParams.get('filter') || '').split(',').filter(function (key) { return filters.indexOf(key) !== -1; });
         if (selected.length) clean.searchParams.set('filter', selected.join(','));

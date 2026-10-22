@@ -15,6 +15,10 @@
         var clean = new URL(url.origin + url.pathname);
         var dataset = url.searchParams.get('dataset');
         if (cities.indexOf(dataset) !== -1) clean.searchParams.set('dataset', dataset);
+        var city = (url.searchParams.get('city') || '').trim().toLowerCase();
+        var cityKey = city.replace(/_/g, '-');
+        var eventCities = ['erie','kiowa','platteville','louisville','castle-pines','wheat-ridge'];
+        if (cities.indexOf(cityKey) !== -1 || eventCities.indexOf(cityKey) !== -1) clean.searchParams.set('city', city);
         if (url.searchParams.get('near') === '1') clean.searchParams.set('near', '1');
         var selected = (url.searchParams.get('filter') || '').split(',').filter(function (key) { return filters.indexOf(key) !== -1; });
         if (selected.length) clean.searchParams.set('filter', selected.join(','));
@@ -69,19 +73,6 @@
   <script>if (window.FEP_PRIVACY.ok) { var el = document.createElement('script');  el.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"; document.head.appendChild(el); }</script>
  
   <style>
-    [hidden] { display: none !important; }
-    #location-panel { max-width:1100px; margin:0 auto; padding:12px 20px; font-size:13px; line-height:1.5; }
-    .location-actions { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
-    #location-panel button, .dataset-link { min-height:44px; }
-    #location-panel button { padding:10px 16px; }
-    #location-privacy { color:#4d5752; }
-    #location-status, #city-suggestion { margin-top:8px; color:#174b3d; }
-    .dataset-link { display:inline-flex; align-items:center; justify-content:center; }
-    #filter-bar .filter-label { color:#59635e; }
-    .dataset-link.suggested { outline:3px solid #0f6e56; outline-offset:2px; }
-    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible { outline:3px solid #205ea8; outline-offset:3px; }
-    @media (max-width:700px) { .sticky { position:static !important; } }
-
 
 .park-icons{
   font-size:22px;
@@ -449,28 +440,19 @@
     <a class="dataset-link" data-dataset="denver" href="./parks.html?dataset=denver">Denver</a>
     <span class="dataset-note" id="dataset-note">Colorado park guide</span>
   </div>
-  <section id="location-panel" aria-label="Find parks near you">
-    <div class="location-actions">
-      <button type="button" class="map-btn" id="btn-locate" onclick="locateMe()" aria-describedby="location-privacy">Use my location</button>
-      <button type="button" class="map-btn" id="clear-location" hidden>Clear location</button>
-    </div>
-    <p id="location-privacy">Rank parks within your chosen city by approximate straight-line distance. This site keeps your precise location in this page’s temporary memory, not in links, storage or analytics. Your browser or OS location provider may process location.</p>
-    <p id="location-status" role="status" aria-live="polite" aria-atomic="true">Choose a city, or use your location to find a covered city.</p>
-    <p id="city-suggestion" hidden></p>
-  </section>
   <div class="top-controls">
     <div class="search-wrap">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="search" aria-label="Search parks by name or address" placeholder="Search by name or address&#x2026;">
+      <input type="text" id="search" placeholder="Search by name or address&#x2026;">
     </div>
-    <select id="sort" aria-label="Sort parks">
+    <select id="sort">
       <option value="alpha">A &#x2192; Z</option>
       <option value="big">Largest first</option>
       <option value="small">Smallest first</option>
       <option value="nearest">Nearest first</option>
       <option value="visited">Visited first</option>
     </select>
-    <div id="shown-badge" style="font-size:12px;color:#59635e;white-space:nowrap;">0 shown</div>
+    <div id="shown-badge" style="font-size:12px;color:#aaa;white-space:nowrap;">0 shown</div>
 <button class="filter-toggle" id="filter-toggle" type="button">Filter Parks &#9662;</button>
   </div>
   <div class="filter-bar" id="filter-bar">
@@ -479,7 +461,6 @@
 </div>
 
 <main>
-  <noscript><p>Enable JavaScript to filter the directory. You can still use the city links above or open the city and park guides below. Location is never requested automatically.</p></noscript>
   <section class="page-intro" aria-labelledby="page-intro-title">
     <h1 id="page-intro-title">Parks in Aurora</h1>
     <p class="page-intro-subtitle" id="page-intro-subtitle">Browse Aurora playgrounds, trails, dog parks, splash pads, and everyday neighborhood stops in one place.</p>
@@ -560,12 +541,17 @@
       <div class="map-section">
         <div class="map-header">
           <div class="map-title">&#x1F5FA;&#xFE0F; Park Map</div>
+          <div class="map-controls">
+            <button class="map-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Parks nearby</button>
+            <span id="locate-error" style="display:none;font-size:11px;color:#e8703a;font-weight:500;">&#x26A0;&#xFE0F; Location access denied</span>
+          </div>
         </div>
         <div id="map"></div>
         <div class="map-legend">
           <span class="legend-item"><span class="legend-dot" style="background:#0f6e56"></span> Park</span>
           <span class="legend-item"><span class="legend-dot" style="background:#e8703a"></span> Visited</span>
           <span class="legend-item"><span class="legend-dot" style="background:#c8a000"></span> Filter match</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#4285f4"></span> You</span>
           <span id="legend-dist" style="margin-left:auto;color:#bbb;font-size:11px;"></span>
         </div>
       </div>
@@ -602,7 +588,6 @@
 <script src="data/photos/park-photo-manifest.js"></script>
 <script src="park-data-registry.js"></script>
 <script src="dataset-loader.js"></script>
-<script src="near-me.js"></script>
 <script src="top-picks.js"></script>
 <script src="best-parks-data.js"></script>
 <script src="growth-widgets.js"></script>
@@ -619,13 +604,7 @@ const requestedFilters = (urlParams.get('filter') || "")
   .filter(Boolean);
 const datasetFromUrl = urlParams.get('dataset');
 
-let DATASET_KEY = window.ACTIVE_DATASET_KEY || "aurora";
-let explicitCity = !!datasetFromUrl && datasetFromUrl === DATASET_KEY;
-let awaitingCity = urlParams.get('near') === '1' && !explicitCity;
-let origin = null;
-let cityRequest = 0;
-let restoringHistory = false;
-let viewReady = false;
+const DATASET_KEY = window.ACTIVE_DATASET_KEY || "aurora";
 let DATASET_META = null;
 let CITY = "";
 let STATE = "";
@@ -679,21 +658,23 @@ const PLAYGROUND_GUIDE_PAGES = {
 };
 
 
-let VISITED_KEY = 'md_visited:' + DATASET_KEY;
-let FILTERS_KEY = 'parkFilters:' + DATASET_KEY;
-function readStored(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (_) { return fallback; } }
-function writeStored(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) {} }
-let visited = new Set(readStored(VISITED_KEY, []));
+const VISITED_KEY = 'md_visited:' + DATASET_KEY;
+const FILTERS_KEY = 'parkFilters:' + DATASET_KEY;
+let visited = new Set(JSON.parse(localStorage.getItem(VISITED_KEY) || '[]'));
+let userLat = null, userLng = null;
 let mapMode = 'all';
-let map, markersLayer;
+let map, markersLayer, userMarker;
 let parkMarkers = {};
 let currentFiltered = [];
 let activeFilters = {
   mapMode: 'all'
 };
 
-const savedFilters = readStored(FILTERS_KEY, null);
-if (savedFilters) { activeFilters = savedFilters; mapMode = activeFilters.mapMode || 'all'; }
+const savedFilters = localStorage.getItem(FILTERS_KEY);
+if (savedFilters) {
+  activeFilters = JSON.parse(savedFilters);
+  mapMode = activeFilters.mapMode || 'all';
+}
 
 if (mapMode === 'visited' && !visited.size) {
   mapMode = 'all';
@@ -804,9 +785,10 @@ function updateHeroIntentContent(filterKeys) {
 }
 
 function parkCoords(park) {
-  const pair = FEPNearMe.coordinatePair(park.lat, park.lng);
-  const legacy = COORDS[parkName(park)];
-  return pair || (legacy && FEPNearMe.coordinatePair(legacy[0], legacy[1])) || null;
+  if (typeof park.lat === 'number' && typeof park.lng === 'number') {
+    return [park.lat, park.lng];
+  }
+  return COORDS[parkName(park)] || null;
 }
 
 function parkGuideUrl(park) {
@@ -879,7 +861,7 @@ parkMarkers[name] = marker;
   if (!Object.keys(parkMarkers).length && (filteredList || []).length && mapMode !== 'all') {
     mapMode = 'all';
     activeFilters.mapMode = 'all';
-    writeStored(FILTERS_KEY, activeFilters);
+    localStorage.setItem(FILTERS_KEY, JSON.stringify(activeFilters));
     renderMarkers(filteredList);
   }
 }
@@ -902,76 +884,33 @@ function setMapMode(mode) {
   mapMode = mode;
 
   activeFilters.mapMode = mode;
-  writeStored(FILTERS_KEY, activeFilters);
+  localStorage.setItem(FILTERS_KEY, JSON.stringify(activeFilters));
 
   renderMarkers(currentFiltered);
   updateMapViewport(currentFiltered, { singleZoom: 14, maxZoom: 13 });
 }
 
 
-function locationStatus(message) {
-  document.getElementById('location-status').textContent = message;
-}
-function syncLocationControls() {
-  const pending = locationRequest.isPending();
-  const btn = document.getElementById('btn-locate');
-  btn.disabled = pending || !window.FEP_PRIVACY.ok;
-  btn.textContent = pending ? 'Waiting for location…' : 'Use my location';
-  document.getElementById('clear-location').hidden = !pending && !origin;
-  document.getElementById('clear-location').textContent = pending ? 'Cancel' : 'Clear location';
-}
-const locationRequest = FEPNearMe.createRequestManager({
-  geolocation: navigator.geolocation,
-  onPending: () => syncLocationControls(),
-  onError: code => {
-    const messages = {
-      denied: 'Location permission was denied. Choose a city to browse, or change permission in your browser and try again.',
-      unavailable: 'Your location is unavailable. Choose a city to browse or try again.',
-      timeout: 'Finding your location timed out. Choose a city to browse or try again.',
-      deadline: 'Still waiting for permission. This request has been cancelled here. You can dismiss the browser prompt and choose a city, or try again.',
-      unsupported: 'Location is not supported in this browser. Choose a city to browse.'
-    };
-    locationStatus(messages[code] || messages.unavailable);
-    render();
-  },
-  onSuccess: pair => {
-    origin = pair;
-    sortEl.value = 'nearest';
-    if (!explicitCity) {
-      awaitingCity = true;
-      const city = FEPNearMe.nearestCity(origin, window.FEP_CITY_CENTROIDS || []);
-      const suggestion = document.getElementById('city-suggestion');
-      suggestion.textContent = city ? 'Closest covered city: ' + getDatasetMeta(city.key).city + ', approximately ' + FEPNearMe.distanceLabel(city.dist) + ' to its centre. This is not the nearest park or a city-boundary check. Confirm a city using the choices above.' : 'Choose a covered city above to show its parks.';
-      suggestion.hidden = false;
-      document.querySelectorAll('.dataset-link').forEach(link => link.classList.toggle('suggested', !!city && link.dataset.dataset === city.key));
-      locationStatus('Location ready. Confirm a covered city above before viewing results.');
-      const chip = city && document.querySelector('.dataset-link[data-dataset="' + city.key + '"]');
-      if (chip) chip.focus({ preventScroll: true });
-    } else locationStatus('Showing ' + CITY + ' parks nearest first. Distances are approximate straight-line distances, not route distances.');
-    syncLocationControls();
-    render();
-    saveBrowseHistory();
-  }
-});
 function locateMe() {
-  if (!window.FEP_PRIVACY.ok) { locationStatus('Location and analytics are disabled because the page URL could not be cleaned. You can still choose a city.'); return; }
-  if (locationRequest.isPending()) return;
-  locationStatus('Waiting for your browser location permission. You can cancel here or choose a city.');
-  locationRequest.start();
+  const error = document.getElementById('locate-error');
+  error.textContent = 'Choose a city above to browse parks. Location sorting is currently unavailable.';
+  error.style.display = 'inline';
+  error.setAttribute('role', 'status');
+  document.querySelector('.dataset-link').focus();
 }
-function clearLocation(message) {
-  locationRequest.cancel(); origin = null;
-  sortEl.value = 'alpha';
-  document.getElementById('city-suggestion').hidden = true;
-  document.querySelectorAll('.dataset-link').forEach(link => link.classList.remove('suggested'));
-  syncLocationControls();
-  locationStatus(message || 'Location cleared. Browse by city, or use your location again.');
-  if (viewReady) { render(); saveBrowseHistory(true); }
+
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 3958.8, dLat = (lat2-lat1)*Math.PI/180, dLng = (lng2-lng1)*Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
-function distLabel(miles) { return FEPNearMe.distanceLabel(miles); }
+
+function distLabel(m) {
+  return m < 0.1 ? '<0.1 mi' : m < 10 ? m.toFixed(1) + ' mi' : Math.round(m) + ' mi';
+}
 
 function saveVisited() {
-  writeStored(VISITED_KEY, [...visited]);
+  localStorage.setItem(VISITED_KEY, JSON.stringify([...visited]));
   updatePassport();
   renderMarkers(visibleParks);
 }
@@ -1012,9 +951,7 @@ function applyDatasetContext() {
     ? "Parks in Aurora, CO — Playgrounds, Trails & Dog Parks Near Me"
     : "Parks Finder — " + DATASET_META.brandName;
   document.querySelectorAll('.dataset-link').forEach((link) => {
-    link.classList.toggle('active', explicitCity && link.dataset.dataset === DATASET_KEY);
-    if (explicitCity && link.dataset.dataset === DATASET_KEY) link.setAttribute('aria-current', 'true');
-    else link.removeAttribute('aria-current');
+    link.classList.toggle('active', link.dataset.dataset === DATASET_KEY);
   });
   document.getElementById('nav-home-brand').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
   document.getElementById('nav-home-link').href = './index.html?dataset=' + encodeURIComponent(DATASET_KEY);
@@ -1033,7 +970,9 @@ function applyDatasetContext() {
   document.getElementById('hero-city').textContent = CITY;
   document.getElementById('hero-city-stat').textContent = CITY;
   document.getElementById('hero-state-stat').textContent = DATASET_META.stateName + ' park guide';
-  document.getElementById('hero-best-for-stat').hidden = DATASET_KEY === 'lone-tree';
+  if (DATASET_KEY === 'lone-tree') {
+    document.getElementById('hero-best-for-stat')?.remove();
+  }
 
   if (requestedFilters.includes('trails')) {
     heroBestForEl.textContent = 'Trail Access';
@@ -1164,14 +1103,12 @@ function buildFilterButtons() {
   AVAILABLE_FILTERS.forEach(f => {
     const b = document.createElement('button');
     b.type = 'button';
-    b.className = 'pill'; b.dataset.k = f.k; b.setAttribute('aria-pressed', 'false');
+    b.className = 'pill'; b.dataset.k = f.k;
     b.innerHTML = f.e + ' ' + f.l;
     b.onclick = () => {
       active.has(f.k) ? active.delete(f.k) : active.add(f.k);
       b.classList.toggle('on');
-      b.setAttribute('aria-pressed', active.has(f.k) ? 'true' : 'false');
       render();
-      saveBrowseHistory();
       if (window.innerWidth <= 700) {
         const filterBarEl = document.getElementById('filter-bar');
         const filterToggle = document.getElementById('filter-toggle');
@@ -1192,7 +1129,6 @@ function buildFilterButtons() {
     document.querySelectorAll('.pill.on').forEach(b => b.classList.remove('on'));
     searchEl.value = '';
     render();
-    saveBrowseHistory();
     if (window.innerWidth <= 700) {
       const filterBarEl = document.getElementById('filter-bar');
       const filterToggle = document.getElementById('filter-toggle');
@@ -1293,7 +1229,6 @@ function renderTopPicksForCurrentCity() {
 function syncFilterButtons() {
   document.querySelectorAll('.pill[data-k]').forEach(btn => {
     btn.classList.toggle('on', active.has(btn.dataset.k));
-    btn.setAttribute('aria-pressed', active.has(btn.dataset.k) ? 'true' : 'false');
   });
 }
 
@@ -1434,10 +1369,6 @@ function createGallery(park, idx) {
   return `<div class="park-icons">${icons}</div>`;
 }
 function render() {
-  syncFilterButtons();
-  document.getElementById('load-more-wrap').innerHTML = '';
-  document.querySelector('.browse-shell').hidden = awaitingCity;
-  if (awaitingCity) { currentFiltered = []; visibleParks = []; grid.innerHTML = ''; badge.textContent = 'Choose a city'; if (markersLayer) markersLayer.clearLayers(); return; }
   const q = searchEl.value.trim().toLowerCase();
   const s = sortEl.value;
   const af = [...active];
@@ -1462,12 +1393,11 @@ let list = allParks.map((p, origIdx) => {
 
   const score = af.length ? af.filter(k => features[k] || (k === 'restroom' && p.bathrooms)).length : null;
   const c = parkCoords(p);
-  const dist = (origin && c) ? FEPNearMe.distanceMiles(origin[0], origin[1], c[0], c[1]) : null;
+  const dist = (userLat && c) ? haversine(userLat, userLng, c[0], c[1]) : null;
   return { ...p, score, matchSearch, origIdx, dist };
 }).filter(p => p.matchSearch && (!af.length || p.score === af.length));
 
-  if (s === 'nearest' && origin) list.sort(FEPNearMe.compareDistances);
-  else if (af.length) {
+  if (af.length) {
     if (intentFilterKey) {
       list.sort((a, b) => {
         const priorityDiff = getIntentPriorityScore(b, intentFilterKey) - getIntentPriorityScore(a, intentFilterKey);
@@ -1483,8 +1413,14 @@ let list = allParks.map((p, origIdx) => {
   else if (s === 'alpha') list.sort((a,b) => parkName(a).localeCompare(parkName(b)));
   else if (s === 'big') list.sort((a,b) => parkAcreage(b) - parkAcreage(a));
   else if (s === 'visited') list.sort((a,b) => (visited.has(parkName(b))?1:0)-(visited.has(parkName(a))?1:0));
-  else if (s === 'nearest') list.sort((a,b) => parkName(a).localeCompare(parkName(b)));
-  else list.sort((a,b) => parkAcreage(a) - parkAcreage(b));
+  else if (s === 'nearest') {
+    if (userLat) list.sort((a,b) => (a.dist||9999)-(b.dist||9999));
+    else {
+      sortEl.value = 'alpha'; list.sort((a,b) => parkName(a).localeCompare(parkName(b)));
+      const err = document.getElementById('locate-error');
+      if (err) { err.textContent = '\u26A0\uFE0F Click "Find me" first'; err.style.display = 'inline'; setTimeout(() => { err.style.display = 'none'; }, 3000); }
+    }
+  } else list.sort((a,b) => parkAcreage(a) - parkAcreage(b));
 
   currentFiltered = list;
   visibleParks = list;
@@ -1496,12 +1432,12 @@ let list = allParks.map((p, origIdx) => {
     const perfect = list.filter(p => p.score === af.length).length;
     const partial = list.filter(p => p.score > 0 && p.score < af.length).length;
     meta.textContent = perfect
-      ? perfect + ' park' + (perfect!==1?'s':'') + ' match all filters' + (partial?' \u00B7 '+partial+' partial':'') + (s === 'nearest' && origin ? ' \u00B7 nearest first' : ' \u00B7 best match order')
+      ? perfect + ' park' + (perfect!==1?'s':'') + ' match all filters' + (partial?' \u00B7 '+partial+' partial':'') + ' \u00B7 best match order'
       : partial ? 'No perfect matches \u2014 ' + partial + ' partial' : 'No parks match your filters';
   }
 
   renderMarkers(list);
-  if (map) {
+  if (map && !(s === 'nearest' && userLat)) {
     updateMapViewport(list, { singleZoom: 14, maxZoom: 13 });
   }
   grid.innerHTML = '';
@@ -1531,14 +1467,22 @@ let list = allParks.map((p, origIdx) => {
   : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + ' ' + CITY + ' ' + STATE);
     const cityUrl = 'https://www.auroragov.org/things_to_do/parks__open_space___trails/park_listings';
     const acStr = acreage > 0 ? acreage.toLocaleString() + ' ac' : '';
-    const distStr = origin ? '<span class="park-distance" aria-label="Approximate straight-line distance: ' + escapeHtml(distLabel(p.dist)) + '" style="font-size:12px;color:#705020;font-weight:500">' + escapeHtml(distLabel(p.dist)) + '</span>' : '';
+    const distStr = p.dist ? '<span style="font-size:11px;color:#b07848;font-weight:500">\u{1F4CD} ' + distLabel(p.dist) + '</span>' : '';
 
     const card = document.createElement('div');
     card.className = 'card' + (isNone ? ' dimmed' : '');
-    card.dataset.parkId = p.id;
     card.onclick = () => {
-      if (coords && map) focusMapOnPark(name);
-      else window.location.href = parkGuideUrl(p);
+      sessionStorage.setItem('parksFilters', JSON.stringify({
+        search: document.getElementById('search')?.value || '',
+        sort: document.getElementById('sort')?.value || '',
+        active: [...active],
+        dataset: DATASET_KEY
+      }));
+      if (coords) {
+        focusMapOnPark(name);
+      } else {
+        window.location.href = parkGuideUrl(p);
+      }
     };
     card.onmouseenter = () => {
     const m = parkMarkers[name];
@@ -1608,131 +1552,72 @@ function getDatasetParksForView() {
   return [];
 }
 
-function populateCity() {
+function initializeParksView() {
   applyDatasetContext();
   allParks = getDatasetParksForView();
   visibleParks = allParks.slice();
-  AVAILABLE_FILTERS = FILTERS.filter(f => allParks.some(park => parkFeatures(park)[f.k] || (f.k === 'restroom' && park.bathrooms)));
-  const removed = [...active].filter(key => !AVAILABLE_FILTERS.some(filter => filter.k === key));
-  active = new Set([...active].filter(key => !removed.includes(key)));
-  window._activeSet = active;
-  VISITED_KEY = 'md_visited:' + DATASET_KEY;
-  FILTERS_KEY = 'parkFilters:' + DATASET_KEY;
-  visited = new Set(readStored(VISITED_KEY, []));
-  if (mapMode === 'visited' && !visited.size) mapMode = 'all';
+  const datasetPool = window.ALL_PARKS || [];
+  console.log('dataset from URL:', datasetFromUrl);
+  console.log('activeDataset:', DATASET_KEY);
+  console.log('all datasets in allParks:', [...new Set(datasetPool.map(p => p.datasetKey || p.dataset || p.source || 'unknown'))]);
+  console.log('cityParks count:', allParks.length);
+  console.log('cityParks datasets:', [...new Set(allParks.map(p => p.datasetKey || DATASET_KEY))]);
+  AVAILABLE_FILTERS = FILTERS.filter(f => allParks.some((park) => {
+    const features = parkFeatures(park);
+    return features[f.k] || (f.k === 'restroom' && park.bathrooms);
+  }));
   buildFilterButtons();
   document.getElementById('hero-total').textContent = allParks.length.toLocaleString();
   updatePassport();
+
+  const hasRequestedFilters = requestedFilters.length > 0;
+  const hasDatasetNavigation = !!datasetFromUrl;
+  const savedPageState = sessionStorage.getItem('parksFilters');
+  if (!hasRequestedFilters && !hasDatasetNavigation && savedPageState) {
+    const parsed = JSON.parse(savedPageState);
+
+    if (parsed.search !== undefined) searchEl.value = parsed.search;
+    if (parsed.sort !== undefined) sortEl.value = parsed.sort;
+
+    if (Array.isArray(parsed.active)) {
+      active = new Set(parsed.active.filter(key => AVAILABLE_FILTERS.some(filter => filter.k === key)));
+      window._activeSet = active;
+    }
+  }
+  if (hasRequestedFilters) {
+    active = new Set(requestedFilters.filter(key => AVAILABLE_FILTERS.some(filter => filter.k === key)));
+    window._activeSet = active;
+  }
+
+  if (typeof L !== 'undefined') {
+    initMap();
+  }
+
   renderTopPicksForCurrentCity();
   syncFilterButtons();
-  visibleCount = 12;
   render();
-  return removed;
-}
-function browseState() {
-  return { dataset: DATASET_KEY, explicitCity, awaitingCity, search: searchEl.value, filters: [...active], sort: sortEl.value };
-}
-function saveBrowseHistory(replace) {
-  if (restoringHistory || !window.FEP_PRIVACY.ok) return;
-  const state = browseState();
-  const url = new URL(window.location.origin + window.location.pathname);
-  if (state.explicitCity) url.searchParams.set('dataset', state.dataset);
-  else if (awaitingCity) url.searchParams.set('near', '1');
-  if (state.search) url.searchParams.set('search', state.search);
-  if (state.filters.length) url.searchParams.set('filter', state.filters.join(','));
-  if (state.sort !== 'alpha' && state.sort !== 'nearest') url.searchParams.set('sort', state.sort);
-  try {
-    if (replace) history.replaceState(state, '', url.pathname + url.search);
-    else if (JSON.stringify(history.state) !== JSON.stringify(state)) history.pushState(state, '', url.pathname + url.search);
-  } catch (_) {
-    window.FEP_PRIVACY.ok = false;
-    window['ga-disable-G-9GWTHQXZNY'] = true;
-    locationRequest.cancel(); origin = null; sortEl.value = 'alpha';
-    syncLocationControls();
-    locationStatus('Location is disabled because browser history could not be safely updated. Manual city browsing is still available.');
-    render();
+  searchEl.addEventListener('input', render);
+  sortEl.addEventListener('change', render);
+  if (typeof L === 'undefined') {
+    window.addEventListener('load', () => {
+      if (typeof L !== 'undefined') {
+        initMap();
+        render();
+      } else {
+        document.getElementById('map').innerHTML =
+          '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;font-size:13px;">Map unavailable</div>';
+      }
+    });
   }
 }
-async function chooseCity(key, options) {
-  if (!document.querySelector('.dataset-link[data-dataset="' + key + '"]')) return;
-  const request = ++cityRequest;
-  locationRequest.cancel();
-  locationStatus('Loading ' + getDatasetMeta(key).city + ' parks…');
-  try {
-    await window.loadParkDataset(key);
-    if (request !== cityRequest) return;
-    DATASET_KEY = key; explicitCity = !(options && options.state && options.state.explicitCity === false);
-    awaitingCity = !!(options && options.state && options.state.awaitingCity);
-    window.ACTIVE_DATASET_KEY = key; window.PARK_SITE.defaultDataset = key;
-    window.PARKS = window.getParkDataset(key);
-    try { localStorage.setItem('activeDataset', key); } catch (_) {}
-    if (options && options.state) {
-      searchEl.value = options.state.search || '';
-      active = new Set(options.state.filters || []);
-      sortEl.value = options.state.sort === 'nearest' && !origin ? 'alpha' : options.state.sort || 'alpha';
-    }
-    const removed = populateCity();
-    viewReady = true;
-    ensureMap();
-    document.getElementById('city-suggestion').hidden = true;
-    document.querySelectorAll('.dataset-link').forEach(link => link.classList.remove('suggested'));
-    locationStatus(awaitingCity ? 'Choose a covered city to view parks.' : 'Showing ' + CITY + ' parks' + (origin && sortEl.value === 'nearest' ? ' nearest first. Distances are approximate straight-line distances, not route distances.' : '.') + (removed.length ? ' Unavailable filters removed: ' + removed.join(', ').replaceAll('_', ' ') + '.' : ''));
-    if (!(options && options.history)) saveBrowseHistory();
-  } catch (_) {
-    if (request !== cityRequest) return;
-    locationStatus('Could not load that city. Your previous city is unchanged. Choose another city or try again.');
-  }
-}
-document.querySelectorAll('.dataset-link').forEach(link => link.addEventListener('click', event => {
-  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  event.preventDefault(); chooseCity(link.dataset.dataset);
-}));
-document.getElementById('clear-location').addEventListener('click', () => clearLocation());
-searchEl.addEventListener('input', () => { visibleCount = 12; render(); saveBrowseHistory(); });
-sortEl.addEventListener('change', () => {
-  locationRequest.cancel();
-  if (sortEl.value === 'nearest' && !origin) {
-    sortEl.value = 'alpha';
-    locationStatus('Choose Use my location to sort nearest first. No location has been requested.');
-    document.getElementById('btn-locate').focus();
-  }
-  render(); saveBrowseHistory();
-});
-window.addEventListener('popstate', event => {
-  locationRequest.cancel();
-  const state = event.state;
-  if (state && state.dataset) chooseCity(state.dataset, { state, history: true });
-  else {
-    ++cityRequest;
-    explicitCity = false; awaitingCity = new URLSearchParams(location.search).get('near') === '1';
-    searchEl.value = ''; active = new Set(); sortEl.value = 'alpha';
-    applyDatasetContext(); render();
-    locationStatus(awaitingCity ? 'Choose a city to view parks.' : 'Browse parks by city, or use your location.');
-  }
-});
-window.addEventListener('pagehide', () => { ++cityRequest; clearLocation('Location cleared when you left this page. Use your location again if needed.'); });
-window.addEventListener('pageshow', event => { if (event.persisted) clearLocation('Location cleared when you left this page. Use your location again if needed.'); });
-document.addEventListener('visibilitychange', () => locationRequest.setHidden(document.hidden));
-locationRequest.setHidden(document.hidden);
-function ensureMap() {
-  if (!map && typeof L !== 'undefined') { initMap(); render(); }
-}
-active = new Set(requestedFilters);
-sortEl.value = ['alpha','big','small','visited'].includes(urlParams.get('sort')) ? urlParams.get('sort') : 'alpha';
+
 const datasetReadyPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();
-datasetReadyPromise.then(() => {
-  // A later city choice or location fix must never be reset by initial loading.
-  if (cityRequest === 0) { populateCity(); viewReady = true; }
-  ensureMap();
-  syncLocationControls();
-  if (!window.FEP_PRIVACY.ok) locationStatus('Location and analytics are disabled because the page URL could not be cleaned. You can still choose a city.');
-  else if (awaitingCity && !origin && !locationRequest.isPending()) locationStatus('Use your location to suggest a covered city, or choose a city above.');
-  if (cityRequest === 0) saveBrowseHistory(true);
-}).catch(() => { if (cityRequest === 0) { viewReady = true; locationStatus('Park data could not be loaded. Choose another city or try again.'); syncLocationControls(); } });
-window.addEventListener('load', () => {
-  ensureMap();
-  if (!map) document.getElementById('map').textContent = 'Map unavailable. Park list and sorting still work.';
-}, { once: true });
+datasetReadyPromise
+  .catch(() => null)
+  .then(() => window.waitForParkDataset ? window.waitForParkDataset(DATASET_KEY, { timeout: 5000 }).catch(() => []) : [])
+  .then(() => {
+    initializeParksView();
+  });
 
 // MOBILE FILTER TOGGLE
 const filterToggle = document.getElementById('filter-toggle');
