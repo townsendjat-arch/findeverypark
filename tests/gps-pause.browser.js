@@ -6,7 +6,36 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const {chromium,webkit}=require('playwright'),AxeBuilder=require('@axe-core/playwright').default;
 const root=path.resolve(__dirname,'..'),out=path.join(root,'test-results'),engine=process.env.BROWSER||'chromium';
 const leaflet=path.dirname(require.resolve('leaflet/package.json'))+'/dist/';
-const tile=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==','base64');
+const zlib=require('node:zlib');
+function crc32(buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ ((crc & 1) ? 0xedb88320 : 0);
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+function pngChunk(type, data) {
+  const body = Buffer.concat([Buffer.from(type), data]);
+  const length = Buffer.alloc(4), crc = Buffer.alloc(4);
+  length.writeUInt32BE(data.length); crc.writeUInt32BE(crc32(body));
+  return Buffer.concat([length, body, crc]);
+}
+function makeFixtureTile() {
+  const size = 256, raw = Buffer.alloc((size * 3 + 1) * size);
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    const color = Math.abs(x - y) < 4 || Math.abs(255 - x - y) < 4 ? [79, 140, 190]
+      : (x % 64 < 3 || y % 64 < 3) ? [255, 255, 255]
+      : ((Math.floor(x / 64) + Math.floor(y / 64)) % 2) ? [221, 211, 154] : [164, 204, 168];
+    const offset = y * (size * 3 + 1) + 1 + x * 3;
+    color.forEach((value, index) => { raw[offset + index] = value; });
+  }
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(size, 0); header.writeUInt32BE(size, 4); header[8] = 8; header[9] = 2;
+  return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]), pngChunk('IHDR', header), pngChunk('IDAT', zlib.deflateSync(raw)), pngChunk('IEND', Buffer.alloc(0))]);
+}
+const tilePNG = makeFixtureTile();
+const tile=tilePNG;
 const results=[],failures=[];let origin,browser;
 const server=http.createServer((req,res)=>{try{const u=new URL(req.url,'http://localhost'),p=path.resolve(root,'.'+(u.pathname==='/'?'/index.html':u.pathname));if(!p.startsWith(root+path.sep)||u.pathname.split('/').some(v=>v.startsWith('.')))throw Error();const b=fs.readFileSync(p);res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.geojson':'application/json','.png':'image/png'})[path.extname(p)]||'application/octet-stream');res.end(b);}catch(_){res.writeHead(404).end();}});
 async function check(name,fn){try{await fn();results.push({name,passed:true});console.log('PASS',name);}catch(e){failures.push({name,error:e.stack});console.error('FAIL',name,e.stack);}}
@@ -19,7 +48,14 @@ async function pageCase(viewport,options,fn){
 }
 async function ready(page,key='aurora'){await page.waitForFunction(key=>window.ACTIVE_DATASET_KEY===key&&document.querySelector('#grid .card[data-park-id]'),key);}
 async function noGPS(page){if(await page.evaluate(()=>typeof window.__gpsCalls==='number'))assert.equal(await page.evaluate(()=>window.__gpsCalls),0,'Each visited page requests zero GPS fixes');for(const selector of ['[data-gps-only]']){for(const node of await page.locator(selector).all())assert.equal(await node.isVisible(),false,'GPS UI hidden');}assert.equal(await page.locator('[data-gps-only]:focus').count(),0);}
-async function shot(page,name){await page.screenshot({path:path.join(out,engine+'-gps-pause-'+name+'.png'),fullPage:false});}
+async function shot(page,name){
+ if(await page.locator('#map:visible .leaflet-tile').count()) {
+  await page.waitForFunction(()=>Array.from(document.querySelectorAll('#map .leaflet-tile')).filter(img=>img.style.visibility!=='hidden').every(img=>img.complete&&img.naturalWidth===256&&Number(getComputedStyle(img).opacity)>=.99));
+  await page.evaluate(()=>{const label=document.createElement('div');label.id='fixture-label';label.textContent='LOCAL FIXTURE TILES · NOT LIVE MAP';label.style.cssText='position:fixed;bottom:0;right:0;background:#fff;color:#111;padding:3px 6px;font:10px sans-serif;z-index:9999;pointer-events:none';document.body.appendChild(label);});
+ }
+ await page.screenshot({path:path.join(out,engine+'-gps-pause-'+name+'.png'),fullPage:false});
+ await page.locator('#fixture-label').evaluateAll(nodes=>nodes.forEach(node=>node.remove()));
+}
 (async()=>{fs.mkdirSync(out,{recursive:true});await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port;try{
  browser=await ({chromium,webkit})[engine].launch({headless:true});
  for(const [label,viewport] of [['320px',{width:320,height:740}],['390px',{width:390,height:844}],['1440px',{width:1440,height:1000}]]){
