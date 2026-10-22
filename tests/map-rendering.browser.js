@@ -386,8 +386,8 @@ async function fixLocation(page) {
     if (engineName === 'chromium' && process.env.CHROMIUM_EXECUTABLE_PATH) launch.executablePath = process.env.CHROMIUM_EXECUTABLE_PATH;
     browser = await ({chromium, webkit})[engineName].launch(launch);
     for (const [label, viewport] of viewports) {
-      await check(label + ': Home Near Me → Centennial → Abbott Map', () => testPage(viewport, {}, async ({page}) => {
-        await page.goto(origin + '/index.html'); await page.locator('#geoBtn').click();
+      await check(label + ': Home city browse → Centennial → Abbott Map', () => testPage(viewport, {}, async ({page}) => {
+        await page.goto(origin + '/index.html'); await page.locator('#browseParksBtn').click();
         await page.waitForURL('**/parks.html?near=1'); await awaitingCity(page);
         assert.equal(await page.evaluate(() => window.__geoRequests.length), 0, 'Near Me never requests GPS automatically');
         await chooseCity(page, 'centennial'); await assertMap(page, 'confirmed-city');

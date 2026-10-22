@@ -134,6 +134,12 @@ async function testPage(viewport,options,callback) {
       else await route.abort();
       return;
     }
+    // Exercise the retained GPS implementation separately from the paused-release suite.
+    if(url.pathname==='/gps-availability.js'){
+      const source=fs.readFileSync(path.join(root,'gps-availability.js'),'utf8');
+      assert.ok(source.includes('window.FEP_GPS_AVAILABLE = false;'));
+      await route.fulfill({status:200,contentType:'text/javascript',body:source.replace('window.FEP_GPS_AVAILABLE = false;','window.FEP_GPS_AVAILABLE = true;')});return;
+    }
     if(options.route&&await options.route(route,url))return;
     if(options.fixture&&url.pathname.endsWith('-parks-data.js')){const city=path.basename(url.pathname,'-parks-data.js');await route.fulfill({status:200,contentType:'text/javascript',body:fixtureSource(city)});return;}
     await route.continue();

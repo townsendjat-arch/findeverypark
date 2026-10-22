@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
+    [hidden] { display: none !important; }
     :root {
       --grass: #0f6e56; --grass-light: #5a8f6a; --earth: #b07848;
       --ink: #1a1a1a; --mist: #f0ede8; --white: #ffffff;
@@ -344,7 +345,7 @@
     <button class="pill type-tl on" data-filter="type" data-val="TL" onclick="toggleFilter(this)">Trail</button>
     <button class="pill type-path on" data-filter="type" data-val="PATH" onclick="toggleFilter(this)">Path</button>
     <button class="pill type-sdwlk on" data-filter="type" data-val="SDWLK" onclick="toggleFilter(this)">Sidewalk</button>
-    <button class="locate-btn" id="btn-locate" onclick="locateMe()">&#x1F4CD; Find me</button>
+    <button class="locate-btn" id="btn-locate" data-gps-only hidden disabled onclick="locateMe()">&#x1F4CD; Find me</button>
   </div>
 </div>
 
@@ -355,7 +356,7 @@
       <span class="legend-line"><span class="legend-swatch" style="background:#0f6e56"></span> Paved trail</span>
       <span class="legend-line"><span class="legend-swatch" style="background:#c8a000"></span> Natural surface</span>
       <span class="legend-line"><span class="legend-swatch" style="background:#777"></span> Dual / Sidewalk</span>
-      <span class="legend-line"><span class="legend-swatch" style="background:#4285f4"></span> You</span>
+      <span class="legend-line" data-gps-only hidden><span class="legend-swatch" style="background:#4285f4"></span> You</span>
     </div>
   </div>
 
@@ -392,6 +393,7 @@
 </script>
 </footer>
 
+<script src="gps-availability.js"></script>
 <script>
 // Active filters
 const surfaceFilters = new Set(['HARD', 'SOFT', 'DUAL']);
@@ -437,6 +439,7 @@ function initMap() {
 }
 
 function locateMe() {
+  if (window.FEP_GPS_AVAILABLE !== true) return;
   if (!navigator.geolocation) return;
   const btn = document.getElementById('btn-locate');
   btn.textContent = 'Locating...';

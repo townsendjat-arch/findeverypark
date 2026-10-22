@@ -459,13 +459,13 @@
     <a class="dataset-link" data-dataset="denver" href="./parks.html?dataset=denver">Denver</a>
     <span class="dataset-note" id="dataset-note">Colorado park guide</span>
   </div>
-  <section id="location-panel" aria-label="Find parks near you">
-    <div class="location-actions">
-      <button type="button" class="map-btn" id="btn-locate" onclick="locateMe()" aria-describedby="location-privacy">Use my location</button>
-      <button type="button" class="map-btn" id="clear-location" hidden>Clear location</button>
+  <section id="location-panel" aria-label="Park browsing status">
+    <div class="location-actions" data-gps-only hidden>
+      <button type="button" class="map-btn" id="btn-locate" data-gps-only hidden disabled onclick="locateMe()" aria-describedby="location-privacy">Use my location</button>
+      <button type="button" class="map-btn" id="clear-location" data-gps-only hidden>Clear location</button>
     </div>
-    <p id="location-privacy">Rank parks within your chosen city by approximate straight-line distance. This site keeps your precise location in this page’s temporary memory, not in links, storage or analytics. Your browser or OS location provider may process location.</p>
-    <p id="location-status" role="status" aria-live="polite" aria-atomic="true">Choose a city, or use your location to find a covered city.</p>
+    <p id="location-privacy" data-gps-only hidden>Rank parks within your chosen city by approximate straight-line distance. This site keeps your precise location in this page’s temporary memory, not in links, storage or analytics. Your browser or OS location provider may process location.</p>
+    <p id="location-status" role="status" aria-live="polite" aria-atomic="true">Choose a city to browse its parks.</p>
     <p id="city-suggestion" hidden></p>
   </section>
   <div class="top-controls">
@@ -477,7 +477,7 @@
       <option value="alpha">A &#x2192; Z</option>
       <option value="big">Largest first</option>
       <option value="small">Smallest first</option>
-      <option value="nearest">Nearest first</option>
+      <option value="nearest" data-gps-only hidden disabled>Nearest first</option>
       <option value="visited">Visited first</option>
     </select>
     <div id="shown-badge" style="font-size:12px;color:#59635e;white-space:nowrap;">0 shown</div>
@@ -607,6 +607,7 @@
 </script>
 </footer>
 
+<script src="gps-availability.js"></script>
 <script src="site-config.js"></script>
 <script src="city-centroids.js"></script>
 <script src="data/photos/park-photo-manifest.js"></script>
@@ -1006,19 +1007,21 @@ function setMapMode(mode) {
 }
 
 
+const GPS_AVAILABLE = window.FEP_GPS_AVAILABLE === true;
 function locationStatus(message) {
   document.getElementById('location-status').textContent = message;
 }
 function syncLocationControls() {
   const pending = locationRequest.isPending();
   const btn = document.getElementById('btn-locate');
-  btn.disabled = pending || !window.FEP_PRIVACY.ok;
+  btn.hidden = !GPS_AVAILABLE;
+  btn.disabled = !GPS_AVAILABLE || pending || !window.FEP_PRIVACY.ok;
   btn.textContent = pending ? 'Waiting for location…' : 'Use my location';
-  document.getElementById('clear-location').hidden = !pending && !origin;
+  document.getElementById('clear-location').hidden = !GPS_AVAILABLE || (!pending && !origin);
   document.getElementById('clear-location').textContent = pending ? 'Cancel' : 'Clear location';
 }
 const locationRequest = FEPNearMe.createRequestManager({
-  geolocation: navigator.geolocation,
+  geolocation: GPS_AVAILABLE ? navigator.geolocation : undefined,
   onPending: () => syncLocationControls(),
   onError: code => {
     const messages = {
@@ -1055,6 +1058,7 @@ const locationRequest = FEPNearMe.createRequestManager({
   }
 });
 function locateMe() {
+  if (!GPS_AVAILABLE) { locationStatus('Browse parks by choosing a city.'); return; }
   if (!window.FEP_PRIVACY.ok) { locationStatus('Location and analytics are disabled because the page URL could not be cleaned. You can still choose a city.'); return; }
   if (locationRequest.isPending()) return;
   locationStatus('Waiting for your browser location permission. You can cancel here or choose a city.');
@@ -1067,7 +1071,7 @@ function clearLocation(message) {
   document.getElementById('city-suggestion').textContent = '';
   document.querySelectorAll('.dataset-link').forEach(link => link.classList.remove('suggested'));
   syncLocationControls();
-  locationStatus(message || 'Location cleared. Browse by city, or use your location again.');
+  locationStatus(GPS_AVAILABLE ? (message || 'Location cleared. Browse by city, or use your location again.') : 'Browse parks by choosing a city.');
   if (viewReady) { render(); saveBrowseHistory(true); }
 }
 function distLabel(miles) { return FEPNearMe.distanceLabel(miles); }
@@ -1797,8 +1801,8 @@ sortEl.addEventListener('change', () => {
   locationRequest.cancel();
   if (sortEl.value === 'nearest' && !origin) {
     sortEl.value = 'alpha';
-    locationStatus('Choose Use my location to sort nearest first. No location has been requested.');
-    document.getElementById('btn-locate').focus();
+    locationStatus(GPS_AVAILABLE ? 'Choose Use my location to sort nearest first. No location has been requested.' : 'Browse parks by choosing a city.');
+    if (GPS_AVAILABLE) document.getElementById('btn-locate').focus();
   }
   render(); saveBrowseHistory();
 });
@@ -1811,7 +1815,7 @@ window.addEventListener('popstate', event => {
     explicitCity = false; awaitingCity = new URLSearchParams(location.search).get('near') === '1';
     searchEl.value = ''; active = new Set(); sortEl.value = 'alpha';
     applyDatasetContext(); render();
-    locationStatus(awaitingCity ? 'Choose a city to view parks.' : 'Browse parks by city, or use your location.');
+    locationStatus(awaitingCity || !GPS_AVAILABLE ? 'Choose a city to view parks.' : 'Browse parks by city, or use your location.');
   }
 });
 window.addEventListener('pagehide', () => { ++cityRequest; clearLocation('Location cleared when you left this page. Use your location again if needed.'); });
@@ -1849,7 +1853,7 @@ datasetReadyPromise.then(() => {
   ensureMap();
   syncLocationControls();
   if (!window.FEP_PRIVACY.ok) locationStatus('Location and analytics are disabled because the page URL could not be cleaned. You can still choose a city.');
-  else if (awaitingCity && !origin && !locationRequest.isPending()) locationStatus('Use your location to suggest a covered city, or choose a city above.');
+  else if (awaitingCity && !origin && !locationRequest.isPending()) locationStatus(GPS_AVAILABLE ? 'Use your location to suggest a covered city, or choose a city above.' : 'Choose a city above to view its parks.');
   if (cityRequest === 0) saveBrowseHistory(true);
 }).catch(() => { if (cityRequest === 0) { viewReady = true; locationStatus('Park data could not be loaded. Choose another city or try again.'); syncLocationControls(); } });
 window.addEventListener('load', () => {

@@ -93,6 +93,7 @@
   </script>
 
   <style>
+    [hidden] { display: none !important; }
     :root {
       --green:      #0f6e56;
       --green-dark: #085041;
@@ -853,7 +854,8 @@
       <h1 class="hero-title">Find the right park<br><em>for right now</em></h1>
       <p class="hero-sub">The fastest way to pick a family spot across the Front Range</p>
       <div class="hero-cta-group">
-        <a class="hero-btn-primary" id="geoBtn" href="./parks.html?near=1">📍 Find parks near me</a>
+        <a class="hero-btn-primary" id="geoBtn" data-gps-only hidden href="./parks.html?near=1">📍 Find parks near me</a>
+        <a class="hero-btn-primary" id="browseParksBtn" data-gps-paused href="./parks.html?near=1">Browse parks by city</a>
         <div class="hero-intent-row" aria-label="Popular park intents">
           <a class="hero-intent-chip" href="/playgrounds.html">🛝 Playgrounds</a>
           <a class="hero-intent-chip" href="./trails.html">🥾 Trails</a>
@@ -862,7 +864,8 @@
         </div>
       </div>
       <p class="hero-geo-status" id="geoStatus" aria-live="polite"></p>
-      <p class="hero-cta-hint">Use your location to instantly find nearby parks</p>
+      <p class="hero-cta-hint" data-gps-only hidden>Use your location to instantly find nearby parks</p>
+      <p class="hero-cta-hint" data-gps-paused>Choose a city, then compare parks and amenities</p>
     </div>
   </section>
 
@@ -1066,6 +1069,7 @@
 </script>
 </footer>
 
+  <script src="gps-availability.js"></script>
   <script src="growth-widgets.js"></script>
   <script src="data/events/events-manifest.js"></script>
   <script src="city-events.js"></script>
