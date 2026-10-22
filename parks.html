@@ -1022,10 +1022,10 @@ const locationRequest = FEPNearMe.createRequestManager({
   onPending: () => syncLocationControls(),
   onError: code => {
     const messages = {
-      denied: 'Location permission was denied. Choose a city to browse, or change permission in your browser and try again.',
+      denied: 'Your browser or device blocked location access. Check this site’s permission and your device’s Location Services, then try again. You can still choose a city to browse.',
       unavailable: 'Your location is unavailable. Choose a city to browse or try again.',
       timeout: 'Finding your location timed out. Choose a city to browse or try again.',
-      deadline: 'Still waiting for permission. This request has been cancelled here. You can dismiss the browser prompt and choose a city, or try again.',
+      deadline: 'No location was received in time. This request has been cancelled here. If a browser prompt is still open, you can dismiss it. Choose a city to browse, or try again.',
       unsupported: 'Location is not supported in this browser. Choose a city to browse.'
     };
     locationStatus(messages[code] || messages.unavailable);
