@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="referrer" content="no-referrer">
   <script>
     // This must remain before resources: old coordinate URLs are not consent.
@@ -33,6 +34,7 @@
         }
         safe.ok = true;
       } catch (_) {
+        window['ga-disable-G-9GWTHQXZNY'] = true;
         // Fail closed for analytics and location; manual city links remain available.
       }
       if (!safe.ok) return;
@@ -46,7 +48,6 @@
       document.head.appendChild(tag);
     })();
   </script>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json">
   <title>Find Every Park in Aurora &amp; the Front Range | Parks Near Me</title>
@@ -848,7 +849,7 @@
       <h1 class="hero-title">Find the right park<br><em>for right now</em></h1>
       <p class="hero-sub">The fastest way to pick a family spot across the Front Range</p>
       <div class="hero-cta-group">
-        <button class="hero-btn-primary" id="geoBtn" type="button">📍 Find parks near me</button>
+        <a class="hero-btn-primary" id="geoBtn" href="./parks.html?near=1">📍 Find parks near me</a>
         <div class="hero-intent-row" aria-label="Popular park intents">
           <a class="hero-intent-chip" href="/playgrounds.html">🛝 Playgrounds</a>
           <a class="hero-intent-chip" href="./trails.html">🥾 Trails</a>
@@ -1191,11 +1192,6 @@
         ].join('');
       }).join('');
     }
-
-    const geoBtn = document.getElementById('geoBtn');
-    if (geoBtn) geoBtn.addEventListener('click', function () {
-      window.location.href = './parks.html?near=1';
-    });
 
     mountHomeFeaturedEvents();
 
