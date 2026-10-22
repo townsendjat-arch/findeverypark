@@ -1730,6 +1730,7 @@ function ensureMap() {
 }
 active = new Set(requestedFilters);
 sortEl.value = ['alpha','big','small','visited'].includes(urlParams.get('sort')) ? urlParams.get('sort') : 'alpha';
+if (awaitingCity) render();
 const datasetReadyPromise = window.DATASET_LOAD_PROMISE || Promise.resolve();
 datasetReadyPromise.then(() => {
   // A later city choice or location fix must never be reset by initial loading.

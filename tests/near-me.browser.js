@@ -163,14 +163,18 @@ async function ready(page,city='aurora'){
 }
 async function gotoCity(page,city='aurora',extra=''){await page.goto(origin+'/parks.html?dataset='+city+extra);await ready(page,city);}
 async function requestLocation(page){await page.locator('#btn-locate').click();await page.waitForFunction(()=>window.__geoRequests.length>0);}
-async function assertAwaitingCity(page){
-  await page.waitForFunction(()=>document.querySelector('#page-intro-title').textContent==='Choose a city to see parks'&&history.state?.awaitingCity===true);
+async function assertAwaitingPresentation(page){
+  await page.waitForFunction(()=>document.querySelector('#page-intro-title').textContent==='Choose a city to see parks');
   assert.equal(await page.locator('.page-intro').innerText(),'Choose a city to see parks','Waiting intro contains only neutral city-confirmation copy');
   for(const selector of ['#page-intro-subtitle','#page-intro-copy','#dataset-note','.browse-shell','#map'])assert.equal(await page.locator(selector).isVisible(),false,selector+' is hidden before confirmation');
   assert.equal(await cards(page).count(),0,'Waiting state exposes no park cards');
   assert.equal(await page.locator('.dataset-link.active,.dataset-link[aria-current]').count(),0,'Suggested or cached cities are not confirmed cities');
   assert.equal(new URL(page.url()).searchParams.get('dataset'),null,'No city is selected in the URL');
   assert.equal(new URL(page.url()).searchParams.get('near'),'1');
+}
+async function assertAwaitingCity(page){
+  await assertAwaitingPresentation(page);
+  await page.waitForFunction(()=>history.state?.awaitingCity===true);
   assert.equal(await page.evaluate(()=>history.state.explicitCity),false);
 }
 async function assertConfirmedCity(page,key){
@@ -282,6 +286,22 @@ async function screenshotNearestCards(page,label){
         await page.goBack();await assertAwaitingCity(page);assert.equal(await requestCount(page),3);
         await page.goForward();await settleCity(page,'parker');await assertConfirmedCity(page,'parker');await assertNearest(page,'parker');assert.equal(await requestCount(page),3);
       });
+      {
+        let release,intercepted;const gate=new Promise(resolve=>release=resolve),seen=new Promise(resolve=>intercepted=resolve);
+        await run('waiting city is neutral while initial dataset is held or fails, before history exists',{
+          route:async(route,url)=>{if(url.pathname==='/aurora-parks-data.js'){intercepted();await gate;await route.abort();return true;}return false;}
+        },async({page})=>{
+          try{
+            await page.goto(origin+'/parks.html?near=1',{waitUntil:'commit'});await deadline(seen,12000,'Initial Aurora dataset request starting');
+            await assertAwaitingPresentation(page);assert.equal(await page.evaluate(()=>history.state),null,'Waiting presentation does not depend on completed dataset history');
+            assert.deepEqual(await page.evaluate(()=>({explicitCity,awaitingCity})),{explicitCity:false,awaitingCity:true});assert.equal(await requestCount(page),0);
+            release();await page.waitForFunction(()=>/Park data could not be loaded/i.test(document.querySelector('#location-status').textContent));
+            await assertAwaitingPresentation(page);assert.deepEqual(await page.evaluate(()=>({explicitCity,awaitingCity})),{explicitCity:false,awaitingCity:true});
+            assert.equal(await page.evaluate(()=>typeof window.L),'undefined');assert.equal(await requestCount(page),0);
+            await chooseCity(page,'parker');await assertConfirmedCity(page,'parker');assert.equal(await requestCount(page),0);
+          }finally{release();}
+        });
+      }
       await run('cached Parker does not implicitly confirm a city after Home Near Me or a suggested location',{},async({page})=>{
         await gotoCity(page,'parker');assert.equal(await page.evaluate(()=>localStorage.getItem('activeDataset')),'parker');
         await page.goto(origin+'/index.html');await page.locator('#geoBtn').click();await page.waitForURL('**/parks.html?near=1');
