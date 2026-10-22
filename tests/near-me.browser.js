@@ -349,8 +349,11 @@ async function screenshotNearestCards(page,label){
         assert.match(await page.locator('#location-status').textContent(),/^No location was received in time\./);
         assert.doesNotMatch(await page.locator('#location-status').textContent(),/still waiting for permission/i);
         await screenshot(page,label+'-location-deadline-guidance');
-        await chooseCity(page,'parker');assert.equal(await requestCount(page),1);
         await respond(page);assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(await requestCount(page),1);
+        assert.equal(await page.locator('#grid .park-distance').count(),0,'Deadline alone invalidates late success before a manual city change');
+        await chooseCity(page,'parker');assert.equal(await requestCount(page),1);
+        assert.equal(new URL(page.url()).searchParams.get('dataset'),'parker');
+        assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(await page.locator('#grid .park-distance').count(),0);
       });
       await run('same-document Back/Forward restores only non-coordinate city/filter/search/sort state',{},async({page})=>{
         await gotoCity(page);await requestLocation(page);await respond(page);await filterClick(page,'playground');await chooseCity(page,'denver');
