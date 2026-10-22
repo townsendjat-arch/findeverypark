@@ -1,7 +1,8 @@
 (function () {
   const params = new URLSearchParams(window.location.search);
   const requestedDataset = params.get("dataset");
-  const savedDataset = window.localStorage ? localStorage.getItem("activeDataset") : "";
+  let savedDataset = "";
+  try { savedDataset = localStorage.getItem("activeDataset") || ""; } catch (_) {}
   const pageName = (window.location.pathname.split("/").pop() || "").toLowerCase();
   const shouldIgnoreSavedDataset = pageName === "park.html" && !requestedDataset;
 
@@ -27,7 +28,7 @@
   };
 
   function resolveDatasetKey(value) {
-    return value && datasetScripts[value] ? value : "";
+    return typeof value === "string" && Object.prototype.hasOwnProperty.call(datasetScripts, value) ? value : "";
   }
 
   const siteDefaultDataset = resolveDatasetKey(window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
@@ -36,9 +37,7 @@
     (!shouldIgnoreSavedDataset ? resolveDatasetKey(savedDataset) : "") ||
     siteDefaultDataset;
 
-  if (window.localStorage) {
-    localStorage.setItem("activeDataset", activeDataset);
-  }
+  try { localStorage.setItem("activeDataset", activeDataset); } catch (_) {}
 
   window.REQUESTED_DATASET_KEY = requestedDataset || "";
   window.REQUESTED_DATASET_INVALID = !!requestedDataset && activeDataset !== requestedDataset;
@@ -63,29 +62,29 @@
     return activeParks;
   }
 
-  const existingDataset = window.getParkDataset && window.getParkDataset(activeDataset);
-  if (existingDataset && existingDataset.length) {
-    setActiveParksGlobal(activeDataset, existingDataset);
-    window.DATASET_LOAD_PROMISE = Promise.resolve(existingDataset);
-    return;
-  }
-
-  const existingScript = document.querySelector('script[data-dataset-key="' + activeDataset + '"]');
-  if (existingScript) {
-    window.DATASET_LOAD_PROMISE = window.DATASET_LOAD_PROMISE || new Promise((resolve, reject) => {
-      existingScript.addEventListener("load", () => resolve(setActiveParksGlobal(activeDataset)), { once: true });
-      existingScript.addEventListener("error", () => reject(new Error("Failed to load dataset script: " + scriptName)), { once: true });
+  // Loading a script does not select its city. The directory commits only the latest request.
+  const pending = new Map();
+  window.loadParkDataset = function (value) {
+    const key = resolveDatasetKey(value);
+    if (!key) return Promise.reject(new Error("Unsupported city"));
+    const existing = window.getParkDataset && window.getParkDataset(key);
+    if (Array.isArray(existing)) return Promise.resolve(existing);
+    if (pending.has(key)) return pending.get(key);
+    const promise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = datasetScripts[key];
+      script.async = true;
+      script.dataset.datasetKey = key;
+      script.onload = () => {
+        const parks = window.getParkDataset && window.getParkDataset(key);
+        if (Array.isArray(parks)) resolve(parks);
+        else { pending.delete(key); script.remove(); reject(new Error("Park dataset unavailable")); }
+      };
+      script.onerror = () => { pending.delete(key); script.remove(); reject(new Error("Park dataset unavailable")); };
+      document.body.appendChild(script);
     });
-    return;
-  }
-
-  window.DATASET_LOAD_PROMISE = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = scriptName;
-    script.async = false;
-    script.dataset.datasetKey = activeDataset;
-    script.onload = () => resolve(setActiveParksGlobal(activeDataset));
-    script.onerror = () => reject(new Error("Failed to load dataset script: " + scriptName));
-    document.body.appendChild(script);
-  });
+    pending.set(key, promise);
+    return promise;
+  };
+  window.DATASET_LOAD_PROMISE = window.loadParkDataset(activeDataset).then(parks => window.ACTIVE_DATASET_KEY === activeDataset ? setActiveParksGlobal(activeDataset, parks) : parks);
 })();
