@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY"></script>
+  <meta name="referrer" content="no-referrer">
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-9GWTHQXZNY');
+    // This must remain before resources: old coordinate URLs are not consent.
+    (function () {
+      var cities = ['aurora','centennial','parker','englewood','highlands-ranch','littleton','castle-rock','westminster','arvada','lakewood','broomfield','thornton','commerce-city','greenwood-village','brighton','golden','lone-tree','denver'];
+      var filters = ['playground','pickleball','tennis','basketball','baseball','soccer','volleyball','pool','sprayground','dog','dog_park','trails','fishing','disc_golf','skate','golf','garden','boating','restroom','shelter'];
+      var safe = { ok: false, pageLocation: '', pageReferrer: '' };
+      window.FEP_PRIVACY = safe;
+      try {
+        var url = new URL(window.location.href);
+        var clean = new URL(url.origin + url.pathname);
+        var dataset = url.searchParams.get('dataset');
+        if (cities.indexOf(dataset) !== -1) clean.searchParams.set('dataset', dataset);
+        if (url.searchParams.get('near') === '1') clean.searchParams.set('near', '1');
+        var selected = (url.searchParams.get('filter') || '').split(',').filter(function (key) { return filters.indexOf(key) !== -1; });
+        if (selected.length) clean.searchParams.set('filter', selected.join(','));
+        var search = url.searchParams.get('search') || '';
+        // Free text is never sent to analytics; discard coordinate-like legacy input.
+        if (search && search.length <= 120 && !/[+-]?\d{1,3}\.\d{3,}/.test(search)) clean.searchParams.set('search', search);
+        var sort = url.searchParams.get('sort');
+        if (['alpha','big','small','visited'].indexOf(sort) !== -1) clean.searchParams.set('sort', sort);
+        history.replaceState(null, '', clean.pathname + clean.search);
+        if (window.location.href !== clean.href) throw new Error('URL cleanup failed');
+        var analyticsUrl = new URL(clean.href);
+        analyticsUrl.searchParams.delete('search');
+        safe.pageLocation = analyticsUrl.href;
+        if (document.referrer) {
+          var referrer = new URL(document.referrer);
+          if (/^https?:$/.test(referrer.protocol)) safe.pageReferrer = referrer.origin + referrer.pathname;
+        }
+        safe.ok = true;
+      } catch (_) {
+        // Fail closed for analytics and location; manual city links remain available.
+      }
+      if (!safe.ok) return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-9GWTHQXZNY', { page_location: safe.pageLocation, page_referrer: safe.pageReferrer });
+      var tag = document.createElement('script');
+      tag.async = true;
+      tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-9GWTHQXZNY';
+      document.head.appendChild(tag);
+    })();
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,10 +63,9 @@
   <meta name="twitter:description" content="Find parks near you in Aurora, Colorado. Browse the Aurora park map, compare playgrounds, splash pads, dog parks, trails, and jump into the best local park guides.">
   <meta name="twitter:image" content="https://findeverypark.com/images/aurora-parks-hero.png">
   <link rel="stylesheet" href="growth-widgets.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>if (window.FEP_PRIVACY.ok) { var el = document.createElement('link'); el.rel = 'stylesheet'; el.href = "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Outfit:wght@400;500;600&display=swap"; document.head.appendChild(el); }</script>
+  <script>if (window.FEP_PRIVACY.ok) { var el = document.createElement('link'); el.rel = 'stylesheet'; el.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"; document.head.appendChild(el); }</script>
+  <script>if (window.FEP_PRIVACY.ok) { var el = document.createElement('script');  el.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"; document.head.appendChild(el); }</script>
  
   <style>
 
@@ -563,21 +599,7 @@ const requestedFilters = (urlParams.get('filter') || "")
   .filter(Boolean);
 const datasetFromUrl = urlParams.get('dataset');
 
-function nearestCityFromCoords(lat, lng) {
-  const cities = window.FEP_CITY_CENTROIDS || [];
-  let nearest = 'aurora', minDist = Infinity;
-  cities.forEach(function(c) {
-    const d = Math.pow(lat - c.lat, 2) + Math.pow(lng - c.lng, 2);
-    if (d < minDist) { minDist = d; nearest = c.key; }
-  });
-  return nearest;
-}
-
-const geoLat = parseFloat(urlParams.get('lat'));
-const geoLng = parseFloat(urlParams.get('lng'));
-const geoDataset = (!isNaN(geoLat) && !isNaN(geoLng)) ? nearestCityFromCoords(geoLat, geoLng) : null;
-
-const DATASET_KEY = datasetFromUrl || geoDataset || window.ACTIVE_DATASET_KEY || (window.PARK_SITE && window.PARK_SITE.defaultDataset) || "aurora";
+const DATASET_KEY = window.ACTIVE_DATASET_KEY || "aurora";
 let DATASET_META = null;
 let CITY = "";
 let STATE = "";
@@ -865,19 +887,11 @@ function setMapMode(mode) {
 
 
 function locateMe() {
-  if (!navigator.geolocation) { alert("Geolocation not supported."); return; }
-  const btn = document.getElementById('btn-locate');
-  btn.textContent = 'Locating...';
-  navigator.geolocation.getCurrentPosition(pos => {
-    userLat = pos.coords.latitude; userLng = pos.coords.longitude;
-    btn.innerHTML = '&#x1F4CD; Located!'; btn.classList.add('active');
-    setTimeout(() => { btn.innerHTML = '&#x1F4CD; Find me'; btn.classList.remove('active'); }, 2500);
-    if (userMarker) map.removeLayer(userMarker);
-    userMarker = L.circleMarker([userLat, userLng], { radius: 9, fillColor: '#4285f4', color: 'white', weight: 2.5, fillOpacity: 1 }).bindPopup('<b>You are here</b>').addTo(map);
-    map.setView([userLat, userLng], 13, { animate: true });
-    document.getElementById('legend-dist').textContent = 'Distances from your location';
-    if (document.getElementById('sort').value === 'nearest') render(); else renderMarkers(currentFiltered);
-  }, () => { btn.innerHTML = '&#x1F4CD; Find me'; });
+  const error = document.getElementById('locate-error');
+  error.textContent = 'Choose a city above to browse parks. Location sorting is currently unavailable.';
+  error.style.display = 'inline';
+  error.setAttribute('role', 'status');
+  document.querySelector('.dataset-link').focus();
 }
 
 function haversine(lat1, lng1, lat2, lng2) {
