@@ -160,8 +160,14 @@
     const features = park.f || park.features || {};
     const datasetCoords = (window.PARK_COORDS && window.PARK_COORDS[datasetKey]) || {};
     const coordPair = Array.isArray(datasetCoords[name]) ? datasetCoords[name] : null;
-    const lat = Number.isFinite(Number(park.lat)) ? Number(park.lat) : coordPair ? Number(coordPair[0]) : null;
-    const lng = Number.isFinite(Number(park.lng)) ? Number(park.lng) : coordPair ? Number(coordPair[1]) : null;
+    function validPair(lat, lng) {
+      const number = value => (typeof value === "number" || (typeof value === "string" && value.trim() !== "")) ? Number(value) : NaN;
+      lat = number(lat); lng = number(lng);
+      return Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180 ? [lat, lng] : null;
+    }
+    const coordinates = validPair(park.lat, park.lng) || (coordPair && validPair(coordPair[0], coordPair[1]));
+    const lat = coordinates ? coordinates[0] : null;
+    const lng = coordinates ? coordinates[1] : null;
     const acreage =
       typeof park.ac === "number"
         ? park.ac

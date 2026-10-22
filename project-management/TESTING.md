@@ -1,5 +1,44 @@
 # FindEveryPark: verification ledger
 
+
+## Phase 1 Near Me review (October 22, 2026 UTC)
+
+- Authorized scope: a separate draft on `review/near-me-phase-one`, based on verified main `9a408805d454d6b94485e65d3a06955a9a3ccf3b`. This is not permission to merge, deploy or publish a private preview. PR #3, all park/event data, the 58 event records including six pumpkin listings, city centroids, sitemap/robots, SEO titles/descriptions/canonicals/schema, new pages, dependencies and `package-lock.json` are outside this change.
+- The exact final candidate SHA, matching-head terminal CI results and downloadable screenshot/JSON artifact links belong in the draft PR validation section. Results for an earlier commit do not establish that a later head passed.
+- Home Near Me is a normal `./parks.html?near=1` link. Only the directory's explicit **Use my location** button requests one fix. Selecting Nearest without a fix focuses that button, not a permission prompt. Without an explicit city, the nearest existing covered-city centroid is suggested with approximate centre distance and a boundary/nearest-park disclaimer, then existing city chips require confirmation. No radius, cross-city aggregation or new dataset is introduced.
+- Filtering precedes unrounded spherical-distance sorting; stable original-order ties, true zero coordinates/distance and unavailable-distance-last behavior are tested. The independent law-of-cosines/analytic oracle uses R = 3958.8 miles and tolerance ≤0.001 mile. This numerical tolerance does not claim GPS or park-position accuracy. Distances are approximate straight-line, not routing distances.
+- One location request uses `timeout: 8000`, `maximumAge: 0`, `enableHighAccuracy: false`. A separate 15-second foreground UI deadline pauses while hidden. Cancel/clear, later city/sort intent, departure and deadline invalidate callbacks. The site cannot dismiss the browser's native permission dialog. Latest asynchronous city load wins; unavailable filters are reported. Manual city selection, search and supported filters remain usable on location failure.
+- Coordinates and derived distances exist only in the current document's memory. No visitor marker, visitor-centred tiles, reverse geocoding or directions origin is generated. Map requests use public park extents only. Same-document history stores only city, explicit-city/confirmation state, filters, search and sort. Reload/departure/bfcache clears the fix and restores A–Z without prompting. A chosen coarse city can still be persisted.
+- Before any external tag/resource is created, both entry pages set no-referrer, discard legacy coordinate parameters/fragments, replace the URL with allowlisted non-coordinate state and configure existing GA using sanitized page location/referrer. Failure disables analytics/location and leaves manual browsing. External resources are created dynamically after this guard so the HTML preload scanner cannot race it. The initial legacy URL and an incoming Referer have already reached the host before client code; cleanup cannot erase prior history, server logs or other copies. Browser/OS location providers may process location independently.
+
+### Tests and evidence
+
+Commands retain all inherited checks and add only focused suites:
+
+- `npm test`: inherited 26 Node event/data/regression checks.
+- `npm run test:near-me`: deterministic coordinate/oracle, registry, lifecycle, early privacy and loader unit checks.
+- `BROWSER=chromium npm run test:browser` and `BROWSER=webkit npm run test:browser`: inherited event, pumpkin, notices, accessibility and homepage regression suite.
+- `BROWSER=chromium node tests/all-events.browser.js` and equivalent WebKit: inherited All events reset suite.
+- `BROWSER=chromium npm run test:near-me:browser` and equivalent WebKit: 320×740, 390×844 and 1440×1000; exact ordered IDs; all 17 cities; zero/one/missing-coordinate fixtures; permission states and races; same-document history/reload/departure/bfcache lifecycle; map-provider boundary/no-Leaflet; keyboard/touch targets/scoped axe; no-JavaScript safe navigation; screenshots and JSON reports under `test-results/`.
+
+All browser traffic to analytics and other nonlocal providers is intercepted. Tests use only synthetic coordinates, inspect encoded/rounded variants in outgoing URLs/headers/bodies, URL/history/storage/dataLayer/console and links, and never send production analytics hits. A mocked Leaflet boundary verifies only public park coordinates are used; it is not a real provider rendering test. The unavoidable first legacy host request is recorded separately, not misrepresented as client-side leakage.
+
+Initial local verification: 41 focused Node checks and all 26 inherited Node checks passed, with JavaScript syntax and whitespace checks passing. Additional tests and final exact-head results are recorded in the draft PR. Local browser execution did not reach tests: Playwright engines were absent, and the installed Chromium failed at the sandbox/socket boundary; a supported escalation failed before launch with a read-only environment-path error. No local browser pass is claimed. Exact-head GitHub Actions is the browser gate. The test-only workflow retains PR-only triggers, contents-read permission, exact-head checkout, no retained credentials and no deployment steps; only this approved branch and its test commands are added.
+
+Physical iOS Safari and Android Chrome permission prompts, actual OS geolocation providers, native prompt dismissal, physical-device Back/Forward and VoiceOver/TalkBack remain **unverified**. Playwright WebKit is not physical Safari certification. Scoped axe checks are not whole-site accessibility certification. No production post-deploy test or complete external-map-service test is claimed.
+
+### Measurement baseline and release gates
+
+Fresh dated GSC/GA4 exports remain pending owner-provided exports; historical screenshots with unknown filters/dates are not a current baseline. No tracking, report customization, account setting, paid access or indexing action is introduced. The separate read-only baseline must record actual properties, dates/timezones, filters, coverage and unavailable metrics before comparisons are interpreted. GSC clicks are not GA4 sessions, and generic clicks do not establish Near Me success.
+
+### Privacy-safe rollback
+
+The verified privacy-safe checkpoint is `d427fcafef5be038bcf5f4b6a7669f0ae9c13257` ([commit](https://github.com/townsendjat-arch/findeverypark/commit/d427fcafef5be038bcf5f4b6a7669f0ae9c13257)). It retains URL/analytics guards, removes home GPS navigation and routes directory location actions to manual city browsing. The original pre-function checkpoint `f723ae8` was refreshed on the same isolated review branch to preserve existing allowlisted homepage `city` state after the first CI run exposed that regression. The refreshed checkpoint comparison against main changes only `index.html` and `parks.html` and retains the full base tree. It is the rollback target; the subsequent functional commit restores Near Me on top of it.
+
+If the draft is rejected, leave production untouched and close it. If a later separately approved release regresses, obtain explicit rollback approval, restore the Near Me implementation's functional files to this safe checkpoint (or revert its later functional commits), retain the privacy guards, rerun focused/privacy and inherited regressions against the exact rollback commit, then request release approval. Account for unrelated later commits rather than resetting an entire branch blindly. Do **not** roll back wholesale to old main `9a408805`: it would restore coordinate-bearing URLs. No rollback or deployment has been performed.
+
+---
+
 Updated: **2026-10-21 (UTC)**. Current scope: additive Priority 1 content and the approved universal full-listing notice on merged pumpkin main; prior evidence below is historical and does not prove the current head. This is not whole-site certification.
 
 ## Priority 1 content batch
