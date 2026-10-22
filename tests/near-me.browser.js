@@ -182,6 +182,22 @@ async function assertNearest(page,city,coords=sentinel,filter='',query=''){
 }
 async function filterClick(page,key){const filter=page.locator('.pill[data-k="'+key+'"]');if(!await filter.isVisible())await page.locator('#filter-toggle').click();await filter.click();}
 async function screenshot(page,name){await page.locator('#location-panel').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(output,engineName+'-near-me-'+name+'.png'),fullPage:false});}
+async function screenshotNearestCards(page,label){
+  const card=cards(page).first(),distance=card.locator('.park-distance');
+  await card.scrollIntoViewIfNeeded();await distance.scrollIntoViewIfNeeded();
+  await distance.evaluate(node=>{
+    const box=node.getBoundingClientRect(),sticky=document.querySelector('.sticky');
+    const stickyBottom=sticky&&getComputedStyle(sticky).position==='sticky'?Math.max(0,sticky.getBoundingClientRect().bottom):0;
+    const target=Math.min(innerHeight-box.height/2-16,Math.max(innerHeight/2,stickyBottom+box.height/2+24));
+    window.scrollBy(0,box.top+box.height/2-target);
+  });
+  assert.equal(await distance.isVisible(),true,'Nearest first-card distance label is rendered');
+  assert.equal(await distance.evaluate(node=>{const box=node.getBoundingClientRect();return box.top>=-.5&&box.bottom<=innerHeight+.5&&box.left>=-.5&&box.right<=innerWidth+.5;}),true,'Nearest first-card distance label is inside the viewport');
+  assert.equal(await distance.evaluate(node=>{const box=node.getBoundingClientRect(),hit=document.elementFromPoint(box.left+box.width/2,box.top+box.height/2);return hit===node||node.contains(hit);}),true,'Distance label is unobstructed by sticky controls');
+  await page.screenshot({path:path.join(output,engineName+'-near-me-nearest-cards-'+label+'.png'),fullPage:false});
+  await card.screenshot({path:path.join(output,engineName+'-near-me-nearest-card-detail-'+label+'.png')});
+}
+
 
 (async()=>{
   fs.mkdirSync(output,{recursive:true});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));origin='http://127.0.0.1:'+server.address().port;
@@ -212,7 +228,7 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
         await page.locator('#search').fill('');await chooseCity(page,'denver');await assertNearest(page,'denver',sentinel,'playground');
         assert.equal(await requestCount(page),1);assert.equal(await page.locator('.pill[data-k="playground"]').getAttribute('aria-pressed'),'true');
         assertNoSentinel(await page.evaluate(()=>window.__mapCalls||[]),'Leaflet map/marker calls');
-        await screenshot(page,label+'-nearest-filtered');
+        await screenshot(page,label+'-nearest-filtered');await screenshotNearestCards(page,label);
       });
       await run('unselected city requires simple centroid confirmation, including a far-away fix',{},async({page})=>{
         await page.goto(origin+'/parks.html?near=1');await page.locator('#btn-locate').waitFor();await requestLocation(page);await respond(page);
@@ -221,6 +237,10 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
         const text=await page.locator('#city-suggestion').textContent();
         assert.match(text,/approximately.*mi.*centre/i);assert.match(text,/not.*nearest park.*city.boundary/i);
         assert.equal(await cards(page).count(),0,'No parks listed before city confirmation');
+        const suggested=cityLink(page,closest.key);
+        assert.equal(await suggested.evaluate(node=>node===document.activeElement&&node.classList.contains('suggested')),true,'Suggested city receives keyboard focus');
+        await page.waitForFunction(key=>{const node=document.querySelector('.dataset-link[data-dataset="'+key+'"]');const box=node.getBoundingClientRect();return box.left>=-.5&&box.right<=innerWidth+.5;},closest.key);
+        assert.equal(await suggested.evaluate(node=>{const box=node.getBoundingClientRect();return box.left>=-.5&&box.right<=innerWidth+.5;}),true,'Suggested city chip is horizontally visible without swiping');
         await screenshot(page,label+'-confirm-city');
         await chooseCity(page,closest.key);await assertNearest(page,closest.key);assert.equal(await requestCount(page),1);
       });
@@ -237,6 +257,7 @@ async function screenshot(page,name){await page.locator('#location-panel').scrol
         await run('permission failure '+code+' gives distinct feedback and manual city fallback',{},async({page})=>{
           await gotoCity(page,'parker');await requestLocation(page);await page.evaluate(code=>window.__geoRequests[0].error({code}),code);
           assert.match(await page.locator('#location-status').textContent(),message);assert.equal(await requestCount(page),1);
+          if(code===1)await screenshot(page,label+'-permission-denied');
           assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(new URL(page.url()).searchParams.get('dataset'),'parker');
           await chooseCity(page,'denver');assert.equal(await requestCount(page),1);assert.equal(await page.locator('#grid .park-distance').count(),0);
           await respond(page);assert.equal(await page.locator('#sort').inputValue(),'alpha','Late success cannot undo failure/manual intent');

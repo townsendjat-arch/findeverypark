@@ -950,7 +950,11 @@ const locationRequest = FEPNearMe.createRequestManager({
       document.querySelectorAll('.dataset-link').forEach(link => link.classList.toggle('suggested', !!city && link.dataset.dataset === city.key));
       locationStatus('Location ready. Confirm a covered city above before viewing results.');
       const chip = city && document.querySelector('.dataset-link[data-dataset="' + city.key + '"]');
-      if (chip) chip.focus({ preventScroll: true });
+      if (chip) {
+        const strip = chip.parentElement;
+        strip.scrollLeft += chip.getBoundingClientRect().left - strip.getBoundingClientRect().left - (strip.clientWidth - chip.offsetWidth) / 2;
+        chip.focus({ preventScroll: true });
+      }
     } else locationStatus('Showing ' + CITY + ' parks nearest first. Distances are approximate straight-line distances, not route distances.');
     syncLocationControls();
     render();
