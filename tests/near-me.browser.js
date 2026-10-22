@@ -277,7 +277,7 @@ async function screenshotNearestCards(page,label){
         assert.equal(await requestCount(page),0);
         await page.goto(origin+'/parks.html?near=1');await assertAwaitingCity(page);
         await requestLocation(page);await page.evaluate(()=>window.__geoRequests[0].error({code:1}));await assertAwaitingCity(page);
-        assert.match(await page.locator('#location-status').textContent(),/denied/i);
+        assert.match(await page.locator('#location-status').textContent(),/^Your browser or device blocked location access\./);
         await requestLocation(page);await respond(page);await assertAwaitingCity(page);
         await page.locator('#clear-location').click();await assertAwaitingCity(page);
         assert.equal(await page.locator('#city-suggestion').isVisible(),false);assert.equal((await page.locator('#city-suggestion').textContent()).trim(),'');assert.equal(await page.locator('#sort').inputValue(),'alpha');
