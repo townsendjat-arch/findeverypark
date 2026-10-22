@@ -1,5 +1,9 @@
 # FindEveryPark: tasks and release gates
 
+## Current map-usability draft
+
+Owner-authorized priorities 1 and 2 are isolated on `fix/park-selection-accessibility`, based on main `0ed9598`: exact-ID selection, exact-coordinate chooser and popup contrast/readability. Priority 3 stays research-only. No dataset/SEO/PR #3 changes or merge/deployment authorization. Review evidence and remaining gates: [map selection](MAP_SELECTION_ACCESSIBILITY.md).
+
 Updated: **2026-10-21 (UTC)**. Today's exception: FindEveryPark only, Charles paused. Separate project reviews and approvals remain required.
 
 ## Current Priority 1 draft, October 21

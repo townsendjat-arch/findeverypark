@@ -1,5 +1,9 @@
 # FindEveryPark: verification ledger
 
+## Map-usability verification
+
+New selection tests and the inherited real-Leaflet/privacy suites run in Chromium and WebKit at the exact pull-request head. See [scope and limitations](MAP_SELECTION_ACCESSIBILITY.md#verification); exact-head CI artifacts and PR validation identify final results, never a previous head. Physical-device and assistive-technology checks remain manual.
+
 
 ## Phase 1 Near Me review (October 22, 2026 UTC)
 

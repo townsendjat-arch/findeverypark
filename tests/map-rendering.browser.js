@@ -336,10 +336,15 @@ async function expectedMarkers(page, city, filter = '', query = '') {
 }
 async function assertMarkerCorrespondence(page, city, filter = '', query = '') {
   const expected = await expectedMarkers(page, city, filter, query);
-  await page.waitForFunction(count => typeof markersLayer !== 'undefined' && markersLayer && markersLayer.getLayers().length === count, expected.length);
-  const actual = await page.evaluate(() => markersLayer.getLayers().map(marker => {
-    const element = document.createElement('div'); element.innerHTML = marker.getPopup().getContent();
-    const point = marker.getLatLng(); return {name: element.querySelector('b').textContent, coordinates: [point.lat, point.lng]};
+  await page.waitForFunction(count => typeof parkMarkers !== 'undefined' && Object.keys(parkMarkers).length === count, expected.length);
+  const actual = await page.evaluate(() => markersLayer.getLayers().flatMap(marker => {
+    const content = marker.getPopup().getContent(), point = marker.getLatLng();
+    const element = typeof content === 'string' ? document.createElement('div') : content;
+    if (typeof content === 'string') element.innerHTML = content;
+    const names = marker.parkGroup.length > 1
+      ? Array.from(element.querySelectorAll('.park-chooser button[data-park-id]'), button => button.textContent)
+      : [element.querySelector('b').textContent];
+    return names.map(name => ({name, coordinates: [point.lat, point.lng]}));
   }).sort((a, b) => a.name.localeCompare(b.name)));
   assert.deepEqual(actual, expected, 'Real Leaflet marker coordinates/popups exactly match the city and active filter/search');
   assert.ok(expected.length, 'Nonempty public park marker fixture');
@@ -492,7 +497,7 @@ async function fixLocation(page) {
       for (const [label, viewport] of [viewports[0], viewports[1], viewports[2]]) {
         await page.setViewportSize(viewport); await assertMap(page, 'focused-resized-' + label); await assertMarkerCorrespondence(page, 'centennial');
         const focused = await page.evaluate(() => {
-          const marker = parkMarkers['Abbott Park'], point = map.latLngToContainerPoint(marker.getLatLng()), size = map.getSize();
+          const marker = parkMarkers[allParks.find(park => parkName(park) === 'Abbott Park').id], point = map.latLngToContainerPoint(marker.getLatLng()), size = map.getSize();
           return {center: map.getCenter(), zoom: map.getZoom(), point, size, popupOpen: marker.isPopupOpen()};
         });
         assert.equal(focused.zoom, initial.zoom, 'Resizing does not zoom away from focused park');

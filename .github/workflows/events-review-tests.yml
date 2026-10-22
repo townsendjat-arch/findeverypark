@@ -48,3 +48,51 @@ jobs:
           name: events-review-${{ matrix.browser }}
           path: test-results/
           retention-days: 7
+
+  map_accessibility:
+    if: github.head_ref == 'fix/park-selection-accessibility'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Official version-matched browsers/system dependencies avoid slow runner apt mirrors.
+    # Trusted local fixtures only; no public provider browsing or deployment.
+    container: mcr.microsoft.com/playwright:v1.62.1-noble
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    env:
+      BROWSER: ${{ matrix.browser }}
+      # Trust only this runner-owned checkout for pinned historical baseline reads.
+      # Command environment is ephemeral; no wildcard or persistent Git config.
+      GIT_CONFIG_COUNT: 1
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: npm run test:near-me
+      - run: npm run test:browser
+      - run: node tests/all-events.browser.js
+        if: ${{ !cancelled() }}
+      - run: npm run test:near-me:browser
+        if: ${{ !cancelled() }}
+      - run: npm run test:maps:browser
+        if: ${{ !cancelled() }}
+      - run: node --test tests/map-selection.test.js && node tests/map-selection.browser.js
+        if: ${{ !cancelled() }}
+      - run: node tests/mobile-map-gestures.browser.js
+        if: ${{ !cancelled() }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: map-accessibility-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7
