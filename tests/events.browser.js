@@ -10,8 +10,8 @@ const root = path.join(__dirname, '..');
 const priorityAudit = JSON.parse(fs.readFileSync(path.join(root, 'docs/priority-one-source-review-2026-10-21.json'), 'utf8'));
 const priorityEvents = priorityAudit.events;
 const hasNapa = priorityEvents.some(event => event.id === 'centennial-napa-trunk-treat-2026');
-const currentCount = hasNapa ? 27 : 26;
-const centennialCount = hasNapa ? 6 : 5;
+const currentCount = hasNapa ? 35 : 34;
+const centennialCount = hasNapa ? 7 : 6;
 const output = path.join(root, 'test-results');
 fs.mkdirSync(output, { recursive: true });
 // Compare inherited homepage overflow with the exact released main baseline.
@@ -78,7 +78,7 @@ async function check(name, callback) {
       assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Aurora');
       assert.equal(await page.locator('#page-title').textContent(), 'Aurora Events');
       const visible = page.locator('[data-current="true"]:visible');
-      assert.equal(await visible.count(), 8);
+      assert.equal(await visible.count(), 10);
       assert.ok((await visible.evaluateAll(items => items.map(e => e.dataset.city))).every(city => city === 'aurora'));
       assert.ok(await page.locator('#aurora-events-link-paths').isVisible());
     });
@@ -123,7 +123,7 @@ async function check(name, callback) {
         await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
         assert.equal(new URL(page.url()).searchParams.get('city'), city);
         const visible = page.locator('[data-current="true"]:visible');
-        assert.equal(await visible.count(), ({centennial:centennialCount,parker:1,denver:3,aurora:8})[city], city);
+        assert.equal(await visible.count(), ({centennial:centennialCount,parker:3,denver:5,aurora:10})[city], city);
         assert.ok((await visible.evaluateAll(items => items.map(e => e.dataset.city))).every(value => value === city));
       }
       await page.goBack(); assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Denver');
@@ -164,6 +164,14 @@ async function check(name, callback) {
       assert.equal(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details').getAttribute('open'), '');
       await page.clock.setFixedTime(new Date('2026-11-02T20:00:00Z'));
       await page.goto(origin + '/events.html?city=aurora');
+      assert.deepEqual(await page.locator('[data-current="true"]:visible').evaluateAll(cards => cards.map(card => card.dataset.eventId).sort()),
+        ['aurora-fall-bird-walk-2026','aurora-stewardship-saturdays-2026']);
+      await page.goto(origin + '/best-parks-aurora.html');
+      assert.equal(await page.locator('.city-event-card:visible').count(), 2);
+      // The October records expire without suppressing upcoming November additions.
+      // Only after the final November coverage endpoint should every preview disappear.
+      await page.clock.setFixedTime(new Date('2026-12-01T07:00:00Z'));
+      await page.goto(origin + '/events.html?city=aurora');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
       await page.goto(origin + '/index.html?city=aurora');
       assert.equal(await page.locator('.home-event-card:visible').count(), 0);
@@ -179,20 +187,20 @@ async function check(name, callback) {
       await page.locator('.home-events').scrollIntoViewIfNeeded();
       await page.screenshot({ path: path.join(output, `${engineName}-homepage-events-${label}.png`), fullPage: false });
     });
-    await check(`${label}: Parker has only Primrose; held Kiddie Academy, Mainstreet and Violet Bridge stay absent`, async () => {
+    await check(`${label}: Parker keeps Primrose and two November events; held Kiddie Academy, Mainstreet and Violet Bridge stay absent`, async () => {
       for (const url of ['/events.html?city=parker','/index.html?city=parker','/best-parks-parker.html']) {
         await page.goto(origin + url);
         for (const title of ['Trunk or Treat on Mainstreet','All Treats, No Tricks: Sensory-Friendly Trick or Treat','Halloween at Kiddie Academy: Free Family Trunk or Treat']) {
           assert.equal(await page.getByText(title, {exact:true}).count(), 0);
         }
         if (url.startsWith('/events.html')) {
-          assert.equal(await page.locator('[data-current="true"]:visible').count(), 1);
+          assert.equal(await page.locator('[data-current="true"]:visible').count(), 3);
           assert.equal(await page.locator('#empty-city').isVisible(), false);
           const ids = await page.locator('[data-current="true"]:visible').evaluateAll(cards => cards.map(card => card.dataset.eventId).sort());
-          assert.deepEqual(ids, ['parker-primrose-trunk-treat-2026']);
+          assert.deepEqual(ids, ['parker-hometown-holidays-2026','parker-mayors-holiday-lighting-2026','parker-primrose-trunk-treat-2026']);
           await page.screenshot({path:path.join(output,`${engineName}-parker-priority-one-${label}.png`),fullPage:false});
         }
-        if (url.startsWith('/best-parks-')) assert.equal(await page.locator('.city-event-card:visible').count(), 1);
+        if (url.startsWith('/best-parks-')) assert.equal(await page.locator('.city-event-card:visible').count(), 3);
       }
       await page.goto(origin + '/events.html?city=parker');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
@@ -258,7 +266,7 @@ async function check(name, callback) {
     });
     await check(`${label}: zoo age bands, infant tickets and sampled availability`, async () => {
       await page.goto(origin + '/events.html?city=denver');
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 3);
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 5);
       for (const id of ['denver-boo-at-zoo-2026','denver-boo-at-zoo-sensory-2026']) {
         const card = page.locator(`[data-event-id="${id}"]`);
         const text = await card.textContent();
@@ -694,18 +702,19 @@ async function check(name, callback) {
         await page.goto(origin+'/events.html?city='+query);
         assert.equal(await page.locator('#page-title').textContent(),title+' Events');
         assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').getAttribute('data-city'),key);
-        assert.equal(await page.locator('[data-current="true"]:visible').count(),1);
-        assert.equal(await page.locator('[data-current="true"]:visible').getAttribute('data-event-id'),id);
+        const expectedIds = key === 'castle_rock' ? [id,'castle-rock-starlighting-2026'].sort() : [id];
+        const cityCount = expectedIds.length;
+        assert.deepEqual(await page.locator('[data-current="true"]:visible').evaluateAll(cards => cards.map(card => card.dataset.eventId).sort()),expectedIds);
         assert.equal(await page.locator('#empty-city').isVisible(),false);
         const all = page.locator('.event-filter-pill[data-city=""]');
         await all.focus(); await page.keyboard.press('Enter');
         assert.equal(await page.locator('[data-current="true"]:visible').count(),currentCount);
         const button = page.locator(`.event-filter-pill[data-city="${key}"]`);
         await button.focus(); await page.keyboard.press('Space');
-        assert.equal(await page.locator('[data-current="true"]:visible').count(),1);
+        assert.equal(await page.locator('[data-current="true"]:visible').count(),cityCount);
         assert.equal(new URL(page.url()).searchParams.get('city'),query);
         await page.goBack(); assert.equal(await page.locator('[data-current="true"]:visible').count(),currentCount);
-        await page.goForward(); assert.equal(await page.locator('[data-current="true"]:visible').count(),1);
+        await page.goForward(); assert.equal(await page.locator('[data-current="true"]:visible').count(),cityCount);
         await page.screenshot({path:path.join(output,`${engineName}-priority-one-city-${key}-${label}.png`),fullPage:false});
       }
     });

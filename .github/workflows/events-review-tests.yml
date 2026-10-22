@@ -50,7 +50,7 @@ jobs:
           retention-days: 7
 
   map_accessibility:
-    if: github.head_ref == 'fix/park-selection-accessibility'
+    if: github.head_ref == 'fix/park-selection-accessibility' || github.head_ref == 'review/november-family-events-2026'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # Official version-matched browsers/system dependencies avoid slow runner apt mirrors.
@@ -78,8 +78,16 @@ jobs:
           package-manager-cache: false
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm test
+      - name: November data and time-zone regression
+        if: github.head_ref == 'review/november-family-events-2026'
+        run: |
+          for zone in UTC America/Denver America/Los_Angeles Asia/Tokyo; do
+            TZ="$zone" node --test tests/events.test.js tests/november-events.test.js || exit 1
+          done
       - run: npm run test:near-me
       - run: npm run test:browser
+      - run: node tests/november-events.browser.js
+        if: ${{ !cancelled() && github.head_ref == 'review/november-family-events-2026' }}
       - run: node tests/all-events.browser.js
         if: ${{ !cancelled() }}
       - run: npm run test:near-me:browser

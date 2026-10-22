@@ -2,7 +2,7 @@
   "name": "findeverypark",
   "private": true,
   "scripts": {
-    "test": "node --test tests/events.test.js",
+    "test": "node --test tests/events.test.js tests/november-events.test.js",
     "test:browser": "node tests/events.browser.js",
     "test:near-me": "node --test tests/near-me.test.js",
     "test:near-me:browser": "node tests/near-me.browser.js",

@@ -1,11 +1,11 @@
 // FindEveryPark — Events Manifest
-// Updated October 21, 2026 | Source-checked fall listings
-// Current research window: October 21–November 1, 2026; legacy listings retained in the archive.
+// Updated October 22, 2026 | Source-checked fall and November listings
+// Reviewed coverage includes October and selected November 2026 dates; legacy records are preserved.
 // See docs/event-system.md for schema, verification, expiry and review workflow.
 
 window.EVENTS_DATA = {
 
-  updatedLabel: "Details checked October 21, 2026",
+  updatedLabel: "November additions checked October 22, 2026; earlier records retain their individual checked dates",
 
   cities: {
     castle_rock: {
@@ -2678,6 +2678,400 @@ window.EVENTS_DATA = {
       "timeLabel": "1–4 p.m. MDT; doors 12:45 p.m.",
       "registrationUrl": "https://www.eventbrite.com/e/community-wide-trunk-treat-hallelujah-night-tickets-2002678113147",
       "availabilityLabel": "Optional RSVP availability unconfirmed: the October 21 ticket-page recheck was blocked. Official event details still confirm free public attendance; no cancellation or sold-out notice was seen."
+    },
+
+    // Owner-approved November 2026 draft listings. Source evidence remains dated per record.
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": false,
+      "id": "aurora-fall-bird-walk-2026",
+      "city": "aurora",
+      "title": "Fall Bird Walk in Star K Ranch Open Space",
+      "section": "onetime",
+      "description": "Free; ages 8+. Register by Nov. 5; minors need a registered adult. Guided outdoor birdwatching, not a drop-off program.",
+      "dateStart": "2026-11-07T09:00:00-07:00",
+      "dateEnd": "2026-11-07T11:00:00-07:00",
+      "dateLabel": "Saturday, November 7, 2026",
+      "timeLabel": "9–11 a.m. MST",
+      "locationLabel": "Star K Ranch / Morrison Nature Center, 16002 E. Smith Road, Aurora",
+      "costLabel": "Free; no mandatory fee shown on the public registration page",
+      "audienceLabel": "Ages 8+; every minor must attend with a registered adult. Not a drop-off program.",
+      "href": "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4215?onlineSiteId=0&from_original_cui=true",
+      "registrationUrl": "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4215?onlineSiteId=0&from_original_cui=true",
+      "registrationLabel": "Registration required through November 5, 2026. Closing hour is not published. Register the accompanying adult as well as the child.",
+      "availabilityLabel": "Limited registration was offered when checked October 22. Availability can change; check the organizer before making plans. Outdoor conditions may affect the walk.",
+      "nearbyParks": [
+        {
+          "id": "co-aurora-star-k-ranch",
+          "name": "Star K Ranch"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+        "https://www.auroragov.org/cms/one.aspx?pageId=16596449",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4215?onlineSiteId=0&from_original_cui=true"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": false,
+      "id": "aurora-stewardship-saturdays-2026",
+      "city": "aurora",
+      "title": "Stewardship Saturdays for Families",
+      "section": "onetime",
+      "description": "Free; all ages. Registration required by Nov. 12. Help care for local open space with a family stewardship activity.",
+      "dateStart": "2026-11-14T09:00:00-07:00",
+      "dateEnd": "2026-11-14T11:00:00-07:00",
+      "dateLabel": "Saturday, November 14, 2026",
+      "timeLabel": "9–11 a.m. MST",
+      "locationLabel": "Morrison Nature Center at Star K Ranch, 16002 E. Smith Road, Aurora",
+      "costLabel": "Free; no mandatory fee shown on the public registration page",
+      "audienceLabel": "All ages; a family stewardship program",
+      "href": "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true",
+      "registrationUrl": "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true",
+      "registrationLabel": "Registration required through November 12, 2026, despite the drop-in-style activity format. Closing hour is not published.",
+      "availabilityLabel": "Limited registration was offered when checked October 22. Availability can change; check the organizer. Meet at the nature center and prepare for outdoor work with closed-toe shoes and sun protection.",
+      "nearbyParks": [
+        {
+          "id": "co-aurora-star-k-ranch",
+          "name": "Star K Ranch"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": true,
+      "id": "denver-dmns-free-admission-2026",
+      "city": "denver",
+      "title": "DMNS Free Night and Free Day: November dates",
+      "section": "onetime",
+      "description": "Free general admission only. Special exhibitions, planetarium and theater cost extra. Two separate November visits.",
+      "dateStart": "2026-11-07T17:00:00-07:00",
+      "dateEnd": "2026-11-16T17:00:00-07:00",
+      "dateLabel": "November 7 (evening) and November 16, 2026 only",
+      "timeLabel": "Nov. 7: 5–10 p.m.; Nov. 16: 9 a.m.–5 p.m. MST",
+      "locationLabel": "Denver Museum of Nature & Science, 2001 Colorado Boulevard, Denver, CO 80205",
+      "costLabel": "Free general admission; ticketed temporary exhibitions, planetarium and theater are separate and not included",
+      "audienceLabel": "Family-friendly museum visits; no formal minimum age is stated",
+      "href": "https://www.dmns.org/programs-and-events/freedays/",
+      "registrationLabel": "No general-admission ticket or reservation is needed on these free dates; walk up. Optional ticketed experiences have their own charges and booking rules.",
+      "availabilityLabel": "The November 16 hours use the museum’s published regular opening hours. Check current opening information before traveling.",
+      "series_start": "2026-11-07",
+      "series_end": "2026-11-16",
+      "recurrence_label": "Two separate sessions: November 7 and November 16 only",
+      "calendarDisabled": true,
+      "schedule": [
+        {
+          "date": "2026-11-07",
+          "dateStart": "2026-11-07T17:00:00-07:00",
+          "dateEnd": "2026-11-07T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Denver Museum of Nature & Science",
+          "note": "Free Night: Night at the Museums"
+        },
+        {
+          "date": "2026-11-16",
+          "dateStart": "2026-11-16T09:00:00-07:00",
+          "dateEnd": "2026-11-16T17:00:00-07:00",
+          "time": "9 a.m.–5 p.m. MST",
+          "location": "Denver Museum of Nature & Science",
+          "note": "Free Day; published regular museum hours"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.dmns.org/programs-and-events/freedays/",
+        "https://www.dmns.org/visit/getting-here/"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": true,
+      "id": "denver-mile-high-tree-2026",
+      "city": "denver",
+      "title": "Mile High Tree: November nights",
+      "section": "holiday",
+      "description": "Free outdoor light-and-music shows. This listing covers November nights only; the wider holiday season continues in December.",
+      "dateStart": "2026-11-20T17:00:00-07:00",
+      "dateEnd": "2026-11-30T22:00:00-07:00",
+      "dateLabel": "Nightly November 20–30, 2026; November coverage only",
+      "timeLabel": "5–10 p.m. MST; music-and-light shows every 15 minutes",
+      "locationLabel": "Tivoli Quad, Auraria Campus, 1000 Larimer Street, Denver",
+      "costLabel": "Free admission to the Mile High Tree; nearby shopping, food and other attractions are separate",
+      "audienceLabel": "Family-friendly outdoor display; free for all visitors",
+      "href": "https://visitdenver.com/milehighholidays/mile-high-tree/",
+      "registrationLabel": "No visitor reservation requirement is posted for the tree. This listing does not include a drone-show, market or carousel booking.",
+      "availabilityLabel": "The organizer advertises the wider season through December 31. Only November nights are listed here. Check organizer weather or cancellation updates before traveling.",
+      "series_start": "2026-11-20",
+      "series_end": "2026-11-30",
+      "recurrence_label": "Nightly November 20–30 only",
+      "calendarDisabled": true,
+      "schedule": [
+        {
+          "date": "2026-11-20",
+          "dateStart": "2026-11-20T17:00:00-07:00",
+          "dateEnd": "2026-11-20T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-21",
+          "dateStart": "2026-11-21T17:00:00-07:00",
+          "dateEnd": "2026-11-21T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-22",
+          "dateStart": "2026-11-22T17:00:00-07:00",
+          "dateEnd": "2026-11-22T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-23",
+          "dateStart": "2026-11-23T17:00:00-07:00",
+          "dateEnd": "2026-11-23T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-24",
+          "dateStart": "2026-11-24T17:00:00-07:00",
+          "dateEnd": "2026-11-24T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-25",
+          "dateStart": "2026-11-25T17:00:00-07:00",
+          "dateEnd": "2026-11-25T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-26",
+          "dateStart": "2026-11-26T17:00:00-07:00",
+          "dateEnd": "2026-11-26T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-27",
+          "dateStart": "2026-11-27T17:00:00-07:00",
+          "dateEnd": "2026-11-27T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-28",
+          "dateStart": "2026-11-28T17:00:00-07:00",
+          "dateEnd": "2026-11-28T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-29",
+          "dateStart": "2026-11-29T17:00:00-07:00",
+          "dateEnd": "2026-11-29T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        },
+        {
+          "date": "2026-11-30",
+          "dateStart": "2026-11-30T17:00:00-07:00",
+          "dateEnd": "2026-11-30T22:00:00-07:00",
+          "time": "5–10 p.m. MST",
+          "location": "Tivoli Quad",
+          "note": "November tree-display hours; check organizer updates"
+        }
+      ],
+      "sourceUrls": [
+        "https://visitdenver.com/milehighholidays/mile-high-tree/",
+        "https://www.ahec.edu/files/general/Marketing_Your_Event_Info_Sheet.pdf"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": false,
+      "id": "castle-rock-starlighting-2026",
+      "city": "castle_rock",
+      "title": "Castle Rock Starlighting",
+      "section": "holiday",
+      "description": "Free entry; food costs extra. Star lighting and fireworks depend on weather and fire danger.",
+      "dateStart": "2026-11-21T14:00:00-07:00",
+      "dateEnd": "2026-11-21T18:00:00-07:00",
+      "dateLabel": "Saturday, November 21, 2026",
+      "timeLabel": "2–6 p.m. MST; ceremony 5 p.m.; star lighting about 5:30 p.m.",
+      "locationLabel": "Historic Wilcox Square and downtown Castle Rock, including Festival Park at 300 Second Street, Castle Rock, CO 80104",
+      "costLabel": "Free general admission; optional food, drink and shopping purchases extra",
+      "audienceLabel": "Family community celebration; no formal minimum age is stated",
+      "href": "https://castlerock.org/castle-rock-starlighting/",
+      "registrationLabel": "No attendee registration requirement is posted. Vendor registration and vendor sellouts are separate from public attendance.",
+      "availabilityLabel": "Star lighting is planned for about 5:30 p.m.; fireworks depend on weather and fire danger. The park address identifies Festival Park, not a confirmed ceremony-stage location. Check the organizer for final event information.",
+      "sourceUrls": [
+        "https://castlerock.org/castle-rock-starlighting/",
+        "https://www.crgov.com/Calendar.aspx?EID=10947&calType=0&day=16&month=11&year=2026",
+        "https://www.crgov.com/2388/Festival-Park",
+        "https://www.crgov.com/2622/Season-of-the-Star"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": false,
+      "id": "parker-mayors-holiday-lighting-2026",
+      "city": "parker",
+      "title": "Parker Mayor’s Holiday Lighting",
+      "section": "holiday",
+      "description": "Free entry; food costs extra. Free s’mores for the first 1,000 guests only. Lighting at 6 p.m.",
+      "dateStart": "2026-11-27T17:00:00-07:00",
+      "dateEnd": "2026-11-27T19:00:00-07:00",
+      "dateLabel": "Friday, November 27, 2026",
+      "timeLabel": "5–7 p.m. MST; lighting at 6 p.m.",
+      "locationLabel": "O’Brien Park, 10795 Victorian Drive, Parker, CO 80138",
+      "costLabel": "Free admission; food vendors extra. Free s’mores for the first 1,000 guests only",
+      "audienceLabel": "Family holiday celebration; no formal minimum age is stated",
+      "href": "https://www.parkerco.gov/172/Mayors-Holiday-Lighting",
+      "registrationLabel": "No attendee registration requirement is posted.",
+      "availabilityLabel": "Check town event updates and access information before traveling. Limited complimentary s’mores are not guaranteed.",
+      "nearbyParks": [
+        {
+          "id": "co-parker-o-brien-park",
+          "name": "O’Brien Park"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.parkerco.gov/172/Mayors-Holiday-Lighting",
+        "https://www.parkerco.gov/Calendar.aspx?EID=7135&calType=0&day=28&month=11&year=2026",
+        "https://www.parkerrec.com/254/OBrien-Park"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": true,
+      "id": "parker-hometown-holidays-2026",
+      "city": "parker",
+      "title": "Hometown Holiday Experience: November character dates",
+      "section": "holiday",
+      "description": "Free characters, Nov. 28–29, noon–3 p.m.; encounters not guaranteed. Food and skating (if operating) are separate.",
+      "dateStart": "2026-11-28T12:00:00-07:00",
+      "dateEnd": "2026-11-29T15:00:00-07:00",
+      "dateLabel": "Saturday and Sunday, November 28–29, 2026 only",
+      "timeLabel": "Character appearances noon–3 p.m. MST each day",
+      "locationLabel": "Downtown Parker: start at Schoolhouse Plaza, 19650 E. Mainstreet; Discovery Park, 20115 E. Mainstreet; and O’Brien Park, 10795 Victorian Drive, Parker, CO 80138",
+      "costLabel": "Free holiday walk and character appearances; shopping, food and ice skating (if operating) are separate and not included",
+      "audienceLabel": "Family holiday outing; no formal minimum age is stated",
+      "href": "https://www.parkerco.gov/2269/Hometown-Holidays",
+      "registrationLabel": "No visitor reservation requirement is posted. Characters roam during the published hours; a particular character encounter is not guaranteed.",
+      "availabilityLabel": "This listing covers the two November character dates only. The wider weekend character program continues through December 20; the decorative walk has a longer season. Do not assume staffed character appearances all day.",
+      "series_start": "2026-11-28",
+      "series_end": "2026-11-29",
+      "recurrence_label": "November 28 and 29 only, noon–3 p.m.",
+      "calendarDisabled": true,
+      "schedule": [
+        {
+          "date": "2026-11-28",
+          "dateStart": "2026-11-28T12:00:00-07:00",
+          "dateEnd": "2026-11-28T15:00:00-07:00",
+          "time": "Noon–3 p.m. MST",
+          "location": "Downtown Parker holiday route",
+          "note": "Roaming holiday characters; encounters not guaranteed"
+        },
+        {
+          "date": "2026-11-29",
+          "dateStart": "2026-11-29T12:00:00-07:00",
+          "dateEnd": "2026-11-29T15:00:00-07:00",
+          "time": "Noon–3 p.m. MST",
+          "location": "Downtown Parker holiday route",
+          "note": "Roaming holiday characters; encounters not guaranteed"
+        }
+      ],
+      "nearbyParks": [
+        {
+          "id": "co-parker-discovery-park",
+          "name": "Discovery Park"
+        },
+        {
+          "id": "co-parker-o-brien-park",
+          "name": "O’Brien Park"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.parkerco.gov/2269/Hometown-Holidays",
+        "https://parkerco.gov/m/calendar/event/detail/7136",
+        "https://parkerarts.org/event-venues/the-schoolhouse/",
+        "https://www.parkerrec.com/1948/Discovery-Park",
+        "https://www.parkerrec.com/254/OBrien-Park"
+      ]
+    },
+    {
+      "status": "approved",
+      "verifiedAt": "2026-10-22",
+      "sourceType": "Official organizer",
+      "timezone": "America/Denver",
+      "costType": "free",
+      "recurring": false,
+      "id": "centennial-family-tabletop-game-night-2026-11-02",
+      "city": "centennial",
+      "title": "Family Tabletop Game Night (Ages 5–Teen)",
+      "section": "onetime",
+      "description": "Free; families with ages 5–teen. Registration required by Nov. 2 at 5 p.m. MST. Share tabletop games, snacks and music.",
+      "dateStart": "2026-11-02T17:00:00-07:00",
+      "dateEnd": "2026-11-02T18:00:00-07:00",
+      "dateLabel": "Monday, November 2, 2026",
+      "timeLabel": "5–6 p.m. MST",
+      "locationLabel": "Southglenn Library, Children’s Area, 6972 S. Vine Street, Centennial, CO 80122",
+      "costLabel": "Free under Arapahoe Libraries’ event policy; snacks included; no mandatory fee disclosed",
+      "audienceLabel": "Designed for families with children ages 5 through teens",
+      "href": "https://arapahoelibraries.bibliocommons.com/v2/events/6abdc93696ec3a003ad76eb0",
+      "registrationUrl": "https://arapahoelibraries.bibliocommons.com/v2/events/6abdc93696ec3a003ad76eb0",
+      "registrationLabel": "Registration required; registration closes November 2, 2026 at 5 p.m. MST.",
+      "availabilityLabel": "Limited registration was offered when checked October 22. Places can fill before the deadline; check the organizer’s current registration status.",
+      "sourceUrls": [
+        "https://arapahoelibraries.bibliocommons.com/v2/events/6abdc93696ec3a003ad76eb0",
+        "https://arapahoelibraries.org/faq/events/"
+      ]
     }
   ]
 };

@@ -42,10 +42,20 @@ for (const baseline of baselines) {
   assert.deepEqual(baseline.fixture.counts, { total: baseline.total, current: baseline.current, archived: 30, excluded: 1, pumpkins: 6 });
 }
 const final = { name: 'fixed', prefix: '', fixture: loadData(file => fs.readFileSync(path.join(root, file))) };
-assert.deepEqual(final.fixture.counts, { total: 58, current: 27, archived: 30, excluded: 1, pumpkins: 6 });
-assert.deepEqual(final.fixture.data, baselines[1].fixture.data, 'The navigation fix must not modify event data or city metadata.');
+const novemberAudit = JSON.parse(fs.readFileSync(path.join(root, 'docs/november-source-review-2026-10-22.json'), 'utf8'));
+const novemberIds = new Set(novemberAudit.events.map(event => event.id));
+assert.equal(novemberAudit.events.length, 8);
+assert.equal(novemberIds.size, 8, 'November additions have eight distinct canonical IDs.');
+assert.deepEqual(final.fixture.counts, { total: 66, current: 35, archived: 30, excluded: 1, pumpkins: 6 });
+const originalRecords = final.fixture.data.events.filter(event => !novemberIds.has(event.id));
+assert.deepEqual(originalRecords, baselines[1].fixture.data.events, 'All 58 historical records retain their exact objects and order.');
+assert.deepEqual(final.fixture.data.events.filter(event => novemberIds.has(event.id)), novemberAudit.events, 'Only the eight audited November records are added.');
+const unchangedMetadata = data => Object.fromEntries(Object.entries(data).filter(([key]) => !['events', 'updatedLabel'].includes(key)));
+assert.deepEqual(unchangedMetadata(final.fixture.data), unchangedMetadata(baselines[1].fixture.data), 'City metadata and every other global field remain unchanged.');
+assert.equal(typeof final.fixture.data.updatedLabel, 'string');
+assert.ok(final.fixture.data.updatedLabel.trim(), 'The global update label remains visible.');
 assert.deepEqual(final.fixture.data.events.filter(event => event.pumpkin), baselines[0].fixture.data.events.filter(event => event.pumpkin), 'All six pumpkin records are unchanged from before PR #5.');
-console.log('PASS immutable data: production 58/27/30/1; pre-PR5 47/16/30/1; six unchanged pumpkins');
+console.log('PASS additive November data: 66/35/30/1; original 58 records and all city metadata preserved; historical 47/16/30/1 and 58/27/30/1 baselines; six unchanged pumpkins');
 if (process.argv.includes('--preflight')) process.exit(0);
 
 const { chromium, webkit } = require('playwright');
