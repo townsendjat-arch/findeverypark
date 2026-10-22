@@ -1510,7 +1510,8 @@
       button.setAttribute('aria-pressed', String(!item[0]));
       button.addEventListener('click', function () {
         activeCategory = item[0];
-        applyFilter(activeKey, true);
+        // All events is the global reset, including an empty or stale city selection.
+        applyFilter(activeCategory ? activeKey : '', true);
         if (activeCategory) {
           var target = document.getElementById('pumpkin-patches');
           if (target && target.style.display !== 'none') target.scrollIntoView({ block: 'start' });

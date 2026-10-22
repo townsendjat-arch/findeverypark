@@ -450,7 +450,8 @@ async function check(name, callback) {
       await assertState(states[1]);
       await page.locator('.event-category-pill[data-category=""]').click();
       assert.equal(new URL(page.url()).searchParams.has('category'), false);
-      await remember('aurora', '', 8);
+      assert.equal(new URL(page.url()).searchParams.has('city'), false);
+      await remember('', '', currentCount);
       await assertState(states[2]);
       await page.locator('.event-filter-pill[data-city=""]').click();
       assert.equal(new URL(page.url()).searchParams.has('city'), false);
