@@ -23,3 +23,9 @@ Local Chromium cannot launch in this sandbox: process socket creation is denied 
 ## Remaining risks
 
 Automated Chromium/WebKit is not physical iOS/Android, VoiceOver/TalkBack or touch swipe/pinch signoff. Small text remains subject to human readability review; numerical contrast does not certify the entire page. Existing sticky controls can obstruct desktop map scrolling; this separate page-layout behavior is not redesigned here. Live-provider acceptance and production deployment remain outside this draft. Exact-head CI and owner review are required before any separate release decision.
+
+## CI setup correction
+
+The initial run [39811160643](https://github.com/townsendjat-arch/findeverypark/actions/runs/39811160643) on `dd0ac867a2d3f2b458cc23632023352a539eab31` exhausted the inherited 15-minute job limit while Ubuntu's Azure package mirror downloaded browser dependencies very slowly. WebKit never reached browser tests. Chromium passed the event and All Events browser suites but was canceled during Near Me; the new selection suite did not run. Those partial results are not final verification.
+
+This branch now has an isolated test job using the official version-matched `mcr.microsoft.com/playwright:v1.62.1-noble` image, which includes browsers/system dependencies ([official documentation](https://playwright.dev/docs/docker)). The original branches' test job is unchanged. The new job retains exact-head checkout, read-only repository permissions, no persisted checkout credentials, the same pinned npm dependencies, every inherited suite, fixture-only map traffic and no deployment. It does not change a provider/network security setting or weaken a test. Final results still require both complete engine jobs at the new exact head.
