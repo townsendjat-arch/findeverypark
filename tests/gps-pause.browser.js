@@ -1,0 +1,82 @@
+/* Paused-release acceptance. Real Leaflet, locally fulfilled synthetic tiles only.
+ * Native geolocation is replaced by a counter. This is not physical-iPhone testing.
+ * Unlike near-me.browser.js, this suite never changes the released availability flag.
+ */
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
+const {chromium,webkit}=require('playwright'),AxeBuilder=require('@axe-core/playwright').default;
+const root=path.resolve(__dirname,'..'),out=path.join(root,'test-results'),engine=process.env.BROWSER||'chromium';
+const leaflet=path.dirname(require.resolve('leaflet/package.json'))+'/dist/';
+const zlib=require('node:zlib');
+function crc32(buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ ((crc & 1) ? 0xedb88320 : 0);
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+function pngChunk(type, data) {
+  const body = Buffer.concat([Buffer.from(type), data]);
+  const length = Buffer.alloc(4), crc = Buffer.alloc(4);
+  length.writeUInt32BE(data.length); crc.writeUInt32BE(crc32(body));
+  return Buffer.concat([length, body, crc]);
+}
+function makeFixtureTile() {
+  const size = 256, raw = Buffer.alloc((size * 3 + 1) * size);
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    const color = Math.abs(x - y) < 4 || Math.abs(255 - x - y) < 4 ? [79, 140, 190]
+      : (x % 64 < 3 || y % 64 < 3) ? [255, 255, 255]
+      : ((Math.floor(x / 64) + Math.floor(y / 64)) % 2) ? [221, 211, 154] : [164, 204, 168];
+    const offset = y * (size * 3 + 1) + 1 + x * 3;
+    color.forEach((value, index) => { raw[offset + index] = value; });
+  }
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(size, 0); header.writeUInt32BE(size, 4); header[8] = 8; header[9] = 2;
+  return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]), pngChunk('IHDR', header), pngChunk('IDAT', zlib.deflateSync(raw)), pngChunk('IEND', Buffer.alloc(0))]);
+}
+const tilePNG = makeFixtureTile();
+const tile=tilePNG;
+const results=[],failures=[];let origin,browser;
+const server=http.createServer((req,res)=>{try{const u=new URL(req.url,'http://localhost'),p=path.resolve(root,'.'+(u.pathname==='/'?'/index.html':u.pathname));if(!p.startsWith(root+path.sep)||u.pathname.split('/').some(v=>v.startsWith('.')))throw Error();const b=fs.readFileSync(p);res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.geojson':'application/json','.png':'image/png'})[path.extname(p)]||'application/octet-stream');res.end(b);}catch(_){res.writeHead(404).end();}});
+async function check(name,fn){try{await fn();results.push({name,passed:true});console.log('PASS',name);}catch(e){failures.push({name,error:e.stack});console.error('FAIL',name,e.stack);}}
+async function pageCase(viewport,options,fn){
+ const context=await browser.newContext({viewport,javaScriptEnabled:options.js!==false,timezoneId:'America/Denver'}),page=await context.newPage(),errors=[];
+ page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
+ await context.addInitScript(()=>{window.__gpsCalls=0;Object.defineProperty(navigator,'geolocation',{configurable:true,value:{getCurrentPosition(){window.__gpsCalls++;},watchPosition(){window.__gpsCalls++;}}});});
+ await context.route('**/*',async route=>{const u=new URL(route.request().url());if(u.origin===origin){if(options.configFailure&&u.pathname==='/gps-availability.js')return route.abort();return route.continue();}if(/leaflet.*\.js/.test(u.pathname))return route.fulfill({contentType:'text/javascript',body:fs.readFileSync(leaflet+'leaflet.js')});if(/leaflet.*\.css/.test(u.pathname))return route.fulfill({contentType:'text/css',body:fs.readFileSync(leaflet+'leaflet.css')});if(/tile\.openstreetmap\.org$/.test(u.hostname)||/arcgisonline\.com$/.test(u.hostname))return route.fulfill({contentType:'image/png',body:tile});return route.abort();});
+ try{await fn(page);if(options.js!==false){assert.equal(await page.evaluate(()=>window.__gpsCalls),0,'No GPS calls');assert.deepEqual(errors,[],'No uncaught errors');}}catch(e){await page.screenshot({path:path.join(out,engine+'-gps-pause-failure-'+Date.now()+'.png'),fullPage:false}).catch(()=>{});throw e;}finally{await context.close();}
+}
+async function ready(page,key='aurora'){await page.waitForFunction(key=>window.ACTIVE_DATASET_KEY===key&&document.querySelector('#grid .card[data-park-id]'),key);}
+async function noGPS(page){if(await page.evaluate(()=>typeof window.__gpsCalls==='number'))assert.equal(await page.evaluate(()=>window.__gpsCalls),0,'Each visited page requests zero GPS fixes');for(const selector of ['[data-gps-only]']){for(const node of await page.locator(selector).all())assert.equal(await node.isVisible(),false,'GPS UI hidden');}assert.equal(await page.locator('[data-gps-only]:focus').count(),0);}
+async function shot(page,name){
+ if(await page.locator('#map:visible .leaflet-tile').count()) {
+  await page.waitForFunction(()=>Array.from(document.querySelectorAll('#map .leaflet-tile')).filter(img=>img.style.visibility!=='hidden').every(img=>img.complete&&img.naturalWidth===256&&Number(getComputedStyle(img).opacity)>=.99));
+  await page.evaluate(()=>{const label=document.createElement('div');label.id='fixture-label';label.textContent='LOCAL FIXTURE TILES · NOT LIVE MAP';label.style.cssText='position:fixed;bottom:0;right:0;background:#fff;color:#111;padding:3px 6px;font:10px sans-serif;z-index:9999;pointer-events:none';document.body.appendChild(label);});
+ }
+ await page.screenshot({path:path.join(out,engine+'-gps-pause-'+name+'.png'),fullPage:false});
+ await page.locator('#fixture-label').evaluateAll(nodes=>nodes.forEach(node=>node.remove()));
+}
+(async()=>{fs.mkdirSync(out,{recursive:true});await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port;try{
+ browser=await ({chromium,webkit})[engine].launch({headless:true});
+ for(const [label,viewport] of [['320px',{width:320,height:740}],['390px',{width:390,height:844}],['1440px',{width:1440,height:1000}]]){
+  const run=(name,options,fn)=>check(label+': '+name,()=>pageCase(viewport,options,fn));
+  await run('homepage manual CTA and neutral legacy city entry',{},async page=>{
+   await page.goto(origin+'/index.html');await noGPS(page);assert.equal(await page.locator('#browseParksBtn').isVisible(),true);await shot(page,label+'-homepage');await page.locator('#browseParksBtn').focus();await page.keyboard.press('Enter');await page.waitForURL('**/parks.html?near=1');await page.waitForFunction(()=>history.state?.awaitingCity===true);await noGPS(page);assert.equal(await page.locator('.browse-shell').isVisible(),false);assert.equal(await page.locator('#page-intro-title').innerText(),'Choose a city to see parks');assert.doesNotMatch(await page.locator('#location-panel').innerText(),/use (?:my|your) location|permission|straight.line/i);await shot(page,label+'-choose-city');
+   await page.locator('.dataset-link[data-dataset="centennial"]').focus();await page.keyboard.press('Enter');await ready(page,'centennial');assert.equal(await page.locator('#map').isVisible(),true);await shot(page,label+'-manual-directory');
+  });
+  await run('manual filters, search, sorting and Back/Forward',{},async page=>{
+   await page.goto(origin+'/parks.html?dataset=aurora');await ready(page);await noGPS(page);
+   assert.equal(await page.locator('#sort option[value="nearest"]').isDisabled(),true);await page.evaluate(()=>{locateMe();document.querySelector('#btn-locate').click();});assert.equal(await page.evaluate(()=>window.__gpsCalls),0);
+   if(!await page.locator('.pill[data-k="playground"]').isVisible())await page.locator('#filter-toggle').click();await page.locator('.pill[data-k="playground"]').click();await page.locator('#search').fill('Cottonwood');await page.waitForFunction(()=>Array.from(document.querySelectorAll('#grid .card')).every(n=>n.innerText.includes('Cottonwood')));assert.ok(await page.locator('#grid .card').count());await page.locator('#search').fill('');await page.locator('#sort').selectOption('big');assert.equal(await page.locator('#sort').inputValue(),'big');
+   await page.locator('.dataset-link[data-dataset="centennial"]').click();await ready(page,'centennial');assert.equal(await page.locator('.pill[data-k="playground"]').getAttribute('aria-pressed'),'true');await page.goBack();await ready(page,'aurora');await page.goForward();await ready(page,'centennial');await noGPS(page);
+   assert.ok(await page.locator('#map .leaflet-interactive').count(),'Real Leaflet markers render');
+   const audit=await new AxeBuilder({page}).include('#location-panel').include('.top-controls').analyze();assert.deepEqual(audit.violations,[],'Scoped accessibility');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Directory fits viewport');
+  });
+  await run('trails filters and map remain available without Find me',{},async page=>{
+   await page.goto(origin+'/trails.html');await page.waitForFunction(()=>typeof map!=='undefined'&&map&&Object.keys(trailLayers).length>0);await noGPS(page);await page.evaluate(()=>{locateMe();document.querySelector('#btn-locate').click();});assert.equal(await page.evaluate(()=>window.__gpsCalls),0);const before=await page.evaluate(()=>surfaceFilters.has('HARD'));await page.locator('[data-val="HARD"]').click();assert.equal(await page.evaluate(()=>surfaceFilters.has('HARD')),!before);await page.locator('[data-val="HARD"]').click();assert.ok(await page.locator('#map .leaflet-tile-loaded').count());await shot(page,label+'-trails');
+  });
+  await run('missing availability script fails closed but city browsing works',{configFailure:true},async page=>{await page.goto(origin+'/index.html');await noGPS(page);assert.equal(await page.locator('#browseParksBtn').isVisible(),true);await page.goto(origin+'/trails.html');await noGPS(page);await page.evaluate(()=>locateMe());await noGPS(page);await page.goto(origin+'/parks.html?near=1');await page.waitForFunction(()=>history.state?.awaitingCity===true);await noGPS(page);await page.evaluate(()=>locateMe());await page.locator('.dataset-link[data-dataset="parker"]').click();await ready(page,'parker');await noGPS(page);});
+  await run('no-JavaScript controls stay hidden and manual navigation remains',{js:false},async page=>{for(const name of ['index.html','parks.html','trails.html']){await page.goto(origin+'/'+name);await noGPS(page);assert.ok(await page.locator('a[href*="parks.html"],a[href*="city.html"]').count());}});
+ }
+ await check('legacy coordinate cleanup remains early and private',()=>pageCase({width:390,height:844},{},async page=>{await page.goto(origin+'/parks.html?near=1&lat=12.3456789&lng=-98.7654321');await page.waitForFunction(()=>history.state?.awaitingCity===true);assert.equal(new URL(page.url()).search,'?near=1');const state=await page.evaluate(()=>JSON.stringify({history:history.state,local:{...localStorage},session:{...sessionStorage},analytics:Array.from(window.dataLayer||[],a=>Array.from(a))}));assert.doesNotMatch(state,/12\.3456789|-98\.7654321/);await noGPS(page);}));
+ }finally{if(browser)await browser.close();server.close();fs.writeFileSync(path.join(out,'gps-pause-'+engine+'-results.json'),JSON.stringify({engine,passed:results.length,failed:failures.length,results,failures,limitations:['Automated browser engines, not physical devices','Repeated maps use local fixture tiles; no real provider requests','Scoped axe is not whole-site certification']},null,2));console.log('GPS pause:',results.length,'passed;',failures.length,'failed');if(failures.length)process.exitCode=1;}})().catch(e=>{console.error(e);server.close();process.exitCode=1;});

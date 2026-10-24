@@ -161,6 +161,14 @@ async function testPage(viewport, options, callback) {
       const request = route.request(), url = new URL(request.url());
       requests.push({url: request.url(), headers: await request.allHeaders(), body: request.postData() || '', type: request.resourceType()});
       if (url.origin === origin) {
+        // Only the retained synthetic-GPS privacy case enables the saved implementation.
+        // Every ordinary map/rendering case exercises the actual paused release.
+        if (options.retainedGPS && url.pathname === '/gps-availability.js') {
+          const source = fs.readFileSync(path.join(root, 'gps-availability.js'), 'utf8');
+          assert.ok(source.includes('window.FEP_GPS_AVAILABLE = false;'));
+          await route.fulfill({status: 200, contentType: 'text/javascript',
+            body: source.replace('window.FEP_GPS_AVAILABLE = false;', 'window.FEP_GPS_AVAILABLE = true;')}); return;
+        }
         if (options.datasetGate && url.pathname === (options.datasetHoldPath || '/aurora-parks-data.js')) {
           options.datasetGate.markSeen(); await options.datasetGate.wait;
           if (options.datasetFailure) { await route.abort(); return; }
@@ -386,8 +394,8 @@ async function fixLocation(page) {
     if (engineName === 'chromium' && process.env.CHROMIUM_EXECUTABLE_PATH) launch.executablePath = process.env.CHROMIUM_EXECUTABLE_PATH;
     browser = await ({chromium, webkit})[engineName].launch(launch);
     for (const [label, viewport] of viewports) {
-      await check(label + ': Home Near Me → Centennial → Abbott Map', () => testPage(viewport, {}, async ({page}) => {
-        await page.goto(origin + '/index.html'); await page.locator('#geoBtn').click();
+      await check(label + ': Home city browse → Centennial → Abbott Map', () => testPage(viewport, {}, async ({page}) => {
+        await page.goto(origin + '/index.html'); await page.locator('#browseParksBtn').click();
         await page.waitForURL('**/parks.html?near=1'); await awaitingCity(page);
         assert.equal(await page.evaluate(() => window.__geoRequests.length), 0, 'Near Me never requests GPS automatically');
         await chooseCity(page, 'centennial'); await assertMap(page, 'confirmed-city');
@@ -507,7 +515,7 @@ async function fixLocation(page) {
         await capture(page, 'focused-resize-' + label);
       }
     }));
-    await check('private GPS does not change public OSM tile coverage or leak', () => testPage(viewports[1][1], {}, async ({page, requests}) => {
+    await check('retained implementation: private GPS does not change public OSM tile coverage or leak', () => testPage(viewports[1][1], {retainedGPS: true}, async ({page, requests}) => {
       await gotoCity(page, 'centennial'); const before = await assertMap(page, 'before-gps');
       const baselineRequests = new Set(requests.filter(request => canonicalTile(request.url)).map(request => request.url));
       const requestStart = requests.length;
