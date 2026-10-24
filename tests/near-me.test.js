@@ -274,3 +274,18 @@ for (const file of ['index.html','parks.html']) {
     }
   });
 }
+
+// This correction is wording only: keep the production request manager byte-identical.
+test('location guidance distinguishes blocked access from a neutral foreground deadline', () => {
+  const html = read('parks.html');
+  const messages = vm.runInNewContext('(' + html.match(/const messages = (\{[\s\S]*?\n    \});/)[1] + ')');
+  assert.match(messages.denied, /^Your browser or device blocked location access\./);
+  assert.match(messages.denied, /site’s permission.*device’s Location Services.*choose a city/i);
+  assert.doesNotMatch(messages.denied, /permission was denied/i);
+  assert.match(messages.deadline, /^No location was received in time\./);
+  assert.match(messages.deadline, /If a browser prompt is still open.*Choose a city/i);
+  assert.doesNotMatch(messages.deadline, /still waiting for permission/i);
+  assert.equal(require('node:crypto').createHash('sha256').update(read('near-me.js')).digest('hex'),
+    '8ce0649a5a5685b7a776ca3adc4a646d30ba2c7ec4d0fadfb45cb5126b2ef184',
+    'Request behavior, options, timers and retries remain identical to the approved baseline');
+});

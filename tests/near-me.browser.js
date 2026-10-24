@@ -283,7 +283,7 @@ async function screenshotNearestCards(page,label){
         assert.equal(await requestCount(page),0);
         await page.goto(origin+'/parks.html?near=1');await assertAwaitingCity(page);
         await requestLocation(page);await page.evaluate(()=>window.__geoRequests[0].error({code:1}));await assertAwaitingCity(page);
-        assert.match(await page.locator('#location-status').textContent(),/denied/i);
+        assert.match(await page.locator('#location-status').textContent(),/^Your browser or device blocked location access\./);
         await requestLocation(page);await respond(page);await assertAwaitingCity(page);
         await page.locator('#clear-location').click();await assertAwaitingCity(page);
         assert.equal(await page.locator('#city-suggestion').isVisible(),false);assert.equal((await page.locator('#city-suggestion').textContent()).trim(),'');assert.equal(await page.locator('#sort').inputValue(),'alpha');
@@ -324,11 +324,15 @@ async function screenshotNearestCards(page,label){
         await page.locator('#search').fill('D Zero');assert.deepEqual(await cards(page).evaluateAll(nodes=>nodes.map(n=>n.dataset.parkId)),['synthetic-zero']);
         await page.locator('#search').fill('No such synthetic park');assert.equal(await cards(page).count(),0);assert.ok(await page.locator('#empty').isVisible());
       });
-      for(const [code,message] of [[1,/denied|permission/i],[2,/unavailable|could not/i],[3,/timed out|timeout/i]]){
+      for(const [code,message] of [[1,/browser or device blocked location access/i],[2,/unavailable|could not/i],[3,/timed out|timeout/i]]){
         await run('permission failure '+code+' gives distinct feedback and manual city fallback',{},async({page})=>{
           await gotoCity(page,'parker');await requestLocation(page);await page.evaluate(code=>window.__geoRequests[0].error({code}),code);
           assert.match(await page.locator('#location-status').textContent(),message);assert.equal(await requestCount(page),1);
-          if(code===1)await screenshot(page,label+'-permission-denied');
+          if(code===1){
+            assert.match(await page.locator('#location-status').textContent(),/site’s permission.*device’s Location Services.*choose a city/i);
+            assert.doesNotMatch(await page.locator('#location-status').textContent(),/permission was denied/i);
+            await screenshot(page,label+'-location-blocked-guidance');
+          }
           assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(new URL(page.url()).searchParams.get('dataset'),'parker');
           await chooseCity(page,'denver');assert.equal(await requestCount(page),1);assert.equal(await page.locator('#grid .park-distance').count(),0);
           await respond(page);assert.equal(await page.locator('#sort').inputValue(),'alpha','Late success cannot undo failure/manual intent');
@@ -348,8 +352,14 @@ async function screenshotNearestCards(page,label){
       });
       await run('unanswered native prompt has 15-second foreground deadline and no hidden retry',{},async({page})=>{
         await page.clock.install();await gotoCity(page);await requestLocation(page);await page.clock.fastForward(15001);
-        assert.match(await page.locator('#location-status').textContent(),/timed out|taking too long|deadline|no location|cancelled here/i);
+        assert.match(await page.locator('#location-status').textContent(),/^No location was received in time\./);
+        assert.doesNotMatch(await page.locator('#location-status').textContent(),/still waiting for permission/i);
+        await screenshot(page,label+'-location-deadline-guidance');
         await respond(page);assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(await requestCount(page),1);
+        assert.equal(await page.locator('#grid .park-distance').count(),0,'Deadline alone invalidates late success before a manual city change');
+        await chooseCity(page,'parker');assert.equal(await requestCount(page),1);
+        assert.equal(new URL(page.url()).searchParams.get('dataset'),'parker');
+        assert.equal(await page.locator('#sort').inputValue(),'alpha');assert.equal(await page.locator('#grid .park-distance').count(),0);
       });
       await run('same-document Back/Forward restores only non-coordinate city/filter/search/sort state',{},async({page})=>{
         await gotoCity(page);await requestLocation(page);await respond(page);await filterClick(page,'playground');await chooseCity(page,'denver');
