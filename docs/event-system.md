@@ -2,6 +2,16 @@
 
 The site already uses one data-driven source: `data/events/events-manifest.js`. Do not hand-edit individual event cards in `events.html`. The same manifest supplies the events page, the existing three-card homepage preview, and city-guide callouts. GitHub Pages remains a static site; no paid service or new backend is required.
 
+## Listing updates and source-check dates
+
+The page header uses the manifest's `contentUpdatedAt` (`YYYY-MM-DD`, America/Denver): **Event listings updated November 4, 2026**. This is the latest editorial event-content batch, not a publication/deployment date and not a claim that all listings were reverified. November 4 is the Colorado date of the November–December additions; the corresponding release occurred November 5 UTC. A UI-only change does not refresh this field. Missing or invalid metadata displays **Curated event listings**, never today's date.
+
+Update `contentUpdatedAt` when event listings are added or their content changes, recording the change's actual Colorado date. Each listing's `verifiedAt` remains its own last actual source check. Never derive the content-update date from the newest `verifiedAt`, copy it onto older records, or stamp every listing during a deployment. Keep dates absent where historical verification is unknown. The header explains: **Verification dates appear on listings when available.** The existing source audits retain exact verification times and URLs.
+
+The Events page now offers **All events** and city filters. The former **Pumpkin Patches** filter button is retired; no records, schedules, historical pumpkin listings or archive rules are removed. Legacy `category` links are normalized with `replaceState` to the city-selected All events view, preserving unrelated parameters (including search text), duplicate parameters and anchors without adding history. All events still resets the city. There is no event text-search input in the existing page; the unchanged park directory retains its search.
+
+Focused coverage: `node --test tests/events-page-polish.test.js` and `BROWSER=chromium|webkit npm run test:events-page:browser`, alongside the full inherited event, navigation, GPS-pause and park suites. Checks preserve all 68 released objects/cities, separate old and new check dates, cover missing/invalid editorial metadata and old category links, and test keyboard/history/archive/layout at 320, 390 and 1440 CSS pixels. This draft requires separate approval before merge or deployment.
+
 ## Weekly editorial workflow
 
 1. Collect official organizer/city links in `event-workspace/inbox/`. A reputable community calendar is acceptable when clearly identified; do not present it as independently confirmed by the organizer.
@@ -50,7 +60,7 @@ Enumerate source-backed occurrences with date, dateStart/dateEnd (explicit Color
 
 Miller's actual season end is unknown. `seasonEndUnknown` and `editorialReviewThrough` distinguish the conservatively enumerated October 31 coverage endpoint from a venue closing date. Recheck sources before extending it. After that coverage boundary the listing leaves current recommendations and is omitted from the past archive, because an unknown-end season cannot truthfully receive a Past Event badge. The empty state explains that later November dates need verification. A broad approximate season must never keep a listing immortal.
 
-Pumpkin Patches composes with the existing city filter. All events resets both city and category so it also recovers from an empty city result. Both preserve unrelated query parameters/anchors and Back/Forward; Pumpkin Patches uses an explicit subsection. No date control or PR #3 discovery code is imported. Cities are event metadata, not claims of park-dataset coverage. Pumpkin cards without verified park relationships omit park-specific actions. Conflicting operating status, comparison prices, visit-blocking booking requirements and arrival cutoffs stay visible. External information and optional ticket routes are distinct and never promise inventory.
+The original October review added a Pumpkin Patches filter alongside city filters. That control is now retired as described above; the pumpkin subsection and all records remain. All events still recovers from an empty city result, preserving unrelated query parameters/anchors and Back/Forward. No date control or PR #3 discovery code is imported. Cities are event metadata, not claims of park-dataset coverage. Pumpkin cards without verified park relationships omit park-specific actions. Conflicting operating status, comparison prices, visit-blocking booking requirements and arrival cutoffs stay visible. External information and optional ticket routes are distinct and never promise inventory.
 
 ### Focused readability pass
 

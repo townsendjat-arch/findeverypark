@@ -62,7 +62,7 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
     fs.writeFileSync(path.join(output,`${engine}-nov-dec-axe-${width}.json`),JSON.stringify(axe.violations,null,2));
     assert.deepEqual(axe.violations.map(v=>({id:v.id,nodes:v.nodes.length})),[]);
    });
-   await check(`${width}: city filters, category reset and history preserve exact IDs`,async()=>{
+   await check(`${width}: city filters, legacy category normalization, reset and history preserve exact IDs`,async()=>{
     await page.goto(origin+'/events.html?utm_source=nov-dec#review');
     for(const city of ['aurora','denver','parker']){
      await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
@@ -70,7 +70,17 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
     }
     await page.goBack();assert.deepEqual(await ids(page),events.filter(e=>e.city==='denver').map(e=>e.id).sort());
     await page.goForward();assert.deepEqual(await ids(page),events.filter(e=>e.city==='parker').map(e=>e.id).sort());
-    await page.locator('.event-category-pill[data-category="pumpkin-patches"]').click();assert.deepEqual(await ids(page),[]);
+    assert.equal(await page.locator('.event-category-pill[data-category="pumpkin-patches"]').count(),0);
+    await page.goto(origin+'/events.html?city=parker&category=pumpkin-patches&utm_source=nov-dec#review');
+    assert.deepEqual(await ids(page),events.filter(e=>e.city==='parker').map(e=>e.id).sort());
+    assert.equal(new URL(page.url()).searchParams.has('category'),false);
+    assert.equal(await page.locator('[data-current="false"]').count(),56,'Historical events with known ends stay archived');
+    const pumpkins=await page.evaluate(()=>window.EVENTS_DATA.events.filter(e=>e.pumpkin).map(e=>({id:e.id,seasonEndUnknown:!!e.seasonEndUnknown})));
+    assert.equal(pumpkins.length,6,'All six pumpkin data records remain');
+    const archivedPumpkinIds=pumpkins.filter(e=>!e.seasonEndUnknown).map(e=>e.id).sort();
+    assert.equal(archivedPumpkinIds.length,5);
+    for(const id of archivedPumpkinIds)assert.equal(await page.locator(`[data-current="false"][data-event-id="${id}"]`).count(),1,id);
+    for(const e of pumpkins.filter(e=>e.seasonEndUnknown))assert.equal(await page.locator(`[data-current="false"][data-event-id="${e.id}"]`).count(),0,'Unknown season end must not be falsely archived');
     await page.locator('.event-category-pill[data-category=""]').click();assert.deepEqual(await ids(page),events.map(e=>e.id).sort());
     assert.equal(new URL(page.url()).searchParams.get('utm_source'),'nov-dec');assert.equal(new URL(page.url()).hash,'#review');
    });

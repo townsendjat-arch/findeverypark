@@ -179,31 +179,51 @@ async function screenshot(page, name) {
           await assertState(page, final.fixture);
         }
       });
-      await check(`${label}: Pumpkin Patches intersects cities; All Cities retains category; All events resets both`, async () => {
+      await check(`${label}: retired Pumpkin Patches control leaves all city events and historical pumpkins intact`, async () => {
         await page.goto(origin + '/events.html');
-        await pumpkins(page).click();
-        await assertState(page, final.fixture, '', 'pumpkin-patches');
-        for (const city of ['aurora', 'centennial', 'arvada']) {
+        assert.equal(await pumpkins(page).count(), 0);
+        assert.equal(await page.locator('.event-category-pill').count(), 1);
+        assert.equal(await page.locator('.pumpkin-card[data-current="true"]').count(), 6);
+        for (const city of Object.keys(final.fixture.data.cities)) {
           await cityPill(page, city).click();
-          await assertState(page, final.fixture, city, 'pumpkin-patches');
+          await assertState(page, final.fixture, city);
           await allEvents(page).click();
           await assertState(page, final.fixture);
-          if (city !== 'centennial') await screenshot(page, `after-fixed-${city}-${label}`);
-          await pumpkins(page).click();
         }
-        await cityPill(page, 'aurora').click();
-        await cityPill(page, '').click();
-        await assertState(page, final.fixture, '', 'pumpkin-patches');
-        await allEvents(page).click();
-        await assertState(page, final.fixture);
+        await screenshot(page, `after-fixed-global-${label}`);
+      });
+      await check(`${label}: legacy category URL normalizes with replaceState and retains city, parameters and anchor`, async () => {
+        await page.goto(origin + '/events.html?city=denver');
+        await page.addInitScript(() => {
+          window.__legacyHistory = { initialLength: history.length, pushes: 0, replacements: 0 };
+          for (const [method, counter] of [['pushState', 'pushes'], ['replaceState', 'replacements']]) {
+            const original = history[method].bind(history);
+            history[method] = (...args) => { window.__legacyHistory[counter]++; return original(...args); };
+          }
+        });
+        await page.goto(origin + '/events.html?city=aurora&category=pumpkin-patches&utm_source=legacy&tag=one&tag=two#pumpkin-patches');
+        await assertState(page, final.fixture, 'aurora');
+        const historyChange = await page.evaluate(() => ({ ...window.__legacyHistory, length: history.length }));
+        assert.equal(historyChange.length, historyChange.initialLength, 'Normalization must not add a history entry');
+        assert.equal(historyChange.pushes, 0);
+        assert.equal(historyChange.replacements, 1);
+        assert.deepEqual([...new URL(page.url()).searchParams.entries()], [['city', 'aurora'], ['utm_source', 'legacy'], ['tag', 'one'], ['tag', 'two']]);
+        assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
+        const normalized = await state(page);
+        await page.reload();
+        assert.deepEqual(await assertState(page, final.fixture, 'aurora'), normalized);
+        await page.goBack();
+        await assertState(page, final.fixture, 'denver');
+        await page.goForward();
+        assert.deepEqual(await assertState(page, final.fixture, 'aurora'), normalized);
       });
       await check(`${label}: reset preserves unrelated URL parameters/hash and Back/Forward restores exact states`, async () => {
         await page.goto(origin + '/events.html?utm_source=reset-test&tag=one&tag=two#test-anchor');
         const historyStates = [await assertState(page, final.fixture)];
         await cityPill(page, 'aurora').click();
         historyStates.push(await assertState(page, final.fixture, 'aurora'));
-        await pumpkins(page).click();
-        historyStates.push(await assertState(page, final.fixture, 'aurora', 'pumpkin-patches'));
+        await cityPill(page, 'centennial').click();
+        historyStates.push(await assertState(page, final.fixture, 'centennial'));
         await allEvents(page).click();
         historyStates.push(await assertState(page, final.fixture));
         const url = new URL(page.url());
@@ -224,12 +244,12 @@ async function screenshot(page, name) {
       });
       await check(`${label}: empty deep link recovers; repeated resets stay global without losing prior history`, async () => {
         await page.goto(origin + '/events.html?city=arvada&category=pumpkin-patches');
-        const previous = await assertState(page, final.fixture, 'arvada', 'pumpkin-patches');
+        const previous = await assertState(page, final.fixture, 'arvada');
         for (let index = 0; index < 3; index++) { await allEvents(page).click(); await assertState(page, final.fixture); }
         // Existing pushState-per-click behavior is intentionally preserved, not redesigned.
         for (let index = 0; index < 2; index++) { await page.goBack(); await assertState(page, final.fixture); }
         await page.goBack();
-        await assertState(page, final.fixture, 'arvada', 'pumpkin-patches');
+        await assertState(page, final.fixture, 'arvada');
         assert.deepEqual(await state(page), previous);
         await page.goForward();
         await assertState(page, final.fixture);
@@ -242,12 +262,12 @@ async function screenshot(page, name) {
           await assertState(page, final.fixture);
           assert.equal(await allEvents(page).evaluate(button => button === document.activeElement && button.tagName === 'BUTTON' && button.type === 'button'), true);
           await page.keyboard.press('Tab');
-          assert.equal(await pumpkins(page).evaluate(button => button === document.activeElement), true);
+          assert.equal(await cityPill(page, '').evaluate(button => button === document.activeElement), true);
           await page.keyboard.press(key);
-          await assertState(page, final.fixture, '', 'pumpkin-patches');
+          await assertState(page, final.fixture);
           await cityPill(page, 'aurora').focus();
           await page.keyboard.press(key);
-          await assertState(page, final.fixture, 'aurora', 'pumpkin-patches');
+          await assertState(page, final.fixture, 'aurora');
         }
         for (const box of await page.locator('.event-filter-pill, .event-category-pill').evaluateAll(buttons => buttons.map(button => ({ width: button.getBoundingClientRect().width, height: button.getBoundingClientRect().height })))) {
           assert.ok(box.width >= 44 && box.height >= 44, 'Minimum 44px filter target');
