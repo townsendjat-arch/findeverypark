@@ -1,9 +1,11 @@
-const { test } = require('node:test');
+const { test: runTest } = require('node:test');
+const test = (name, callback) => runTest('Historical regression: ' + name, callback);
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { execFileSync } = require('node:child_process');
+const { historicalManifest } = require('./historical-events-fixture');
 const root = path.resolve(__dirname, '..');
 const ref = 'ea3c6d26236748aa090be7efe89cb57a3d6a70d0';
 const git = args => execFileSync('git', args, {cwd:root, encoding:'utf8'});
@@ -13,7 +15,10 @@ catch (_) { git(['fetch','--no-tags','--depth=1','origin',ref]); }
 const plain = value => JSON.parse(JSON.stringify(value));
 const ctx = {window:{}, document:{readyState:'loading',addEventListener(){}}};
 vm.createContext(ctx);
-for (const file of ['city-events.js','data/events/events-manifest.js']) vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(path.join(root,'city-events.js'),'utf8'),ctx);
+// Keep the approved November batch as a historical regression fixture without
+// freezing the live manifest against later additions, edits or cancellations.
+vm.runInContext(historicalManifest,ctx);
 const {EVENTS_DATA:data,FEP_EVENTS:rules} = ctx.window;
 const before = {window:{}};
 vm.runInNewContext(git(['show', ref + ':data/events/events-manifest.js']),before);

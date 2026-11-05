@@ -4,7 +4,10 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const {chromium,webkit}=require('playwright');
 const AxeBuilder=require('@axe-core/playwright').default;
 const root=path.resolve(__dirname,'..'),output=path.join(root,'test-results');
-const audit=JSON.parse(fs.readFileSync(path.join(root,'docs/nov-dec-source-review-2026-11-04.json'),'utf8'));
+const {historicalManifest,historicalFile}=require('./historical-events-fixture');
+// These source-reviewed November/December examples are explicit historical
+// fixtures; exact-checkout source rendering is covered by page-polish checks.
+const audit=JSON.parse(historicalFile('docs/nov-dec-source-review-2026-11-04.json'));
 const events=audit.events;
 const engine=process.env.BROWSER||'chromium';
 const initial='2026-11-05T00:45:00Z';
@@ -36,10 +39,12 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.clock.install({time:new Date(initial)});
    await context.route('**/*',route=>{
-    const r=route.request();if(new URL(r.url()).origin===origin&&['GET','HEAD'].includes(r.method()))return route.continue();
+    const r=route.request(),url=new URL(r.url());
+    if(url.origin===origin&&url.pathname==='/data/events/events-manifest.js')return route.fulfill({contentType:'text/javascript',body:historicalManifest});
+    if(url.origin===origin&&['GET','HEAD'].includes(r.method()))return route.continue();
     return route.fulfill({status:200,contentType:r.resourceType()==='stylesheet'?'text/css':'text/javascript',body:''});
    });
-   await check(`${width}: all ten cards, qualified costs, safe links and one-occasion calendars`,async()=>{
+   await check(`historical ${width}: all ten cards, qualified costs, safe links and one-occasion calendars`,async()=>{
     await page.goto(origin+'/events.html');
     assert.deepEqual(await ids(page),events.map(e=>e.id).sort());
     for(const e of events){
@@ -62,7 +67,7 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
     fs.writeFileSync(path.join(output,`${engine}-nov-dec-axe-${width}.json`),JSON.stringify(axe.violations,null,2));
     assert.deepEqual(axe.violations.map(v=>({id:v.id,nodes:v.nodes.length})),[]);
    });
-   await check(`${width}: city filters, legacy category normalization, reset and history preserve exact IDs`,async()=>{
+   await check(`historical ${width}: city filters, legacy category normalization, reset and history preserve exact IDs`,async()=>{
     await page.goto(origin+'/events.html?utm_source=nov-dec#review');
     for(const city of ['aurora','denver','parker']){
      await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
@@ -84,7 +89,7 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
     await page.locator('.event-category-pill[data-category=""]').click();assert.deepEqual(await ids(page),events.map(e=>e.id).sort());
     assert.equal(new URL(page.url()).searchParams.get('utm_source'),'nov-dec');assert.equal(new URL(page.url()).hash,'#review');
    });
-   await check(`${width}: each exact end moves only expired occurrences to archive in an open tab`,async()=>{
+   await check(`historical ${width}: each exact end moves only expired occurrences to archive in an open tab`,async()=>{
     for(const e of events){
      const end=Date.parse(e.dateEnd);
      await page.clock.setFixedTime(new Date(end-1));await page.goto(origin+'/events.html');assert.equal(await card(page,e).count(),1);
@@ -100,9 +105,9 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
      }
     }
    });
-   await check(`${width}: actual homepage and city previews preserve caveats and remove each expired occurrence`,async()=>{
+   await check(`historical ${width}: actual homepage and city previews preserve caveats and remove each expired occurrence`,async()=>{
     const pattern='**/data/events/events-manifest.js*';
-    const manifest=fs.readFileSync(path.join(root,'data/events/events-manifest.js'),'utf8');
+    const manifest=historicalManifest;
     for(const e of events){
      // Isolate one approved occurrence to test both real capped renderers, not ranking assumptions.
      await page.route(pattern,r=>r.fulfill({contentType:'text/javascript',body:manifest+'\nwindow.EVENTS_DATA.events=window.EVENTS_DATA.events.filter(e=>e.id==='+JSON.stringify(e.id)+');'}));
@@ -118,9 +123,9 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
      await page.unroute(pattern);
     }
    });
-   await check(`${width}: separated dates retain only the later occurrence in both previews`,async()=>{
+   await check(`historical ${width}: separated dates retain only the later occurrence in both previews`,async()=>{
     const pattern='**/data/events/events-manifest.js*';
-    const manifest=fs.readFileSync(path.join(root,'data/events/events-manifest.js'),'utf8');
+    const manifest=historicalManifest;
     for(const title of [/Four Mile/,/DeLaney/,/Plains/]){
      const pair=events.filter(e=>title.test(e.title)).sort((a,b)=>a.dateStart.localeCompare(b.dateStart));
      assert.equal(pair.length,2);
@@ -136,7 +141,7 @@ async function ids(page){return page.locator('[data-current="true"]:visible').ev
      await page.unroute(pattern);
     }
    });
-   await check(`${width}: no JavaScript exceptions`,async()=>assert.deepEqual(errors,[]));
+   await check(`historical ${width}: no JavaScript exceptions`,async()=>assert.deepEqual(errors,[]));
    await context.close();
   }
  }finally{if(browser)await browser.close();server.close();fs.writeFileSync(path.join(output,`${engine}-nov-dec-results.json`),JSON.stringify({engine,results,failures},null,2));}

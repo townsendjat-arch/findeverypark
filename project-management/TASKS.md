@@ -1,5 +1,36 @@
 # FindEveryPark: tasks and release gates
 
+## Feed maintenance safeguard revision (November 5, 2026 UTC)
+
+The owner approved revising draft PR #15 after its branch-only check left future
+edits uncovered. The revision provides a stable `Event feed integrity` check on
+every PR, explicit stale/missing/malformed/source-consistency failure tests, and
+future-safe source-derived assertions alongside historical regression fixtures.
+Editors regenerate and commit the feed with its source. See the
+[maintenance procedure and enforcement prerequisite](../docs/community-feed.md#maintenance-and-verification).
+
+**Release is still blocked:** main has no required check protection, and managed
+Pages publishes independently of npm/CI. Owner-approved branch/ruleset enforcement
+or a separately approved controlled deployment build is required before claiming
+future stale-feed publication is prevented. No settings, merge or deploy changes
+are included. Mighty Dads PR #2 and FEP PR #11 remain untouched; newsletter ingestion
+is out of scope. The revised commit needs a new owner review and release approval.
+
+## Mighty Dads data-feed review (November 5, 2026 UTC)
+
+The approved integration's FindEveryPark-only portion is on
+`review/mighty-dads-data-feed-2026`, based on fresh main
+`269e4b4a20306524a51cb43572c5f4e5386694d2`. It adds a deterministic static JSON
+projection and test-time generator, preserving all event content, verification
+dates and site runtime. See the [contract and version 1 limitations](../docs/community-feed.md).
+Only approved single occurrences enter the feed; recurring/pumpkin records and
+self-hosted community entries fail closed. All ten released November–December
+occurrences remain eligible for the consumer's automatic expiry checks.
+
+Draft review only. PR #11 is untouched. Merge, deployment and publication require
+separate owner approval. After approval, release and verify the feed's actual
+JSON/CORS response before releasing the Mighty Dads consumer.
+
 ## November–December event draft (November 4, 2026 Colorado)
 
 Owner-approved seven initial candidates are prepared on `review/nov-dec-family-events-2026`, based on main `ea3c6d26236748aa090be7efe89cb57a3d6a70d0`. All seven have essential source/registration details checked; ten dated records expire independently. Existing 58 objects, archive/filters and the GPS pause are preserved. No Mighty Dads edits. See [scope, overlap and release gate](../docs/nov-dec-event-draft.md) and [source audit](../docs/nov-dec-source-review-2026-11-04.json). Exact-head test results belong in the PR. Draft only; owner approval is required before merge, deployment or publication. Existing PR #11 overlaps on two canonical IDs and remains untouched.

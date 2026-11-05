@@ -2,7 +2,10 @@
   "name": "findeverypark",
   "private": true,
   "scripts": {
-    "test": "node --test --test-concurrency=1 tests/events.test.js tests/nov-dec-events.test.js tests/events-page-polish.test.js",
+    "test": "node scripts/generate-community-feed.js --check && node --test --test-concurrency=1 tests/events.test.js tests/nov-dec-events.test.js tests/events-page-polish.test.js tests/community-feed.test.js tests/feed-maintenance.test.js tests/feed-workflow.test.js",
+    "events:feed": "node scripts/generate-community-feed.js",
+    "events:feed:check": "node scripts/generate-community-feed.js --check",
+    "test:feed": "node scripts/generate-community-feed.js --check && node --test tests/community-feed.test.js tests/feed-maintenance.test.js tests/feed-workflow.test.js",
     "test:browser": "node tests/events.browser.js",
     "test:near-me": "node --test tests/near-me.test.js",
     "test:near-me:browser": "node tests/near-me.browser.js",
