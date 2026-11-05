@@ -1,5 +1,10 @@
 # FindEveryPark: verification ledger
 
+## November–December event draft verification
+
+The current content-only draft adds ten independently expiring occurrences from seven approved concepts to main `ea3c6d26236748aa090be7efe89cb57a3d6a70d0`. See [verification scope and commands](../docs/nov-dec-event-draft.md#verification-plan-and-limits). Its PR records exact-head local and CI results, including any failed, blocked or never-run checks; earlier draft results are not evidence for this revision. Source checks occurred November 4 Colorado / November 5 UTC. Availability observations are not reservations. Physical-device and screen-reader review remains outside automated certification.
+
+
 ## Map-usability verification
 
 New selection tests and the inherited real-Leaflet/privacy suites run in Chromium and WebKit at the exact pull-request head. See [scope and limitations](MAP_SELECTION_ACCESSIBILITY.md#verification); exact-head CI artifacts and PR validation identify final results, never a previous head. Physical-device and assistive-technology checks remain manual.

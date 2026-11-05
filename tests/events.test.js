@@ -21,6 +21,8 @@ const originalEvents = JSON.parse(JSON.stringify(baselineContext.window.EVENTS_D
 const originalIds = new Set(originalEvents.map(event => event.id));
 const priorityAudit = JSON.parse(fs.readFileSync(path.join(root,'docs/priority-one-source-review-2026-10-21.json'),'utf8'));
 const priorityIds = priorityAudit.events.map(event => event.id);
+const releasedIds = new Set([...originalIds, ...priorityIds]);
+const releasedEvents = data.events.filter(event => releasedIds.has(event.id));
 const hasNapa = priorityIds.includes('centennial-napa-trunk-treat-2026');
 // Required-reservation freshness could not be confirmed after the source returned 429.
 const heldPriorityIds = ['parker-kiddie-academy-trunk-treat-2026'];
@@ -319,10 +321,10 @@ test('Priority 1 preserves all 47 original objects and adds exactly the approved
     'littleton-goblin','greenwood-music-darkened-theater-2026','parker-primrose-trunk-treat-2026',
     'castle-rock-sos-trunk-or-treat-2026','aurora-hallelujah-night-2026'
   ].filter(id => !heldPriorityIds.includes(id) && (hasNapa || id !== 'centennial-napa-trunk-treat-2026'));
-  const additions = data.events.filter(event => !originalIds.has(event.id));
+  const additions = releasedEvents.filter(event => !originalIds.has(event.id));
   assert.deepEqual(Array.from(additions, event => event.id), approvedIds);
   assert.deepEqual(JSON.parse(JSON.stringify(additions)), priorityAudit.events);
-  assert.equal(data.events.length, hasNapa ? 58 : 57);
+  assert.equal(releasedEvents.length, hasNapa ? 58 : 57);
   assert.deepEqual(priorityAudit.heldBackEvents.map(item => item.id), heldPriorityIds);
   for (const id of heldPriorityIds) assert.equal(data.events.some(event => event.id === id), false);
   assert.equal(data.events.filter(rules.isPumpkin).length, 6);
@@ -340,10 +342,10 @@ test('fixed October 22 release counts retain 30 archived and one excluded record
   const counts = events => ({total:events.length, active:events.filter(e => rules.isCurrent(e,now)).length,
     archived:events.filter(e => rules.isPublishable(e) && !rules.isCurrent(e,now)).length,
     excluded:events.filter(e => !rules.isPublishable(e)).length});
-  assert.deepEqual(counts(data.events), {total:hasNapa ? 58 : 57,active:hasNapa ? 27 : 26,archived:30,excluded:1});
-  assert.deepEqual(counts(data.events.filter(event => event.id !== 'centennial-napa-trunk-treat-2026')), {total:57,active:26,archived:30,excluded:1});
+  assert.deepEqual(counts(releasedEvents), {total:hasNapa ? 58 : 57,active:hasNapa ? 27 : 26,archived:30,excluded:1});
+  assert.deepEqual(counts(releasedEvents.filter(event => event.id !== 'centennial-napa-trunk-treat-2026')), {total:57,active:26,archived:30,excluded:1});
   const cities = {};
-  for (const event of data.events.filter(event => rules.isCurrent(event, now))) cities[event.city] = (cities[event.city] || 0) + 1;
+  for (const event of releasedEvents.filter(event => rules.isCurrent(event, now))) cities[event.city] = (cities[event.city] || 0) + 1;
   assert.deepEqual(cities, {aurora:8,denver:3,centennial:hasNapa ? 6 : 5,erie:1,thornton:1,platteville:1,kiowa:1,louisville:1,
     castle_pines:1,parker:1,littleton:1,greenwood_village:1,castle_rock:1});
 });
