@@ -15,14 +15,16 @@ try{browser=await({chromium,webkit})[engine].launch({headless:true});for(const w
  page.setDefaultTimeout(10000);page.on('pageerror',e=>errors.push(e.message));await page.clock.install({time:new Date('2026-11-05T01:54:00Z')});
  await context.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.fulfill({status:200,contentType:r.request().resourceType()==='stylesheet'?'text/css':'text/javascript',body:''}));
  await check(`${width}: truthful content header, original per-listing checks and preserved archive`,async()=>{
-  await page.goto(origin+'/events.html');assert.equal(await page.locator('#updated-label').innerText(),'Event listings updated November 4, 2026');
+  await page.goto(origin+'/events.html');assert.equal(await page.locator('#updated-label').textContent(),'Event listings updated November 4, 2026');
   assert.equal(await page.locator('#verification-note').textContent(),'Verification dates appear on listings when available.');
   assert.equal(await page.getByRole('button',{name:'Pumpkin Patches',exact:true}).count(),0);assert.equal(await all(page).count(),1);assert.equal(await all(page).getAttribute('aria-pressed'),'true');
   assert.equal(await page.evaluate(()=>window.EVENTS_DATA.events.length),68);assert.equal((await ids(page)).length,10);
   for(const card of await page.locator('[data-current="true"]').all())assert.match(await card.textContent(),/Details checked November 4, 2026/);
   assert.equal(await page.locator('[data-current="false"]').count(),56);await page.locator('summary.section-summary').click();
-  const historical=page.locator('[data-event-id="aurora-nicks-fall-fest-2026"]');assert.equal(await historical.count(),1);assert.match(await historical.textContent(),/Details checked October 21, 2026/);
-  assert.equal(await page.locator('.pumpkin-card[data-current="false"]').count(),5);
+  const historical=page.locator('[data-event-id="aurora-nicks-fall-fest-2026"]');assert.equal(await historical.count(),1);assert.ok(await historical.isVisible());
+  assert.equal(await page.evaluate(()=>window.EVENTS_DATA.events.find(e=>e.id==='aurora-nicks-fall-fest-2026').verifiedAt),'2026-10-21');
+  const archivedPumpkins=await page.evaluate(()=>window.EVENTS_DATA.events.filter(e=>e.pumpkin&&!e.seasonEndUnknown).map(e=>e.id));assert.equal(archivedPumpkins.length,5);
+  for(const id of archivedPumpkins)assert.equal(await page.locator(`[data-current="false"][data-event-id="${id}"]`).count(),1,id);
   assert.equal(await page.evaluate(()=>window.EVENTS_DATA.events.filter(e=>e.pumpkin).length),6);
   assert.equal(await page.locator('[data-event-id="platteville-miller-farms-fall-harvest-2026"]').count(),0,'Unknown season end is not falsely archived');
   const axe=await new AxeBuilder({page}).include('.page-header').include('.event-category-pills').include('.event-filter-pills').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();assert.deepEqual(axe.violations.map(v=>v.id),[]);
@@ -38,6 +40,12 @@ try{browser=await({chromium,webkit})[engine].launch({headless:true});for(const w
   u=new URL(page.url());assert.equal(u.searchParams.has('city'),false);assert.equal(u.searchParams.get('q'),'family');assert.equal(u.hash,'#pumpkin-patches');
   await page.goBack();assert.equal((await ids(page)).length,1);await page.goBack();assert.equal((await ids(page)).length,7);await page.goForward();assert.equal((await ids(page)).length,1);
   await city(page,'arvada').click();assert.equal((await ids(page)).length,0);assert.ok(await page.locator('#empty-city').isVisible());await all(page).focus();await page.keyboard.press('Enter');assert.equal((await ids(page)).length,10);
+ });
+ await check(`${width}: historical card check dates stay original and do not drive the content header`,async()=>{
+  await page.clock.setFixedTime(new Date('2026-10-22T16:00:00Z'));await page.goto(origin+'/events.html');
+  assert.match(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"]').textContent(),/Details checked October 21, 2026/);
+  assert.equal(await page.locator('#updated-label').textContent(),'Event listings updated November 4, 2026');
+  await page.clock.setFixedTime(new Date('2026-11-05T01:54:00Z'));
  });
  await check(`${width}: missing and invalid content dates never fabricate verification`,async()=>{
   const pattern='**/data/events/events-manifest.js*';
