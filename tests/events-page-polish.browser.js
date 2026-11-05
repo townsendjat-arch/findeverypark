@@ -109,10 +109,16 @@ try{browser=await({chromium,webkit})[engine].launch({headless:true});for(const w
     assert.deepEqual(await ids(page),expected,key||'all cities');
    }
    await all(page).click();
+   // As in events.browser.js, audit the settled selected state rather than
+   // an intermediate foreground/background color during the filter transition.
+   await page.evaluate(async()=>{
+    await document.fonts.ready;
+    await Promise.all(Array.from(document.querySelectorAll('.event-category-pill,.event-filter-pill')).flatMap(node=>node.getAnimations().map(animation=>animation.finished.catch(()=>{}))));
+   });
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
    const axe=await new AxeBuilder({page}).include('main').withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
-   assert.deepEqual(axe.violations.map(v=>v.id),[]);
    fs.writeFileSync(path.join(out,`${engine}-current-source-axe-${width}.json`),JSON.stringify(axe.violations,null,2));
+   assert.deepEqual(axe.violations.map(v=>({id:v.id,targets:v.nodes.map(node=>node.target)})),[]);
    await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
    await page.screenshot({path:path.join(out,`${engine}-current-source-${width}.png`),fullPage:false});
   });
