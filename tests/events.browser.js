@@ -532,7 +532,8 @@ async function check(name, callback) {
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path:path.join(output, `${engineName}-pumpkin-header-${label}.png`), fullPage:false });
       await page.locator('#pumpkin-patches').scrollIntoViewIfNeeded();
-      await page.screenshot({ path:path.join(output, `${engineName}-pumpkin-list-${label}.png`), fullPage:true });
+      // Capture the section under test: the full All events page can exceed WebKit's image-height limit.
+      await page.locator('#pumpkin-patches').screenshot({ path:path.join(output, `${engineName}-pumpkin-list-${label}.png`) });
       const cards = page.locator('.pumpkin-card:visible');
       assert.equal(await cards.count(), 6);
       for (let index = 0; index < await cards.count(); index++) {
