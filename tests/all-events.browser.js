@@ -42,10 +42,12 @@ for (const baseline of baselines) {
   assert.deepEqual(baseline.fixture.counts, { total: baseline.total, current: baseline.current, archived: 30, excluded: 1, pumpkins: 6 });
 }
 const final = { name: 'fixed', prefix: '', fixture: loadData(file => fs.readFileSync(path.join(root, file))) };
-assert.deepEqual(final.fixture.counts, { total: 58, current: 27, archived: 30, excluded: 1, pumpkins: 6 });
-assert.deepEqual(final.fixture.data, baselines[1].fixture.data, 'The navigation fix must not modify event data or city metadata.');
+assert.deepEqual(final.fixture.counts, { total: 68, current: 37, archived: 30, excluded: 1, pumpkins: 6 });
+const baselineIds = new Set(baselines[1].fixture.data.events.map(event => event.id));
+assert.deepEqual(final.fixture.data.events.filter(event => baselineIds.has(event.id)), baselines[1].fixture.data.events, 'All 58 released records remain immutable.');
+assert.deepEqual(final.fixture.data.cities, baselines[1].fixture.data.cities, 'City metadata remains immutable.');
 assert.deepEqual(final.fixture.data.events.filter(event => event.pumpkin), baselines[0].fixture.data.events.filter(event => event.pumpkin), 'All six pumpkin records are unchanged from before PR #5.');
-console.log('PASS immutable data: production 58/27/30/1; pre-PR5 47/16/30/1; six unchanged pumpkins');
+console.log('PASS immutable data: candidate 68/37/30/1; production 58/27/30/1; pre-PR5 47/16/30/1; six unchanged pumpkins');
 if (process.argv.includes('--preflight')) process.exit(0);
 
 const { chromium, webkit } = require('playwright');

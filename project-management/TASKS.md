@@ -1,5 +1,10 @@
 # FindEveryPark: tasks and release gates
 
+## November–December event draft (November 4, 2026 Colorado)
+
+Owner-approved seven initial candidates are prepared on `review/nov-dec-family-events-2026`, based on main `ea3c6d26236748aa090be7efe89cb57a3d6a70d0`. All seven have essential source/registration details checked; ten dated records expire independently. Existing 58 objects, archive/filters and the GPS pause are preserved. No Mighty Dads edits. See [scope, overlap and release gate](../docs/nov-dec-event-draft.md) and [source audit](../docs/nov-dec-source-review-2026-11-04.json). Exact-head test results belong in the PR. Draft only; owner approval is required before merge, deployment or publication. Existing PR #11 overlaps on two canonical IDs and remains untouched.
+
+
 ## Current map-usability draft
 
 Owner-authorized priorities 1 and 2 are isolated on `fix/park-selection-accessibility`, based on main `0ed9598`: exact-ID selection, exact-coordinate chooser and popup contrast/readability. Priority 3 stays research-only. No dataset/SEO/PR #3 changes or merge/deployment authorization. Review evidence and remaining gates: [map selection](MAP_SELECTION_ACCESSIBILITY.md).

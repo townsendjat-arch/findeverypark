@@ -1,5 +1,10 @@
 # FindEveryPark: decision log
 
+## November 4, 2026: seven-candidate family-event draft
+
+Use current main including the GPS pause. Append only the seven approved concepts as ten separate dated records so each occurrence expires using existing rules. Preserve all existing data, archive and filters. Both initially uncertain required-signup routes were checked in a browser before inclusion. Keep availability conditional and optional purchases distinct from free admission. Leave PR #11 and Mighty Dads untouched; reconcile the two overlapping canonical IDs if both drafts are ever selected. Review, merge and deployment remain separate gates. [Scope and evidence](../docs/nov-dec-event-draft.md).
+
+
 ## Map-usability decision, October 22
 
 Use unique IDs for selection and exact numeric coordinate equality only for a shared-location chooser. No clustering, new amenities, data changes, interaction-mode changes or PR #3 import. Focused draft PR only; merge/deploy need explicit approval. [Details](MAP_SELECTION_ACCESSIBILITY.md).

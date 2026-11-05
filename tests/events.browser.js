@@ -10,7 +10,8 @@ const root = path.join(__dirname, '..');
 const priorityAudit = JSON.parse(fs.readFileSync(path.join(root, 'docs/priority-one-source-review-2026-10-21.json'), 'utf8'));
 const priorityEvents = priorityAudit.events;
 const hasNapa = priorityEvents.some(event => event.id === 'centennial-napa-trunk-treat-2026');
-const currentCount = hasNapa ? 27 : 26;
+const currentCount = (hasNapa ? 27 : 26) + 10;
+const auroraCount = 15;
 const centennialCount = hasNapa ? 6 : 5;
 const output = path.join(root, 'test-results');
 fs.mkdirSync(output, { recursive: true });
@@ -78,7 +79,7 @@ async function check(name, callback) {
       assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Aurora');
       assert.equal(await page.locator('#page-title').textContent(), 'Aurora Events');
       const visible = page.locator('[data-current="true"]:visible');
-      assert.equal(await visible.count(), 8);
+      assert.equal(await visible.count(), auroraCount);
       assert.ok((await visible.evaluateAll(items => items.map(e => e.dataset.city))).every(city => city === 'aurora'));
       assert.ok(await page.locator('#aurora-events-link-paths').isVisible());
     });
@@ -123,7 +124,7 @@ async function check(name, callback) {
         await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
         assert.equal(new URL(page.url()).searchParams.get('city'), city);
         const visible = page.locator('[data-current="true"]:visible');
-        assert.equal(await visible.count(), ({centennial:centennialCount,parker:1,denver:3,aurora:8})[city], city);
+        assert.equal(await visible.count(), ({centennial:centennialCount,parker:2,denver:5,aurora:auroraCount})[city], city);
         assert.ok((await visible.evaluateAll(items => items.map(e => e.dataset.city))).every(value => value === city));
       }
       await page.goBack(); assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Denver');
@@ -164,6 +165,12 @@ async function check(name, callback) {
       assert.equal(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details').getAttribute('open'), '');
       await page.clock.setFixedTime(new Date('2026-11-02T20:00:00Z'));
       await page.goto(origin + '/events.html?city=aurora');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 7);
+      const novemberIds = await page.locator('[data-current="true"]:visible').evaluateAll(cards => cards.map(card => card.dataset.eventId).sort());
+      const novemberAudit = JSON.parse(fs.readFileSync(path.join(root, 'docs/nov-dec-source-review-2026-11-04.json'), 'utf8'));
+      assert.deepEqual(novemberIds, novemberAudit.events.filter(event => event.city === 'aurora').map(event => event.id).sort(), 'No historical Aurora event reappears after November 2');
+      await page.clock.setFixedTime(new Date('2026-12-21T20:00:00Z'));
+      await page.goto(origin + '/events.html?city=aurora');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
       await page.goto(origin + '/index.html?city=aurora');
       assert.equal(await page.locator('.home-event-card:visible').count(), 0);
@@ -179,20 +186,20 @@ async function check(name, callback) {
       await page.locator('.home-events').scrollIntoViewIfNeeded();
       await page.screenshot({ path: path.join(output, `${engineName}-homepage-events-${label}.png`), fullPage: false });
     });
-    await check(`${label}: Parker has only Primrose; held Kiddie Academy, Mainstreet and Violet Bridge stay absent`, async () => {
+    await check(`${label}: Parker has Primrose and November lighting; held Kiddie Academy, Mainstreet and Violet Bridge stay absent`, async () => {
       for (const url of ['/events.html?city=parker','/index.html?city=parker','/best-parks-parker.html']) {
         await page.goto(origin + url);
         for (const title of ['Trunk or Treat on Mainstreet','All Treats, No Tricks: Sensory-Friendly Trick or Treat','Halloween at Kiddie Academy: Free Family Trunk or Treat']) {
           assert.equal(await page.getByText(title, {exact:true}).count(), 0);
         }
         if (url.startsWith('/events.html')) {
-          assert.equal(await page.locator('[data-current="true"]:visible').count(), 1);
+          assert.equal(await page.locator('[data-current="true"]:visible').count(), 2);
           assert.equal(await page.locator('#empty-city').isVisible(), false);
           const ids = await page.locator('[data-current="true"]:visible').evaluateAll(cards => cards.map(card => card.dataset.eventId).sort());
-          assert.deepEqual(ids, ['parker-primrose-trunk-treat-2026']);
+          assert.deepEqual(ids, ['parker-mayors-holiday-lighting-2026','parker-primrose-trunk-treat-2026'].sort());
           await page.screenshot({path:path.join(output,`${engineName}-parker-priority-one-${label}.png`),fullPage:false});
         }
-        if (url.startsWith('/best-parks-')) assert.equal(await page.locator('.city-event-card:visible').count(), 1);
+        if (url.startsWith('/best-parks-')) assert.equal(await page.locator('.city-event-card:visible').count(), 2);
       }
       await page.goto(origin + '/events.html?city=parker');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
@@ -258,7 +265,7 @@ async function check(name, callback) {
     });
     await check(`${label}: zoo age bands, infant tickets and sampled availability`, async () => {
       await page.goto(origin + '/events.html?city=denver');
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 3);
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 5);
       for (const id of ['denver-boo-at-zoo-2026','denver-boo-at-zoo-sensory-2026']) {
         const card = page.locator(`[data-event-id="${id}"]`);
         const text = await card.textContent();

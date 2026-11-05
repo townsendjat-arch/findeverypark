@@ -1,0 +1,805 @@
+{
+  "checkedAtUtc": "2026-11-05T00:49:06Z",
+  "checkedLocalDate": "2026-11-04",
+  "timezone": "America/Denver",
+  "baseCommit": "ea3c6d26236748aa090be7efe89cb57a3d6a70d0",
+  "scope": "Owner-approved seven initial candidates. All seven concepts included across ten independently expiring records; no candidate remains held. Draft only; no publication authorization.",
+  "verificationMeaning": "Organizer-published facts and point-in-time registration review, not a capacity guarantee. No booking or registration performed.",
+  "events": [
+    {
+      "id": "aurora-stewardship-saturdays-2026",
+      "city": "aurora",
+      "section": "onetime",
+      "description": "Free; all ages. Register by Nov. 12. Help naturalists care for local open space with family stewardship tasks.",
+      "costLabel": "Free admission",
+      "timeLabel": "9–11 a.m. MST",
+      "registrationLabel": "Registration required through November 12, 2026; closing hour is not published. Use the official activity signup, even though the activity format is described as drop-in.",
+      "availabilityLabel": "Registration was offered when checked November 4. Capacity can change; confirm a place before going. Meet at Morrison Nature Center and wear comfortable closed-toe shoes and sun protection.",
+      "registrationUrl": "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true",
+      "audienceLabel": "All ages; families",
+      "title": "Stewardship Saturdays for Families",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-11-14T09:00:00-07:00",
+      "dateEnd": "2026-11-14T11:00:00-07:00",
+      "dateLabel": "Saturday, November 14, 2026",
+      "locationLabel": "Morrison Nature Center, 16002 E. Smith Road, Aurora",
+      "costType": "free",
+      "sourceType": "city_source",
+      "sourceUrls": [
+        "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+        "https://www.auroragov.org/cms/one.aspx?pageId=16523191",
+        "https://www.auroragov.org/cms/One.aspx?pageId=16596159&portalId=16242704",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search?activity_category_ids=33&activity_select_param=2&onlineSiteId=0&viewMode=list&locale=en-US",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true"
+      ],
+      "href": "https://www.auroragov.org/news/whats_new/aurora_fall_activities"
+    },
+    {
+      "id": "aurora-plains-free-day-2026-11-14",
+      "city": "aurora",
+      "section": "onetime",
+      "description": "Free; registration required. Explore prairie history and nature on this themed free day. November theme: Indigenous Peoples.",
+      "costLabel": "Free admission; $0 ticket total shown at verification",
+      "timeLabel": "10 a.m.–3 p.m. MST",
+      "registrationLabel": "Registration is required through the official Eventbrite date selector. Ticket sales end November 14, 2026; no closing hour is published. Register before going.",
+      "availabilityLabel": "Both approved dates offered free registration when checked November 4. Capacity can change; complete registration before going. Free parking; no dogs, bikes or horses.",
+      "registrationUrl": "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator",
+      "audienceLabel": "All ages",
+      "title": "Plains Conservation Center Free Day",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-11-14T10:00:00-07:00",
+      "dateEnd": "2026-11-14T15:00:00-07:00",
+      "dateLabel": "Saturday, November 14, 2026",
+      "locationLabel": "Plains Conservation Center, 21901 E. Hampden Avenue, Aurora",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704",
+        "https://www.botanicgardens.org/other-locations/plains-conservation-center",
+        "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator"
+      ],
+      "href": "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704"
+    },
+    {
+      "id": "denver-four-mile-free-day-2026-11-20",
+      "city": "denver",
+      "section": "onetime",
+      "description": "Free daytime admission; last entry 3:30 p.m. Explore the historic farm, animals and demonstrations; bring a picnic.",
+      "costLabel": "Free daytime general admission; special events and programs excluded",
+      "timeLabel": "10 a.m.–4 p.m. MST; last entry 3:30 p.m.",
+      "registrationLabel": "Free Day groups are welcome without advance notice. A ticket reservation link is offered, but required advance booking or a cutoff is not stated for ordinary Free Day visits.",
+      "availabilityLabel": "The ticket page did not expose live capacity. House museum tours hold about 10 people; groups may need to split up. Special programs and Bright Nights are not included.",
+      "registrationUrl": "https://fourmilepark.ticketing.veevartapp.com/tickets/view/list/2026-scfd-free-days-daytime-admission-10am4pm",
+      "title": "Four Mile Historic Park SCFD Free Day",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-11-20T10:00:00-07:00",
+      "dateEnd": "2026-11-20T16:00:00-07:00",
+      "dateLabel": "Friday, November 20, 2026",
+      "locationLabel": "Four Mile Historic Park, 715 S. Forest Street, Denver",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-12-18/",
+        "https://www.fourmilepark.org/plan-your-visit/hours-admission/"
+      ],
+      "href": "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    },
+    {
+      "id": "aurora-santas-grand-arrival-2026",
+      "city": "aurora",
+      "section": "holiday",
+      "description": "Free admission; Santa photo packages are separate. Enjoy carolers, crafts, a dance performance and a reindeer petting zoo.",
+      "costLabel": "Free admission; professional Santa photo prices unverified",
+      "timeLabel": "5–7 p.m. MST",
+      "registrationLabel": "No general-admission RSVP requirement or deadline is stated. The organizer offers a separate Santa photo reservation system.",
+      "availabilityLabel": "Professional Santa photos are not advertised here as free. Photo prices, appointment availability and group capacity are unverified.",
+      "title": "Santa's Grand Arrival",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-11-20T17:00:00-07:00",
+      "dateEnd": "2026-11-20T19:00:00-07:00",
+      "dateLabel": "Friday, November 20, 2026",
+      "locationLabel": "Town Center at Aurora, 14200 E. Alameda Avenue, Aurora",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.towncenterataurora.com/events/santas-grand-arrival/"
+      ],
+      "href": "https://www.towncenterataurora.com/events/santas-grand-arrival/",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    },
+    {
+      "id": "parker-mayors-holiday-lighting-2026",
+      "city": "parker",
+      "section": "holiday",
+      "description": "Free admission; food costs extra. Free s’mores for the first 1,000 people only. Tree and park lighting at 6 p.m.",
+      "costLabel": "Free admission and activities; food purchases extra",
+      "timeLabel": "5–7 p.m. MST; lighting at 6 p.m.",
+      "registrationLabel": "No general-admission registration requirement or deadline is stated.",
+      "availabilityLabel": "O’Brien Park parking lot is closed; Victorian Drive closures run 3:30–8 p.m. Check town weather updates before going. Complimentary s’mores are limited, not guaranteed.",
+      "title": "Parker Mayor's Holiday Lighting",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-11-27T17:00:00-07:00",
+      "dateEnd": "2026-11-27T19:00:00-07:00",
+      "dateLabel": "Friday, November 27, 2026",
+      "locationLabel": "O'Brien Park, 10795 Victorian Drive, Parker",
+      "costType": "free",
+      "sourceType": "city_source",
+      "sourceUrls": [
+        "https://parkerco.gov/172/Mayors-Holiday-Lighting",
+        "https://parkerco.gov/m/calendar/event/detail/7135"
+      ],
+      "href": "https://parkerco.gov/172/Mayors-Holiday-Lighting",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    },
+    {
+      "id": "aurora-delaney-holiday-open-day-2026-12-05",
+      "city": "aurora",
+      "section": "holiday",
+      "description": "Free family visit with crafts, cocoa, cookies, scavenger hunts and historic buildings. Allow 45–90 minutes.",
+      "costLabel": "Free admission",
+      "timeLabel": "11 a.m.–2 p.m. MST",
+      "registrationLabel": "No registration requirement or deadline is stated for these holiday open days.",
+      "availabilityLabel": "A portable toilet is available. No reserved group capacity or separate guided tour is promised; check organizer updates before going.",
+      "title": "DeLaney Farm Holiday Open Day",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-12-05T11:00:00-07:00",
+      "dateEnd": "2026-12-05T14:00:00-07:00",
+      "dateLabel": "Saturday, December 5, 2026",
+      "locationLabel": "DeLaney Farm Historic District, 170 S. Chambers Road, Aurora",
+      "costType": "free",
+      "sourceType": "city_source",
+      "sourceUrls": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704"
+      ],
+      "href": "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    },
+    {
+      "id": "aurora-delaney-holiday-open-day-2026-12-13",
+      "city": "aurora",
+      "section": "holiday",
+      "description": "Free family visit with crafts, cocoa, cookies, scavenger hunts and historic buildings. Allow 45–90 minutes.",
+      "costLabel": "Free admission",
+      "timeLabel": "11 a.m.–2 p.m. MST",
+      "registrationLabel": "No registration requirement or deadline is stated for these holiday open days.",
+      "availabilityLabel": "A portable toilet is available. No reserved group capacity or separate guided tour is promised; check organizer updates before going.",
+      "title": "DeLaney Farm Holiday Open Day",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-12-13T11:00:00-07:00",
+      "dateEnd": "2026-12-13T14:00:00-07:00",
+      "dateLabel": "Sunday, December 13, 2026",
+      "locationLabel": "DeLaney Farm Historic District, 170 S. Chambers Road, Aurora",
+      "costType": "free",
+      "sourceType": "city_source",
+      "sourceUrls": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704"
+      ],
+      "href": "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    },
+    {
+      "id": "aurora-plains-free-day-2026-12-17",
+      "city": "aurora",
+      "section": "onetime",
+      "description": "Free; registration required. Explore prairie history and nature on this themed free day. December theme: Holidays.",
+      "costLabel": "Free admission; $0 ticket total shown at verification",
+      "timeLabel": "10 a.m.–3 p.m. MST",
+      "registrationLabel": "Registration is required through the official Eventbrite date selector. Ticket sales end December 17, 2026; no closing hour is published. Register before going.",
+      "availabilityLabel": "Both approved dates offered free registration when checked November 4. Capacity can change; complete registration before going. Free parking; no dogs, bikes or horses.",
+      "registrationUrl": "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator",
+      "audienceLabel": "All ages",
+      "title": "Plains Conservation Center Free Day",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-12-17T10:00:00-07:00",
+      "dateEnd": "2026-12-17T15:00:00-07:00",
+      "dateLabel": "Thursday, December 17, 2026",
+      "locationLabel": "Plains Conservation Center, 21901 E. Hampden Avenue, Aurora",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704",
+        "https://www.botanicgardens.org/other-locations/plains-conservation-center",
+        "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator"
+      ],
+      "href": "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704"
+    },
+    {
+      "id": "denver-four-mile-free-day-2026-12-18",
+      "city": "denver",
+      "section": "onetime",
+      "description": "Free daytime admission; last entry 3:30 p.m. Explore the historic farm, animals and demonstrations; bring a picnic.",
+      "costLabel": "Free daytime general admission; special events and programs excluded",
+      "timeLabel": "10 a.m.–4 p.m. MST; last entry 3:30 p.m.",
+      "registrationLabel": "Free Day groups are welcome without advance notice. A ticket reservation link is offered, but required advance booking or a cutoff is not stated for ordinary Free Day visits.",
+      "availabilityLabel": "The ticket page did not expose live capacity. House museum tours hold about 10 people; groups may need to split up. Special programs and Bright Nights are not included.",
+      "registrationUrl": "https://fourmilepark.ticketing.veevartapp.com/tickets/view/list/2026-scfd-free-days-daytime-admission-10am4pm",
+      "title": "Four Mile Historic Park SCFD Free Day",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-12-18T10:00:00-07:00",
+      "dateEnd": "2026-12-18T16:00:00-07:00",
+      "dateLabel": "Friday, December 18, 2026",
+      "locationLabel": "Four Mile Historic Park, 715 S. Forest Street, Denver",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-12-18/",
+        "https://www.fourmilepark.org/plan-your-visit/hours-admission/"
+      ],
+      "href": "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-12-18/",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    },
+    {
+      "id": "aurora-camp-gingerbread-grinch-2026",
+      "city": "aurora",
+      "section": "holiday",
+      "description": "Free admission; Santa photos and vendor purchases are separate. Decorate gingerbread cookies and meet the Grinch.",
+      "costLabel": "Free admission; Santa photo prices unverified; vendor purchases extra",
+      "timeLabel": "1–4 p.m. MST",
+      "registrationLabel": "No general-admission registration requirement or deadline is stated. Santa photo reservations are separate.",
+      "availabilityLabel": "Cookie-decorating supplies, queues and group capacity are unverified. Do not assume professional Santa photos are free; prices and photo appointments were not verified.",
+      "title": "Camp Gingerbread with the Grinch",
+      "recurring": false,
+      "status": "approved",
+      "verifiedAt": "2026-11-04",
+      "timezone": "America/Denver",
+      "dateStart": "2026-12-20T13:00:00-07:00",
+      "dateEnd": "2026-12-20T16:00:00-07:00",
+      "dateLabel": "Sunday, December 20, 2026",
+      "locationLabel": "Town Center at Aurora, lower-level Center Court, 14200 E. Alameda Avenue, Aurora",
+      "costType": "free",
+      "sourceType": "organizer",
+      "sourceUrls": [
+        "https://www.towncenterataurora.com/events/camp-gingerbread-with-the-grnch"
+      ],
+      "href": "https://www.towncenterataurora.com/events/camp-gingerbread-with-the-grnch",
+      "audienceLabel": "Family-friendly; no minimum age stated"
+    }
+  ],
+  "heldBackEvents": [],
+  "sourceEvidence": [
+    {
+      "id": "aurora-stewardship-saturdays-2026",
+      "checkedAtUtc": "2026-11-05T00:47:42Z",
+      "sourceEventId": "family-stewardship",
+      "occurrence": {
+        "id": "family-stewardship-2026-11-14",
+        "date": "2026-11-14",
+        "day": "Saturday",
+        "starts_at": "2026-11-14T09:00:00-07:00",
+        "ends_at": "2026-11-14T11:00:00-07:00",
+        "expires_at": "2026-11-14T11:00:00-07:00",
+        "expires_at_utc": "2026-11-14T18:00:00Z"
+      },
+      "sources": [
+        "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+        "https://www.auroragov.org/cms/one.aspx?pageId=16523191",
+        "https://www.auroragov.org/cms/One.aspx?pageId=16596159&portalId=16242704",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search?activity_category_ids=33&activity_select_param=2&onlineSiteId=0&viewMode=list&locale=en-US",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true"
+      ]
+    },
+    {
+      "id": "aurora-santas-grand-arrival-2026",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "santa-grand-arrival",
+      "occurrence": {
+        "id": "santa-grand-arrival-2026-11-20",
+        "date": "2026-11-20",
+        "day": "Friday",
+        "starts_at": "2026-11-20T17:00:00-07:00",
+        "ends_at": "2026-11-20T19:00:00-07:00",
+        "expires_at": "2026-11-20T19:00:00-07:00",
+        "expires_at_utc": "2026-11-21T02:00:00Z"
+      },
+      "sources": [
+        "https://www.towncenterataurora.com/events/santas-grand-arrival/"
+      ]
+    },
+    {
+      "id": "denver-four-mile-free-day-2026-11-20",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "four-mile-free-days",
+      "occurrence": {
+        "last_entry": "2026-11-20T15:30:00-07:00",
+        "id": "four-mile-free-days-2026-11-20",
+        "date": "2026-11-20",
+        "day": "Friday",
+        "starts_at": "2026-11-20T10:00:00-07:00",
+        "ends_at": "2026-11-20T16:00:00-07:00",
+        "expires_at": "2026-11-20T16:00:00-07:00",
+        "expires_at_utc": "2026-11-20T23:00:00Z"
+      },
+      "sources": [
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-12-18/",
+        "https://www.fourmilepark.org/plan-your-visit/hours-admission/"
+      ]
+    },
+    {
+      "id": "denver-four-mile-free-day-2026-12-18",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "four-mile-free-days",
+      "occurrence": {
+        "last_entry": "2026-12-18T15:30:00-07:00",
+        "id": "four-mile-free-days-2026-12-18",
+        "date": "2026-12-18",
+        "day": "Friday",
+        "starts_at": "2026-12-18T10:00:00-07:00",
+        "ends_at": "2026-12-18T16:00:00-07:00",
+        "expires_at": "2026-12-18T16:00:00-07:00",
+        "expires_at_utc": "2026-12-18T23:00:00Z"
+      },
+      "sources": [
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-12-18/",
+        "https://www.fourmilepark.org/plan-your-visit/hours-admission/"
+      ]
+    },
+    {
+      "id": "parker-mayors-holiday-lighting-2026",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "parker-holiday-lighting",
+      "occurrence": {
+        "tree_lighting": "2026-11-27T18:00:00-07:00",
+        "id": "parker-holiday-lighting-2026-11-27",
+        "date": "2026-11-27",
+        "day": "Friday",
+        "starts_at": "2026-11-27T17:00:00-07:00",
+        "ends_at": "2026-11-27T19:00:00-07:00",
+        "expires_at": "2026-11-27T19:00:00-07:00",
+        "expires_at_utc": "2026-11-28T02:00:00Z"
+      },
+      "sources": [
+        "https://parkerco.gov/172/Mayors-Holiday-Lighting",
+        "https://parkerco.gov/m/calendar/event/detail/7135"
+      ]
+    },
+    {
+      "id": "aurora-delaney-holiday-open-day-2026-12-05",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "delaney-holiday-open-days",
+      "occurrence": {
+        "id": "delaney-holiday-open-days-2026-12-05",
+        "date": "2026-12-05",
+        "day": "Saturday",
+        "starts_at": "2026-12-05T11:00:00-07:00",
+        "ends_at": "2026-12-05T14:00:00-07:00",
+        "expires_at": "2026-12-05T14:00:00-07:00",
+        "expires_at_utc": "2026-12-05T21:00:00Z"
+      },
+      "sources": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704"
+      ]
+    },
+    {
+      "id": "aurora-delaney-holiday-open-day-2026-12-13",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "delaney-holiday-open-days",
+      "occurrence": {
+        "id": "delaney-holiday-open-days-2026-12-13",
+        "date": "2026-12-13",
+        "day": "Sunday",
+        "starts_at": "2026-12-13T11:00:00-07:00",
+        "ends_at": "2026-12-13T14:00:00-07:00",
+        "expires_at": "2026-12-13T14:00:00-07:00",
+        "expires_at_utc": "2026-12-13T21:00:00Z"
+      },
+      "sources": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704"
+      ]
+    },
+    {
+      "id": "aurora-camp-gingerbread-grinch-2026",
+      "checkedAtUtc": "2026-11-05T00:45:00Z",
+      "sourceEventId": "camp-gingerbread",
+      "occurrence": {
+        "id": "camp-gingerbread-2026-12-20",
+        "date": "2026-12-20",
+        "day": "Sunday",
+        "starts_at": "2026-12-20T13:00:00-07:00",
+        "ends_at": "2026-12-20T16:00:00-07:00",
+        "expires_at": "2026-12-20T16:00:00-07:00",
+        "expires_at_utc": "2026-12-20T23:00:00Z"
+      },
+      "sources": [
+        "https://www.towncenterataurora.com/events/camp-gingerbread-with-the-grnch"
+      ]
+    },
+    {
+      "id": "aurora-plains-free-day-2026-11-14",
+      "checkedAtUtc": "2026-11-05T00:49:06Z",
+      "sourceEventId": "plains-free-days",
+      "occurrence": {
+        "theme": "Indigenous Peoples",
+        "id": "plains-free-days-2026-11-14",
+        "date": "2026-11-14",
+        "day": "Saturday",
+        "starts_at": "2026-11-14T10:00:00-07:00",
+        "ends_at": "2026-11-14T15:00:00-07:00",
+        "expires_at": "2026-11-14T15:00:00-07:00",
+        "expires_at_utc": "2026-11-14T22:00:00Z",
+        "registration_deadline_date": "2026-11-14",
+        "registration_deadline_time": null,
+        "registration_status_at_check": "Free ticket options available and Register button displayed",
+        "registration_checked_at_utc": "2026-11-05T00:49:06Z"
+      },
+      "sources": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704",
+        "https://www.botanicgardens.org/other-locations/plains-conservation-center",
+        "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator"
+      ]
+    },
+    {
+      "id": "aurora-plains-free-day-2026-12-17",
+      "checkedAtUtc": "2026-11-05T00:49:06Z",
+      "sourceEventId": "plains-free-days",
+      "occurrence": {
+        "theme": "Holidays",
+        "id": "plains-free-days-2026-12-17",
+        "date": "2026-12-17",
+        "day": "Thursday",
+        "starts_at": "2026-12-17T10:00:00-07:00",
+        "ends_at": "2026-12-17T15:00:00-07:00",
+        "expires_at": "2026-12-17T15:00:00-07:00",
+        "expires_at_utc": "2026-12-17T22:00:00Z",
+        "registration_deadline_date": "2026-12-17",
+        "registration_deadline_time": null,
+        "registration_status_at_check": "Free ticket options available and Register button displayed",
+        "registration_checked_at_utc": "2026-11-05T00:49:06Z"
+      },
+      "sources": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704",
+        "https://www.botanicgardens.org/other-locations/plains-conservation-center",
+        "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator"
+      ]
+    }
+  ],
+  "candidateResearch": [
+    {
+      "event": "Stewardship Saturdays for Families",
+      "status": "Organizer-confirmed event and exact registration route; six openings displayed at check",
+      "occurrences": [
+        {
+          "id": "family-stewardship-2026-11-14",
+          "date": "2026-11-14",
+          "day": "Saturday",
+          "starts_at": "2026-11-14T09:00:00-07:00",
+          "ends_at": "2026-11-14T11:00:00-07:00",
+          "expires_at": "2026-11-14T11:00:00-07:00",
+          "expires_at_utc": "2026-11-14T18:00:00Z"
+        }
+      ],
+      "venue": "Morrison Nature Center, 16002 E. Smith Road, Aurora",
+      "cost": "Free",
+      "registration": "Required. Exact official ActiveNet detail page verified in browser: Fall 2026 activity #9406, November 14, 9–11 a.m., free, all ages, Morrison Nature Center at Star K Ranch. Enroll Now button displayed with six openings remaining at 2026-11-05 00:47:42 UTC. Availability can change; do not hardcode this count in lasting public copy.",
+      "registration_url": "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true",
+      "family_fit": "All ages; planting, cleanup and helping naturalists. Strong dad-and-kid or service-oriented family option.",
+      "group_fit": "Suitable for family volunteering, but only six openings were displayed at check. Do not promise capacity for a larger group.",
+      "sources": [
+        "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+        "https://www.auroragov.org/cms/one.aspx?pageId=16523191",
+        "https://www.auroragov.org/cms/One.aspx?pageId=16596159&portalId=16242704",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search?activity_category_ids=33&activity_select_param=2&onlineSiteId=0&viewMode=list&locale=en-US",
+        "https://anc.apm.activecommunities.com/auroracolorado/activity/search/detail/4271?onlineSiteId=0&from_original_cui=true"
+      ],
+      "id": "family-stewardship",
+      "review_description": "Families can help care for nature through seasonal tasks such as planting seeds, collecting litter and assisting naturalists. All ages welcome.",
+      "checked_at_utc": "2026-11-05T00:47:42Z",
+      "registration_deadline": "2026-11-12",
+      "registration_deadline_note": "The live page gives November 12, 2026 as the closing date for members, resident non-members and non-resident non-members. No closing hour is published; do not invent one.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://www.auroragov.org/news/whats_new/aurora_fall_activities",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "All ages, explicitly stated by city.",
+      "registration_status": "required_exact_event_route_verified",
+      "general_registration_search_url": "https://anc.apm.activecommunities.com/auroracolorado/activity/search?activity_category_ids=33&activity_select_param=2&onlineSiteId=0&viewMode=list&locale=en-US",
+      "draft_review_hold": null,
+      "canonical_repository_id": "aurora-stewardship-saturdays-2026",
+      "live_capacity_at_check": 6,
+      "live_capacity_checked_at_utc": "2026-11-05T00:47:42Z",
+      "logistics": "Meet at Morrison Nature Center; prepare to be outdoors, wear comfortable closed-toe shoes and sun protection."
+    },
+    {
+      "event": "Plains Conservation Center Free Days",
+      "status": "Organizer-confirmed event and live registration options for both dates",
+      "occurrences": [
+        {
+          "theme": "Indigenous Peoples",
+          "id": "plains-free-days-2026-11-14",
+          "date": "2026-11-14",
+          "day": "Saturday",
+          "starts_at": "2026-11-14T10:00:00-07:00",
+          "ends_at": "2026-11-14T15:00:00-07:00",
+          "expires_at": "2026-11-14T15:00:00-07:00",
+          "expires_at_utc": "2026-11-14T22:00:00Z",
+          "registration_deadline_date": "2026-11-14",
+          "registration_deadline_time": null,
+          "registration_status_at_check": "Free ticket options available and Register button displayed",
+          "registration_checked_at_utc": "2026-11-05T00:49:06Z"
+        },
+        {
+          "theme": "Holidays",
+          "id": "plains-free-days-2026-12-17",
+          "date": "2026-12-17",
+          "day": "Thursday",
+          "starts_at": "2026-12-17T10:00:00-07:00",
+          "ends_at": "2026-12-17T15:00:00-07:00",
+          "expires_at": "2026-12-17T15:00:00-07:00",
+          "expires_at_utc": "2026-12-17T22:00:00Z",
+          "registration_deadline_date": "2026-12-17",
+          "registration_deadline_time": null,
+          "registration_status_at_check": "Free ticket options available and Register button displayed",
+          "registration_checked_at_utc": "2026-11-05T00:49:06Z"
+        }
+      ],
+      "venue": "Plains Conservation Center, 21901 E. Hampden Avenue, Aurora",
+      "cost": "Free",
+      "registration": "Required. Official Eventbrite inspected in browser: November 14 at 10 a.m. and December 17 at 10 a.m. are both selectable. Each displays a free ticket, quantity choices 1–10, an active Register button, and $0.00 total for the default one ticket. No Register button was clicked and no booking was made. The 1–10 selector is not a remaining-capacity count. Availability can change.",
+      "registration_url": "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator",
+      "family_fit": "Strong outdoor/history option with a Saturday occurrence; December occurrence is a school/work-day Thursday.",
+      "group_fit": "Potentially strong, but register or confirm capacity before recommending an organized group.",
+      "correction": "Program is 10 a.m.–3 p.m., not 10 a.m.–4:30 p.m.",
+      "sources": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704",
+        "https://www.botanicgardens.org/other-locations/plains-conservation-center",
+        "https://www.eventbrite.com/e/free-days-at-the-plains-conservation-center-tickets-1977744596327?aff=oddtdtcreator"
+      ],
+      "id": "plains-free-days",
+      "review_description": "Explore the natural and cultural history of the shortgrass prairie during themed free days. November focuses on Indigenous Peoples; December on holidays.",
+      "checked_at_utc": "2026-11-05T00:49:06Z",
+      "registration_deadline": null,
+      "registration_deadline_note": "November occurrence sales end November 14, 2026; December occurrence sales end December 17, 2026. No cutoff hour published. These are per-occurrence dates, not one series deadline.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://www.auroragov.org/cms/One.aspx?pageId=20244357&portalId=16242704",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "All ages, explicitly stated on organizer Eventbrite page.",
+      "registration_status": "required_both_date_options_verified",
+      "draft_review_hold": null,
+      "live_capacity_at_check": null,
+      "live_capacity_note": "Total remaining capacity is not displayed. The ticket selector offers quantities 1–10 for each date; this does not establish the total available inventory.",
+      "logistics": "Free parking; visitor center at 21901 E. Hampden Avenue, Aurora CO 80013. Organizer prohibits dogs, bikes and horses. Visitors may arrive any time during the event."
+    },
+    {
+      "event": "Santa's Grand Arrival",
+      "status": "Organizer-confirmed; no general admission registration stated",
+      "occurrences": [
+        {
+          "id": "santa-grand-arrival-2026-11-20",
+          "date": "2026-11-20",
+          "day": "Friday",
+          "starts_at": "2026-11-20T17:00:00-07:00",
+          "ends_at": "2026-11-20T19:00:00-07:00",
+          "expires_at": "2026-11-20T19:00:00-07:00",
+          "expires_at_utc": "2026-11-21T02:00:00Z"
+        }
+      ],
+      "venue": "Town Center at Aurora, 14200 E. Alameda Avenue, Aurora",
+      "cost": "Free admission. Do not describe professional Santa photo packages as free; prices not verified.",
+      "registration": "No general admission RSVP or deadline stated. Organizer links a separate Santa photo reservation system.",
+      "registration_url": null,
+      "family_fit": "Strong free family holiday choice: carolers, crafts, dance performance and reindeer petting zoo.",
+      "group_fit": "Reasonable informal meet-up, but no reserved group capacity or short queues guaranteed.",
+      "sources": [
+        "https://www.towncenterataurora.com/events/santas-grand-arrival/"
+      ],
+      "id": "santa-grand-arrival",
+      "review_description": "Welcome Santa with carolers, children’s crafts, a dance performance and a reindeer petting zoo at Town Center at Aurora.",
+      "checked_at_utc": "2026-11-05T00:45:00Z",
+      "registration_deadline": null,
+      "registration_deadline_note": "No event-specific advance cutoff published on the checked organizer pages.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://www.towncenterataurora.com/events/santas-grand-arrival/",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "Family-friendly; specific minimum age not stated.",
+      "registration_status": "no_general_registration_requirement_stated",
+      "optional_purchase_note": "Professional Santa photo reservations are separate. Prices and photo appointment availability unverified; do not describe photo packages as free.",
+      "draft_review_hold": null
+    },
+    {
+      "event": "Four Mile Historic Park SCFD Free Days",
+      "status": "Organizer-confirmed; explicit favorable group policy",
+      "occurrences": [
+        {
+          "last_entry": "2026-11-20T15:30:00-07:00",
+          "id": "four-mile-free-days-2026-11-20",
+          "date": "2026-11-20",
+          "day": "Friday",
+          "starts_at": "2026-11-20T10:00:00-07:00",
+          "ends_at": "2026-11-20T16:00:00-07:00",
+          "expires_at": "2026-11-20T16:00:00-07:00",
+          "expires_at_utc": "2026-11-20T23:00:00Z"
+        },
+        {
+          "last_entry": "2026-12-18T15:30:00-07:00",
+          "id": "four-mile-free-days-2026-12-18",
+          "date": "2026-12-18",
+          "day": "Friday",
+          "starts_at": "2026-12-18T10:00:00-07:00",
+          "ends_at": "2026-12-18T16:00:00-07:00",
+          "expires_at": "2026-12-18T16:00:00-07:00",
+          "expires_at_utc": "2026-12-18T23:00:00Z"
+        }
+      ],
+      "venue": "Four Mile Historic Park, 715 S. Forest Street, Denver",
+      "cost": "Free daytime general admission. Does not cover special events, programs or Bright Nights.",
+      "registration": "Free-day ticket reservation link offered. The organizer explicitly welcomes groups on Free Days without advance notice. No required advance booking or cutoff stated for ordinary Free Day visits. Ticket page returned a JavaScript-only shell; no live capacity verified.",
+      "registration_url": "https://fourmilepark.ticketing.veevartapp.com/tickets/view/list/2026-scfd-free-days-daytime-admission-10am4pm",
+      "family_fit": "Strong farm/history outing with animals and demonstrations. Both dates are Fridays during school/work hours.",
+      "group_fit": "Strongest group choice: organizations are explicitly welcome without advance notice. House museum tours are limited to about 10 people; split up or contact park to arrange a large tour. Separate reserved group tours require two weeks' notice and may involve a deposit; do not confuse them with drop-in Free Day policy.",
+      "sources": [
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+        "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-12-18/",
+        "https://www.fourmilepark.org/plan-your-visit/hours-admission/"
+      ],
+      "id": "four-mile-free-days",
+      "review_description": "Enjoy free daytime admission to explore the historic farm, meet animals and see demonstrations. Families may bring a picnic.",
+      "checked_at_utc": "2026-11-05T00:45:00Z",
+      "registration_deadline": null,
+      "registration_deadline_note": "No event-specific advance cutoff published on the checked organizer pages.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://www.fourmilepark.org/event/scfd-free-admission-day/2026-11-20/",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "Family-friendly; specific minimum age not stated.",
+      "registration_status": "advance_notice_not_required_for_free_day_group_visits",
+      "draft_review_hold": null
+    },
+    {
+      "event": "Parker Mayor's Holiday Lighting",
+      "status": "Organizer-confirmed; no registration requirement stated",
+      "occurrences": [
+        {
+          "tree_lighting": "2026-11-27T18:00:00-07:00",
+          "id": "parker-holiday-lighting-2026-11-27",
+          "date": "2026-11-27",
+          "day": "Friday",
+          "starts_at": "2026-11-27T17:00:00-07:00",
+          "ends_at": "2026-11-27T19:00:00-07:00",
+          "expires_at": "2026-11-27T19:00:00-07:00",
+          "expires_at_utc": "2026-11-28T02:00:00Z"
+        }
+      ],
+      "venue": "O'Brien Park, 10795 Victorian Drive, Parker",
+      "cost": "Free admission and activities. Food trucks extra. Free s'mores limited to first 1,000 people.",
+      "registration": "No general admission registration or deadline stated.",
+      "registration_url": null,
+      "family_fit": "Strong free holiday event with lights, train rides, music, ice carving and Santa/Mrs. Claus.",
+      "group_fit": "Good informal group outing with a defined meeting point. Outdoor crowds and parking closures may complicate keeping everyone together.",
+      "logistics": "O'Brien Park parking lot closed; Victorian Drive closures 3:30–8 p.m. Organizer directs weather-update checks to town social channels.",
+      "sources": [
+        "https://parkerco.gov/172/Mayors-Holiday-Lighting",
+        "https://parkerco.gov/m/calendar/event/detail/7135"
+      ],
+      "id": "parker-holiday-lighting",
+      "review_description": "Celebrate the start of the holiday season with live music, ice sculptures, train rides and Santa. The tree and park lighting is at 6 p.m.",
+      "checked_at_utc": "2026-11-05T00:45:00Z",
+      "registration_deadline": null,
+      "registration_deadline_note": "No event-specific advance cutoff published on the checked organizer pages.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://parkerco.gov/172/Mayors-Holiday-Lighting",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "Family-friendly; specific minimum age not stated.",
+      "registration_status": "no_general_registration_requirement_stated",
+      "draft_review_hold": null
+    },
+    {
+      "event": "DeLaney Farm Holiday Open Days",
+      "status": "Organizer-confirmed; no registration requirement stated",
+      "occurrences": [
+        {
+          "id": "delaney-holiday-open-days-2026-12-05",
+          "date": "2026-12-05",
+          "day": "Saturday",
+          "starts_at": "2026-12-05T11:00:00-07:00",
+          "ends_at": "2026-12-05T14:00:00-07:00",
+          "expires_at": "2026-12-05T14:00:00-07:00",
+          "expires_at_utc": "2026-12-05T21:00:00Z"
+        },
+        {
+          "id": "delaney-holiday-open-days-2026-12-13",
+          "date": "2026-12-13",
+          "day": "Sunday",
+          "starts_at": "2026-12-13T11:00:00-07:00",
+          "ends_at": "2026-12-13T14:00:00-07:00",
+          "expires_at": "2026-12-13T14:00:00-07:00",
+          "expires_at_utc": "2026-12-13T21:00:00Z"
+        }
+      ],
+      "venue": "DeLaney Farm Historic District, 170 S. Chambers Road, Aurora",
+      "cost": "Free",
+      "registration": "No registration or deadline stated for these holiday dates on organizer page. Do not apply registration requirements from earlier seasonal events to these dates without evidence.",
+      "registration_url": null,
+      "family_fit": "Strong nearby weekend choice with crafts, cocoa, cookies, scavenger hunt and historic buildings. Plan 45–90 minutes. Portable toilet available.",
+      "group_fit": "Good informal group outing, although no reserved group capacity or separate guided tour guaranteed.",
+      "sources": [
+        "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704"
+      ],
+      "id": "delaney-holiday-open-days",
+      "review_description": "Tour the historic farm, Gully House and Round Barn, with crafts, cocoa, cookies and scavenger hunts. Allow 45–90 minutes for a visit.",
+      "checked_at_utc": "2026-11-05T00:45:00Z",
+      "registration_deadline": null,
+      "registration_deadline_note": "No event-specific advance cutoff published on the checked organizer pages.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://www.auroragov.org/cms/One.aspx?pageId=21288669&portalId=16242704",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "Family-friendly; specific minimum age not stated.",
+      "registration_status": "no_general_registration_requirement_stated",
+      "draft_review_hold": null
+    },
+    {
+      "event": "Camp Gingerbread with the Grinch",
+      "status": "Organizer-confirmed; no general registration requirement stated",
+      "occurrences": [
+        {
+          "id": "camp-gingerbread-2026-12-20",
+          "date": "2026-12-20",
+          "day": "Sunday",
+          "starts_at": "2026-12-20T13:00:00-07:00",
+          "ends_at": "2026-12-20T16:00:00-07:00",
+          "expires_at": "2026-12-20T16:00:00-07:00",
+          "expires_at_utc": "2026-12-20T23:00:00Z"
+        }
+      ],
+      "venue": "Town Center at Aurora, lower-level Center Court, 14200 E. Alameda Avenue, Aurora",
+      "cost": "Free admission. Professional Santa photo pricing not verified and should not be described as free.",
+      "registration": "No general registration or deadline stated. Separate Santa-photo reservation link offered.",
+      "registration_url": null,
+      "family_fit": "Strong free indoor family holiday choice with cookie decorating and the Grinch.",
+      "group_fit": "Suitable as an informal family-group meeting, but craft supply quantities, queues and group capacity unverified.",
+      "sources": [
+        "https://www.towncenterataurora.com/events/camp-gingerbread-with-the-grnch"
+      ],
+      "id": "camp-gingerbread",
+      "review_description": "Decorate gingerbread cookies and meet the Grinch at Town Center at Aurora’s lower-level center court. Santa photos and local vendors are also offered.",
+      "checked_at_utc": "2026-11-05T00:45:00Z",
+      "registration_deadline": null,
+      "registration_deadline_note": "No event-specific advance cutoff published on the checked organizer pages.",
+      "admission_currency": "USD",
+      "general_admission_price": 0,
+      "organizer_url": "https://www.towncenterataurora.com/events/camp-gingerbread-with-the-grnch",
+      "event_availability": "Scheduled on official organizer page; not reported cancelled.",
+      "age_policy": "Family-friendly; specific minimum age not stated.",
+      "registration_status": "no_general_registration_requirement_stated",
+      "optional_purchase_note": "Professional Santa photo reservations are separate. Prices and photo appointment availability unverified; do not describe photo packages as free.",
+      "draft_review_hold": null
+    }
+  ],
+  "overlapWithExistingDraft": "PR #11 remains separate and unmodified. Parker and Stewardship reuse its canonical IDs to make later reconciliation explicit. Do not merge both drafts without reconciling overlap and rerunning checks.",
+  "expiryPolicy": "Each dated occurrence is a separate nonrecurring record using an explicit MST start and end. At now >= dateEnd it leaves current cards and previews and stays available only in the existing archive.",
+  "verificationStartedAtUtc": "2026-11-05T00:45:00Z"
+}
