@@ -73,10 +73,11 @@ test('each occurrence expires at its own exact end in Denver, Tokyo, Los Angeles
  const script=`const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');const c={window:{},document:{readyState:'loading',addEventListener(){}}};vm.createContext(c);vm.runInContext(fs.readFileSync('city-events.js','utf8'),c);const a=JSON.parse(fs.readFileSync('docs/nov-dec-source-review-2026-11-04.json','utf8')).events;for(const e of a){const end=Date.parse(e.dateEnd);assert.equal(c.window.FEP_EVENTS.isCurrent(e,new Date(end-1)),true,e.id);assert.equal(c.window.FEP_EVENTS.isCurrent(e,new Date(end)),false,e.id);assert.equal(c.window.FEP_EVENTS.isCurrent(e,new Date(end+86400000)),false,e.id);}for(const prefix of [/Four Mile/i,/DeLaney/i,/Plains/i]){const es=a.filter(e=>prefix.test(e.title)).sort((a,b)=>a.dateStart.localeCompare(b.dateStart));assert.equal(es.length,2);assert.equal(c.window.FEP_EVENTS.isCurrent(es[0],new Date(es[0].dateEnd)),false);assert.equal(c.window.FEP_EVENTS.isCurrent(es[1],new Date(es[0].dateEnd)),true);}`;
  for(const TZ of ['America/Denver','Asia/Tokyo','America/Los_Angeles','UTC'])execFileSync(process.execPath,['-e',script],{cwd:root,env:{...process.env,TZ}});
 });
-test('event draft changes no runtime, GPS, park data or page code',()=>{
+test('event UI exception leaves all other runtime, GPS, park data and page code byte-exact',()=>{
  const files=git(['ls-tree','-r','--name-only',ref]).trim().split('\n').filter(f=>/\.(?:js|html|css)$/.test(f)&&!f.startsWith('tests/')&&!f.startsWith('docs/')&&f!=='data/events/events-manifest.js');
  assert.ok(files.includes('gps-availability.js'));assert.ok(files.includes('events.html'));
- for(const file of files)assert.equal(fs.readFileSync(path.join(root,file),'utf8'),git(['show',ref+':'+file]),file);
+ // events.html is the explicitly approved filter/header UI exception, covered by focused regressions.
+ for(const file of files.filter(file=>file!=='events.html'))assert.equal(fs.readFileSync(path.join(root,file),'utf8'),git(['show',ref+':'+file]),file);
 });
 test('fresh source evidence maps every approved occurrence to its own start and end',()=>{
  assert.equal(audit.baseCommit,ref); assert.equal(audit.sourceEvidence.length,10);

@@ -1,11 +1,12 @@
 // FindEveryPark — Events Manifest
-// Updated October 21, 2026 | Source-checked fall listings
-// Current research window: October 21–November 1, 2026; legacy listings retained in the archive.
+// Event content updated November 4, 2026 (America/Denver); includes approved November–December occurrences.
+// Individual verifiedAt values record source checks; historical records retain their original dates.
 // See docs/event-system.md for schema, verification, expiry and review workflow.
 
 window.EVENTS_DATA = {
 
-  updatedLabel: "Details checked October 21, 2026",
+  // Editorial event-content update, not a deployment date or a claim that every listing was rechecked.
+  contentUpdatedAt: "2026-11-04",
 
   cities: {
     castle_rock: {

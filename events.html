@@ -134,11 +134,15 @@
       margin-bottom: 12px;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
     }
     .update-badge::before {
       content: '';
       width: 6px;
       height: 6px;
+      flex-shrink: 0;
       background: var(--sunset);
       border-radius: 50%;
     }
@@ -682,6 +686,7 @@
 
   <header class="page-header">
     <div class="update-badge" id="updated-label">Event details loading</div>
+    <p class="section-copy" id="verification-note">Verification dates appear on listings when available.</p>
     <h1 id="page-title">Front Range Events</h1>
     <p class="subtitle" id="page-subtitle">Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.</p>
   </header>
@@ -734,7 +739,8 @@
   const emptyCity = document.getElementById('empty-city');
   const emptyCityCopy = document.getElementById('empty-city-copy');
 
-  document.getElementById('updated-label').textContent = eventsData.updatedLabel || 'Updated';
+  // Content updates and source verification are separate facts. Never substitute today's date.
+  document.getElementById('updated-label').textContent = eventContentUpdateLabel(eventsData.contentUpdatedAt);
   document.getElementById('page-title').textContent = 'Front Range Events';
   document.getElementById('page-subtitle').textContent = 'Family-friendly events, outdoor movies, concerts, festivals, and park meetups around Denver metro.';
   document.getElementById('submit-heading').textContent = 'Know an event?';
@@ -820,6 +826,13 @@
     const date = new Date(String(value).length === 10 ? value + 'T12:00:00Z' : value);
     if (isNaN(date)) return value;
     return date.toLocaleDateString('en-US', { timeZone: eventRules.timeZone, month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function eventContentUpdateLabel(value) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return 'Curated event listings';
+    const date = new Date(value + 'T12:00:00Z');
+    if (isNaN(date) || date.toISOString().slice(0, 10) !== value) return 'Curated event listings';
+    return 'Event listings updated ' + formatDisplayDate(value);
   }
 
   function recurringScheduleItems(event) {
@@ -1436,7 +1449,6 @@
     }
 
     var activeKey = '';
-    var activeCategory = '';
     function applyFilter(key, updateUrl) {
       activeKey = eventRules.normCity(key);
       Array.prototype.forEach.call(bar.children, function (pill) {
@@ -1445,19 +1457,18 @@
         pill.setAttribute('aria-pressed', String(selected));
       });
       Array.prototype.forEach.call(root.querySelectorAll('.event-card, .event-row'), function (el) {
-        el.style.display = ((!activeKey || el.dataset.city === activeKey) && (!activeCategory || el.dataset.category === activeCategory)) ? '' : 'none';
+        el.style.display = (!activeKey || el.dataset.city === activeKey) ? '' : 'none';
       });
       const pumpkinSection = root.querySelector('.pumpkin-subsection');
       if (pumpkinSection) pumpkinSection.style.display = Array.from(pumpkinSection.querySelectorAll('.event-card')).some(isVisible) ? '' : 'none';
-      Array.from(categoryBar.children).forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.category === activeCategory)); });
       sweepEmpties();
       var count = root.querySelectorAll('[data-current="true"]');
       var visibleCount = Array.prototype.filter.call(count, isVisible).length;
       var label = activeKey ? prettyCity(activeKey) : 'All Cities';
       document.getElementById('filter-status').textContent = visibleCount +
-        ' current or upcoming ' + (activeCategory ? 'pumpkin listing' : 'event') + (visibleCount === 1 ? '' : 's') + ' · ' + label + ' · All times Mountain Time';
+        ' current or upcoming event' + (visibleCount === 1 ? '' : 's') + ' · ' + label + ' · All times Mountain Time';
       emptyCity.style.display = visibleCount ? 'none' : '';
-      emptyCityCopy.textContent = 'No current ' + (activeCategory ? 'pumpkin listings' : 'listings') + ' for ' + (activeKey ? label : 'the Front Range') +
+      emptyCityCopy.textContent = 'No current listings for ' + (activeKey ? label : 'the Front Range') +
         '. Try All events or another city while we verify more dates.';
       if (!visibleCount && cityEvents.some(function (event) { return event.seasonEndUnknown && (!activeKey || eventRules.normCity(event.city) === activeKey) && !isCurrentEvent(event, today); })) {
         emptyCityCopy.textContent += ' Additional November dates for Miller Farms have not been verified. October 31 is our checked-date coverage boundary, not a confirmed season closing date.';
@@ -1471,8 +1482,7 @@
         var url = new URL(window.location.href);
         if (activeKey) url.searchParams.set('city', activeKey.replace(/_/g, '-'));
         else url.searchParams.delete('city');
-        if (activeCategory) url.searchParams.set('category', activeCategory);
-        else url.searchParams.delete('category');
+        url.searchParams.delete('category');
         history.pushState(null, '', url);
       }
     }
@@ -1500,8 +1510,8 @@
     var categoryBar = document.createElement('div');
     categoryBar.className = 'event-category-pills';
     categoryBar.setAttribute('role', 'group');
-    categoryBar.setAttribute('aria-label', 'Filter events by category');
-    [['', 'All events'], ['pumpkin-patches', 'Pumpkin Patches']].forEach(function (item) {
+    categoryBar.setAttribute('aria-label', 'All events');
+    [['', 'All events']].forEach(function (item) {
       var button = document.createElement('button');
       button.type = 'button';
       button.className = 'event-category-pill';
@@ -1509,13 +1519,8 @@
       button.textContent = item[1];
       button.setAttribute('aria-pressed', String(!item[0]));
       button.addEventListener('click', function () {
-        activeCategory = item[0];
         // All events is the global reset, including an empty or stale city selection.
-        applyFilter(activeCategory ? activeKey : '', true);
-        if (activeCategory) {
-          var target = document.getElementById('pumpkin-patches');
-          if (target && target.style.display !== 'none') target.scrollIntoView({ block: 'start' });
-        }
+        applyFilter('', true);
       });
       categoryBar.appendChild(button);
     });
@@ -1528,9 +1533,14 @@
     keys.forEach(function (k) { bar.appendChild(makePill(k, seen[k])); });
     root.parentNode.insertBefore(bar, document.getElementById('filter-status'));
     function filterFromUrl() {
-      var params = new URLSearchParams(location.search);
-      activeCategory = params.get('category') === 'pumpkin-patches' ? 'pumpkin-patches' : '';
-      var requested = eventRules.normCity(params.get('city'));
+      var url = new URL(window.location.href);
+      // Retired category links must not leave an invisible active filter. Preserve city,
+      // search/unrelated parameters and anchors, without adding a browser-history entry.
+      if (url.searchParams.has('category')) {
+        url.searchParams.delete('category');
+        history.replaceState(history.state, '', url);
+      }
+      var requested = eventRules.normCity(url.searchParams.get('city'));
       applyFilter(requested, false);
     }
     filterFromUrl();

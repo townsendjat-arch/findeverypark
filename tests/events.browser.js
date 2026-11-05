@@ -290,7 +290,7 @@ async function check(name, callback) {
         }
       }
     });
-    await check(`${label}: pumpkin category has six unique October 21 listings and reuses Nick's`, async () => {
+    await check(`${label}: retired category preserves six unique October 21 pumpkin listings and reuses Nick's`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-21T16:00:00Z'));
       await page.goto(origin + '/events.html?category=pumpkin-patches#pumpkin-patches');
       const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
@@ -300,8 +300,9 @@ async function check(name, callback) {
       assert.deepEqual((await cards.evaluateAll(items => items.map(card => card.dataset.city))).sort(),
         ['aurora','erie','kiowa','louisville','platteville','thornton']);
       assert.equal(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"]').count(), 1);
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 6);
-      assert.equal(await page.locator('.event-category-pill[data-category="pumpkin-patches"]').getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), currentCount);
+      assert.equal(await page.locator('.event-category-pill[data-category="pumpkin-patches"]').count(), 0);
+      assert.equal(new URL(page.url()).searchParams.has('category'), false);
       assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
       assert.equal(await page.locator('#pumpkin-patches').count(), 1);
       // The separate discovery PR is not part of this feature.
@@ -421,9 +422,10 @@ async function check(name, callback) {
       for (const city of ['erie','thornton','platteville','kiowa','louisville','aurora']) {
         await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
         assert.equal(new URL(page.url()).searchParams.get('city'), city);
-        assert.equal(new URL(page.url()).searchParams.get('category'), 'pumpkin-patches');
+        assert.equal(new URL(page.url()).searchParams.has('category'), false);
         assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
-        const cards = page.locator('[data-current="true"]:visible');
+        assert.equal(await page.locator('[data-current="true"]:visible').count(), city === 'aurora' ? auroraCount : 1, city);
+        const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
         assert.equal(await cards.count(), 1, city);
         assert.equal(await cards.first().getAttribute('data-city'), city);
         assert.ok(await cards.first().evaluate(card => card.classList.contains('pumpkin-card')));
@@ -436,7 +438,7 @@ async function check(name, callback) {
         }
       }
     });
-    await check(`${label}: pumpkin category and city state survive deep links and Back/Forward with anchor`, async () => {
+    await check(`${label}: retired category normalizes while city state survives deep links and Back/Forward with anchor`, async () => {
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=louisville#pumpkin-patches');
       const states = [];
       const remember = async (city, category, count) => {
@@ -450,10 +452,10 @@ async function check(name, callback) {
         assert.equal(await page.locator('[data-current="true"]:visible').count(), state.count);
         assert.equal(await page.locator('#empty-city').isVisible(), state.count === 0);
       };
-      await remember('louisville', 'pumpkin-patches', 1);
+      await remember('louisville', '', 1);
       await assertState(states[0]);
       await page.locator('.event-filter-pill[data-city="aurora"]').click();
-      await remember('aurora', 'pumpkin-patches', 1);
+      await remember('aurora', '', auroraCount);
       await assertState(states[1]);
       await page.locator('.event-category-pill[data-category=""]').click();
       assert.equal(new URL(page.url()).searchParams.has('category'), false);
@@ -474,15 +476,19 @@ async function check(name, callback) {
       }
       assert.equal(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"]').count(), 1);
     });
-    await check(`${label}: empty pumpkin results retain clear category and city state`, async () => {
+    await check(`${label}: legacy pumpkin link shows all Parker events and empty cities still recover`, async () => {
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=parker#pumpkin-patches');
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 2);
       assert.equal(await page.locator('.pumpkin-card:visible').count(), 0);
-      assert.ok(await page.locator('#empty-city').isVisible());
-      assert.match(await page.locator('#empty-city-copy').textContent(), /Parker/);
-      assert.equal(await page.locator('.event-category-pill[data-category="pumpkin-patches"]').getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator('#empty-city').isVisible(), false);
+      assert.equal(await page.locator('.event-category-pill[data-category=""]').getAttribute('aria-pressed'), 'true');
+      assert.equal(new URL(page.url()).searchParams.has('category'), false);
       assert.equal(await page.locator('.event-filter-pill[data-city="parker"]').getAttribute('aria-pressed'), 'true');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      await page.locator('.event-filter-pill[data-city="arvada"]').click();
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
+      assert.ok(await page.locator('#empty-city').isVisible());
+      assert.match(await page.locator('#empty-city-copy').textContent(), /Arvada/);
       await page.screenshot({ path:path.join(output, `${engineName}-pumpkin-empty-${label}.png`), fullPage:false });
       await page.locator('.event-filter-pill[data-city=""]').click();
       assert.equal(await page.locator('.pumpkin-card:visible').count(), 6);
@@ -492,9 +498,11 @@ async function check(name, callback) {
       const all = page.locator('.event-category-pill[data-category=""]');
       await all.focus(); await page.keyboard.press('Enter');
       assert.equal(await all.getAttribute('aria-pressed'), 'true');
-      const pumpkin = page.locator('.event-category-pill[data-category="pumpkin-patches"]');
-      await pumpkin.focus(); await page.keyboard.press('Space');
-      assert.equal(await pumpkin.getAttribute('aria-pressed'), 'true');
+      assert.equal(await page.locator('.event-category-pill[data-category="pumpkin-patches"]').count(), 0);
+      await page.locator('.event-filter-pill[data-city="aurora"]').focus(); await page.keyboard.press('Space');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), auroraCount);
+      await all.focus(); await page.keyboard.press('Space');
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), currentCount);
       const cards = page.locator('.pumpkin-card:visible');
       assert.equal(await cards.count(), 6);
       for (let index = 0; index < await cards.count(); index++) {
@@ -524,7 +532,8 @@ async function check(name, callback) {
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path:path.join(output, `${engineName}-pumpkin-header-${label}.png`), fullPage:false });
       await page.locator('#pumpkin-patches').scrollIntoViewIfNeeded();
-      await page.screenshot({ path:path.join(output, `${engineName}-pumpkin-list-${label}.png`), fullPage:true });
+      // Capture the section under test: the full All events page can exceed WebKit's image-height limit.
+      await page.locator('#pumpkin-patches').screenshot({ path:path.join(output, `${engineName}-pumpkin-list-${label}.png`) });
       const cards = page.locator('.pumpkin-card:visible');
       assert.equal(await cards.count(), 6);
       for (let index = 0; index < await cards.count(); index++) {
@@ -587,8 +596,9 @@ async function check(name, callback) {
       assert.match(await card.locator('.pumpkin-next').textContent(), /Thu, Oct 22/);
       assert.doesNotMatch(await card.locator('.pumpkin-next').textContent(), /Oct 21/);
       assert.equal(await card.locator('details').getAttribute('open'), '');
-      assert.equal(await page.locator('[data-current="true"]:visible').count(), 1);
-      assert.equal(new URL(page.url()).searchParams.get('category'), 'pumpkin-patches');
+      assert.equal(await page.locator('.pumpkin-card[data-current="true"]:visible').count(), 1);
+      assert.equal(await page.locator('[data-current="true"]:visible').count(), auroraCount);
+      assert.equal(new URL(page.url()).searchParams.has('category'), false);
       assert.equal(new URL(page.url()).searchParams.get('city'), 'aurora');
       assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
     });
@@ -611,7 +621,7 @@ async function check(name, callback) {
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
       assert.ok(await page.locator('#empty-city').isVisible());
       assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').getAttribute('data-city'), 'louisville');
-      assert.equal(await page.locator('.event-category-pill[aria-pressed="true"]').getAttribute('data-category'), 'pumpkin-patches');
+      assert.equal(await page.locator('.event-category-pill[aria-pressed="true"]').getAttribute('data-category'), '');
       assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
     });
     await check(`${label}: conflicting Anderson listing is not recommended in homepage previews`, async () => {

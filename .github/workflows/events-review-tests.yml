@@ -50,7 +50,7 @@ jobs:
           retention-days: 7
 
   map_accessibility:
-    if: github.head_ref == 'fix/park-selection-accessibility' || github.head_ref == 'review/nov-dec-family-events-2026'
+    if: github.head_ref == 'fix/park-selection-accessibility' || github.head_ref == 'review/nov-dec-family-events-2026' || github.head_ref == 'fix/events-filter-update-label-2026'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # Official version-matched browsers/system dependencies avoid slow runner apt mirrors.
@@ -81,9 +81,11 @@ jobs:
       - run: npm run test:near-me
       - run: npm run test:browser
       - run: npm run test:nov-dec:browser
-        if: ${{ !cancelled() && github.head_ref == 'review/nov-dec-family-events-2026' }}
+        if: ${{ !cancelled() && (github.head_ref == 'review/nov-dec-family-events-2026' || github.head_ref == 'fix/events-filter-update-label-2026') }}
+      - run: npm run test:events-page:browser
+        if: ${{ !cancelled() && github.head_ref == 'fix/events-filter-update-label-2026' }}
       - run: node --test tests/gps-pause.test.js && node tests/gps-pause.browser.js
-        if: ${{ !cancelled() && github.head_ref == 'review/nov-dec-family-events-2026' }}
+        if: ${{ !cancelled() && (github.head_ref == 'review/nov-dec-family-events-2026' || github.head_ref == 'fix/events-filter-update-label-2026') }}
       - run: node tests/all-events.browser.js
         if: ${{ !cancelled() }}
       - run: npm run test:near-me:browser
