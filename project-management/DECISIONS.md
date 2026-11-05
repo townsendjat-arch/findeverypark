@@ -1,5 +1,21 @@
 # FindEveryPark: decision log
 
+## Feed safeguard revision decision (November 5, 2026 UTC)
+
+Revise draft PR #15 only, with no merge/deploy, following the owner-approved
+maintenance gap correction. Use explicit editor regeneration plus deterministic
+non-writing integrity validation on all PRs; no auto-commit bot, new dependency,
+runtime script, event-content or Mountain-time-rule change. Keep historical tests
+as isolated fixtures and validate the actual evolving source independently.
+
+The current managed Pages route cannot run this generator from repository
+configuration alone. Required branch checks/protected PR-only changes, or a
+separately approved controlled deployment build, remain a release prerequisite.
+No repository security/deployment settings are changed by this draft. The exact
+revised commit requires new review; earlier conditional release approval does not
+apply. Mighty Dads PR #2 remains held, PR #11 untouched, and no newsletter data is
+introduced. [Maintenance/enforcement details](../docs/community-feed.md#maintenance-and-verification).
+
 ## Mighty Dads feed decision (November 5, 2026 UTC)
 
 The existing events manifest remains the sole editorial source. A generated,

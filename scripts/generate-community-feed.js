@@ -11,6 +11,13 @@ const ROOT = path.resolve(__dirname, '..');
 const OUTPUT = 'data/events/community-feed.v1.json';
 const SOURCE_URL = 'https://findeverypark.com/events.html';
 const DAY = 86400000;
+// Match the consuming v1 contract. Fail loudly rather than silently truncate a
+// valid source collection or publish a body the consumer must reject wholesale.
+const MAX_EVENTS = 1000;
+// The consumer caps JavaScript string length at 1,000,000 characters. A UTF-8
+// byte ceiling of the same value is conservative for non-ASCII qualifications.
+const MAX_FEED_BYTES = 1000000;
+const REQUIRED_TEXT_FIELDS = ['description', 'dateLabel', 'timeLabel', 'locationLabel', 'costLabel'];
 const TEXT_FIELDS = ['title', 'description', 'dateLabel', 'timeLabel',
   'locationLabel', 'costLabel', 'costType', 'audienceLabel',
   'registrationLabel', 'availabilityLabel', 'verifiedAt'];
@@ -80,6 +87,27 @@ function omissionReason(event, rules) {
   return null;
 }
 
+function invalidSource(event, reason) {
+  throw new Error('Invalid approved event ' + JSON.stringify(event && event.id || '(missing ID)') + ': ' + reason +
+    '. Correct the source manifest before generating or validating the feed.');
+}
+
+function validateSourceText(event) {
+  if (!/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,119}$/.test(event.id)) invalidSource(event, 'invalid v1 ID');
+  for (const field of REQUIRED_TEXT_FIELDS) {
+    if (typeof event[field] !== 'string' || !event[field].trim()) invalidSource(event, field + ' is required');
+  }
+  for (const field of TEXT_FIELDS) {
+    if (event[field] != null && typeof event[field] !== 'string') invalidSource(event, field + ' must be plain text');
+  }
+  if (event.costType && !['free', 'paid', 'unknown'].includes(event.costType)) invalidSource(event, 'invalid costType');
+  if (event.verifiedAt && (!/^\d{4}-\d{2}-\d{2}$/.test(event.verifiedAt) ||
+      !Number.isFinite(Date.parse(event.verifiedAt + 'T00:00:00Z')) ||
+      new Date(event.verifiedAt + 'T00:00:00Z').toISOString().slice(0, 10) !== event.verifiedAt)) {
+    invalidSource(event, 'invalid verifiedAt');
+  }
+}
+
 function buildFeed(data, rules) {
   if (!data || !Array.isArray(data.events) || rules.timeZone !== 'America/Denver') {
     throw new Error('Unsupported manifest or canonical timezone');
@@ -92,12 +120,17 @@ function buildFeed(data, rules) {
   const seen = new Set();
   for (const event of data.events) {
     let reason = omissionReason(event, rules);
+    // Deliberate ineligibility is an omission. A malformed approved single
+    // occurrence is an editorial error, not a reason to publish an incomplete
+    // replacement feed. Neither generation nor --check may silently drop it.
+    if (['missing-identity', 'unsupported-timezone'].includes(reason)) invalidSource(event, reason);
+    if (!reason) validateSourceText(event);
     if (!reason && seen.has(event.id)) throw new Error('Duplicate event ID: ' + event.id);
     if (!reason) seen.add(event.id);
     const dateStart = event && (event.dateStart || event.startDate);
     const expires = reason ? null : expirationInstant(event, rules);
     const starts = reason ? null : startInstant(dateStart, rules);
-    if (!reason && (expires === null || starts === null || starts >= expires)) reason = 'invalid-dates';
+    if (!reason && (expires === null || starts === null || starts >= expires)) invalidSource(event, 'invalid-dates');
     // Check recommendability just before this record's own end, never against
     // the build clock. Future and historical approved candidates stay in JSON.
     if (!reason && !rules.isRecommendable(event, new Date(expires - 1))) reason = 'not-recommendable';
@@ -110,6 +143,7 @@ function buildFeed(data, rules) {
       city: event.city,
       cityLabel: typeof data.cities?.[event.city]?.label === 'string' ? data.cities[event.city].label : event.city
     };
+    if (!record.cityLabel.trim()) invalidSource(event, 'cityLabel is required');
     for (const field of TEXT_FIELDS) record[field] = typeof event[field] === 'string' ? event[field] : '';
     record.dateStart = dateStart;
     record.dateEnd = rules.endValue(event);
@@ -117,6 +151,8 @@ function buildFeed(data, rules) {
     record.sortAt = new Date(starts).toISOString();
     record.expiresAt = new Date(expires).toISOString();
     events.push(record);
+    if (events.length > MAX_EVENTS) throw new Error('Community feed exceeds the v1 limit of ' + MAX_EVENTS +
+      ' records. Review the source or consumer contract; the feed was not truncated.');
   }
   // ASCII tie-break avoids locale differences in build environments.
   events.sort((a, b) => a.sortAt < b.sortAt ? -1 : a.sortAt > b.sortAt ? 1 :
@@ -125,7 +161,14 @@ function buildFeed(data, rules) {
     sourceUrl: SOURCE_URL, events }, omitted };
 }
 
-function serialize(feed) { return JSON.stringify(feed, null, 2) + '\n'; }
+function serialize(feed) {
+  const result = JSON.stringify(feed, null, 2) + '\n';
+  if (Buffer.byteLength(result, 'utf8') > MAX_FEED_BYTES) {
+    throw new Error('Community feed exceeds the v1 limit of ' + MAX_FEED_BYTES +
+      ' UTF-8 bytes. Review the source or consumer contract; the feed was not truncated.');
+  }
+  return result;
+}
 
 function main(args = process.argv.slice(2)) {
   if (args.some(arg => arg !== '--check')) throw new Error('Usage: node scripts/generate-community-feed.js [--check]');
@@ -134,8 +177,16 @@ function main(args = process.argv.slice(2)) {
   const expected = serialize(feed);
   const target = path.join(ROOT, OUTPUT);
   if (args.includes('--check')) {
-    if (!fs.existsSync(target) || fs.readFileSync(target, 'utf8') !== expected) {
-      throw new Error(OUTPUT + ' is missing or stale. Run npm run events:feed and commit the generated JSON.');
+    const fix = ' Run npm run events:feed and commit the generated JSON.';
+    if (!fs.existsSync(target)) throw new Error(OUTPUT + ' is missing.' + fix);
+    const actual = fs.readFileSync(target, 'utf8');
+    try { JSON.parse(actual); }
+    catch (_) { throw new Error(OUTPUT + ' contains malformed JSON.' + fix); }
+    // Exact comparison also rejects structurally valid but wrong envelopes,
+    // changed qualifications, omitted/extra records and noncanonical expiry.
+    // This check is read-only: CI must not silently repair the artifact it tests.
+    if (actual !== expected) {
+      throw new Error(OUTPUT + ' is stale or inconsistent with its source.' + fix);
     }
     console.log('Community feed is deterministic and up to date.');
   } else {
@@ -154,5 +205,5 @@ if (require.main === module) {
   catch (error) { console.error(error.message); process.exitCode = 1; }
 }
 
-module.exports = { ROOT, OUTPUT, SOURCE_URL, TEXT_FIELDS, loadSources,
+module.exports = { ROOT, OUTPUT, SOURCE_URL, TEXT_FIELDS, REQUIRED_TEXT_FIELDS, MAX_EVENTS, MAX_FEED_BYTES, loadSources,
   expirationInstant, startInstant, safeHref, buildFeed, serialize };

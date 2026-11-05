@@ -1,5 +1,21 @@
 # FindEveryPark: tasks and release gates
 
+## Feed maintenance safeguard revision (November 5, 2026 UTC)
+
+The owner approved revising draft PR #15 after its branch-only check left future
+edits uncovered. The revision provides a stable `Event feed integrity` check on
+every PR, explicit stale/missing/malformed/source-consistency failure tests, and
+future-safe source-derived assertions alongside historical regression fixtures.
+Editors regenerate and commit the feed with its source. See the
+[maintenance procedure and enforcement prerequisite](../docs/community-feed.md#maintenance-and-verification).
+
+**Release is still blocked:** main has no required check protection, and managed
+Pages publishes independently of npm/CI. Owner-approved branch/ruleset enforcement
+or a separately approved controlled deployment build is required before claiming
+future stale-feed publication is prevented. No settings, merge or deploy changes
+are included. Mighty Dads PR #2 and FEP PR #11 remain untouched; newsletter ingestion
+is out of scope. The revised commit needs a new owner review and release approval.
+
 ## Mighty Dads data-feed review (November 5, 2026 UTC)
 
 The approved integration's FindEveryPark-only portion is on

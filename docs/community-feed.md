@@ -5,6 +5,8 @@
 uses the existing `FEP_EVENTS` rules from `city-events.js` at build/test time.
 Consumers fetch JSON only; they must not load either FindEveryPark application
 script. There is no backend, scheduled job, deployment action or new dependency.
+The read-only integrity check validates committed output; it does not regenerate
+or publish a replacement behind the editor's back.
 
 ## Contract
 
@@ -19,8 +21,17 @@ script. There is no backend, scheduled job, deployment action or new dependency.
 Each event has string fields `id`, `city`, `cityLabel`, `title`, `description`,
 `dateStart`, `dateEnd`, `dateLabel`, `timeLabel`, `locationLabel`, `costLabel`,
 `costType`, `audienceLabel`, `href`, `registrationLabel`, `availabilityLabel`,
-`verifiedAt`, `sortAt` and `expiresAt`. Missing optional text is the empty string,
-not an inferred claim. Full description, cost, audience, registration and
+`verifiedAt`, `sortAt` and `expiresAt`. Supported approved occurrences must have
+nonempty title, description, date/time/location/cost labels and city identity;
+IDs must match `[a-zA-Z0-9][a-zA-Z0-9_-]{0,119}` so a consumer cannot silently drop
+an otherwise accepted generated record. Malformed supported approved records
+fail generation/validation with the source ID and reason. Unknown facts must be
+represented by an honest source label, never invented by the generator.
+The v1 output is limited to 1,000 records and 1,000,000 bytes of UTF-8 JSON. The
+byte cap is conservative relative to the consumer's 1,000,000-character limit.
+Exceeding either fails validation; records and warning
+text are never silently truncated to fit.
+Missing optional text is the empty string, not an inferred claim. Full description, cost, audience, registration and
 availability strings are copied without summarization or truncation. Verification
 dates retain each source record's actual date. Links retain a safe HTTPS source
 `href`; missing/unsafe links fall back to the source Events page. Ordinary event
@@ -93,7 +104,7 @@ not imply support for those records.
 
 ## Maintenance and verification
 
-After an authorized manifest or lifecycle-rule edit:
+After an authorized manifest or lifecycle-rule edit (or a generator change):
 
 ```
 npm run events:feed
@@ -101,22 +112,56 @@ npm run events:feed:check
 npm test
 ```
 
-Commit the generated JSON with the source change. `--check` compares exact bytes
-and exits nonzero for stale/missing output without rewriting it. The default
-test command includes this guard and the dedicated feed suite. Focused tests
-cover source-field parity, all ten released November–December entries, exclusion
-rules, invalid/missing data, link fallback, date-only/exact boundaries, both DST
-transitions, legacy timestamps, deterministic output across four host timezones,
-and historical/distant-future candidates. Existing source-preservation tests keep
-all released event objects, verification dates and FEP runtime byte-identical.
+Commit the generated JSON with the source change. `--check` reads and compares
+the exact deterministic projection and exits nonzero for missing, malformed,
+stale or source-inconsistent output without rewriting it. CI deliberately checks
+before generation, so it cannot hide an editor's missing generated-file commit.
+The default `npm test` and focused `npm run test:feed` both start with this guard.
+Never edit the feed by hand or update editorial verification dates merely to
+make a check pass.
 
-The added PR workflow is read-only and scoped to
-`review/mighty-dads-data-feed-2026`. It runs the Node suite and inherited event,
-November–December and event-page browser regressions in Chromium and WebKit,
-using the version-matched official Playwright container, and never deploys.
+The `Event feed safeguards` workflow runs on **every pull request**, without
+branch-name or changed-path filters, and on pushes to `main`, merge groups and
+manual dispatch. Its stable `Event feed integrity` job checks the exact PR head
+or pushed/group SHA and runs the unit/maintenance suite. Chromium and WebKit
+regressions depend on that job succeeding. The workflow has only `contents: read`
+permission, does not commit generated files, and never deploys.
+
+Maintenance tests make isolated temporary copies, edit the event source, prove
+the old feed fails, then explicitly regenerate and validate the new projection.
+They also cover missing/malformed/edited output and legitimate additions,
+updates, cancellation and removal. Current-source properties cover field and
+eligibility parity, exact canonical expiry, links and deterministic generation.
+Historical UI/lifecycle regressions use a pinned reviewed manifest fixture, not
+frozen counts imposed on the evolving editorial source. The real checkout is
+also tested directly. A future content edit does not require changing incidental
+total-count assertions.
+
+### Enforcement prerequisite before release
+
+As verified on November 5, 2026, `main` is not protected and has no required status
+checks or repository rulesets. The existing GitHub-managed Pages route checks out
+`main` and uploads it directly (`.nojekyll`); it does not run npm commands or wait
+for this workflow. **A green PR check is not currently a server-enforced merge or
+deployment gate.** Push-to-main checks detect a problem after a push; they cannot
+prevent that independent Pages deployment. This draft does not change repository
+settings or the deployment route.
+
+Before relying on this safeguard for production, an owner must separately approve
+and configure a protected `main`/ruleset that requires the stable `Event feed
+integrity` check, requires PRs and branches up to date (or a validated merge queue),
+and prevents bypass/direct pushes. PR runs check the exact head rather than an
+untested merge result; merge-group runs check the group's combined SHA. Existing relevant
+PRs must receive the new workflow and run it before merging. Changing or deleting
+the workflow itself also requires owner review. Alternatively, separately approve
+moving Pages to a controlled build that generates, validates and publishes the
+same tested artifact; adding a parallel CI job alone does not change Pages.
+
 The containing PR/test evidence identifies the exact checked revision. Browser
 layout, accessibility, feed failure and refresh behavior belong to the consuming
 site's review. Neither a committed feed nor passing tests authorizes publication.
+Newsletter ingestion is not part of this pipeline; only the canonical approved
+manifest is read. Do not add newsletter-derived records under this integration.
 
 ## Release checks, only after owner approval
 

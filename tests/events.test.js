@@ -1,13 +1,17 @@
-const { test } = require('node:test');
+const { test: runTest } = require('node:test');
+const test = (name, callback) => runTest('Historical regression: ' + name, callback);
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
+const { historicalManifest } = require('./historical-events-fixture');
 const root = path.join(__dirname, '..');
 const context = { window: {}, document: { readyState: 'loading', addEventListener() {} } };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root, 'city-events.js'), 'utf8'), context);
-vm.runInContext(fs.readFileSync(path.join(root, 'data/events/events-manifest.js'), 'utf8'), context);
+// Historical content/price/count regressions use an immutable released fixture.
+// Current-checkout data and feed parity are covered by the feed maintenance suite.
+vm.runInContext(historicalManifest, context);
 const rules = context.window.FEP_EVENTS;
 const data = context.window.EVENTS_DATA;
 const at = value => new Date(value);

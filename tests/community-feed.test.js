@@ -2,17 +2,34 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const os = require('node:os');
 const path = require('node:path');
-const { execFileSync, spawnSync } = require('node:child_process');
-const { ROOT, OUTPUT, SOURCE_URL, TEXT_FIELDS, loadSources, expirationInstant,
+const { execFileSync } = require('node:child_process');
+const { ROOT, OUTPUT, SOURCE_URL, TEXT_FIELDS, REQUIRED_TEXT_FIELDS, MAX_EVENTS, MAX_FEED_BYTES, loadSources, expirationInstant,
   startInstant, buildFeed, serialize, safeHref } = require('../scripts/generate-community-feed');
 const { data, rules } = loadSources();
 const { feed, omitted } = buildFeed(data, rules);
 const fixture = changes => ({ id: 'test-event', city: 'aurora', title: 'Fixture',
+  description: 'Synthetic event fixture.', dateLabel: 'November 14, 2026',
+  timeLabel: '9–11 a.m. MST', locationLabel: 'Test venue', costLabel: 'Fee unverified',
   status: 'approved', dateStart: '2026-11-14T09:00:00-07:00',
   dateEnd: '2026-11-14T11:00:00-07:00', ...changes });
 const build = events => buildFeed({ ...data, events }, rules);
+
+// Derive eligibility from the current source and canonical predicates, not the
+// size/date/IDs of any historical editorial batch. Explicit fixture cases below
+// cover exclusions even when the live manifest happens not to contain them.
+const isSeries = event => rules.isPumpkin(event) || event.pumpkin ||
+  event.category === 'pumpkin-patches' || event.recurring ||
+  event.series_start || event.series_end || event.schedule;
+function eligibleSource(event) {
+  if (!event || event.status !== 'approved' || event.community_event || isSeries(event) ||
+      (event.timezone && event.timezone !== rules.timeZone)) return false;
+  if (['id', 'city', 'title'].some(field => typeof event[field] !== 'string' || !event[field].trim())) return false;
+  const starts = startInstant(event.dateStart || event.startDate, rules);
+  const expires = expirationInstant(event, rules);
+  return starts !== null && expires !== null && starts < expires &&
+    rules.isRecommendable(event, new Date(expires - 1));
+}
 
 test('committed JSON is exactly the deterministic manifest-derived contract', () => {
   assert.equal(fs.readFileSync(path.join(ROOT, OUTPUT), 'utf8'), serialize(feed));
@@ -21,61 +38,60 @@ test('committed JSON is exactly the deterministic manifest-derived contract', ()
   assert.equal(feed.schemaVersion, 1);
   assert.equal(feed.timeZone, 'America/Denver');
   assert.equal(feed.sourceUrl, SOURCE_URL);
-  assert.equal(feed.contentUpdatedAt, data.contentUpdatedAt);
-  assert.equal(feed.events.length, 28);
+  assert.equal(feed.contentUpdatedAt, typeof data.contentUpdatedAt === 'string' &&
+    /^\d{4}-\d{2}-\d{2}$/.test(data.contentUpdatedAt) && rules.validDate(data.contentUpdatedAt) ? data.contentUpdatedAt : null);
   assert.equal(new Set(feed.events.map(event => event.id)).size, feed.events.length);
+  assert.ok(feed.events.length <= MAX_EVENTS);
+  assert.ok(Buffer.byteLength(serialize(feed), 'utf8') <= MAX_FEED_BYTES);
   const fields = ['id', 'city', 'cityLabel', ...TEXT_FIELDS, 'dateStart', 'dateEnd', 'href', 'sortAt', 'expiresAt'].sort();
   for (const event of feed.events) {
     assert.deepEqual(Object.keys(event).sort(), fields);
     assert.match(event.sortAt, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
     assert.match(event.expiresAt, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
     assert.ok(Date.parse(event.sortAt) < Date.parse(event.expiresAt));
+    assert.match(event.id, /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,119}$/);
+    for (const field of ['id', 'city', 'cityLabel', 'title', ...REQUIRED_TEXT_FIELDS]) assert.ok(event[field].trim(), field);
   }
+  const sorted = [...feed.events].sort((a, b) => a.sortAt < b.sortAt ? -1 : a.sortAt > b.sortAt ? 1 :
+    a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  assert.deepEqual(feed.events, sorted);
 });
 
-test('all approved supported records and all ten current approved occurrences are included', () => {
-  const supported = data.events.filter(event => event.status === 'approved' && !event.recurring && !event.community_event);
+test('every eligible source record is included exactly once, regardless of editorial batch or current date', () => {
+  const supported = data.events.filter(eligibleSource);
   assert.deepEqual(feed.events.map(event => event.id).sort(), Array.from(supported, event => event.id).sort());
-  const expected = data.events.filter(event => event.verifiedAt === '2026-11-04').map(event => event.id).sort();
-  const current = feed.events.filter(event => Date.parse('2026-11-05T06:00:00Z') < Date.parse(event.expiresAt));
-  assert.equal(expected.length, 10);
-  assert.deepEqual(current.map(event => event.id).sort(), Array.from(expected));
-  assert.equal(feed.events.filter(event => Date.parse(event.expiresAt) < Date.parse('2026-11-05T06:00:00Z')).length, 18);
+  assert.equal(feed.events.length + omitted.length, data.events.length);
+  for (const event of data.events.filter(event => !eligibleSource(event))) {
+    assert.ok(!feed.events.some(exported => exported.id === event?.id), event?.id);
+  }
 });
 
 test('event text, verification dates and all visible qualifications are copied without clipping', () => {
   for (const exported of feed.events) {
     const source = data.events.find(event => event.id === exported.id);
-    for (const field of TEXT_FIELDS) assert.equal(exported[field], source[field] || '', `${exported.id}: ${field}`);
-    assert.equal(exported.cityLabel, data.cities[source.city].label);
-    assert.equal(exported.href, source.href);
-    assert.equal(exported.dateStart, source.dateStart);
-    assert.equal(exported.dateEnd, source.dateEnd);
+    for (const field of TEXT_FIELDS) assert.equal(exported[field], typeof source[field] === 'string' ? source[field] : '', `${exported.id}: ${field}`);
+    assert.equal(exported.cityLabel, typeof data.cities?.[source.city]?.label === 'string' ? data.cities[source.city].label : source.city);
+    assert.equal(exported.href, safeHref(source.href || source.link));
+    assert.equal(exported.dateStart, source.dateStart || source.startDate);
+    assert.equal(exported.dateEnd, rules.endValue(source));
   }
-  const plains = feed.events.find(event => event.id === 'aurora-plains-free-day-2026-11-14');
-  assert.match(plains.registrationLabel, /required.*Eventbrite.*no closing hour/i);
-  assert.match(plains.availabilityLabel, /Capacity can change/);
-  const fourMile = feed.events.find(event => event.id === 'denver-four-mile-free-day-2026-11-20');
-  assert.match(fourMile.description, /last entry 3:30 p\.m\./);
-  assert.match(fourMile.costLabel, /special events and programs excluded/);
   const text = '<b>Unconfirmed & qualified</b> ' + 'Full material warning. '.repeat(50);
   const record = build([fixture({ description: text, registrationLabel: text, availabilityLabel: text })]).feed.events[0];
   for (const field of ['description', 'registrationLabel', 'availabilityLabel']) assert.equal(record[field], text);
 });
 
 test('single cutoff v1 explicitly fails closed for recurring/pumpkin data and self-hosted events', () => {
-  const historicalSeries = Array.from(data.events.filter(event => event.status === 'approved' && event.recurring), event => event.id).sort();
-  assert.equal(historicalSeries.length, 9);
-  assert.deepEqual(omitted.filter(event => event.reason === 'unsupported-series').map(event => event.id).sort(), historicalSeries);
-  assert.equal(omitted.filter(event => event.reason === 'self-hosted-community').length, 2);
-  assert.ok(omitted.some(event => event.id === 'community-mighty-dads-coffee-parks'));
+  const series = Array.from(data.events.filter(event => event && event.status === 'approved' && !event.community_event && isSeries(event)), event => event.id).sort();
+  assert.deepEqual(omitted.filter(event => event.reason === 'unsupported-series').map(event => event.id).sort(), series);
+  assert.equal(omitted.filter(event => event.reason === 'self-hosted-community').length,
+    data.events.filter(event => !event || event.community_event).length);
   for (const changes of [{ recurring: true }, { schedule: [] }, { series_start: '2026-11-14' },
     { series_end: '2026-11-14' }, { category: 'pumpkin-patches' },
     { category: 'pumpkin-patches', pumpkin: { operatingStatus: 'conflicting' } },
     { community_event: true }]) assert.equal(build([fixture(changes)]).feed.events.length, 0);
 });
 
-test('unapproved, invalid, reversed or unsupported candidates never enter the feed', () => {
+test('unapproved candidates are omitted; malformed approved single occurrences fail the build', () => {
   for (const status of [undefined, '', 'pending', 'needs_review', 'cancelled', 'archived']) {
     assert.equal(build([fixture({ status })]).feed.events.length, 0, String(status));
   }
@@ -83,7 +99,12 @@ test('unapproved, invalid, reversed or unsupported candidates never enter the fe
     { dateEnd: 'bad' }, { dateEnd: '2026-02-30' }, { dateEnd: '2026-11-14T25:00:00' },
     { dateStart: '' }, { dateStart: 'not-a-date' }, { dateStart: '2026-02-30' },
     { dateStart: '2026-11-14T11:00:00-07:00' }, { dateEnd: '2026-11-13' },
-    { dateEnd: '2026-03-08T02:30:00' }]) assert.equal(build([fixture(changes)]).feed.events.length, 0, JSON.stringify(changes));
+    { dateEnd: '2026-03-08T02:30:00' }, { description: ['not plain text'] },
+    { costType: 'invented-price-type' }, { verifiedAt: '2026-02-30' },
+    { id: '_invalid-start' }, { id: 'x'.repeat(121) }, { id: 'bad id' },
+    ...REQUIRED_TEXT_FIELDS.flatMap(field => [{ [field]: undefined }, { [field]: '' }, { [field]: '   ' }])]) {
+    assert.throws(() => build([fixture(changes)]), /Invalid approved event/, JSON.stringify(changes));
+  }
   const neverRecommend = { ...rules, isRecommendable() { return false; } };
   assert.equal(buildFeed({ ...data, events: [fixture()] }, neverRecommend).feed.events.length, 0);
   assert.throws(() => build([fixture(), fixture()]), /Duplicate event ID/);
@@ -147,9 +168,9 @@ test('past and distant future candidates remain present regardless of generation
   assert.equal(buildFeed({ ...data, contentUpdatedAt: '2026-02-30' }, rules).feed.contentUpdatedAt, null);
 });
 
-test('missing labels remain honestly empty and unsafe hrefs use a reliable source link', () => {
+test('truly optional labels remain honestly empty and unsafe hrefs use a reliable source link', () => {
   const event = build([fixture({ href: 'javascript:alert(1)' })]).feed.events[0];
-  assert.equal(event.description, '');
+  assert.equal(event.description, 'Synthetic event fixture.');
   assert.equal(event.verifiedAt, '');
   assert.equal(event.registrationLabel, '');
   assert.equal(event.href, SOURCE_URL);
@@ -159,24 +180,26 @@ test('missing labels remain honestly empty and unsafe hrefs use a reliable sourc
   assert.equal(safeHref('https://example.com/event?x=1&y=2'), 'https://example.com/event?x=1&y=2');
 });
 
-test('--check catches missing or stale output and never rewrites it', () => {
-  execFileSync(process.execPath, ['scripts/generate-community-feed.js', '--check'], { cwd: ROOT });
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'community-feed-'));
-  try {
-    for (const file of ['scripts/generate-community-feed.js', 'city-events.js', 'data/events/events-manifest.js', OUTPUT]) {
-      fs.mkdirSync(path.dirname(path.join(tmp, file)), { recursive: true });
-      fs.copyFileSync(path.join(ROOT, file), path.join(tmp, file));
-    }
-    const target = path.join(tmp, OUTPUT);
-    fs.writeFileSync(target, '{"stale":true}\n');
-    const stale = spawnSync(process.execPath, ['scripts/generate-community-feed.js', '--check'], { cwd: tmp, encoding: 'utf8' });
-    assert.equal(stale.status, 1);
-    assert.match(stale.stderr, /missing or stale/);
-    assert.equal(fs.readFileSync(target, 'utf8'), '{"stale":true}\n');
-    fs.unlinkSync(target);
-    assert.equal(spawnSync(process.execPath, ['scripts/generate-community-feed.js', '--check'], { cwd: tmp }).status, 1);
-    assert.equal(fs.existsSync(target), false);
-  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+test('v1 record limit permits the boundary but never truncates excess candidates', () => {
+  const source = Array.from({ length: MAX_EVENTS }, (_, index) => fixture({ id: 'boundary-' + index }));
+  const result = build(source).feed;
+  assert.equal(result.events.length, MAX_EVENTS);
+  assert.doesNotThrow(() => serialize(result));
+  assert.throws(() => build([...source, fixture({ id: 'one-too-many' })]), /exceeds the v1 limit of 1000 records/);
+  assert.equal(source.length, MAX_EVENTS);
+});
+
+test('v1 body limit counts UTF-8 bytes and never truncates material qualifications', () => {
+  const result = build([fixture()]).feed;
+  const baselineBytes = Buffer.byteLength(serialize(result), 'utf8');
+  result.events[0].description += 'x'.repeat(MAX_FEED_BYTES - baselineBytes);
+  assert.equal(Buffer.byteLength(serialize(result), 'utf8'), MAX_FEED_BYTES);
+  const boundary = result.events[0].description;
+  for (const extra of ['x', 'é']) {
+    result.events[0].description = boundary + extra;
+    assert.throws(() => serialize(result), /exceeds the v1 limit of 1000000 UTF-8 bytes/);
+    assert.equal(result.events[0].description, boundary + extra);
+  }
 });
 
 test('serialized JSON is byte-identical across visitor/build time zones', () => {

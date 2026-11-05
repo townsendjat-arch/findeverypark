@@ -1,14 +1,18 @@
-const {test}=require('node:test');
+const {test:runTest}=require('node:test');
+const test=(name,callback)=>runTest('Historical regression: '+name,callback);
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const {execFileSync}=require('node:child_process');
+const {historicalManifest}=require('./historical-events-fixture');
 const root=path.resolve(__dirname,'..'),base='02b53163f800b409a92a258cf44862887baa35c8';
 const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8'});
 try{git(['cat-file','-e',base+'^{commit}']);}catch(_){git(['fetch','--no-tags','--depth=1','origin',base]);}
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 const plain=v=>JSON.parse(JSON.stringify(v));
 function data(source){const c={window:{}};vm.runInNewContext(source,c);return plain(c.window.EVENTS_DATA);}
-const before=data(git(['show',base+':data/events/events-manifest.js'])),after=data(read('data/events/events-manifest.js'));
+// These exact historical content/header assertions belong to the released
+// fixture; current source correctness is property-tested by the feed suites.
+const before=data(git(['show',base+':data/events/events-manifest.js'])),after=data(historicalManifest);
 const html=read('events.html');
 function functionSource(name){const match=html.match(new RegExp('  function '+name+'\\(value\\) \\{[\\s\\S]*?\\n  \\}'));assert.ok(match,name);return match[0];}
 const context={eventRules:{timeZone:'America/Denver'}};vm.createContext(context);

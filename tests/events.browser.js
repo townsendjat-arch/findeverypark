@@ -7,7 +7,10 @@ const { execFileSync } = require('node:child_process');
 const { chromium, webkit } = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const root = path.join(__dirname, '..');
-const priorityAudit = JSON.parse(fs.readFileSync(path.join(root, 'docs/priority-one-source-review-2026-10-21.json'), 'utf8'));
+const { historicalManifest, historicalFile } = require('./historical-events-fixture');
+// Release-specific IDs/copy below are isolated historical examples, not constraints
+// on today's manifest. The page-polish suite also tests exact-checkout source data.
+const priorityAudit = JSON.parse(historicalFile('docs/priority-one-source-review-2026-10-21.json'));
 const priorityEvents = priorityAudit.events;
 const hasNapa = priorityEvents.some(event => event.id === 'centennial-napa-trunk-treat-2026');
 const currentCount = (hasNapa ? 27 : 26) + 10;
@@ -67,13 +70,14 @@ async function check(name, callback) {
     await page.clock.install({ time: new Date('2026-10-22T16:00:00Z') });
     await context.route('**/*', route => {
       const url = new URL(route.request().url());
+      if (url.origin === origin && url.pathname === '/data/events/events-manifest.js') return route.fulfill({contentType:'text/javascript', body:historicalManifest});
       // Read-only local pages and presentation fonts only. Never submit a form,
       // follow an external action, fetch analytics or load third-party images.
       const readOnly = ['GET','HEAD'].includes(route.request().method());
       return readOnly && (url.origin === origin || ['fonts.googleapis.com','fonts.gstatic.com'].includes(url.hostname))
         ? route.continue() : route.abort();
     });
-    await check(`${label}: initial Aurora query and visible city`, async () => {
+    await check(`historical ${label}: initial Aurora query and visible city`, async () => {
       await page.goto(origin + '/events.html?city=aurora');
       await page.locator('.event-filter-pill[aria-pressed="true"]').waitFor();
       assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Aurora');
@@ -83,10 +87,10 @@ async function check(name, callback) {
       assert.ok((await visible.evaluateAll(items => items.map(e => e.dataset.city))).every(city => city === 'aurora'));
       assert.ok(await page.locator('#aurora-events-link-paths').isVisible());
     });
-    await check(`${label}: no horizontal overflow`, async () => {
+    await check(`historical ${label}: no horizontal overflow`, async () => {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth), false);
     });
-    await check(`${label}: full event details, registration and park links`, async () => {
+    await check(`historical ${label}: full event details, registration and park links`, async () => {
       const nature = page.locator('[data-event-id="aurora-trick-or-treat-nature-trail-2026"]');
       assert.match(await nature.textContent(), /10 a\.m\./);
       assert.match(await nature.textContent(), /Details checked October 21, 2026/);
@@ -95,7 +99,7 @@ async function check(name, callback) {
       assert.match(parkHref, /co-aurora-star-k-ranch/);
       assert.match(await nature.textContent(), /not verified/);
     });
-    await check(`${label}: calendar uses Mountain time and correct exclusive all-day end`, async () => {
+    await check(`historical ${label}: calendar uses Mountain time and correct exclusive all-day end`, async () => {
       const calendar = await page.evaluate(() => ({
         invalid: buildCalendarUrl({ title: 'Test', dateStart: '2026-10-21', dateEnd: '2026-13-01' }),
         timed: buildCalendarUrl({ title: 'Test', dateStart: '2026-10-24T11:00:00-06:00', dateEnd: '2026-10-24T13:00:00-06:00' }),
@@ -108,7 +112,7 @@ async function check(name, callback) {
       assert.equal(new URL(calendar.allDay).searchParams.get('dates'), '20261024/20261026');
       assert.equal(calendar.unknownEnd, ''); assert.equal(calendar.series, ''); assert.equal(calendar.invalid, '');
     });
-    await check(`${label}: schedule expansion preserved on idle refresh`, async () => {
+    await check(`historical ${label}: schedule expansion preserved on idle refresh`, async () => {
       const details = page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details');
       await details.locator('summary').click();
       await page.clock.fastForward('01:00');
@@ -119,7 +123,7 @@ async function check(name, callback) {
     await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"] details > summary').click();
     await page.locator('[data-current="true"]:visible').first().evaluate(card => card.scrollIntoView({ block: 'start' }));
     await page.screenshot({ path: path.join(output, `${engineName}-event-cards-${label}.png`), fullPage: false });
-    await check(`${label}: all requested city filters and back/forward`, async () => {
+    await check(`historical ${label}: all requested city filters and back/forward`, async () => {
       for (const city of ['centennial','parker','denver','aurora']) {
         await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
         assert.equal(new URL(page.url()).searchParams.get('city'), city);
@@ -133,13 +137,13 @@ async function check(name, callback) {
       assert.equal(new URL(page.url()).searchParams.has('city'), false);
       assert.equal(await page.locator('[data-current="true"]:visible').count(), currentCount);
     });
-    await check(`${label}: empty city and hyphen alias`, async () => {
+    await check(`historical ${label}: empty city and hyphen alias`, async () => {
       await page.goto(origin + '/events.html?city=highlands-ranch');
       assert.equal(await page.locator('.event-filter-pill[aria-pressed="true"]').textContent(), 'Highlands Ranch');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
       assert.ok(await page.locator('#empty-city').isVisible());
     });
-    await check(`${label}: accessible filter state and keyboard target`, async () => {
+    await check(`historical ${label}: accessible filter state and keyboard target`, async () => {
       const button = page.locator('.event-filter-pill[data-city="aurora"]');
       await button.focus(); await page.keyboard.press('Enter');
       assert.equal(await button.getAttribute('aria-pressed'), 'true');
@@ -153,7 +157,7 @@ async function check(name, callback) {
       fs.writeFileSync(path.join(output, `${engineName}-axe-${label}.json`), JSON.stringify(audit.violations, null, 2));
       assert.deepEqual(audit.violations.map(v => ({ id:v.id, impact:v.impact, nodes:v.nodes.length })), []);
     });
-    await check(`${label}: exact expiry in open tab and no stale homepage/city cards`, async () => {
+    await check(`historical ${label}: exact expiry in open tab and no stale homepage/city cards`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-24T18:59:30Z'));
       await page.goto(origin + '/events.html?city=aurora');
       assert.equal(await page.locator('[data-event-id="aurora-halloween-on-havana-2026"]').count(), 1);
@@ -167,7 +171,7 @@ async function check(name, callback) {
       await page.goto(origin + '/events.html?city=aurora');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 7);
       const novemberIds = await page.locator('[data-current="true"]:visible').evaluateAll(cards => cards.map(card => card.dataset.eventId).sort());
-      const novemberAudit = JSON.parse(fs.readFileSync(path.join(root, 'docs/nov-dec-source-review-2026-11-04.json'), 'utf8'));
+      const novemberAudit = JSON.parse(historicalFile('docs/nov-dec-source-review-2026-11-04.json'));
       assert.deepEqual(novemberIds, novemberAudit.events.filter(event => event.city === 'aurora').map(event => event.id).sort(), 'No historical Aurora event reappears after November 2');
       await page.clock.setFixedTime(new Date('2026-12-21T20:00:00Z'));
       await page.goto(origin + '/events.html?city=aurora');
@@ -177,7 +181,7 @@ async function check(name, callback) {
       await page.goto(origin + '/best-parks-aurora.html');
       assert.equal(await page.locator('.city-event-card:visible').count(), 0);
     });
-    await check(`${label}: homepage stays park-first and caps events at three`, async () => {
+    await check(`historical ${label}: homepage stays park-first and caps events at three`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-21T16:00:00Z'));
       await page.goto(origin + '/index.html?city=aurora');
       assert.equal(await page.locator('.home-event-card').count(), 3);
@@ -186,7 +190,7 @@ async function check(name, callback) {
       await page.locator('.home-events').scrollIntoViewIfNeeded();
       await page.screenshot({ path: path.join(output, `${engineName}-homepage-events-${label}.png`), fullPage: false });
     });
-    await check(`${label}: Parker has Primrose and November lighting; held Kiddie Academy, Mainstreet and Violet Bridge stay absent`, async () => {
+    await check(`historical ${label}: Parker has Primrose and November lighting; held Kiddie Academy, Mainstreet and Violet Bridge stay absent`, async () => {
       for (const url of ['/events.html?city=parker','/index.html?city=parker','/best-parks-parker.html']) {
         await page.goto(origin + url);
         for (const title of ['Trunk or Treat on Mainstreet','All Treats, No Tricks: Sensory-Friendly Trick or Treat','Halloween at Kiddie Academy: Free Family Trunk or Treat']) {
@@ -204,7 +208,7 @@ async function check(name, callback) {
       await page.goto(origin + '/events.html?city=parker');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     });
-    await check(`${label}: synthetic sold-out fixture has no registration or calendar CTA`, async () => {
+    await check(`historical ${label}: synthetic sold-out fixture has no registration or calendar CTA`, async () => {
       const rendered = await page.evaluate(() => {
         // Test-only, detached DOM fixture. Never inserted into the manifest or live page.
         const card = renderEventDetails({ event: {
@@ -220,7 +224,7 @@ async function check(name, callback) {
       assert.equal(rendered.links.some(a => /calendar\.google|tickettailor/.test(a.href)), false);
       assert.equal(await page.locator('[data-event-id="synthetic-sold-out"]').count(), 0);
     });
-    await check(`${label}: synthetic RSVP warning remains prominent without publishing held events`, async () => {
+    await check(`historical ${label}: synthetic RSVP warning remains prominent without publishing held events`, async () => {
       const rendered = await page.evaluate(() => {
         const card = renderEventDetails({event:{
           id:'synthetic-rsvp-warning', city:'parker', title:'Synthetic RSVP warning',
@@ -237,7 +241,7 @@ async function check(name, callback) {
       assert.equal(rendered.links.includes('Registration'),false);
       assert.equal(await page.locator('[data-event-id="synthetic-rsvp-warning"]').count(),0);
     });
-    await check(`${label}: Centennial unknowns, Hoofin price/cutoff and organizer correction`, async () => {
+    await check(`historical ${label}: Centennial unknowns, Hoofin price/cutoff and organizer correction`, async () => {
       await page.goto(origin + '/events.html?city=centennial');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), centennialCount);
       const goodson = page.locator('[data-event-id="centennial-goodson-trick-or-treat-2026"]');
@@ -254,7 +258,7 @@ async function check(name, callback) {
       await goodson.screenshot({ path:path.join(output, `${engineName}-fee-warning-${label}.png`) });
       await hoofin.screenshot({ path:path.join(output, `${engineName}-hoofin-correction-${label}.png`) });
     });
-    await check(`${label}: corrected warning cards retain scoped accessibility`, async () => {
+    await check(`historical ${label}: corrected warning cards retain scoped accessibility`, async () => {
       for (const city of ['parker','centennial']) {
         await page.goto(origin + '/events.html?city=' + city);
         await page.evaluate(async () => { await document.fonts.ready; await Promise.all(Array.from(document.querySelectorAll('.event-filter-pill')).flatMap(item => item.getAnimations().map(animation => animation.finished.catch(() => {})))); });
@@ -263,7 +267,7 @@ async function check(name, callback) {
         assert.deepEqual(audit.violations.map(v => ({id:v.id,impact:v.impact,nodes:v.nodes.length})), []);
       }
     });
-    await check(`${label}: zoo age bands, infant tickets and sampled availability`, async () => {
+    await check(`historical ${label}: zoo age bands, infant tickets and sampled availability`, async () => {
       await page.goto(origin + '/events.html?city=denver');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 5);
       for (const id of ['denver-boo-at-zoo-2026','denver-boo-at-zoo-sensory-2026']) {
@@ -275,7 +279,7 @@ async function check(name, callback) {
       }
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     });
-    await check(`${label}: short homepage and city previews retain material warnings`, async () => {
+    await check(`historical ${label}: short homepage and city previews retain material warnings`, async () => {
       for (const [city,title,warning] of [
         ['centennial','Trick-or-Treat Street at Goodson',/Fee and booking rules unverified/]
       ]) {
@@ -290,7 +294,7 @@ async function check(name, callback) {
         }
       }
     });
-    await check(`${label}: retired category preserves six unique October 21 pumpkin listings and reuses Nick's`, async () => {
+    await check(`historical ${label}: retired category preserves six unique October 21 pumpkin listings and reuses Nick's`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-21T16:00:00Z'));
       await page.goto(origin + '/events.html?category=pumpkin-patches#pumpkin-patches');
       const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
@@ -308,7 +312,7 @@ async function check(name, callback) {
       // The separate discovery PR is not part of this feature.
       assert.equal(await page.locator('.event-date-select').count(), 0);
     });
-    await check(`${label}: concise pumpkin cards retain critical warnings and price-first costs outside details`, async () => {
+    await check(`historical ${label}: concise pumpkin cards retain critical warnings and price-first costs outside details`, async () => {
       const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
       assert.equal(await cards.count(), 6);
       for (let index = 0; index < await cards.count(); index++) {
@@ -374,7 +378,7 @@ async function check(name, callback) {
       assert.match(patch, /ticket/i); assert.match(patch, /waiver/i); assert.match(patch, /required|need|must/i);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     });
-    await check(`${label}: expandable pumpkin details preserve all original facts, qualifications, full dates and links`, async () => {
+    await check(`historical ${label}: expandable pumpkin details preserve all original facts, qualifications, full dates and links`, async () => {
       const cards = page.locator('.pumpkin-card[data-current="true"]:visible');
       assert.equal(await cards.count(), 6);
       for (let index = 0; index < await cards.count(); index++) {
@@ -418,7 +422,7 @@ async function check(name, callback) {
       await page.locator('.pumpkin-card details').evaluateAll(items => items.forEach(details => { details.open = false; }));
       assert.deepEqual(audit.violations.map(v => ({id:v.id,impact:v.impact,nodes:v.nodes.length})), []);
     });
-    await check(`${label}: exact pumpkin city filters do not generate unsupported park links`, async () => {
+    await check(`historical ${label}: exact pumpkin city filters do not generate unsupported park links`, async () => {
       for (const city of ['erie','thornton','platteville','kiowa','louisville','aurora']) {
         await page.locator(`.event-filter-pill[data-city="${city}"]`).click();
         assert.equal(new URL(page.url()).searchParams.get('city'), city);
@@ -438,7 +442,7 @@ async function check(name, callback) {
         }
       }
     });
-    await check(`${label}: retired category normalizes while city state survives deep links and Back/Forward with anchor`, async () => {
+    await check(`historical ${label}: retired category normalizes while city state survives deep links and Back/Forward with anchor`, async () => {
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=louisville#pumpkin-patches');
       const states = [];
       const remember = async (city, category, count) => {
@@ -476,7 +480,7 @@ async function check(name, callback) {
       }
       assert.equal(await page.locator('[data-event-id="aurora-nicks-fall-fest-2026"]').count(), 1);
     });
-    await check(`${label}: legacy pumpkin link shows all Parker events and empty cities still recover`, async () => {
+    await check(`historical ${label}: legacy pumpkin link shows all Parker events and empty cities still recover`, async () => {
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=parker#pumpkin-patches');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 2);
       assert.equal(await page.locator('.pumpkin-card:visible').count(), 0);
@@ -494,7 +498,7 @@ async function check(name, callback) {
       assert.equal(await page.locator('.pumpkin-card:visible').count(), 6);
       assert.equal(await page.locator('#empty-city').isVisible(), false);
     });
-    await check(`${label}: pumpkin disclosures and category controls work from the keyboard`, async () => {
+    await check(`historical ${label}: pumpkin disclosures and category controls work from the keyboard`, async () => {
       const all = page.locator('.event-category-pill[data-category=""]');
       await all.focus(); await page.keyboard.press('Enter');
       assert.equal(await all.getAttribute('aria-pressed'), 'true');
@@ -521,7 +525,7 @@ async function check(name, callback) {
         assert.ok(box.height >= 44 && box.width >= 44, 'category controls have at least 44px targets');
       }
     });
-    await check(`${label}: pumpkin layouts, individual cards and scoped accessibility`, async () => {
+    await check(`historical ${label}: pumpkin layouts, individual cards and scoped accessibility`, async () => {
       await page.goto(origin + '/events.html?category=pumpkin-patches#pumpkin-patches');
       await page.evaluate(async () => {
         await document.fonts.ready;
@@ -545,7 +549,7 @@ async function check(name, callback) {
       fs.writeFileSync(path.join(output, `${engineName}-axe-pumpkins-${label}.json`), JSON.stringify(audit.violations,null,2));
       assert.deepEqual(audit.violations.map(v => ({id:v.id,impact:v.impact,nodes:v.nodes.length})), []);
     });
-    await check(`${label}: every collapsed pumpkin card is shorter than the exact pre-readability baseline`, async () => {
+    await check(`historical ${label}: every collapsed pumpkin card is shorter than the exact pre-readability baseline`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-21T16:00:00Z'));
       const measure = () => Array.from(document.querySelectorAll('.pumpkin-card')).map(card => ({
         id:card.dataset.eventId, height:card.getBoundingClientRect().height,
@@ -580,7 +584,7 @@ async function check(name, callback) {
         assert.ok(card.after.visibleWords < card.before.visibleWords, card.id + ': main-card copy must be more concise');
       }
     });
-    await check(`${label}: Nick's next visit advances in an open tab and preserves disclosure state`, async () => {
+    await check(`historical ${label}: Nick's next visit advances in an open tab and preserves disclosure state`, async () => {
       // October 21 at 5:59 p.m. MDT, even though the Tokyo test visitor is on October 22.
       await page.clock.setFixedTime(new Date('2026-10-21T23:59:00Z'));
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=aurora#pumpkin-patches');
@@ -602,7 +606,7 @@ async function check(name, callback) {
       assert.equal(new URL(page.url()).searchParams.get('city'), 'aurora');
       assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
     });
-    await check(`${label}: 7th Generation skips the closed weekday gap and expires at its final MST close`, async () => {
+    await check(`historical ${label}: 7th Generation skips the closed weekday gap and expires at its final MST close`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-26T16:00:00Z'));
       await page.goto(origin + '/events.html?category=pumpkin-patches&city=louisville#pumpkin-patches');
       const card = page.locator('.pumpkin-card[data-city="louisville"]');
@@ -624,7 +628,7 @@ async function check(name, callback) {
       assert.equal(await page.locator('.event-category-pill[aria-pressed="true"]').getAttribute('data-category'), '');
       assert.equal(new URL(page.url()).hash, '#pumpkin-patches');
     });
-    await check(`${label}: conflicting Anderson listing is not recommended in homepage previews`, async () => {
+    await check(`historical ${label}: conflicting Anderson listing is not recommended in homepage previews`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-21T16:00:00Z'));
       await page.goto(origin + '/index.html?city=erie');
       assert.equal(await page.locator('.home-event-card').filter({ hasText:/Anderson/ }).count(), 0);
@@ -657,7 +661,7 @@ async function check(name, callback) {
       // PR #3, not this feature, owns the pre-existing city/intent-tile wrap correction.
       if (baseline.scrollWidth > viewport.width) assert.ok(baseline.offenders.some(el => /city-card|city-grid|intent-card|intent-grid|intent-label|intent-sub/.test(el.classes)), 'identify inherited city/intent-tile overflow');
     });
-    await check(`${label}: Miller verification horizon never becomes a false Past Event claim`, async () => {
+    await check(`historical ${label}: Miller verification horizon never becomes a false Past Event claim`, async () => {
       await page.clock.setFixedTime(new Date('2026-11-01T17:00:00Z'));
       await page.goto(origin + '/events.html?city=platteville');
       assert.equal(await page.locator('[data-current="true"]:visible').count(), 0);
@@ -665,7 +669,7 @@ async function check(name, callback) {
       assert.match(await page.locator('#empty-city-copy').textContent(), /November dates.*not been verified/);
       assert.match(await page.locator('#empty-city-copy').textContent(), /not a confirmed season closing date/);
     });
-    await check(`${label}: Priority 1 has every approved card exactly once with visible facts and official action links`, async () => {
+    await check(`historical ${label}: Priority 1 has every approved card exactly once with visible facts and official action links`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-22T16:00:00Z'));
       await page.goto(origin + '/events.html');
       assert.equal(await page.locator('[data-current="true"]:visible').count(),currentCount);
@@ -702,7 +706,7 @@ async function check(name, callback) {
       fs.writeFileSync(path.join(output,`${engineName}-axe-priority-one-all-${label}.json`),JSON.stringify(axe.violations,null,2));
       assert.deepEqual(axe.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),[]);
     });
-    await check(`${label}: three new city deep links, aliases, keyboard filtering and history are usable`, async () => {
+    await check(`historical ${label}: three new city deep links, aliases, keyboard filtering and history are usable`, async () => {
       for (const [query,key,title,id] of [
         ['castle-rock','castle_rock','Castle Rock','castle-rock-sos-trunk-or-treat-2026'],
         ['greenwood-village','greenwood_village','Greenwood Village','greenwood-music-darkened-theater-2026'],
@@ -726,7 +730,7 @@ async function check(name, callback) {
         await page.screenshot({path:path.join(output,`${engineName}-priority-one-city-${key}-${label}.png`),fullPage:false});
       }
     });
-    await check(`${label}: approved Before You Go copy and official sources are visible on every current and archived listing`, async () => {
+    await check(`historical ${label}: approved Before You Go copy and official sources are visible on every current and archived listing`, async () => {
       await page.clock.setFixedTime(new Date('2026-10-22T16:00:00Z'));
       await page.goto(origin + '/events.html');
       const approved = '⚠️ Before You Go: Event dates, times, prices, registration requirements, and weather or cancellation policies may change. Please check the official event website before attending.';
@@ -777,7 +781,7 @@ async function check(name, callback) {
       fs.writeFileSync(path.join(output,`${engineName}-before-you-go-metrics-${label}.json`),JSON.stringify(metrics,null,2));
       assert.deepEqual(audit.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length})),[]);
     });
-    await check(`${label}: missing or unsafe official source is explicit without an empty or fabricated notice link`, async () => {
+    await check(`historical ${label}: missing or unsafe official source is explicit without an empty or fabricated notice link`, async () => {
       const manifest=await page.evaluate(() => window.EVENTS_DATA);
       const template=manifest.events.find(event => event.id === 'aurora-midterm-monster-mash-2026');
       manifest.events=[
@@ -795,7 +799,7 @@ async function check(name, callback) {
         }
       } finally { await page.unroute('**/data/events/events-manifest.js'); }
     });
-    await check(`${label}: actual short-preview renderer preserves each new record's front-loaded warning`, async () => {
+    await check(`historical ${label}: actual short-preview renderer preserves each new record's front-loaded warning`, async () => {
       // Isolate one real approved record per page solely to exercise the existing
       // capped preview renderer; this is not a claim about default homepage ranking.
       const warnings = {
@@ -815,7 +819,7 @@ async function check(name, callback) {
       const pattern = '**/data/events/events-manifest.js';
       try {
         for (const event of priorityEvents) {
-          await page.route(pattern,route=>route.fulfill({contentType:'text/javascript',body:fs.readFileSync(path.join(root,'data/events/events-manifest.js'),'utf8')+'\nwindow.EVENTS_DATA.events=window.EVENTS_DATA.events.filter(e=>e.id==='+JSON.stringify(event.id)+');'}));
+          await page.route(pattern,route=>route.fulfill({contentType:'text/javascript',body:historicalManifest+'\nwindow.EVENTS_DATA.events=window.EVENTS_DATA.events.filter(e=>e.id==='+JSON.stringify(event.id)+');'}));
           await page.goto(origin+'/index.html?city='+event.city);
           const preview=page.locator('.home-event-card');
           assert.equal(await preview.count(),1,event.id);
@@ -828,7 +832,7 @@ async function check(name, callback) {
         }
       } finally { await page.unroute(pattern); }
     });
-    await check(`${label}: unknown-end concert has no calendar CTA and expires at Colorado midnight`, async () => {
+    await check(`historical ${label}: unknown-end concert has no calendar CTA and expires at Colorado midnight`, async () => {
       const id='greenwood-music-darkened-theater-2026';
       await page.clock.setFixedTime(new Date('2026-10-26T05:59:00Z'));
       await page.goto(origin+'/events.html?city=greenwood-village');
@@ -845,7 +849,7 @@ async function check(name, callback) {
       await page.goto(origin+'/events.html');
       for(const event of priorityEvents) assert.equal(await page.locator(`[data-current="true"][data-event-id="${event.id}"]`).count(),0,event.id);
     });
-    await check(`${label}: no uncaught JavaScript exceptions`, async () => assert.deepEqual(pageErrors, []));
+    await check(`historical ${label}: no uncaught JavaScript exceptions`, async () => assert.deepEqual(pageErrors, []));
     await context.close();
   }
   await browser.close(); server.close();

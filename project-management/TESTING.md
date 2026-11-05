@@ -1,5 +1,20 @@
 # FindEveryPark: verification ledger
 
+## Maintenance safeguard verification (November 5, 2026 UTC)
+
+The revised PR #15 runs read-only `Event feed integrity` on every PR without
+branch/path allowlists, plus main pushes and merge groups. The unit suite checks
+current source/feed parity and isolated source edits with stale JSON, explicit
+regeneration, malformed/missing output and valid future content changes. Historical
+release assertions use a pinned fixture rather than constraining current source
+counts. Chromium/WebKit browser jobs depend on integrity passing. Exact new-head
+counts, run links and artifacts belong to PR #15; the earlier results below are
+historical, not evidence for the revised head.
+
+This workflow is not deployment. Main is unprotected and the current managed
+Pages build runs independently; status visibility alone does not block stale
+publication. [Required setup and verification limits](../docs/community-feed.md#enforcement-prerequisite-before-release).
+
 ## Mighty Dads data-feed verification (November 5, 2026 UTC)
 
 The feed review adds 12 Node checks to the inherited aggregate suite and an exact
@@ -19,7 +34,7 @@ socket restrictions and the escalated launcher failed before execution. These ar
 environment blockers, not browser pass results. Exact-head Chromium/WebKit PR
 checks remain required before calling browser regression validation complete.
 
-The added workflow is branch-scoped, read-only Node and browser testing in the
+The initial workflow was branch-scoped, read-only Node and browser testing in the
 official version-matched Playwright container, not deployment.
 Consumer browser/layout/failure evidence belongs to the separate Mighty Dads
 review. Live feed headers/CORS and publication are not established by local tests.

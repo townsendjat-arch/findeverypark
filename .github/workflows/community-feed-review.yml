@@ -1,12 +1,36 @@
-name: Community feed review
+name: Event feed safeguards
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+  push:
+    branches: [main]
+  merge_group:
+    types: [checks_requested]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  feed-and-events:
-    if: github.head_ref == 'review/mighty-dads-data-feed-2026'
+  feed-integrity:
+    # Stable status name for a separately configured required branch check.
+    # No branch/path filter: every PR must report a result, including future sources.
+    name: Event feed integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      # Check BEFORE any generation. CI must not silently repair stale committed JSON.
+      - run: npm test
+  event-browsers:
+    name: Event browser regression (${{ matrix.browser }})
+    needs: feed-integrity
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # Version-matched official browsers and host dependencies. Local fixtures
@@ -25,14 +49,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
           package-manager-cache: false
       - run: npm ci --ignore-scripts --no-audit --no-fund
-      - run: npm test
       - run: npm run test:browser
       - run: npm run test:nov-dec:browser
         if: ${{ !cancelled() }}
