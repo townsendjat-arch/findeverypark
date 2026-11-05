@@ -1,5 +1,29 @@
 # FindEveryPark: verification ledger
 
+## Mighty Dads data-feed verification (November 5, 2026 UTC)
+
+The feed review adds 12 Node checks to the inherited aggregate suite and an exact
+byte `--check` guard. The containing revision's local/PR evidence records results.
+Coverage includes all ten released November–December occurrences, unchanged full
+qualification strings, source verification dates, supported approved records,
+explicit omission of unsupported recurring/pumpkin and self-hosted records,
+missing/invalid data, reliable HTTPS fallback, exact/date-only/DST expiry, and
+determinism across UTC, Denver, Los Angeles and Tokyo. No build clock determines
+eligibility. All 68 original records and runtime files remain subject to the
+existing immutable-baseline checks. See [commands and contract](../docs/community-feed.md).
+
+Local Node validation passed 51/51, including the 12 new checks. Local browser
+regressions could not launch: the default browser cache was empty; the available
+WebKit installation lacked host libraries; system Chromium was blocked by local
+socket restrictions and the escalated launcher failed before execution. These are
+environment blockers, not browser pass results. Exact-head Chromium/WebKit PR
+checks remain required before calling browser regression validation complete.
+
+The added workflow is branch-scoped, read-only Node and browser testing in the
+official version-matched Playwright container, not deployment.
+Consumer browser/layout/failure evidence belongs to the separate Mighty Dads
+review. Live feed headers/CORS and publication are not established by local tests.
+
 ## November–December event draft verification
 
 The current content-only draft adds ten independently expiring occurrences from seven approved concepts to main `ea3c6d26236748aa090be7efe89cb57a3d6a70d0`. See [verification scope and commands](../docs/nov-dec-event-draft.md#verification-plan-and-limits). Its PR records exact-head local and CI results, including any failed, blocked or never-run checks; earlier draft results are not evidence for this revision. Source checks occurred November 4 Colorado / November 5 UTC. Availability observations are not reservations. Physical-device and screen-reader review remains outside automated certification.

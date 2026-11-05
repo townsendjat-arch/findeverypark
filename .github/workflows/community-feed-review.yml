@@ -1,0 +1,46 @@
+name: Community feed review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+jobs:
+  feed-and-events:
+    if: github.head_ref == 'review/mighty-dads-data-feed-2026'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Version-matched official browsers and host dependencies. Local fixtures
+    # only; this is validation, never a preview or production deployment.
+    container: mcr.microsoft.com/playwright:v1.62.1-noble
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    env:
+      BROWSER: ${{ matrix.browser }}
+      # Ephemeral trust for this runner's own checkout and historical baselines.
+      GIT_CONFIG_COUNT: 1
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: npm run test:browser
+      - run: npm run test:nov-dec:browser
+        if: ${{ !cancelled() }}
+      - run: npm run test:events-page:browser
+        if: ${{ !cancelled() }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: community-feed-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7

@@ -1,5 +1,21 @@
 # FindEveryPark: decision log
 
+## Mighty Dads feed decision (November 5, 2026 UTC)
+
+The existing events manifest remains the sole editorial source. A generated,
+versioned JSON feed allows Mighty Dads to consume approved single occurrences
+without executing FindEveryPark application scripts. The generator uses the
+canonical `FEP_EVENTS` expiry predicate, emitting source-owned UTC `sortAt` and
+`expiresAt` instants. The consumer re-evaluates expiration while open. No second
+manually maintained event list, content edit or new verification claim is added.
+
+Version 1 deliberately omits recurring/pumpkin records because a flat cutoff
+cannot preserve their per-session availability/admission rules and qualifications.
+`community_event` entries are excluded to keep self-hosted gatherings separate.
+All ten currently released November–December single occurrences are included.
+See the [contract and future-schema requirements](../docs/community-feed.md).
+PR #11 stays untouched, and merge/deployment/publication remain separate approvals.
+
 ## November 4, 2026: seven-candidate family-event draft
 
 Use current main including the GPS pause. Append only the seven approved concepts as ten separate dated records so each occurrence expires using existing rules. Preserve all existing data, archive and filters. Both initially uncertain required-signup routes were checked in a browser before inclusion. Keep availability conditional and optional purchases distinct from free admission. Leave PR #11 and Mighty Dads untouched; reconcile the two overlapping canonical IDs if both drafts are ever selected. Review, merge and deployment remain separate gates. [Scope and evidence](../docs/nov-dec-event-draft.md).
